@@ -28,21 +28,23 @@ x13Single <- R6::R6Class(
   inherit = persephone,
   public = list(
     initialize = function(ts, template = c(
-      "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"), ...) {
+      "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"), userdefined=NULL, ...) {
       params <- x13_spec_def(spec = template)
-      x13_spec(params, ...)
+      params <- x13_spec(params, ...)
       private$params_internal <- params
       private$ts_internal <- ts
+      private$userdefined <- userdefined
     },
     run = function() {
-      output <- x13(private$ts_internal, private$params_internal)
-      private$output_internal <- output
+      output <- x13(private$ts_internal, private$params_internal,private$userdefined)
+      private$output_internal <- output 
       output
     }
   ),
   private = list(
+    userdefined = NULL,
     updateFun = function(...) {
-      x13_spec
+      x13_spec(...)
     }
   )
 )

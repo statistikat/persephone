@@ -21,7 +21,13 @@ persephone <- R6::R6Class(
       stop("implement this function")
     },
     updateParams = function(...) {
-      private$params_internal <- private$updateFun(params, ...)
+      private$params_internal <- private$updateFun(self$params, ...)
+    },
+    # plot = function(a = 1) {
+    #   paste("plot", a)
+    # },
+    print = function() {
+      
     }
   ),
   ## read-only access to params, ts, and output
