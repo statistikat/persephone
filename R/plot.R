@@ -1,20 +1,14 @@
 
 persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=TRUE, showOutliers=TRUE, rangeSelector=TRUE, drawPoints=FALSE){
-  
-  if(drawPoints){
-    dP <- TRUE
-  }else{
-    dP <- FALSE
-  }
-  
-  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=dP){  
+
+  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints){  
     
     if(is.null(main)){
       main <- "Original Time Series"
     }
     
     graphObj <- dygraph(ts, main=main) %>% 
-      dySeries("V1", label = "Original", drawPoints=dP)
+      dySeries("V1", label = "Original", drawPoints=drawPoints)
     if(rangeSelector){
       graphObj <- graphObj %>% 
         dyRangeSelector(height = 20)
@@ -23,7 +17,7 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
     
   }
   
-  postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector,  drawPoints=dP){
+  postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints){
     
     if(is.null(main)){
       main <- "Original, SA and Trend Series"
@@ -35,19 +29,31 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
     ppm_y_f <- self$output$user_defined$preprocessing.model.y_f
     ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef
     
+    # Initialize Graph Object
+    # Back-/Forecasts
     if(forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)){
       lowerci <- ppm_y_f-1.96*ppm_y_ef
       upperci <- ppm_y_f+1.96*ppm_y_ef  
       ts <- cbind(y,t,sa,ppm_y_f,lowerci,upperci)
+      
+      graphObj <- dygraph(ts, main=main) %>% 
+        dySeries("y", label = "Original", drawPoints=drawPoints) %>% 
+        dySeries("sa", label = "Seasonally Adjusted") %>% 
+        dySeries("t", label = "Trend") %>% 
+        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts", strokePattern ="dashed",drawPoints=drawPoints) %>% 
+        dyLegend(width=400)
+      
     }else{
       ts <- cbind(y,t,sa) 
+      
+      graphObj <- dygraph(ts, main=main) %>% 
+        dySeries("y", label = "Original", drawPoints=drawPoints) %>% 
+        dySeries("sa", label = "Seasonally Adjusted") %>% 
+        dySeries("t", label = "Trend")%>%
+        dyLegend(width=290)
     }
     
-    ## Initialize Graph Object
-    graphObj <- dygraph(ts, main=main) %>% 
-      dySeries("y", label = "Original", drawPoints=dP)
-    
-    ## Outliers 
+    # Outliers 
     if(showOutliers & !is.null(self$output$regarima$regression.coefficients)){
       outliers <- rownames(self$output$regarima$regression.coefficients)
       outliers <- outliers[substr(outliers,1,2)%in%c("AO","LS","TC")]
@@ -62,26 +68,13 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
       }
       
       for(i in 1:length(outliers)){  
-        graphObj <-  graphObj %>% dyAnnotation(outliers[i], text=substr(outliersName[i],1,2),tooltip =outliersName[i],width=21,height=15)
+        graphObj <-  graphObj %>% dyAnnotation(series="Original",outliers[i], text=substr(outliersName[i],1,2),tooltip=outliersName[i],width=21,height=15,tickHeight=10)
       }
       # for(i in 1:length(outliers)){
       #   graphObj <-  graphObj %>% dyEvent(outliers[i], outliersName[i], labelLoc = "bottom")
       # }
     }
     
-    ## Back-/Forecasts
-    if(forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)){
-      graphObj <- graphObj  %>%
-        dySeries("sa", label = "Seasonally Adjusted", drawPoints=dP) %>% 
-        dySeries("t", label = "Trend", drawPoints=dP) %>% 
-        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts", strokePattern ="dashed", drawPoints=dP) %>% 
-        dyLegend(width=400)
-    }else{
-      graphObj <- graphObj  %>%
-        dySeries("sa", label = "Seasonally Adjusted", drawPoints=dP) %>% 
-        dySeries("t", label = "Trend", drawPoints=dP)%>%
-        dyLegend(width=290)
-    }  
     
     if(rangeSelector){
       graphObj <- graphObj %>% 
@@ -96,51 +89,49 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
   
   if(!is.null(self$output$user_defined)){
     
-    graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector)
+    graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints)
     graphObj
     
   }else{
     ts <- self$ts
-    preRunPlot(ts=ts, rangeSelector=rangeSelector)
+    preRunPlot(ts=ts, rangeSelector=rangeSelector, drawPoints=drawPoints)
     
   }
   
 })
 
-#####################     EXAMPLE 1     #########################
-data(myseries, package = "RJDemetra")
-obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
-                                                     "s","i",
-                                                     "y_f","t_f","sa_f",
-                                                     "preprocessing.model.y_f",
-                                                     "preprocessing.model.y_ef"))## noch zu x13Single dazugeben
-obj$plot(drawPoints = TRUE)
-obj$run()
-obj$plot(drawPoints=TRUE)
-obj$updateParams(usrdef.outliersEnabled = TRUE,
-                 usrdef.outliersType = c("AO","LS","LS"),
-                 usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
-obj$run()
-obj$plot()
-
-obj$plot(forecasts=FALSE, rangeSelector=FALSE, main="Different Title")
-
-
-#####################     EXAMPLE 2      #########################
-
-## Beispiel mit Quartalsdaten
-
-#####################     EXAMPLE 3     #########################
-data(AirPassengers, package = "datasets")
-obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
-                                                          "s","i",
-                                                          "y_f","t_f","sa_f",
-                                                          "preprocessing.model.y_f",
-                                                          "preprocessing.model.y_ef"))## noch zu x12Single dazugeben
-obj$plot()
-obj$run()
-
-obj$plot()
-
-
+# #####################     EXAMPLE 1     #########################
+# data(myseries, package = "RJDemetra")
+# obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
+#                                                      "s","i",
+#                                                      "y_f","t_f","sa_f",
+#                                                      "preprocessing.model.y_f",
+#                                                      "preprocessing.model.y_ef"))## noch zu x13Single dazugeben
+# obj$plot(drawPoints = TRUE)
+# obj$run()
+# obj$plot(drawPoints=TRUE)
+# obj$updateParams(usrdef.outliersEnabled = TRUE,
+#                  usrdef.outliersType = c("AO","LS","LS"),
+#                  usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
+# obj$run()
+# obj$plot()
+# 
+# obj$plot(forecasts=FALSE, rangeSelector=FALSE, main="Different Title")
+# 
+# 
+# #####################     EXAMPLE 2      #########################
+# 
+# ## Beispiel mit Quartalsdaten
+# 
+# #####################     EXAMPLE 3     #########################
+# data(AirPassengers, package = "datasets")
+# obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
+#                                                           "s","i",
+#                                                           "y_f","t_f","sa_f",
+#                                                           "preprocessing.model.y_f",
+#                                                           "preprocessing.model.y_ef"))## noch zu x12Single dazugeben
+# obj$plot()
+# obj$run()
+# 
+# obj$plot()
 
