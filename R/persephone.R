@@ -7,9 +7,13 @@
 #' - `run()`: Runs the model
 #' - `updateParams(...)`: Updates the current parameters
 #'
-#' @md
+#' @section Read-Only fields:
+#' * params
+#' * ts
+#' * output
 #' @name persephone
 #' @import RJDemetra
+NULL
 #' @export
 persephone <- R6::R6Class(
   "persephone",
@@ -27,7 +31,7 @@ persephone <- R6::R6Class(
     #   paste("plot", a)
     # },
     print = function() {
-      
+
     }
   ),
   ## read-only access to params, ts, and output
