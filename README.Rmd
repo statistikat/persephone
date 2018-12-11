@@ -1,0 +1,50 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# persephone
+
+This package is an object oriented wrapper around the R Package [RJDemetra], which performs
+time series adjustments with the java library [JDemetra+]
+
+## Installation
+
+You can install the package directly from GitHub with
+
+``` r
+devtools::install_github("statistikat/persephone")
+```
+
+## Usage
+
+Objects can be constructed with `x13Single$new` or `tramoseatsSingle$new`. Subseqentually, 
+the `run` method runs the model and `output` gives access to the output object from 
+`RJDemetra`. 
+
+```{r}
+library(RJDemetra)
+library(persephone)
+
+data(myseries)
+
+obj <- x13Single$new(myseries)
+invisible(
+  obj$run()
+)
+obj$output$regarima
+myseries
+```
+
+
+[RJDemetra]: https://github.com/nbbrd/rjdemetra
+[JDemetra+]: https://github.com/jdemetra
