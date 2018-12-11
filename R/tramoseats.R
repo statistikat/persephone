@@ -27,21 +27,22 @@ tramoseatsSingle <- R6::R6Class(
   inherit = persephone,
   public = list(
     initialize = function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
-                                           "RSA4", "RSA5"), ...) {
+                                           "RSA4", "RSA5"), userdefined = NULL, ...) {
       params <- tramoseats_spec_def(spec = template)
-      tramoseats_spec(params, ...)
+      params <- tramoseats_spec(params, ...)
       private$params_internal <- params
       private$ts_internal <- ts
     },
     run = function() {
-      output <- tramoseats(private$ts_internal, private$params_internal)
+      output <- tramoseats(private$ts_internal, private$params_internal, private$userdefined)
       private$output_internal <- output
       output
     }
   ),
   private = list(
+    userdefined = NULL,
     updateFun = function(...) {
-      x13_spec
+      x13_spec(...)
     }
   )
 )
