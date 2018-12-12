@@ -1,7 +1,25 @@
 
-persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=TRUE, showOutliers=TRUE, rangeSelector=TRUE, drawPoints=FALSE){
+persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=TRUE, showOutliers=TRUE, rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL){
 
-  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints){  
+  # Helper for annual comparison in plot
+  annComp <- function(ts, annualComparison){
+   
+    annCompVec <- format(time(ts)[cycle(ts)==annualComparison])
+    if(frequency(ts)==12){
+      annCompLab <- month.abb[annualComparison]
+      #annCompLab <- month.name[annualComparison]
+      annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(annualComparison,2,"left","0"), "-01")
+       }else if(frequency(ts)==4){
+      annCompLab <- paste0("Q",annualComparison)
+      #annCompLab <- paste0(annualComparison,". Quarter")
+      annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(c(1,4,7,10)[annualComparison],2,"left","0"), "-01")
+       }
+    
+    return(list(annCompVec=annCompVec, annCompLab=annCompLab))
+    
+}
+  
+  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){  
     
     if(is.null(main)){
       main <- "Original Time Series"
@@ -9,15 +27,25 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
     
     graphObj <- dygraph(ts, main=main) %>% 
       dySeries("V1", label = "Original", drawPoints=drawPoints)
+    
     if(rangeSelector){
       graphObj <- graphObj %>% 
         dyRangeSelector(height = 20)
     }
+    if(!is.null(annualComparison)){
+      annCompRes <- annComp(ts,annualComparison)
+      for(i in 1:length(annCompRes[["annCompVec"]])){
+      graphObj <- graphObj %>%
+      #dyEvent(annCompRes[["annCompVec"]][i], paste(substr(annCompRes[["annCompVec"]][i],1,4),annCompRes[["annCompLab"]]),labelLoc = "bottom",color="lightgrey")
+      dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
+      }
+    }
+    
     graphObj
     
   }
   
-  postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints){
+  postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){
     
     if(is.null(main)){
       main <- "Original, SA and Trend Series"
@@ -81,6 +109,14 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
         dyRangeSelector(height = 20)
     }
     
+    if(!is.null(annualComparison)){
+      annCompRes <- annComp(ts,annualComparison)
+      for(i in 1:length(annCompRes[["annCompVec"]])){
+        graphObj <- graphObj %>%
+          dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
+      }
+    }
+    
     graphObj <- graphObj %>%
       dyHighlight(highlightSeriesOpts = list(strokeWidth = 2), highlightCircleSize = 4, highlightSeriesBackgroundAlpha = 0.5)
     
@@ -89,12 +125,12 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
   
   if(!is.null(self$output$user_defined)){
     
-    graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints)
+    graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
     graphObj
     
   }else{
     ts <- self$ts
-    preRunPlot(ts=ts, rangeSelector=rangeSelector, drawPoints=drawPoints)
+    preRunPlot(ts=ts, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
     
   }
   
