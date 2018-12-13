@@ -38,26 +38,26 @@ persephone$set("public", "plotSIC",overwrite = TRUE, function(main=NULL, forecas
     ts <- cbind(s,i,s_f,i_f,cal,cal_f)
     
     graphObj <- dygraph(ts, main=main) %>% 
-      dySeries("s", label = "Seasonal Componenet", drawPoints=drawPoints,color="rgb(64,128,0)") %>%
-      dySeries("i", label = "Irregular Component", drawPoints=drawPoints,color="rgb(0,128,128)") %>%
-      dySeries("s_f", label = "Forecasts Seasonal Comp.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(64,128,0)") %>%
-      dySeries("i_f", label = "Forecasts Irregular Comp.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(0,128,128)")
+      dySeries("s", label = "Seasonal Componenet", drawPoints=drawPoints,color="rgb(0,128,0)") %>%
+      dySeries("i", label = "Irregular Component", drawPoints=drawPoints,color="rgb(0,0,128)") %>%
+      dySeries("s_f", label = "Forecasts Seasonal Comp.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(0,128,0)") %>%
+      dySeries("i_f", label = "Forecasts Irregular Comp.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(0,0,128)")
     if(!is.null(cal) & !is.null(cal_f)){
       graphObj <- graphObj %>% 
-        dySeries("cal", label = "Calendar Effects", drawPoints=drawPoints,color="rgb(64,0,128)") %>%
-        dySeries("cal_f", label = "Forecasts Calendar Eff.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(64,0,128)")
+        dySeries("cal", label = "Calendar Effects", drawPoints=drawPoints,color="rgb(128,0,0)") %>%
+        dySeries("cal_f", label = "Forecasts Calendar Eff.", strokePattern ="dashed",drawPoints=drawPoints,color="rgb(128,0,0)")
     }
-    #graphObj <- graphObj %>% dyLegend(width=400)
+    #graphObj <- graphObj %>% dyOptions(rightGap=10)
     
   }else{
     ts <- cbind(s,i,cal)
     
     graphObj <- dygraph(ts, main=main) %>% 
-      dySeries("s", label = "Seasonal Componenet", drawPoints=drawPoints) %>% 
-      dySeries("i", label = "Irregular Component", drawPoints=drawPoints) 
+      dySeries("s", label = "Seasonal Componenet", drawPoints=drawPoints,color="rgb(0,128,0)") %>% 
+      dySeries("i", label = "Irregular Component", drawPoints=drawPoints,color="rgb(0,0,128)") 
     if(!is.null(cal)){
       graphObj <- graphObj %>% 
-        dySeries("cal", label = "Calendar Effects", drawPoints=drawPoints) 
+        dySeries("cal", label = "Calendar Effects", drawPoints=drawPoints,color="rgb(128,0,0)") 
     }
     #graphObj <- graphObj %>% dyLegend(width=400)
     
@@ -93,8 +93,6 @@ font-size: 10px;
     dyCSS(cssString)
   
   graphObj
-  
-  
   
 })
 
