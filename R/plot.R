@@ -1,7 +1,7 @@
 
 persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=TRUE, showOutliers=TRUE, rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL){
 
-  # Helper for annual comparison in plot
+  # Helper function for annual comparison
   annComp <- function(ts, annualComparison){
    
     annCompVec <- format(time(ts)[cycle(ts)==annualComparison])
@@ -14,7 +14,6 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
       #annCompLab <- paste0(annualComparison,". Quarter")
       annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(c(1,4,7,10)[annualComparison],2,"left","0"), "-01")
        }
-    
     return(list(annCompVec=annCompVec, annCompLab=annCompLab))
     
 }
@@ -56,6 +55,7 @@ persephone$set("public", "plot",overwrite = TRUE, function(main=NULL, forecasts=
     sa <- self$output$user_defined$sa
     ppm_y_f <- self$output$user_defined$preprocessing.model.y_f
     ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef
+    # forecasts currently only plotted for original series, maybe allow t and sa forecasts in some other setting??
     
     # Initialize Graph Object
     # Back-/Forecasts
