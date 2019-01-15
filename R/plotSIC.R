@@ -1,5 +1,36 @@
-
-persephone$set("public", "plotSIC",overwrite = TRUE, function(main=NULL, forecasts=TRUE, rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL){
+#' Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object
+#' 
+#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} 
+#' for more detail) for objects of class \code{persephone}. 
+#' The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
+#' for a persephone object together with one year forecasts
+#'
+#' @param object an object of class \code{\link{persephone}}.
+#' @param main plot title
+#' @param forecasts logical flag indicating if forecasts should be plotted
+#' @param rangeSelector logical flag specifying if a range selector should be included in the plot
+#' @param drawPoints logical flag indicating if a small dot should be drawn at each point, in addition to a line going through the point.
+#' @param annualComparison integer corresponding to the month or quarter which should be highlighted in the plot for every year.
+#'
+#' @return Returns an object of class \code{dygraphs}.
+#'
+#' @examples
+#' data(myseries, package = "RJDemetra")
+#' # Generate a persephone object, in this case ??? an x13Single object
+#' obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
+#'                                                       "s","i","cal",
+#'                                                       "y_f","t_f","sa_f",
+#'                                                       "s_f","i_f","cal_f",
+#'                                                       "preprocessing.model.y_f",
+#'                                                       "preprocessing.model.y_ef")) ## noch zu x13Single dazugeben
+#' obj$run()
+#' # Plot after run
+#' obj$SICplot()
+#' 
+#' @export
+plotSIC.persephone <- function(object, main=NULL, forecasts=TRUE, rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL){
+  
+  self <- object
   
   if(is.null(self$output$user_defined)){
     stop("No results from run available.\n")
@@ -94,5 +125,5 @@ font-size: 10px;
   
   graphObj
   
-})
+}
 

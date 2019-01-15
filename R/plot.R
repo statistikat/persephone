@@ -1,9 +1,10 @@
 #' Interactive time series plot for a persephone object
 #' 
-#' Produces a dygraph plot (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail) 
-#' for objects of class \code{persephone}. 
+#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} 
+#' for more detail) for objects of class \code{persephone}. 
 #' The function generates an interactive time series plot of the original series, 
-#' the seasonally adjusted (SA) series and the trend. 
+#' the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction intervals 
+#' of the original series.
 #' If no run has been performed on the \code{persephone} object, only the original time series is plotted.
 #'  
 #'
@@ -17,7 +18,6 @@
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @return Returns an object of class \code{dygraphs}.
-#' @export
 #'
 #' @examples
 #' 
@@ -30,30 +30,33 @@
 #'                                                       "preprocessing.model.y_f",
 #'                                                       "preprocessing.model.y_ef")) ## noch zu x13Single dazugeben
 #' # Plot before run of persephone object                                                   
-#' obj2$plot(drawPoints = TRUE)
-#' obj2$run()
+#' obj$plot(drawPoints = TRUE)
+#' obj$run()
 #' # Plot after run
-#' obj2$plot(drawPoints=TRUE)
+#' obj$plot(drawPoints=TRUE)
 #' # Update some parameters of the persephone object
-#' obj2$updateParams(usrdef.outliersEnabled = TRUE,
+#' obj$updateParams(usrdef.outliersEnabled = TRUE,
 #'                 usrdef.outliersType = c("AO","LS","LS"),
 #'                 usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
-#' obj2$run()
-#' obj2$plot()
+#' # Perform run to make updateParams take effect
+#' obj$run()
+#' obj$plot()
 #'
 #'
 #' data(UKgas, package = "datasets")
-#' obj3 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
-#' "y_f","t_f","sa_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
-#'
+#' obj2 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
+#' "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
+#' obj2$plot()
+#' obj2$run()
+#' obj2$plot()
+
 #' data(AirPassengers, package = "datasets")
 #' obj3 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
-#' "y_f","t_f","sa_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
+#' "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
 #' obj3$plot()
 #' obj3$run()
-#'
 #' obj3$plot()
-
+#' @export
 plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE, 
                             rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL, ...){
   

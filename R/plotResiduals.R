@@ -1,20 +1,50 @@
-# Several plot functions in connection with residuals
-# res: residuals
-# acf: autocorrelations of the residuals
-# pacf: partial autocorrelations of the residuals
-# acf2: autocorrelations of the squared residuals
-# sreshist: histogram of standardized residuals including normal curve
-# nqq: normal q-q plot of standardized residuals
+#' Several interactive plots in connection with residuals for a persephone object
+#'
+#' Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} 
+#' for more detail) or a ggplot object for objects of class \code{persephone}.
+#'
+#' res: residuals
+#' acf: autocorrelations of the residuals
+#' pacf: partial autocorrelations of the residuals
+#' acf2: autocorrelations of the squared residuals
+#' sreshist: histogram of standardized residuals including normal curve
+#' nqq: normal q-q plot of standardized residuals
 
+#' @param object an object of class \code{\link{persephone}}.
+#' @param which character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
+#' \code{"pacf"},\code{"sreshist}",\code{"nqq"}), see further details.
+#' @param main 
+#' @param plotly 
+#' @param ... 
+#'
+#' @return Returns an object of class \code{dygraphs} or of class \code{ggplot}.
+#'
+#' @examples
+#' data(myseries, package = "RJDemetra")
+#' # Generate a persephone object, in this case ??? an x13Single object
+#' obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
+#'                                                       "s","i","cal",
+#'                                                       "y_f","t_f","sa_f",
+#'                                                       "s_f","i_f","cal_f",
+#'                                                       "preprocessing.model.y_f",
+#'                                                       "preprocessing.model.y_ef")) ## noch zu x13Single dazugeben
+#' obj$run()
+#' # Plot after run
+#' obj$plotResiduals()
+#' 
+#' ## TO DO:
+#' maybe other theme_bw()
+#' maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
+#' maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
 
-## TO DO:
-# maybe other theme_bw()
-# maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
-# maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
-
-
-persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res","acf","acf2","pacf","sreshist","nqq"), 
-                                                                    main=NULL, plotly=TRUE, ...){
+#' @export
+plotResiduals.persephone <-   function(object, which=c("res","acf","acf2","pacf","sreshist","nqq"), 
+                                       main=NULL, plotly=TRUE, ...){
+  
+  if(is.null(self$output$regarima)){
+    stop("No results from run available.\n")
+  }
+  
   which <- match.arg(which)
   
   if(which=="res"){
@@ -48,7 +78,7 @@ persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res
     
     result <- data.frame(date = paste0(c(floor(time(result) + .01)),"-",str_pad(c(cycle(result)),2,"left","0"),"-01"),
                          x = c(result))
-
+    
     
     p <- ggplot(result,  aes(x=x)) + ## ,stat(density)
       geom_histogram(binwidth = 0.5, center=0, aes(y = ..density..)) + # ,fill=..count..
@@ -58,7 +88,7 @@ persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res
       ylab("Density") +
       ggtitle(main) + 
       theme_bw()
-
+    
   }
   
   if(which=="nqq"){
@@ -81,33 +111,33 @@ persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res
   }
   
   if(which=="acf"){
-  if(is.null(main)){
-    main <- "Autocorrelations of the Residuals"
-  }
-  
-  result <- acf(self$output$regarima$residuals, plot=FALSE)
-  result$lag <- result$lag * frequency(self$ts) #to show whole numbers for lags
- 
-  # confidence interval as in R package forecast
-  ci <- 0.95 #coverage probability for confidence interval
-  ci <- qnorm((1 + ci)/2)/sqrt(result$n.used)
-  
-  result <- tidy(result)
-  # start from lag1
-  result <- result[-1,]
-  
-  # require(forecast)
-  # ggAcf(self$output$regarima$residuals, lag.max = NULL,
-  #       type = c("correlation", "covariance", "partial"),
-  #       plot = TRUE, na.action = na.contiguous, demean=TRUE)
-  
-  p <- ggplot(result, aes(x=lag, y=acf)) + 
-    geom_bar(stat='identity', width=0.1) +
-    geom_hline(yintercept = c(-ci, ci), colour = "blue", linetype = "dashed") +
-    xlab("Lag") +
-    ylab("ACF") +
-    ggtitle(main) + 
-    theme_bw()
+    if(is.null(main)){
+      main <- "Autocorrelations of the Residuals"
+    }
+    
+    result <- acf(self$output$regarima$residuals, plot=FALSE)
+    result$lag <- result$lag * frequency(self$ts) #to show whole numbers for lags
+    
+    # confidence interval as in R package forecast
+    ci <- 0.95 #coverage probability for confidence interval
+    ci <- qnorm((1 + ci)/2)/sqrt(result$n.used)
+    
+    result <- tidy(result)
+    # start from lag1
+    result <- result[-1,]
+    
+    # require(forecast)
+    # ggAcf(self$output$regarima$residuals, lag.max = NULL,
+    #       type = c("correlation", "covariance", "partial"),
+    #       plot = TRUE, na.action = na.contiguous, demean=TRUE)
+    
+    p <- ggplot(result, aes(x=lag, y=acf)) + 
+      geom_bar(stat='identity', width=0.1) +
+      geom_hline(yintercept = c(-ci, ci), colour = "blue", linetype = "dashed") +
+      xlab("Lag") +
+      ylab("ACF") +
+      ggtitle(main) + 
+      theme_bw()
   }
   
   if(which=="acf2"){
@@ -148,7 +178,7 @@ persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res
     ci <- qnorm((1 + ci)/2)/sqrt(result$n.used)
     
     result <- tidy(result)
-
+    
     p <- ggplot(result, aes(x=lag, y=acf)) + 
       geom_bar(stat='identity', width=0.1) +
       geom_hline(yintercept = c(-ci, ci), colour = "blue", linetype = "dashed") +
@@ -160,14 +190,14 @@ persephone$set("public", "plotResiduals",overwrite = TRUE, function(which=c("res
   
   if(plotly & which%in%c("acf","acf2","pacf","nqq","sreshist")){
     
-   # p <- p + theme_bw()
+    # p <- p + theme_bw()
     
     p <- plotly::ggplotly(p)
   }
   
   p
   
-})
+}
 
 
 
