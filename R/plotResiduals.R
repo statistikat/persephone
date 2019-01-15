@@ -3,19 +3,21 @@
 #' Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} 
 #' for more detail) or a ggplot object for objects of class \code{persephone}.
 #'
-#' res: residuals
-#' acf: autocorrelations of the residuals
-#' pacf: partial autocorrelations of the residuals
-#' acf2: autocorrelations of the squared residuals
-#' sreshist: histogram of standardized residuals including normal curve
-#' nqq: normal q-q plot of standardized residuals
-
+#' \describe{
+#' \item{res:}{ residuals}
+#' \item{acf:}{ autocorrelations of the residuals}
+#' \item{pacf:}{ partial autocorrelations of the residuals}
+#' \item{acf2:}{ autocorrelations of the squared residuals}
+#' \item{sreshist:}{ histogram of standardized residuals including normal curve}
+#' \item{nqq:}{ normal q-q plot of standardized residuals}
+#' }
+#' 
 #' @param object an object of class \code{\link{persephone}}.
 #' @param which character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
-#' \code{"pacf"},\code{"sreshist}",\code{"nqq"}), see further details.
-#' @param main 
-#' @param plotly 
-#' @param ... 
+#' \code{"pacf"},\code{"sreshist"},\code{"nqq"}), see Details.
+#' @param main ..
+#' @param plotly ..
+#' @param ... ..
 #'
 #' @return Returns an object of class \code{dygraphs} or of class \code{ggplot}.
 #'
