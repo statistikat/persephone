@@ -20,4 +20,5 @@ Imports:
 Remotes: 
     nbbrd/RJDemetra
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/statistikat/persephone
 RoxygenNote: 6.1.1

@@ -5,6 +5,9 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/statistikat/persephone.svg?branch=master)](https://travis-ci.org/statistikat/persephone)
+[![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![](https://img.shields.io/github/languages/code-size/statistikat/persephone.svg)](https://github.com/statistikat/persephone)
+[![](https://img.shields.io/github/last-commit/statistikat/persephone.svg)](https://github.com/statistikat/persephone/commits/master)
 
 This package is an object oriented wrapper around the R Package
 [RJDemetra](https://github.com/nbbrd/rjdemetra), which performs time
