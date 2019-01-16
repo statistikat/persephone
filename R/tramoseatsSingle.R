@@ -33,10 +33,13 @@ tramoseatsSingle <- R6::R6Class(
       private$ts_internal <- ts
       private$userdefined <- userdefined
     },
-    run = function() {
+    run = function(verbose = FALSE) {
       output <- tramoseats(private$ts_internal, private$params_internal, private$userdefined)
       private$output_internal <- output
-      output
+      if (!verbose)
+        invisible(output)
+      else
+        output
     }
   ),
   private = list(

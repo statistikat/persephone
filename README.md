@@ -32,9 +32,7 @@ library(persephone)
 data("AirPassengers")
 
 obj <- x13Single$new(AirPassengers)
-invisible(
-  obj$run()
-)
+obj$run()
 obj$output$regarima
 #> y = regression model + arima (0, 1, 0, 0, 1, 1)
 #> Log-transformation: yes

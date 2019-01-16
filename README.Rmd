@@ -40,9 +40,7 @@ library(persephone)
 data("AirPassengers")
 
 obj <- x13Single$new(AirPassengers)
-invisible(
-  obj$run()
-)
+obj$run()
 obj$output$regarima
 AirPassengers
 ```
