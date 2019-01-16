@@ -37,14 +37,14 @@ the `run` method runs the model and `output` gives access to the output object f
 library(RJDemetra)
 library(persephone)
 
-data(myseries)
+data("AirPassengers")
 
-obj <- x13Single$new(myseries)
+obj <- x13Single$new(AirPassengers)
 invisible(
   obj$run()
 )
 obj$output$regarima
-myseries
+AirPassengers
 ```
 
 
