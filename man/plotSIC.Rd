@@ -32,13 +32,7 @@ for a persephone object together with one year forecasts
 \examples{
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
-                                                      "s","i","cal",
-                                                      "y_f","t_f","sa_f",
-                                                      "s_f","i_f","cal_f",
-                                                      "preprocessing.model.y_f",
-                                                      "preprocessing.model.y_ef"))
-## userdefined noch zu x13Single dazugeben
+obj <- x13Single$new(AirPassengers, "RSA1")
 
 obj$run()
 # Plot after run
