@@ -8,7 +8,7 @@ plotSIC(object, main = NULL, forecasts = TRUE, rangeSelector = TRUE,
   drawPoints = FALSE, annualComparison = NULL)
 }
 \arguments{
-\item{object}{an object of class \code{\link{persephone}}.}
+\item{object}{an object of class \link{persephone}.}
 
 \item{main}{plot title}
 
@@ -25,7 +25,7 @@ Returns an object of class \code{dygraphs}.
 }
 \description{
 Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) for objects of class \code{persephone}.
+for more detail) for objects of class \link{persephone}.
 The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
 for a persephone object together with one year forecasts
 }

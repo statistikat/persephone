@@ -1,27 +1,30 @@
 #' Several interactive plots in connection with residuals for a persephone object
 #'
-#' Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-#' for more detail) or a ggplot object for objects of class \code{persephone}.
+#' Produces either a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
+#' for more detail) or a `ggplot` object for objects of class [persephone].
 #'
-#' \describe{
-#' \item{res:}{residuals}
-#' \item{acf:}{autocorrelations of the residuals}
-#' \item{pacf:}{partial autocorrelations of the residuals}
-#' \item{acf2:}{autocorrelations of the squared residuals}
-#' \item{sreshist:}{histogram of standardized residuals including normal curve}
-#' \item{nqq:}{normal q-q plot of standardized residuals}
-#' }
-#'
-#' @param object an object of class \code{\link{persephone}}.
-#' @param which character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
-#' \code{"pacf"},\code{"sreshist"},\code{"nqq"}), see Details.
+#' @param object an object of class [persephone].
+#' @param which character selecting the preferred type of plot (`"res"`,`"acf"`,`"acf2"`,
+#' `"pacf"`,`"sreshist"`,`"nqq"`), see Details.
 #' @param main ..
-#' @param plotly ..
+#' @param plotly If the return value would be a `ggplot` object, wrap it in [plotly::ggplotly]
+#'   before returning.
 #' @param ... ..
+#'
+#' @details
+#'
+#' The following options are available for the parameter `which`.
+#'
+#' * `res`: residuals
+#' * `acf`: autocorrelations of the residuals
+#' * `pacf`: partial autocorrelations of the residuals
+#' * `acf2`: autocorrelations of the squared residuals
+#' * `sreshist`: histogram of standardized residuals including normal curve
+#' * `nqq`: normal q-q plot of standardized residuals
 #'
 #' @importFrom broom tidy
 #'
-#' @return Returns an object of class \code{dygraphs} or of class \code{ggplot}.
+#' @return Returns an object of class `dygraphs` or of class `plotly`
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")

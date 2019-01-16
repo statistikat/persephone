@@ -1,14 +1,14 @@
 #' Interactive time series plot for a persephone object
 #'
-#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-#' for more detail) for objects of class \code{persephone}.
+#' Produces a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
+#' for more detail) for objects of class [persephone].
 #' The function generates an interactive time series plot of the original series,
 #' the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
 #' intervals of the original series.
-#' If no run has been performed on the \code{persephone} object, only the original time series is
+#' If no run has been performed on the [persephone] object, only the original time series is
 #' plotted.
 #'
-#' @param x an object of class \code{\link{persephone}}.
+#' @param x an object of class [persephone].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
 #' @param showOutliers logical flag specifying if outliers should be highlighted in the plot
@@ -19,7 +19,7 @@
 #'   in the plot for every year.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
-#' @return Returns an object of class \code{dygraphs}.
+#' @return Returns an object of class `dygraphs`.
 #'
 #' @examples
 #'

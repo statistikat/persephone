@@ -8,32 +8,34 @@ plotResiduals(object, which = c("res", "acf", "acf2", "pacf", "sreshist",
   "nqq"), main = NULL, plotly = TRUE, ...)
 }
 \arguments{
-\item{object}{an object of class \code{\link{persephone}}.}
+\item{object}{an object of class \link{persephone}.}
 
 \item{which}{character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
 \code{"pacf"},\code{"sreshist"},\code{"nqq"}), see Details.}
 
 \item{main}{..}
 
-\item{plotly}{..}
+\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in \link[plotly:ggplotly]{plotly::ggplotly}
+before returning.}
 
 \item{...}{..}
 }
 \value{
-Returns an object of class \code{dygraphs} or of class \code{ggplot}.
+Returns an object of class \code{dygraphs} or of class \code{plotly}
 }
 \description{
 Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) or a ggplot object for objects of class \code{persephone}.
+for more detail) or a \code{ggplot} object for objects of class \link{persephone}.
 }
 \details{
-\describe{
-\item{res:}{residuals}
-\item{acf:}{autocorrelations of the residuals}
-\item{pacf:}{partial autocorrelations of the residuals}
-\item{acf2:}{autocorrelations of the squared residuals}
-\item{sreshist:}{histogram of standardized residuals including normal curve}
-\item{nqq:}{normal q-q plot of standardized residuals}
+The following options are available for the parameter \code{which}.
+\itemize{
+\item \code{res}: residuals
+\item \code{acf}: autocorrelations of the residuals
+\item \code{pacf}: partial autocorrelations of the residuals
+\item \code{acf2}: autocorrelations of the squared residuals
+\item \code{sreshist}: histogram of standardized residuals including normal curve
+\item \code{nqq}: normal q-q plot of standardized residuals
 }
 }
 \examples{

@@ -1,18 +1,18 @@
 #' Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object
 #'
-#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-#' for more detail) for objects of class \code{persephone}.
+#' Produces a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
+#' for more detail) for objects of class [persephone].
 #' The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
 #' for a persephone object together with one year forecasts
 #'
-#' @param object an object of class \code{\link{persephone}}.
+#' @param object an object of class [persephone].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
 #' @param rangeSelector logical flag specifying if a range selector should be included in the plot
 #' @param drawPoints logical flag indicating if a small dot should be drawn at each point, in addition to a line going through the point.
 #' @param annualComparison integer corresponding to the month or quarter which should be highlighted in the plot for every year.
 #'
-#' @return Returns an object of class \code{dygraphs}.
+#' @return Returns an object of class `dygraphs`.
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")

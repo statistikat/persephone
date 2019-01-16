@@ -9,7 +9,7 @@
   annualComparison = NULL, ...)
 }
 \arguments{
-\item{x}{an object of class \code{\link{persephone}}.}
+\item{x}{an object of class \link{persephone}.}
 
 \item{main}{plot title}
 
@@ -32,11 +32,11 @@ Returns an object of class \code{dygraphs}.
 }
 \description{
 Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) for objects of class \code{persephone}.
+for more detail) for objects of class \link{persephone}.
 The function generates an interactive time series plot of the original series,
 the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
 intervals of the original series.
-If no run has been performed on the \code{persephone} object, only the original time series is
+If no run has been performed on the \link{persephone} object, only the original time series is
 plotted.
 }
 \examples{
