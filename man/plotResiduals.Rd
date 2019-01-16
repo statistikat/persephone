@@ -36,3 +36,26 @@ for more detail) or a ggplot object for objects of class \code{persephone}.
 \item{nqq:}{normal q-q plot of standardized residuals}
 }
 }
+\examples{
+data(AirPassengers, package = "datasets")
+# Generate a persephone object, in this case an x13Single object
+obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
+                                                      "s","i","cal",
+                                                      "y_f","t_f","sa_f",
+                                                      "s_f","i_f","cal_f",
+                                                      "preprocessing.model.y_f",
+                                                      "preprocessing.model.y_ef"))
+## userdefined noch zu x13Single dazugeben
+
+obj$run()
+# Plot the residuals after run
+plotResiduals(obj)
+# Plot the autocorrelations of the residuals
+plotResiduals(obj, which="acf")
+
+## TO DO:
+# maybe other theme_bw()
+# maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
+# maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
+
+}
