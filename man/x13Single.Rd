@@ -25,10 +25,9 @@ x13Single$new(
 }
 
 \examples{
-library(RJDemetra)
-data(myseries)
+data(AirPassengers, package = "datasets")
 
-obj <- x13Single$new(myseries, "RSA3")
+obj <- x13Single$new(AirPassengers, "RSA3")
 obj$run()
 obj$ts
 }
