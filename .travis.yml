@@ -3,3 +3,8 @@
 language: R
 sudo: false
 cache: packages
+
+notifications:
+  email:
+    - gregor.decillia@statistik.gv.at
+    - angelika.meraner@statistik.gv.at
