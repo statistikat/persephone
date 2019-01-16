@@ -6,10 +6,17 @@
 \description{
 Common interface for x13 and tramoseats
 }
+\section{Constructor}{
+
+\itemize{
+\item \code{new()}: Initializes an object. See the documentation for the derived classes for details.
+}
+}
+
 \section{Methods}{
 
 \itemize{
-\item \code{run()}: Runs the model
+\item \code{run(verbose = FALSE)}: Runs the model
 \item \code{updateParams(...)}: Updates the current parameters
 }
 }
@@ -17,9 +24,21 @@ Common interface for x13 and tramoseats
 \section{Read-Only fields}{
 
 \itemize{
-\item params
-\item ts
-\item output
+\item \code{params}: A parameters object of class \code{SA_spec}. See \link{x13_spec} and \link{tramoseats_spec}.
+\item \code{ts}: The time series.
+\item \code{output}: The return value from the underlying functions \code{x13} or \code{tramoseats}. This slot will
+be empty (\code{NULL}) before \code{run()} is called for the first time.
 }
 }
 
+\section{Parameters}{
+
+\itemize{
+\item \code{verbose}: should the output from the underlying RJDemetra function be displayed after the
+run? If \code{FALSE} (the default), the output will be returned invisibly.
+}
+}
+
+\seealso{
+\link{x13Single}, \link{tramoseatsSingle}
+}
