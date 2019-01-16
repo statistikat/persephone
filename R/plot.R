@@ -1,26 +1,30 @@
 #' Interactive time series plot for a persephone object
-#' 
-#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation} 
-#' for more detail) for objects of class \code{persephone}. 
-#' The function generates an interactive time series plot of the original series, 
-#' the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction intervals 
-#' of the original series.
-#' If no run has been performed on the \code{persephone} object, only the original time series is plotted.
-#'  
 #'
-#' @param object an object of class \code{\link{persephone}}.
+#' Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
+#' for more detail) for objects of class \code{persephone}.
+#' The function generates an interactive time series plot of the original series,
+#' the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
+#' intervals of the original series.
+#' If no run has been performed on the \code{persephone} object, only the original time series is
+#' plotted.
+#'
+#' @param x an object of class \code{\link{persephone}}.
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
 #' @param showOutliers logical flag specifying if outliers should be highlighted in the plot
 #' @param rangeSelector logical flag specifying if a range selector should be included in the plot
-#' @param drawPoints logical flag indicating if a small dot should be drawn at each point, in addition to a line going through the point.
-#' @param annualComparison integer corresponding to the month or quarter which should be highlighted in the plot for every year.
+#' @param drawPoints logical flag indicating if a small dot should be drawn at each point, in
+#'   addition to a line going through the point.
+#' @param annualComparison integer corresponding to the month or quarter which should be highlighted
+#'   in the plot for every year.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @return Returns an object of class \code{dygraphs}.
 #'
 #' @examples
-#' 
+#'
+#' library(RJDemetra)
+#'
 #' data(myseries, package = "RJDemetra")
 #' # Generate a persephone object, in this case ??? an x13Single object
 #' obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
@@ -28,42 +32,49 @@
 #'                                                       "y_f","t_f","sa_f",
 #'                                                       "s_f","i_f","cal_f",
 #'                                                       "preprocessing.model.y_f",
-#'                                                       "preprocessing.model.y_ef")) ## noch zu x13Single dazugeben
-#' # Plot before run of persephone object                                                   
-#' obj$plot(drawPoints = TRUE)
+#'                                                       "preprocessing.model.y_ef"))
+#' ## noch zu x13Single dazugeben
+#'
+#' # Plot before run of persephone object
+#' plot(obj, drawPoints = TRUE)
 #' obj$run()
 #' # Plot after run
-#' obj$plot(drawPoints=TRUE)
+#' plot(obj, drawPoints=TRUE)
 #' # Update some parameters of the persephone object
 #' obj$updateParams(usrdef.outliersEnabled = TRUE,
 #'                 usrdef.outliersType = c("AO","LS","LS"),
 #'                 usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
 #' # Perform run to make updateParams take effect
 #' obj$run()
-#' obj$plot()
-#'
+#' plot(obj)
 #'
 #' data(UKgas, package = "datasets")
 #' obj2 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
 #' "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
-#' obj2$plot()
+#' plot(obj2)
 #' obj2$run()
-#' obj2$plot()
+#' plot(obj2)
 
 #' data(AirPassengers, package = "datasets")
 #' obj3 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
 #' "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
-#' obj3$plot()
+#' plot(obj3)
 #' obj3$run()
-#' obj3$plot()
+#' plot(obj3)
+#' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
+#' @importFrom utils as.roman
+#' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph dyHighlight dyAnnotation
+#'   dyPlotter dyEvent
+#' @importFrom stringr str_pad
+#' @import ggplot2
 #' @export
-plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE, 
+plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
                             rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL, ...){
-  
-  self <- object
+
+  self <- x
   # Helper function for annual comparison
   annComp <- function(ts, annualComparison){
-    
+
     annCompVec <- format(time(ts)[cycle(ts)==annualComparison])
     if(frequency(ts)==12){
       annCompLab <- month.abb[annualComparison]
@@ -75,20 +86,20 @@ plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE
       annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(c(1,4,7,10)[annualComparison],2,"left","0"), "-01")
     }
     return(list(annCompVec=annCompVec, annCompLab=annCompLab))
-    
+
   }
-  
-  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){  
-    
+
+  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){
+
     if(is.null(main)){
       main <- "Original Time Series"
     }
-    
-    graphObj <- dygraph(ts, main=main) %>% 
+
+    graphObj <- dygraph(ts, main=main) %>%
       dySeries("V1", label = "Original", drawPoints=drawPoints)
-    
+
     if(rangeSelector){
-      graphObj <- graphObj %>% 
+      graphObj <- graphObj %>%
         dyRangeSelector(height = 20)
     }
     if(!is.null(annualComparison)){
@@ -99,49 +110,49 @@ plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE
           dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
       }
     }
-    
+
     graphObj
-    
+
   }
-  
+
   postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){
-    
+
     if(is.null(main)){
       main <- "Original, SA and Trend Series"
     }
-    
+
     y <- self$output$user_defined$y
     t <- self$output$user_defined$t
     sa <- self$output$user_defined$sa
     ppm_y_f <- self$output$user_defined$preprocessing.model.y_f
     ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef
     # forecasts currently only plotted for original series, maybe allow t and sa forecasts in some other setting??
-    
+
     # Initialize Graph Object
     # Back-/Forecasts
     if(forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)){
       lowerci <- ppm_y_f-1.96*ppm_y_ef
-      upperci <- ppm_y_f+1.96*ppm_y_ef  
+      upperci <- ppm_y_f+1.96*ppm_y_ef
       ts <- cbind(y,t,sa,ppm_y_f,lowerci,upperci)
-      
-      graphObj <- dygraph(ts, main=main) %>% 
-        dySeries("y", label = "Original", drawPoints=drawPoints) %>% 
-        dySeries("sa", label = "Seasonally Adjusted") %>% 
-        dySeries("t", label = "Trend") %>% 
-        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts", strokePattern ="dashed",drawPoints=drawPoints) %>% 
+
+      graphObj <- dygraph(ts, main=main) %>%
+        dySeries("y", label = "Original", drawPoints=drawPoints) %>%
+        dySeries("sa", label = "Seasonally Adjusted") %>%
+        dySeries("t", label = "Trend") %>%
+        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts", strokePattern ="dashed",drawPoints=drawPoints) %>%
         dyLegend(width=400)
-      
+
     }else{
-      ts <- cbind(y,t,sa) 
-      
-      graphObj <- dygraph(ts, main=main) %>% 
-        dySeries("y", label = "Original", drawPoints=drawPoints) %>% 
-        dySeries("sa", label = "Seasonally Adjusted") %>% 
+      ts <- cbind(y,t,sa)
+
+      graphObj <- dygraph(ts, main=main) %>%
+        dySeries("y", label = "Original", drawPoints=drawPoints) %>%
+        dySeries("sa", label = "Seasonally Adjusted") %>%
         dySeries("t", label = "Trend")%>%
         dyLegend(width=290)
     }
-    
-    # Outliers 
+
+    # Outliers
     if(showOutliers & !is.null(self$output$regarima$regression.coefficients)){
       outliers <- rownames(self$output$regarima$regression.coefficients)
       outliers <- outliers[substr(outliers,1,2)%in%c("AO","LS","TC")]
@@ -154,21 +165,21 @@ plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE
       }else{
         outliers <-sapply(sapply(outliers,function(x)strsplit(x[[2]],"-")), function(y) paste0(y[[2]],"-",str_pad(c(1,4,7,10)[as.numeric(as.roman(y[[1]]))],2,"left","0"),"-01"))
       }
-      
-      for(i in 1:length(outliers)){  
+
+      for(i in 1:length(outliers)){
         graphObj <-  graphObj %>% dyAnnotation(series="Original",outliers[i], text=substr(outliersName[i],1,2),tooltip=outliersName[i],width=21,height=15,tickHeight=10)
       }
       # for(i in 1:length(outliers)){
       #   graphObj <-  graphObj %>% dyEvent(outliers[i], outliersName[i], labelLoc = "bottom")
       # }
     }
-    
-    
+
+
     if(rangeSelector){
-      graphObj <- graphObj %>% 
+      graphObj <- graphObj %>%
         dyRangeSelector(height = 20)
     }
-    
+
     if(!is.null(annualComparison)){
       annCompRes <- annComp(ts,annualComparison)
       for(i in 1:length(annCompRes[["annCompVec"]])){
@@ -176,24 +187,24 @@ plot.persephone <- function(object, main=NULL, forecasts=TRUE, showOutliers=TRUE
           dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
       }
     }
-    
+
     graphObj <- graphObj %>%
       dyHighlight(highlightSeriesOpts = list(strokeWidth = 2), highlightCircleSize = 4, highlightSeriesBackgroundAlpha = 0.5)
-    
+
     graphObj
-  } 
-  
+  }
+
   if(!is.null(self$output$user_defined)){
-    
+
     graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
     graphObj
-    
+
   }else{
     ts <- self$ts
     preRunPlot(ts=ts, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
-    
+
   }
-  
+
 }
 
 

@@ -6,6 +6,9 @@
 \usage{
 is.persephone(x)
 }
+\arguments{
+\item{x}{R object to be tested}
+}
 \description{
 Check if an R object is of or derives from the class \code{persephone}
 }

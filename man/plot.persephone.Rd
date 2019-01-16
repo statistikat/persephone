@@ -4,12 +4,12 @@
 \alias{plot.persephone}
 \title{Interactive time series plot for a persephone object}
 \usage{
-\method{plot}{persephone}(object, main = NULL, forecasts = TRUE,
+\method{plot}{persephone}(x, main = NULL, forecasts = TRUE,
   showOutliers = TRUE, rangeSelector = TRUE, drawPoints = FALSE,
   annualComparison = NULL, ...)
 }
 \arguments{
-\item{object}{an object of class \code{\link{persephone}}.}
+\item{x}{an object of class \code{\link{persephone}}.}
 
 \item{main}{plot title}
 
@@ -19,9 +19,11 @@
 
 \item{rangeSelector}{logical flag specifying if a range selector should be included in the plot}
 
-\item{drawPoints}{logical flag indicating if a small dot should be drawn at each point, in addition to a line going through the point.}
+\item{drawPoints}{logical flag indicating if a small dot should be drawn at each point, in
+addition to a line going through the point.}
 
-\item{annualComparison}{integer corresponding to the month or quarter which should be highlighted in the plot for every year.}
+\item{annualComparison}{integer corresponding to the month or quarter which should be highlighted
+in the plot for every year.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
@@ -32,11 +34,14 @@ Returns an object of class \code{dygraphs}.
 Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
 for more detail) for objects of class \code{persephone}.
 The function generates an interactive time series plot of the original series,
-the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction intervals
-of the original series.
-If no run has been performed on the \code{persephone} object, only the original time series is plotted.
+the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
+intervals of the original series.
+If no run has been performed on the \code{persephone} object, only the original time series is
+plotted.
 }
 \examples{
+
+library(RJDemetra)
 
 data(myseries, package = "RJDemetra")
 # Generate a persephone object, in this case ??? an x13Single object
@@ -45,31 +50,32 @@ obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
                                                       "y_f","t_f","sa_f",
                                                       "s_f","i_f","cal_f",
                                                       "preprocessing.model.y_f",
-                                                      "preprocessing.model.y_ef")) ## noch zu x13Single dazugeben
-# Plot before run of persephone object                                                   
-obj$plot(drawPoints = TRUE)
+                                                      "preprocessing.model.y_ef"))
+## noch zu x13Single dazugeben
+
+# Plot before run of persephone object
+plot(obj, drawPoints = TRUE)
 obj$run()
 # Plot after run
-obj$plot(drawPoints=TRUE)
+plot(obj, drawPoints=TRUE)
 # Update some parameters of the persephone object
 obj$updateParams(usrdef.outliersEnabled = TRUE,
                 usrdef.outliersType = c("AO","LS","LS"),
                 usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
 # Perform run to make updateParams take effect
 obj$run()
-obj$plot()
-
+plot(obj)
 
 data(UKgas, package = "datasets")
 obj2 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
 "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
-obj2$plot()
+plot(obj2)
 obj2$run()
-obj2$plot()
+plot(obj2)
 data(AirPassengers, package = "datasets")
 obj3 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
 "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
-obj3$plot()
+plot(obj3)
 obj3$run()
-obj3$plot()
+plot(obj3)
 }
