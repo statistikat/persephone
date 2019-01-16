@@ -14,10 +14,9 @@
 #' * `...` is passed to [x13_spec_def]
 #'
 #' @examples
-#' library(RJDemetra)
-#' data(myseries)
+#' data(AirPassengers, package = "datasets")
 #'
-#' obj <- x13Single$new(myseries, "RSA3")
+#' obj <- x13Single$new(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @name x13Single

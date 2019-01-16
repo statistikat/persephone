@@ -13,10 +13,9 @@
 #' * `template` is passed as the `spec` argument to [tramoseats_spec_def]
 #' * `...` passed to [tramoseats_spec_def]
 #' @examples
-#' library(RJDemetra)
-#' data(myseries)
+#' data(AirPassengers, package = "datasets")
 #'
-#' obj <- tramoseatsSingle$new(myseries, "RSA3")
+#' obj <- tramoseatsSingle$new(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @name tramoseatsSingle
