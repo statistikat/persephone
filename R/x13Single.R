@@ -6,12 +6,14 @@
 #' @section Contructor:
 #' \preformatted{
 #' x13Single$new(
-#'   ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"), ...
+#'   ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
+#'   userdefined=NULL, ...
 #' )
 #' }
 #' * `ts` denotes a time series
 #' * `template` is passed as the `spec` argument to [x13_spec_def]
-#' * `...` is passed to [x13_spec_def]
+#' * `userdefined` is passed as the `userdefined` argument to [x13]
+#' * `...` is passed to [x13_spec]
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")

@@ -14,13 +14,15 @@ An R6 class that represents a x13 model.
 
 \preformatted{
 x13Single$new(
-  ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"), ...
+  ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
+  userdefined=NULL, ...
 )
 }
 \itemize{
 \item \code{ts} denotes a time series
 \item \code{template} is passed as the \code{spec} argument to \link{x13_spec_def}
-\item \code{...} is passed to \link{x13_spec_def}
+\item \code{userdefined} is passed as the \code{userdefined} argument to \link{x13}
+\item \code{...} is passed to \link{x13_spec}
 }
 }
 
