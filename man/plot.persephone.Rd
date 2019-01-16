@@ -41,41 +41,43 @@ plotted.
 }
 \examples{
 
-library(RJDemetra)
-
-data(myseries, package = "RJDemetra")
-# Generate a persephone object, in this case ??? an x13Single object
-obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
+# Monthly data
+data(AirPassengers, package = "datasets")
+# Generate a persephone object, in this case an x13Single object
+obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
                                                       "s","i","cal",
                                                       "y_f","t_f","sa_f",
                                                       "s_f","i_f","cal_f",
                                                       "preprocessing.model.y_f",
                                                       "preprocessing.model.y_ef"))
-## noch zu x13Single dazugeben
-
+## userdefined noch zu x13Single dazugeben
 # Plot before run of persephone object
 plot(obj, drawPoints = TRUE)
 obj$run()
 # Plot after run
 plot(obj, drawPoints=TRUE)
 # Update some parameters of the persephone object
+# (randomly specify some outliers for illustrative purposes only)
 obj$updateParams(usrdef.outliersEnabled = TRUE,
                 usrdef.outliersType = c("AO","LS","LS"),
-                usrdef.outliersDate=c("2002-01-01","2003-01-01","2008-10-01"))
+                usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
 # Perform run to make updateParams take effect
 obj$run()
 plot(obj)
 
+# Quarterly data
 data(UKgas, package = "datasets")
-obj2 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
+obj2 <- x13Single$new(UKgas, "RSA3", userdefined=c("y","t","sa","s","i","cal",
 "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
 plot(obj2)
 obj2$run()
 plot(obj2)
-data(AirPassengers, package = "datasets")
-obj3 <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa","s","i","cal",
+
+# Generate a persephone object, in this case a tramoseatsSingle object
+obj3 <- tramoseatsSingle$new(UKgas, "RSA3", userdefined=c("y","t","sa","s","i","cal",
 "y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
 plot(obj3)
 obj3$run()
 plot(obj3)
+
 }

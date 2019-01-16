@@ -28,31 +28,11 @@ for more detail) or a ggplot object for objects of class \code{persephone}.
 }
 \details{
 \describe{
-\item{res:}{ residuals}
-\item{acf:}{ autocorrelations of the residuals}
-\item{pacf:}{ partial autocorrelations of the residuals}
-\item{acf2:}{ autocorrelations of the squared residuals}
-\item{sreshist:}{ histogram of standardized residuals including normal curve}
-\item{nqq:}{ normal q-q plot of standardized residuals}
+\item{res:}{residuals}
+\item{acf:}{autocorrelations of the residuals}
+\item{pacf:}{partial autocorrelations of the residuals}
+\item{acf2:}{autocorrelations of the squared residuals}
+\item{sreshist:}{histogram of standardized residuals including normal curve}
+\item{nqq:}{normal q-q plot of standardized residuals}
 }
-}
-\examples{
-data(myseries, package = "RJDemetra")
-# Generate a persephone object, in this case ??? an x13Single object
-obj <- x13Single$new(myseries, "RSA1", userdefined=c("y","t","sa",
-                                                      "s","i","cal",
-                                                      "y_f","t_f","sa_f",
-                                                      "s_f","i_f","cal_f",
-                                                      "preprocessing.model.y_f",
-                                                      "preprocessing.model.y_ef"))
-## noch zu x13Single dazugeben
-
-obj$run()
-# Plot after run
-plotResiduals(obj)
-
-## TO DO:
-# maybe other theme_bw()
-# maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
-# maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
 }

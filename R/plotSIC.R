@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")
-#' # Generate a persephone object, in this case ??? an x13Single object
+#' # Generate a persephone object, in this case an x13Single object
 #' obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
 #'                                                       "s","i","cal",
 #'                                                       "y_f","t_f","sa_f",

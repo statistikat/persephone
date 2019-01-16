@@ -4,12 +4,12 @@
 #' for more detail) or a ggplot object for objects of class \code{persephone}.
 #'
 #' \describe{
-#' \item{res:}{ residuals}
-#' \item{acf:}{ autocorrelations of the residuals}
-#' \item{pacf:}{ partial autocorrelations of the residuals}
-#' \item{acf2:}{ autocorrelations of the squared residuals}
-#' \item{sreshist:}{ histogram of standardized residuals including normal curve}
-#' \item{nqq:}{ normal q-q plot of standardized residuals}
+#' \item{res:}{residuals}
+#' \item{acf:}{autocorrelations of the residuals}
+#' \item{pacf:}{partial autocorrelations of the residuals}
+#' \item{acf2:}{autocorrelations of the squared residuals}
+#' \item{sreshist:}{histogram of standardized residuals including normal curve}
+#' \item{nqq:}{normal q-q plot of standardized residuals}
 #' }
 #'
 #' @param object an object of class \code{\link{persephone}}.
@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")
-#' # Generate a persephone object, in this case ??? an x13Single object
+#' # Generate a persephone object, in this case an x13Single object
 #' obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
 #'                                                       "s","i","cal",
 #'                                                       "y_f","t_f","sa_f",
@@ -35,8 +35,10 @@
 #' ## userdefined noch zu x13Single dazugeben
 #'
 #' obj$run()
-#' # Plot after run
+#' # Plot the residuals after run
 #' plotResiduals(obj)
+#' # Plot the autocorrelations of the residuals
+#' plotResiduals(obj, which="acf)
 #'
 #' ## TO DO:
 #' # maybe other theme_bw()
