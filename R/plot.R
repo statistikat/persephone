@@ -148,8 +148,10 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
 
     # Outliers
     if(showOutliers & !is.null(self$output$regarima$regression.coefficients)){
+      
       outliers <- rownames(self$output$regarima$regression.coefficients)
       outliers <- outliers[substr(outliers,1,2)%in%c("AO","LS","TC")]
+      if(length(outliers)>0){
       outliersName <- outliers
       outliers <- gsub("(","",outliers,fixed=TRUE)
       outliers <- gsub(")","",outliers,fixed=TRUE)
@@ -166,6 +168,7 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
       # for(i in 1:length(outliers)){
       #   graphObj <-  graphObj %>% dyEvent(outliers[i], outliersName[i], labelLoc = "bottom")
       # }
+      }
     }
 
 
