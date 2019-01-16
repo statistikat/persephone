@@ -6,12 +6,14 @@
 #' @section Contructor:
 #' \preformatted{
 #' tramoseatsSingle$new(
-#'   ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3", "RSA4", "RSA5"), ...
+#'   ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3", "RSA4", "RSA5"),
+#'   userdefined=NULL, ...
 #' )
 #' }
 #' * `ts` denotes a time series
 #' * `template` is passed as the `spec` argument to [tramoseats_spec_def]
-#' * `...` passed to [tramoseats_spec_def]
+#' * `userdefined` is passed as the `userdefined` argument to [tramoseats]
+#' * `...` passed to [tramoseats_spec]
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
