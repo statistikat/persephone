@@ -31,6 +31,7 @@ tramoseatsSingle <- R6::R6Class(
       params <- tramoseats_spec(params, ...)
       private$params_internal <- params
       private$ts_internal <- ts
+      private$userdefined <- userdefined
     },
     run = function() {
       output <- tramoseats(private$ts_internal, private$params_internal, private$userdefined)
