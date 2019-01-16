@@ -32,6 +32,12 @@ library(persephone)
 data("AirPassengers")
 
 obj <- x13Single$new(AirPassengers)
+plot(obj)
+```
+
+<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+
+``` r
 obj$run()
 obj$output$regarima
 #> y = regression model + arima (0, 1, 0, 0, 1, 1)

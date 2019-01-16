@@ -44,13 +44,7 @@ plotted.
 # Monthly data
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- x13Single$new(AirPassengers, "RSA1", userdefined=c("y","t","sa",
-                                                      "s","i","cal",
-                                                      "y_f","t_f","sa_f",
-                                                      "s_f","i_f","cal_f",
-                                                      "preprocessing.model.y_f",
-                                                      "preprocessing.model.y_ef"))
-## userdefined noch zu x13Single dazugeben
+obj <- x13Single$new(AirPassengers, "RSA1")
 # Plot before run of persephone object
 plot(obj, drawPoints = TRUE)
 obj$run()
@@ -67,15 +61,13 @@ plot(obj)
 
 # Quarterly data
 data(UKgas, package = "datasets")
-obj2 <- x13Single$new(UKgas, "RSA3", userdefined=c("y","t","sa","s","i","cal",
-"y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
+obj2 <- x13Single$new(UKgas, "RSA3")
 plot(obj2)
 obj2$run()
 plot(obj2)
 
 # Generate a persephone object, in this case a tramoseatsSingle object
-obj3 <- tramoseatsSingle$new(UKgas, "RSA3", userdefined=c("y","t","sa","s","i","cal",
-"y_f","t_f","sa_f","s_f","i_f","cal_f","preprocessing.model.y_f","preprocessing.model.y_ef"))
+obj3 <- tramoseatsSingle$new(UKgas, "RSA3")
 plot(obj3)
 obj3$run()
 plot(obj3)

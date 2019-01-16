@@ -29,6 +29,7 @@ tramoseatsSingle <- R6::R6Class(
   public = list(
     initialize = function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
                                            "RSA4", "RSA5"), userdefined = NULL, ...) {
+      userdefined <- union(userdefined, userdefined_default)
       params <- tramoseats_spec_def(spec = template)
       params <- tramoseats_spec(params, ...)
       private$params_internal <- params

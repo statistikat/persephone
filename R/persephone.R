@@ -66,3 +66,8 @@ persephone <- R6::R6Class(
     }
   )
 )
+
+userdefined_default <- c(
+  "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f", "i_f",
+  "cal_f", "preprocessing.model.y_f", "preprocessing.model.y_ef"
+)
