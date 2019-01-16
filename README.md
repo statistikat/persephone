@@ -1,12 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-persephone
-==========
 
-This package is an object oriented wrapper around the R Package [RJDemetra](https://github.com/nbbrd/rjdemetra), which performs time series adjustments with the java library [JDemetra+](https://github.com/jdemetra)
+# persephone
 
-Installation
-------------
+[![Travis-CI Build
+Status](https://travis-ci.org/statistikat/persephone.svg?branch=master)](https://travis-ci.org/statistikat/persephone)
+
+This package is an object oriented wrapper around the R Package
+[RJDemetra](https://github.com/nbbrd/rjdemetra), which performs time
+series adjustments with the java library
+[JDemetra+](https://github.com/jdemetra)
+
+## Installation
 
 You can install the package directly from GitHub with
 
@@ -14,10 +19,11 @@ You can install the package directly from GitHub with
 devtools::install_github("statistikat/persephone")
 ```
 
-Usage
------
+## Usage
 
-Objects can be constructed with `x13Single$new` or `tramoseatsSingle$new`. Subseqentually, the `run` method runs the model and `output` gives access to the output object from `RJDemetra`.
+Objects can be constructed with `x13Single$new` or
+`tramoseatsSingle$new`. Subseqentually, the `run` method runs the model
+and `output` gives access to the output object from `RJDemetra`.
 
 ``` r
 library(RJDemetra)

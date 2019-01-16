@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 ```
 # persephone
 
+[![Travis-CI Build Status](https://travis-ci.org/statistikat/persephone.svg?branch=master)](https://travis-ci.org/statistikat/persephone)
+
 This package is an object oriented wrapper around the R Package [RJDemetra], which performs
 time series adjustments with the java library [JDemetra+]
 
