@@ -5,7 +5,7 @@
 #' The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
 #' for a persephone object together with one year forecasts
 #'
-#' @param object an object of class [persephone].
+#' @param x an object of class [persephone].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
 #' @param rangeSelector logical flag specifying if a range selector should be included in the plot
@@ -24,12 +24,10 @@
 #' plotSIC(obj)
 #'
 #' @export
-plotSIC <- function(object, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
+plotSIC <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
                     drawPoints=FALSE, annualComparison=NULL){
 
-  self <- object
-
-  if (is.null(self$output$user_defined)) {
+  if (is.null(x$output$user_defined)) {
     stop("No results from run available.\n")
   }
 
@@ -55,12 +53,12 @@ plotSIC <- function(object, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
     main <- "Seasonal Comp., Irregular Comp. and Calendar Eff."
   }
 
-  s <- self$output$user_defined$s
-  s_f <- self$output$user_defined$s_f
-  i <- self$output$user_defined$i
-  i_f <- self$output$user_defined$i_f
-  cal <- self$output$user_defined$cal
-  cal_f <- self$output$user_defined$cal_f
+  s <- x$output$user_defined$s
+  s_f <- x$output$user_defined$s_f
+  i <- x$output$user_defined$i
+  i_f <- x$output$user_defined$i_f
+  cal <- x$output$user_defined$cal
+  cal_f <- x$output$user_defined$cal_f
 
   # Initialize Graph Object
   # Back-/Forecasts

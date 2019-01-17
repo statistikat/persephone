@@ -4,11 +4,11 @@
 \alias{plotSIC}
 \title{Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object}
 \usage{
-plotSIC(object, main = NULL, forecasts = TRUE, rangeSelector = TRUE,
+plotSIC(x, main = NULL, forecasts = TRUE, rangeSelector = TRUE,
   drawPoints = FALSE, annualComparison = NULL)
 }
 \arguments{
-\item{object}{an object of class \link{persephone}.}
+\item{x}{an object of class \link{persephone}.}
 
 \item{main}{plot title}
 

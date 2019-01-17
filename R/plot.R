@@ -65,7 +65,6 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
                             rangeSelector=TRUE, drawPoints=FALSE,
                             annualComparison=NULL, ...){
 
-  self <- x
   # Helper function for annual comparison
   annComp <- function(ts, annualComparison){
 
@@ -126,11 +125,11 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
       main <- "Original, SA and Trend Series"
     }
 
-    y <- self$output$user_defined$y
-    t <- self$output$user_defined$t
-    sa <- self$output$user_defined$sa
-    ppm_y_f <- self$output$user_defined$preprocessing.model.y_f # nolint
-    ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef # nolint
+    y <- x$output$user_defined$y
+    t <- x$output$user_defined$t
+    sa <- x$output$user_defined$sa
+    ppm_y_f <- x$output$user_defined$preprocessing.model.y_f # nolint
+    ppm_y_ef <- x$output$user_defined$preprocessing.model.y_ef # nolint
     # forecasts currently only plotted for original series, maybe allow t and
     # sa forecasts in some other setting??
 
@@ -160,16 +159,16 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
     }
 
     # Outliers
-    if (showOutliers & !is.null(self$output$regarima$regression.coefficients)) {
+    if (showOutliers & !is.null(x$output$regarima$regression.coefficients)) {
 
-      outliers <- rownames(self$output$regarima$regression.coefficients)
+      outliers <- rownames(x$output$regarima$regression.coefficients)
       outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
       if (length(outliers) > 0) {
       outliersName <- outliers
       outliers <- gsub("(", "", outliers, fixed = TRUE)
       outliers <- gsub(")", "", outliers, fixed = TRUE)
       outliers <- strsplit(outliers, " ")
-      if (frequency(self$ts) == 12) {
+      if (frequency(x$ts) == 12) {
         outliers <- sapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
                           function(y) paste0(
                             y[[2]], "-", str_pad(y[[1]], 2, "left", "0"), "-01")
@@ -221,7 +220,7 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
     graphObj
   }
 
-  if (!is.null(self$output$user_defined)) {
+  if (!is.null(x$output$user_defined)) {
 
     graphObj <- postRunPlot(
       main = main, forecasts = forecasts, showOutliers = showOutliers,
@@ -231,7 +230,7 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
     graphObj
 
   }else{
-    ts <- self$ts
+    ts <- x$ts
     preRunPlot(
       ts = ts,
       rangeSelector = rangeSelector,

@@ -4,11 +4,11 @@
 \alias{plotResiduals}
 \title{Several interactive plots in connection with residuals for a persephone object}
 \usage{
-plotResiduals(object, which = c("res", "acf", "acf2", "pacf", "sreshist",
+plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
   "nqq"), main = NULL, plotly = TRUE, ...)
 }
 \arguments{
-\item{object}{an object of class \link{persephone}.}
+\item{x}{an object of class \link{persephone}.}
 
 \item{which}{character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
 \code{"pacf"},\code{"sreshist"},\code{"nqq"}), see Details.}

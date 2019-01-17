@@ -3,7 +3,7 @@
 #' Produces either a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
 #' for more detail) or a `ggplot` object for objects of class [persephone].
 #'
-#' @param object an object of class [persephone].
+#' @param x an object of class [persephone].
 #' @param which character selecting the preferred type of plot (`"res"`,`"acf"`,`"acf2"`,
 #' `"pacf"`,`"sreshist"`,`"nqq"`), see Details.
 #' @param main ..
@@ -44,16 +44,15 @@
 #' # maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
 #'
 #' @export
-plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
+plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                                               "sreshist", "nqq"),
                                        main = NULL, plotly = TRUE, ...){
 
   ..density.. <- x <- y <- NULL # nolint
 
-  self <- object
-  regarima <- self$output$regarima
+  regarima <- x$output$regarima
 
-  if (is.null(self$output$regarima)) {
+  if (is.null(x$output$regarima)) {
     stop("No results from run available.\n")
   }
 
@@ -70,7 +69,7 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
                 path = system.file("plotters/barchart.js",
                                    package = "dygraphs"))
     }
-    p <- dygraph(self$output$regarima$residuals, main = main) %>%
+    p <- dygraph(x$output$regarima$residuals, main = main) %>%
       dySeries("V1", label = "Residual value") %>%
       dyBarChart()
 
@@ -133,7 +132,7 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- acf(regarima$residuals, plot = FALSE)
-    result$lag <- result$lag * frequency(self$ts)
+    result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
 
     # confidence interval as in R package forecast
@@ -168,7 +167,7 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- acf(regarima$residuals ^ 2, plot = FALSE)
-    result$lag <- result$lag * frequency(self$ts)
+    result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
 
     # confidence interval as in R package forecast
@@ -195,7 +194,7 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- pacf(regarima$residuals, plot = FALSE)
-    result$lag <- result$lag * frequency(self$ts)
+    result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
 
     # confidence interval as in R package forecast
