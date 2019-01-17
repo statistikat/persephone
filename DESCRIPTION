@@ -25,5 +25,6 @@ URL: https://github.com/statistikat/persephone
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    prettydoc
 VignetteBuilder: knitr
