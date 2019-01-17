@@ -29,7 +29,8 @@ x13Single <- R6::R6Class(
   inherit = persephone,
   public = list(
     initialize = function(ts, template = c(
-      "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"), userdefined=NULL, ...) {
+      "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
+      userdefined=NULL, ...) {
       userdefined <- union(userdefined, userdefined_default)
       params <- x13_spec_def(spec = template)
       params <- x13_spec(params, ...)
@@ -38,7 +39,8 @@ x13Single <- R6::R6Class(
       private$userdefined <- userdefined
     },
     run = function(verbose = FALSE) {
-      output <- x13(private$ts_internal, private$params_internal,private$userdefined)
+      output <- x13(private$ts_internal, private$params_internal,
+                    private$userdefined)
       private$output_internal <- output
       if (!verbose)
         invisible(output)

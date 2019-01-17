@@ -62,45 +62,54 @@
 #' @import ggplot2
 #' @export
 plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
-                            rangeSelector=TRUE, drawPoints=FALSE, annualComparison=NULL, ...){
+                            rangeSelector=TRUE, drawPoints=FALSE,
+                            annualComparison=NULL, ...){
 
   self <- x
   # Helper function for annual comparison
   annComp <- function(ts, annualComparison){
 
-    annCompVec <- format(time(ts)[cycle(ts)==annualComparison])
-    if(frequency(ts)==12){
+    annCompVec <- format(time(ts)[cycle(ts) == annualComparison])
+    if (frequency(ts) == 12) {
       annCompLab <- month.abb[annualComparison]
       #annCompLab <- month.name[annualComparison]
-      annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(annualComparison,2,"left","0"), "-01")
-    }else if(frequency(ts)==4){
-      annCompLab <- paste0("Q",annualComparison)
+      annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
+                           str_pad(annualComparison, 2, "left", "0"),
+                           "-01")
+    }else if (frequency(ts) == 4) {
+      annCompLab <- paste0("Q", annualComparison)
       #annCompLab <- paste0(annualComparison,". Quarter")
-      annCompVec <- paste0(substr(annCompVec,1,4), "-", str_pad(c(1,4,7,10)[annualComparison],2,"left","0"), "-01")
+      annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
+                           str_pad(c(1, 4, 7, 10)[annualComparison],
+                                   2, "left", "0"), "-01")
     }
-    return(list(annCompVec=annCompVec, annCompLab=annCompLab))
+    return(list(annCompVec = annCompVec, annCompLab = annCompLab))
 
   }
 
-  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){
+  preRunPlot <- function(ts, rangeSelector=rangeSelector, drawPoints=drawPoints,
+                         annualComparison=annualComparison){
 
-    if(is.null(main)){
+    if (is.null(main)) {
       main <- "Original Time Series"
     }
 
-    graphObj <- dygraph(ts, main=main) %>%
-      dySeries("V1", label = "Original", drawPoints=drawPoints)
+    graphObj <- dygraph(ts, main = main) %>%
+      dySeries("V1", label = "Original", drawPoints = drawPoints)
 
-    if(rangeSelector){
+    if (rangeSelector) {
       graphObj <- graphObj %>%
         dyRangeSelector(height = 20)
     }
-    if(!is.null(annualComparison)){
-      annCompRes <- annComp(ts,annualComparison)
-      for(i in 1:length(annCompRes[["annCompVec"]])){
+    if (!is.null(annualComparison)) {
+      annCompRes <- annComp(ts, annualComparison)
+      for (i in 1:length(annCompRes[["annCompVec"]])) {
         graphObj <- graphObj %>%
-          #dyEvent(annCompRes[["annCompVec"]][i], paste(substr(annCompRes[["annCompVec"]][i],1,4),annCompRes[["annCompLab"]]),labelLoc = "bottom",color="lightgrey")
-          dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
+          #dyEvent(annCompRes[["annCompVec"]][i],
+          # paste(substr(annCompRes[["annCompVec"]][i],1,4),
+          # annCompRes[["annCompLab"]]),labelLoc = "bottom",color="lightgrey")
+          dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],
+                  labelLoc = "bottom", color = "lightgrey")
       }
     }
 
@@ -108,9 +117,12 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
 
   }
 
-  postRunPlot <- function(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints, annualComparison=annualComparison){
+  postRunPlot <- function(
+    main=main, forecasts=forecasts, showOutliers=showOutliers,
+    rangeSelector=rangeSelector, drawPoints=drawPoints,
+    annualComparison=annualComparison){
 
-    if(is.null(main)){
+    if (is.null(main)) {
       main <- "Original, SA and Trend Series"
     }
 
@@ -119,89 +131,112 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
     sa <- self$output$user_defined$sa
     ppm_y_f <- self$output$user_defined$preprocessing.model.y_f
     ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef
-    # forecasts currently only plotted for original series, maybe allow t and sa forecasts in some other setting??
+    # forecasts currently only plotted for original series, maybe allow t and
+    # sa forecasts in some other setting??
 
     # Initialize Graph Object
     # Back-/Forecasts
-    if(forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)){
-      lowerci <- ppm_y_f-1.96*ppm_y_ef
-      upperci <- ppm_y_f+1.96*ppm_y_ef
-      ts <- cbind(y,t,sa,ppm_y_f,lowerci,upperci)
+    if (forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)) {
+      lowerci <- ppm_y_f - 1.96 * ppm_y_ef
+      upperci <- ppm_y_f + 1.96 * ppm_y_ef
+      ts <- cbind(y, t, sa, ppm_y_f, lowerci, upperci)
 
-      graphObj <- dygraph(ts, main=main) %>%
-        dySeries("y", label = "Original", drawPoints=drawPoints) %>%
+      graphObj <- dygraph(ts, main = main) %>%
+        dySeries("y", label = "Original", drawPoints = drawPoints) %>%
         dySeries("sa", label = "Seasonally Adjusted") %>%
         dySeries("t", label = "Trend") %>%
-        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts", strokePattern ="dashed",drawPoints=drawPoints) %>%
-        dyLegend(width=400)
+        dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts",
+                 strokePattern = "dashed", drawPoints = drawPoints) %>%
+        dyLegend(width = 400)
 
     }else{
-      ts <- cbind(y,t,sa)
+      ts <- cbind(y, t, sa)
 
-      graphObj <- dygraph(ts, main=main) %>%
-        dySeries("y", label = "Original", drawPoints=drawPoints) %>%
+      graphObj <- dygraph(ts, main = main) %>%
+        dySeries("y", label = "Original", drawPoints = drawPoints) %>%
         dySeries("sa", label = "Seasonally Adjusted") %>%
-        dySeries("t", label = "Trend")%>%
-        dyLegend(width=290)
+        dySeries("t", label = "Trend") %>%
+        dyLegend(width = 290)
     }
 
     # Outliers
-    if(showOutliers & !is.null(self$output$regarima$regression.coefficients)){
+    if (showOutliers & !is.null(self$output$regarima$regression.coefficients)) {
 
       outliers <- rownames(self$output$regarima$regression.coefficients)
-      outliers <- outliers[substr(outliers,1,2)%in%c("AO","LS","TC")]
-      if(length(outliers)>0){
+      outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
+      if (length(outliers) > 0) {
       outliersName <- outliers
-      outliers <- gsub("(","",outliers,fixed=TRUE)
-      outliers <- gsub(")","",outliers,fixed=TRUE)
+      outliers <- gsub("(", "", outliers, fixed = TRUE)
+      outliers <- gsub(")", "", outliers, fixed = TRUE)
       outliers <- strsplit(outliers, " ")
-      if(frequency(self$ts)==12){
-        outliers <-sapply(sapply(outliers,function(x)strsplit(x[[2]],"-")), function(y) paste0(y[[2]],"-",str_pad(y[[1]],2,"left","0"),"-01"))
+      if (frequency(self$ts) == 12) {
+        outliers <- sapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
+                          function(y) paste0(
+                            y[[2]], "-", str_pad(y[[1]], 2, "left", "0"), "-01")
+        )
       }else{
-        outliers <-sapply(sapply(outliers,function(x)strsplit(x[[2]],"-")), function(y) paste0(y[[2]],"-",str_pad(c(1,4,7,10)[as.numeric(as.roman(y[[1]]))],2,"left","0"),"-01"))
+        outliers <- sapply(
+          sapply(
+            outliers,
+            function(x) strsplit(x[[2]], "-")
+          ),
+          function(y) paste0(
+            y[[2]], "-",
+            str_pad(c(1, 4, 7, 10)[as.numeric(as.roman(y[[1]]))],
+                    2, "left", "0"), "-01"))
       }
 
-      for(i in 1:length(outliers)){
-        graphObj <-  graphObj %>% dyAnnotation(series="Original",outliers[i], text=substr(outliersName[i],1,2),tooltip=outliersName[i],width=21,height=15,tickHeight=10)
+      for (i in 1:length(outliers)) {
+        graphObj <-  graphObj %>% dyAnnotation(
+          series = "Original", outliers[i],
+          text = substr(outliersName[i], 1, 2),
+          tooltip = outliersName[i], width = 21, height = 15, tickHeight = 10)
       }
       # for(i in 1:length(outliers)){
-      #   graphObj <-  graphObj %>% dyEvent(outliers[i], outliersName[i], labelLoc = "bottom")
+      #   graphObj <-  graphObj %>% dyEvent(outliers[i], outliersName[i],
+      #                                     labelLoc = "bottom")
       # }
       }
     }
 
 
-    if(rangeSelector){
+    if (rangeSelector) {
       graphObj <- graphObj %>%
         dyRangeSelector(height = 20)
     }
 
-    if(!is.null(annualComparison)){
-      annCompRes <- annComp(ts,annualComparison)
-      for(i in 1:length(annCompRes[["annCompVec"]])){
+    if (!is.null(annualComparison)) {
+      annCompRes <- annComp(ts, annualComparison)
+      for (i in 1:length(annCompRes[["annCompVec"]])) {
         graphObj <- graphObj %>%
-          dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],labelLoc = "bottom",color="lightgrey")
+          dyEvent(annCompRes[["annCompVec"]][i], annCompRes[["annCompLab"]],
+                  labelLoc = "bottom", color = "lightgrey")
       }
     }
 
     graphObj <- graphObj %>%
-      dyHighlight(highlightSeriesOpts = list(strokeWidth = 2), highlightCircleSize = 4, highlightSeriesBackgroundAlpha = 0.5)
+      dyHighlight(highlightSeriesOpts = list(strokeWidth = 2),
+                  highlightCircleSize = 4, highlightSeriesBackgroundAlpha = 0.5)
 
     graphObj
   }
 
-  if(!is.null(self$output$user_defined)){
+  if (!is.null(self$output$user_defined)) {
 
-    graphObj <- postRunPlot(main=main, forecasts=forecasts, showOutliers=showOutliers, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
+    graphObj <- postRunPlot(
+      main = main, forecasts = forecasts, showOutliers = showOutliers,
+      rangeSelector = rangeSelector, drawPoints = drawPoints,
+      annualComparison = annualComparison
+    )
     graphObj
 
   }else{
     ts <- self$ts
-    preRunPlot(ts=ts, rangeSelector=rangeSelector, drawPoints=drawPoints,annualComparison=annualComparison)
-
+    preRunPlot(
+      ts = ts,
+      rangeSelector = rangeSelector,
+      drawPoints = drawPoints,
+      annualComparison = annualComparison
+    )
   }
-
 }
-
-
-

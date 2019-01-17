@@ -27,8 +27,9 @@ tramoseatsSingle <- R6::R6Class(
   "tramoseatsSingle",
   inherit = persephone,
   public = list(
-    initialize = function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
-                                           "RSA4", "RSA5"), userdefined = NULL, ...) {
+    initialize = function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2",
+                                           "RSA3", "RSA4", "RSA5"),
+                          userdefined = NULL, ...) {
       userdefined <- union(userdefined, userdefined_default)
       params <- tramoseats_spec_def(spec = template)
       params <- tramoseats_spec(params, ...)
@@ -37,7 +38,8 @@ tramoseatsSingle <- R6::R6Class(
       private$userdefined <- userdefined
     },
     run = function(verbose = FALSE) {
-      output <- tramoseats(private$ts_internal, private$params_internal, private$userdefined)
+      output <- tramoseats(private$ts_internal, private$params_internal,
+                           private$userdefined)
       private$output_internal <- output
       if (!verbose)
         invisible(output)
