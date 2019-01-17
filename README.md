@@ -38,7 +38,7 @@ obj <- x13Single$new(AirPassengers)
 plot(obj)
 ```
 
-<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-1-1.png" width="90%" />
 
 ``` r
 obj$run()
