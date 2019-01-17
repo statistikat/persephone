@@ -48,7 +48,7 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
                                               "sreshist", "nqq"),
                                        main = NULL, plotly = TRUE, ...){
 
-  ..density.. <- x <- y <- NULL
+  ..density.. <- x <- y <- NULL # nolint
 
   self <- object
   regarima <- self$output$regarima
@@ -94,7 +94,9 @@ plotResiduals <-   function(object, which = c("res", "acf", "acf2", "pacf",
       x = c(result))
 
     p <- ggplot(result,  aes(x = x)) + ## ,stat(density)
-      geom_histogram(binwidth = 0.5, center = 0, aes(y = ..density..)) +
+      geom_histogram(binwidth = 0.5, center = 0,
+                     aes(y = ..density..) # nolint
+      ) +
       # ,fill=..count..
       stat_function(fun = dnorm, color = "red", args = list(mean = 0, sd = 1)) +
       # geom_freqpoly(binwidth = 0.5, center=0, aes(y = ..density..)) +

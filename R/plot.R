@@ -129,8 +129,8 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
     y <- self$output$user_defined$y
     t <- self$output$user_defined$t
     sa <- self$output$user_defined$sa
-    ppm_y_f <- self$output$user_defined$preprocessing.model.y_f
-    ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef
+    ppm_y_f <- self$output$user_defined$preprocessing.model.y_f # nolint
+    ppm_y_ef <- self$output$user_defined$preprocessing.model.y_ef # nolint
     # forecasts currently only plotted for original series, maybe allow t and
     # sa forecasts in some other setting??
 
