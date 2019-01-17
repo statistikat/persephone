@@ -55,7 +55,6 @@
 #' plot(obj3)
 #'
 #' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
-#' @importFrom utils as.roman
 #' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph dyHighlight dyAnnotation
 #'   dyPlotter dyEvent
 #' @importFrom stringr str_pad
@@ -181,7 +180,7 @@ plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
           ),
           function(y) paste0(
             y[[2]], "-",
-            str_pad(c(1, 4, 7, 10)[as.numeric(as.roman(y[[1]]))],
+            str_pad(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
                     2, "left", "0"), "-01"))
       }
 

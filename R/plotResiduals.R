@@ -22,8 +22,6 @@
 #' * `sreshist`: histogram of standardized residuals including normal curve
 #' * `nqq`: normal q-q plot of standardized residuals
 #'
-#' @importFrom broom tidy
-#'
 #' @return Returns an object of class `dygraphs` or of class `plotly`
 #'
 #' @examples
@@ -139,7 +137,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- tidy(result)
+    result <- broom::tidy(result)
     # start from lag1
     result <- result[-1, ]
 
@@ -174,7 +172,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- tidy(result)
+    result <- broom::tidy(result)
     # start from lag1
     result <- result[-1, ]
 
@@ -201,7 +199,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- tidy(result)
+    result <- broom::tidy(result)
 
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +
