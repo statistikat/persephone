@@ -2,8 +2,9 @@ Package: persephone
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Authors@R: c(
+  person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
+  person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
@@ -25,3 +26,4 @@ RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown
+VignetteBuilder: knitr
