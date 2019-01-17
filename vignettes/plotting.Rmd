@@ -1,0 +1,65 @@
+---
+title: "Plotting with persephone"
+date: "`r Sys.Date()`"
+#output: rmarkdown::html_vignette
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "95%"
+  #fig.width=9
+)
+```
+
+Plot will look different depending on whetether the `run()` method was already 
+called. When the plot is first run, the `output` field of the time series object
+changes from `NULL` to the output object from `RDDemetra`. Therefore, forcasts
+and other Plots are available.
+
+# Default plot method
+
+The default S3 generic `plot()` shows the time series with the `dygraphs` 
+package. The result is a zoomable representation of the series.
+
+```{r}
+library(persephone)
+
+obj <- x13Single$new(AirPassengers, "RSA1")
+plot(obj, drawPoints = TRUE)
+```
+
+In case the time series was already run, the plot will look slightly different
+and also show a forecast.
+
+```{r}
+obj$run()
+plot(obj, drawPoints=TRUE)
+```
+
+
+# plotSIC
+
+A comparison of seasonal-, irreguar components can be done with `plotSIC`.
+
+```{r}
+plotSIC(obj)
+```
+
+# residual plot
+
+`plotResiduals()` returns a `plotly` object.
+
+```{r}
+plotResiduals(obj, which="acf")
+```
+
