@@ -48,7 +48,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                                               "sreshist", "nqq"),
                                        main = NULL, plotly = TRUE, ...){
 
-  ..density.. <- x <- y <- NULL # nolint
+  ..density.. <- y <- NULL # nolint
 
   regarima <- x$output$regarima
 
