@@ -4,6 +4,9 @@ language: R
 sudo: false
 cache: packages
 
+r_github_packages:
+  - jimhester/lintr
+
 notifications:
   email:
     - gregor.decillia@statistik.gv.at
@@ -13,5 +16,3 @@ notifications:
 after_success:
   - R CMD INSTALL $PKG_TARBALL
   - Rscript -e 'lintr::lint_package()'
-r_github_packages:
-  - cran/lintr

@@ -170,7 +170,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
-    ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
+    ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
     result <- broom::tidy(result)
     # start from lag1
@@ -197,7 +197,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
-    ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
+    ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
     result <- broom::tidy(result)
 
