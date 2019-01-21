@@ -13,15 +13,15 @@ plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
 \item{which}{character selecting the preferred type of plot (\code{"res"},\code{"acf"},\code{"acf2"},
 \code{"pacf"},\code{"sreshist"},\code{"nqq"}), see Details.}
 
-\item{main}{..}
+\item{main}{plot title}
 
 \item{plotly}{If the return value would be a \code{ggplot} object, wrap it in \link[plotly:ggplotly]{plotly::ggplotly}
 before returning.}
 
-\item{...}{..}
+\item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
 \value{
-Returns an object of class \code{dygraphs} or of class \code{plotly}
+Returns an object of class \code{dygraphs}, \code{ggplot} or \code{plotly}
 }
 \description{
 Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}

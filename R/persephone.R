@@ -10,6 +10,11 @@
 #'
 #' - `run(verbose = FALSE)`: Runs the model
 #' - `updateParams(...)`: Updates the current parameters
+#' - `plot(...)`: Interactive time series plot for a persephone object, see [plot.persephone]
+#' - `plotSIC(...)`: Interactive plot of the seasonal component, irregular component and calendar 
+#' effects for a persephone object, see [plotSIC]
+#' - `plotResiduals(...)`: Several interactive plots in connection with residuals for a persephone 
+#' object, see [plotResiduals]
 #'
 #' @section Read-Only fields:
 #'
@@ -38,9 +43,15 @@ persephone <- R6::R6Class(
     updateParams = function(...) {
       private$params_internal <- private$updateFun(self$params, ...)
     },
-    # plot = function(a = 1) {
-    #   paste("plot", a)
-    # },
+    plot = function(...) {
+     plot.persephone(self,...)
+    },
+    plotSIC = function(...) {
+      plotSIC(self,...)
+    },
+    plotResiduals = function(...) {
+      plotResiduals(self,...)
+    },
     print = function() {
 
     }

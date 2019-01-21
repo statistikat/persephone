@@ -6,10 +6,10 @@
 #' @param x an object of class [persephone].
 #' @param which character selecting the preferred type of plot (`"res"`,`"acf"`,`"acf2"`,
 #' `"pacf"`,`"sreshist"`,`"nqq"`), see Details.
-#' @param main ..
+#' @param main plot title
 #' @param plotly If the return value would be a `ggplot` object, wrap it in [plotly::ggplotly]
 #'   before returning.
-#' @param ... ..
+#' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @details
 #'
@@ -22,7 +22,7 @@
 #' * `sreshist`: histogram of standardized residuals including normal curve
 #' * `nqq`: normal q-q plot of standardized residuals
 #'
-#' @return Returns an object of class `dygraphs` or of class `plotly`
+#' @return Returns an object of class `dygraphs`, `ggplot` or `plotly` 
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")
@@ -48,11 +48,11 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
   ..density.. <- y <- NULL # nolint
 
-  regarima <- x$output$regarima
-
   if (is.null(x$output$regarima)) {
     stop("No results from run available.\n")
   }
+  
+  regarima <- x$output$regarima
 
   which <- match.arg(which)
 
