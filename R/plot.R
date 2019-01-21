@@ -7,7 +7,7 @@
 #' intervals of the original series.
 #' If no run has been performed on the [persephone] object, only the original time series is
 #' plotted.
-#'
+#' @name plot
 #' @param x an object of class [persephone].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
