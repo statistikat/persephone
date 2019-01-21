@@ -22,7 +22,7 @@
 #' * `sreshist`: histogram of standardized residuals including normal curve
 #' * `nqq`: normal q-q plot of standardized residuals
 #'
-#' @return Returns an object of class `dygraphs`, `ggplot` or `plotly` 
+#' @return Returns an object of class `dygraphs`, `ggplot` or `plotly`
 #'
 #' @examples
 #' data(AirPassengers, package = "datasets")
@@ -51,7 +51,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
   if (is.null(x$output$regarima)) {
     stop("No results from run available.\n")
   }
-  
+
   regarima <- x$output$regarima
 
   which <- match.arg(which)
@@ -135,7 +135,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
-    ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
+    ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
     result <- broom::tidy(result)
     # start from lag1
