@@ -8,6 +8,8 @@ Status](https://img.shields.io/travis/statistikat/persephone.svg?logo=travis)](h
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg?logo=github)](https://www.tidyverse.org/lifecycle/#experimental)
 [![](https://img.shields.io/github/languages/code-size/statistikat/persephone.svg?logo=github)](https://github.com/statistikat/persephone)
 [![](https://img.shields.io/github/last-commit/statistikat/persephone.svg?logo=github)](https://github.com/statistikat/persephone/commits/master)
+[![Coverage
+status](https://coveralls.io/repos/github/statistikat/persephone/badge.svg)](https://coveralls.io/r/statistikat/persephone?branch=master)
 
 This package is an object oriented wrapper around the R Package
 [RJDemetra](https://github.com/nbbrd/rjdemetra), which performs time
