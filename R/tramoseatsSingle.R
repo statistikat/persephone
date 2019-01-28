@@ -50,7 +50,7 @@ tramoseatsSingle <- R6::R6Class(
   private = list(
     userdefined = NULL,
     updateFun = function(...) {
-      x13_spec(...)
+      tramoseats_spec(...)
     }
   )
 )
