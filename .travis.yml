@@ -4,6 +4,11 @@ language: R
 sudo: false
 cache: packages
 
+r_github_packages:
+  - jimhester/lintr
+  - r-lib/pkgdown
+  - r-lib/covr
+
 notifications:
   email:
     - gregor.decillia@statistik.gv.at
@@ -12,6 +17,10 @@ notifications:
 # lintr setup
 after_success:
   - R CMD INSTALL $PKG_TARBALL
+  - Rscript -e 'covr::coveralls()'
   - Rscript -e 'lintr::lint_package()'
-r_github_packages:
-  - cran/lintr
+
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
