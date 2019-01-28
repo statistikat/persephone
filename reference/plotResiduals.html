@@ -35,7 +35,7 @@
 <meta property="og:title" content="Several interactive plots in connection with residuals for a persephone object — plotResiduals" />
 
 <meta property="og:description" content="Produces either a dygraph (see the online documentation
-for more detail) or a ggplot object for objects of class persephone." />
+for more detail) or a ggplot/plotly object for objects of class persephone." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,7 +122,7 @@ for more detail) or a ggplot object for objects of class persephone." />
     <div class="ref-description">
     
     <p>Produces either a dygraph (see the <a href='https://rstudio.github.io/dygraphs/'>online documentation</a>
-for more detail) or a <code>ggplot</code> object for objects of class <a href='persephone.html'>persephone</a>.</p>
+for more detail) or a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.</p>
     
     </div>
 
@@ -138,8 +138,9 @@ for more detail) or a <code>ggplot</code> object for objects of class <a href='p
     </tr>
     <tr>
       <th>which</th>
-      <td><p>character selecting the preferred type of plot (<code>"res"</code>,<code>"acf"</code>,<code>"acf2"</code>,
-<code>"pacf"</code>,<code>"sreshist"</code>,<code>"nqq"</code>), see Details.</p></td>
+      <td><p>character (<code>"res"</code>,<code>"acf"</code>,<code>"acf2"</code>,
+<code>"pacf"</code>,<code>"sreshist"</code>, <code>"nqq"</code>) selecting the preferred type of plot, see Details.
+A numeric value (<code>1:6</code>) corresponding to one of these characters is also accepted.</p></td>
     </tr>
     <tr>
       <th>main</th>
@@ -163,12 +164,12 @@ before returning.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following options are available for the parameter <code>which</code>.</p><ul>
-<li><p><code>res</code>: residuals</p></li>
-<li><p><code>acf</code>: autocorrelations of the residuals</p></li>
-<li><p><code>pacf</code>: partial autocorrelations of the residuals</p></li>
-<li><p><code>acf2</code>: autocorrelations of the squared residuals</p></li>
-<li><p><code>sreshist</code>: histogram of standardized residuals including normal curve</p></li>
-<li><p><code>nqq</code>: normal q-q plot of standardized residuals</p></li>
+<li><p><code>res</code>: residuals (1)</p></li>
+<li><p><code>acf</code>: autocorrelations of the residuals (2)</p></li>
+<li><p><code>pacf</code>: partial autocorrelations of the residuals (3)</p></li>
+<li><p><code>acf2</code>: autocorrelations of the squared residuals (4)</p></li>
+<li><p><code>sreshist</code>: histogram of standardized residuals including normal curve (5)</p></li>
+<li><p><code>nqq</code>: normal q-q plot of standardized residuals (6)</p></li>
 </ul>
     
 
