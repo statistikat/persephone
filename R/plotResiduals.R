@@ -1,11 +1,13 @@
 #' Several interactive plots in connection with residuals for a persephone object
 #'
 #' Produces either a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
-#' for more detail) or a `ggplot` object for objects of class [persephone].
+#' for more detail) or a `ggplot`/`plotly` object for objects of class [persephone].
 #'
 #' @param x an object of class [persephone].
-#' @param which character selecting the preferred type of plot (`"res"`,`"acf"`,`"acf2"`,
-#' `"pacf"`,`"sreshist"`,`"nqq"`), see Details.
+#' @param which character (`"res"`,`"acf"`,`"acf2"`,
+#' `"pacf"`,`"sreshist"`, `"nqq"`) selecting the preferred type of plot, see Details.
+#' A numeric value (`1:6`) corresponding to one of these characters is also accepted.
+#' 
 #' @param main plot title
 #' @param plotly If the return value would be a `ggplot` object, wrap it in [plotly::ggplotly]
 #'   before returning.
@@ -15,12 +17,12 @@
 #'
 #' The following options are available for the parameter `which`.
 #'
-#' * `res`: residuals
-#' * `acf`: autocorrelations of the residuals
-#' * `pacf`: partial autocorrelations of the residuals
-#' * `acf2`: autocorrelations of the squared residuals
-#' * `sreshist`: histogram of standardized residuals including normal curve
-#' * `nqq`: normal q-q plot of standardized residuals
+#' * `res`: residuals (1)
+#' * `acf`: autocorrelations of the residuals (2)
+#' * `pacf`: partial autocorrelations of the residuals (3)
+#' * `acf2`: autocorrelations of the squared residuals (4)
+#' * `sreshist`: histogram of standardized residuals including normal curve (5)
+#' * `nqq`: normal q-q plot of standardized residuals (6)
 #'
 #' @return Returns an object of class `dygraphs`, `ggplot` or `plotly`
 #'
@@ -43,24 +45,28 @@
 #'
 #' @export
 plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
-                                              "sreshist", "nqq"),
-                                       main = NULL, plotly = TRUE, ...){
-
+                                         "sreshist", "nqq"),
+                            main = NULL, plotly = TRUE, ...){
+  
   ..density.. <- y <- NULL # nolint
-
+  
   if (is.null(x$output$regarima)) {
     stop("No results from run available.\n")
   }
-
+  
   regarima <- x$output$regarima
-
-  which <- match.arg(which)
-
+  
+  if (is.numeric(which)) {
+    which <- c("res", "acf", "acf2", "pacf","sreshist", "nqq")[which]
+  }else{
+    which <- match.arg(which)
+  }
+  
   if (which == "res") {
     if (is.null(main)) {
       main <- "Residuals"
     }
-
+    
     dyBarChart <- function(dygraph) {
       dyPlotter(dygraph = dygraph,
                 name = "BarChart",
@@ -70,26 +76,26 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     p <- dygraph(x$output$regarima$residuals, main = main) %>%
       dySeries("V1", label = "Residual value") %>%
       dyBarChart()
-
+    
     # if(rangeSelector){
     #   graphObj <- graphObj %>%
     #     dyRangeSelector(height = 20)
     # }
   }
-
+  
   # Histogram (and/or Frequency Polygon?) of Standardized Residuals
   if (which == "sreshist") {
     if (is.null(main)) {
       main <- "Histogram of Standardized Residuals and Normal Curve"
     }
-
+    
     result <- regarima$residuals / regarima$residuals.stat$st.error
-
+    
     result <- data.frame(
       date = paste0(c(floor(time(result) + .01)), "-",
                     str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
       x = c(result))
-
+    
     p <- ggplot(result,  aes(x = x)) + ## ,stat(density)
       geom_histogram(binwidth = 0.5, center = 0,
                      aes(y = ..density..) # nolint
@@ -102,18 +108,18 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       ggtitle(main) +
       theme_bw()
   }
-
+  
   if (which == "nqq") {
     if (is.null(main)) {
       main <- "Normal Q-Q Plot"
     }
-
+    
     result <- regarima$residuals / regarima$residuals.stat$st.error
     result <- data.frame(date = paste0(
       c(floor(time(result) + .01)), "-",
       str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
       y = c(result))
-
+    
     p <- ggplot(result, aes(sample = y)) +
       stat_qq() +
       stat_qq_line(color = "red") +
@@ -123,30 +129,30 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       theme_bw()
     #stat_qq_line(color="gray50", lty=3) +
   }
-
+  
   if (which == "acf") {
     if (is.null(main)) {
       main <- "Autocorrelations of the Residuals"
     }
-
+    
     result <- acf(regarima$residuals, plot = FALSE)
     result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
-
+    
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
-
+    
     result <- broom::tidy(result)
     # start from lag1
     result <- result[-1, ]
-
+    
     # require(forecast)
     # ggAcf(regarima$residuals, lag.max = NULL,
     #       type = c("correlation", "covariance", "partial"),
     #       plot = TRUE, na.action = na.contiguous, demean=TRUE)
     #
-
+    
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +
       geom_hline(
@@ -158,24 +164,24 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       ggtitle(main) +
       theme_bw()
   }
-
+  
   if (which == "acf2") {
     if (is.null(main)) {
       main <- "Autocorrelations of the Squared Residuals"
     }
-
+    
     result <- acf(regarima$residuals ^ 2, plot = FALSE)
     result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
-
+    
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
-
+    
     result <- broom::tidy(result)
     # start from lag1
     result <- result[-1, ]
-
+    
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +
       geom_hline(yintercept = c(-ci, ci), colour = "blue",
@@ -185,22 +191,22 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       ggtitle(main) +
       theme_bw()
   }
-
+  
   if (which == "pacf") {
     if (is.null(main)) {
       main <- "Partial Autocorrelations of the Residuals"
     }
-
+    
     result <- pacf(regarima$residuals, plot = FALSE)
     result$lag <- result$lag * frequency(x$ts)
     #to show whole numbers for lags
-
+    
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
-
+    
     result <- broom::tidy(result)
-
+    
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +
       geom_hline(yintercept = c(-ci, ci), colour = "blue",
@@ -210,14 +216,14 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       ggtitle(main) +
       theme_bw()
   }
-
+  
   if (plotly & which %in% c("acf", "acf2", "pacf", "nqq", "sreshist")) {
-
+    
     # p <- p + theme_bw()
-
+    
     p <- plotly::ggplotly(p)
   }
-
+  
   p
-
+  
 }
