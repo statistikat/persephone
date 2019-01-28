@@ -15,6 +15,8 @@ test_that("plotting works", {
   obj$run()
   expect_error(plot(obj), NA)
 
+  expect_error(plot(obj, annualComparison = 1), NA)
+
   ## tramoseats ----
 
   obj <- tramoseatsSingle$new(AirPassengers)
@@ -22,4 +24,18 @@ test_that("plotting works", {
 
   obj$run()
   expect_error(plot(obj, drawPoints = TRUE), NA)
+})
+
+test_that("plotSIC", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+
+  obj$run()
+  expect_error(plotSIC(obj), NA)
+})
+
+test_that("plotResiduals", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+  obj$run()
+  expect_error(plotResiduals(obj), NA)
+  expect_error(plotResiduals(obj, which = "acf"), NA)
 })
