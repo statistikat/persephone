@@ -30,7 +30,6 @@
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
 #' obj <- x13Single$new(AirPassengers, "RSA1")
-#' ## userdefined noch zu x13Single dazugeben
 #'
 #' obj$run()
 #' # Plot the residuals after run
@@ -57,7 +56,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
   regarima <- x$output$regarima
 
   if (is.numeric(which)) {
-    which <- c("res", "acf", "acf2", "pacf", "sreshist", "nqq")[which]
+    which <- c("res", "acf", "acf2", "pacf","sreshist", "nqq")[which]
   }else{
     which <- match.arg(which)
   }
@@ -176,7 +175,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
-    ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
+    ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
 
     result <- broom::tidy(result)
     # start from lag1
@@ -203,7 +202,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
-    ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
+    ci <- qnorm( (1 + ci) / 2) / sqrt(result$n.used)
 
     result <- broom::tidy(result)
 

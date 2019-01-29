@@ -25,9 +25,9 @@ Returns an object of class \code{dygraphs}.
 }
 \description{
 Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) for objects of class \link{persephone}.
+for more detail).
 The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
-for a persephone object together with one year forecasts
+for a \link{persephone} object together with one year forecasts
 }
 \examples{
 data(AirPassengers, package = "datasets")

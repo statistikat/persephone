@@ -43,7 +43,6 @@ The following options are available for the parameter \code{which}.
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
 obj <- x13Single$new(AirPassengers, "RSA1")
-## userdefined noch zu x13Single dazugeben
 
 obj$run()
 # Plot the residuals after run

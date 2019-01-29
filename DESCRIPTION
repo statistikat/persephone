@@ -17,7 +17,9 @@ Imports:
     plotly,
     stringr,
     ggplot2,
-    broom
+    broom,
+    dplyr,
+    reshape
 Remotes: 
     nbbrd/RJDemetra
 Roxygen: list(markdown = TRUE)

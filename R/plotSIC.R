@@ -1,9 +1,9 @@
 #' Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object
 #'
 #' Produces a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
-#' for more detail) for objects of class [persephone].
+#' for more detail).
 #' The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
-#' for a persephone object together with one year forecasts
+#' for a [persephone] object together with one year forecasts
 #'
 #' @param x an object of class [persephone].
 #' @param main plot title
