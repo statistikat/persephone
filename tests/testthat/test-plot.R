@@ -47,5 +47,15 @@ test_that("plotResiduals", {
 
   for (i in 2:6)
     expect_error(plotResiduals(obj, which = i), NA)
+})
 
+test_that("SIRatios", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+  expect_error(plotSIRatios(obj), "No results from run available.\n")
+  obj$run()
+  expect_error(plotSIRatios(obj), NA)
+
+  obj2 <- tramoseatsSingle$new(UKgas, "RSA3")
+  obj2$run()
+  expect_error(plotSIRatios(obj2), NA)
 })
