@@ -1,4 +1,4 @@
-context("test-plot")
+context("plot.persephone")
 
 test_that("plotting works", {
   data(AirPassengers, package = "datasets")
@@ -29,15 +29,7 @@ test_that("plotting works", {
   obj$run(verbose = TRUE)
 })
 
-test_that("plotSIC", {
-  obj <- x13Single$new(AirPassengers, "RSA1")
-  expect_error(obj$plotSIC(), "No results from run available.\n")
-  obj$run()
-  expect_error(obj$plotSIC(), NA)
-  expect_error(plotSIC(obj, annualComparison = 1), NA)
-  expect_error(plotSIC(obj, forecasts = FALSE), NA)
-
-})
+context("plotResiduals")
 
 test_that("plotResiduals", {
   obj <- x13Single$new(AirPassengers, "RSA1")
@@ -47,6 +39,18 @@ test_that("plotResiduals", {
 
   for (i in 2:6)
     expect_error(plotResiduals(obj, which = i), NA)
+})
+
+context("other plots")
+
+test_that("plotSIC", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+  expect_error(obj$plotSIC(), "No results from run available.\n")
+  obj$run()
+  expect_error(obj$plotSIC(), NA)
+  expect_error(plotSIC(obj, annualComparison = 1), NA)
+  expect_error(plotSIC(obj, forecasts = FALSE), NA)
+
 })
 
 test_that("SIRatios", {
