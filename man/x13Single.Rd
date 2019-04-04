@@ -20,7 +20,7 @@ x13Single$new(
 }
 \itemize{
 \item \code{ts} denotes a time series
-\item \code{template} is passed as the \code{spec} argument to \link{x13_spec_def}
+\item \code{template} is passed as the \code{spec} argument to \link{x13_spec}
 \item \code{userdefined} is passed as the \code{userdefined} argument to \link{x13}
 \item \code{...} is passed to \link{x13_spec}
 }

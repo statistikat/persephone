@@ -20,7 +20,7 @@ tramoseatsSingle$new(
 }
 \itemize{
 \item \code{ts} denotes a time series
-\item \code{template} is passed as the \code{spec} argument to \link{tramoseats_spec_def}
+\item \code{template} is passed as the \code{spec} argument to \link{tramoseats_spec}
 \item \code{userdefined} is passed as the \code{userdefined} argument to \link{tramoseats}
 \item \code{...} passed to \link{tramoseats_spec}
 }
