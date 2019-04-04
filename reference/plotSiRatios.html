@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>x13 class — x13Single • persephone</title>
+<title>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period — plotSiRatios • persephone</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -33,9 +33,13 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="x13 class — x13Single" />
+<meta property="og:title" content="Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period — plotSiRatios" />
 
-<meta property="og:description" content="An R6 class that represents a x13 model." />
+<meta property="og:description" content="Produces a ggplot/plotly object for objects of class persephone.
+If the persephone object is of class tramoseatsSingle, the function generates an interactive
+plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class x13Single,
+the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+plotted." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,65 +118,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>x13 class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/x13Single.R'><code>R/x13Single.R</code></a></small>
-    <div class="hidden name"><code>x13Single.Rd</code></div>
+    <h1>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/plotSiRatios.R'><code>R/plotSiRatios.R</code></a></small>
+    <div class="hidden name"><code>plotSiRatios.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>An R6 class that represents a x13 model.</p>
+    <p>Produces a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.
+If the <code>persephone</code> object is of class <code>tramoseatsSingle</code>, the function generates an interactive
+plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class <code>x13Single</code>,
+the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+plotted.</p>
     
     </div>
 
-        
-    <h2 class="hasAnchor" id="inherits"><a class="anchor" href="#inherits"></a>Inherits</h2>
-
-    <p><a href='persephone.html'>persephone</a></p>
+    <pre class="usage"><span class='fu'>plotSiRatios</span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plotly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="contructor"><a class="anchor" href="#contructor"></a>Contructor</h2>
-
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>an object of class <a href='persephone.html'>persephone</a>.</p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p>plot title</p></td>
+    </tr>
+    <tr>
+      <th>plotly</th>
+      <td><p>If the return value would be a <code>ggplot</code> object, wrap it in <a href='https://www.rdocumentation.org/packages/plotly/topics/ggplotly'>plotly::ggplotly</a>
+before returning.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other plotting parameters to affect the plot. Not currently used.</p></td>
+    </tr>
+    </table>
     
-    <pre>
-x13Single$new(
-  ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
-  userdefined=NULL, ...
-)
-</pre>
-<ul>
-<li><p><code>ts</code> denotes a time series</p></li>
-<li><p><code>template</code> is passed as the <code>spec</code> argument to x13_spec</p></li>
-<li><p><code>userdefined</code> is passed as the <code>userdefined</code> argument to x13</p></li>
-<li><p><code>...</code> is passed to x13_spec</p></li>
-</ul>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns an object of class <code>ggplot</code> or <code>plotly</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='co'># Generate a persephone object, in this case an x13Single object</span>
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='no'>obj</span>$<span class='fu'>run</span>()
-<span class='no'>obj</span>$<span class='no'>ts</span></div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
-#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
-#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
-#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194
-#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201
-#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229
-#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278
-#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306
-#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336
-#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
-#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
-#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div></pre>
+<span class='co'># Plot the SI-ratios after run</span>
+<span class='fu'>plotSiRatios</span>(<span class='no'>obj</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='co'># Generate a persephone object, in this case a tramoseatsSingle object</span>
+<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>obj2</span>$<span class='fu'>run</span>()
+<span class='fu'>plotSiRatios</span>(<span class='no'>obj2</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#inherits">Inherits</a></li>
-
-      <li><a href="#contructor">Contructor</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
