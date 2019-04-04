@@ -29,6 +29,16 @@ test_that("plotting works", {
   obj$run(verbose = TRUE)
 })
 
+test_that("plotSeasIrrCal", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+  expect_error(obj$plotSeasIrrCal(), "No results from run available.\n")
+  obj$run()
+  expect_error(obj$plotSeasIrrCal(), NA)
+  expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
+  expect_error(plotSeasIrrCal(obj, forecasts = FALSE), NA)
+
+})
+
 context("plotResiduals")
 
 test_that("plotResiduals", {
@@ -45,21 +55,21 @@ context("other plots")
 
 test_that("plotSIC", {
   obj <- x13Single$new(AirPassengers, "RSA1")
-  expect_error(obj$plotSIC(), "No results from run available.\n")
+  expect_error(obj$plotSeasIrrCal(), "No results from run available.\n")
   obj$run()
-  expect_error(obj$plotSIC(), NA)
-  expect_error(plotSIC(obj, annualComparison = 1), NA)
-  expect_error(plotSIC(obj, forecasts = FALSE), NA)
+  expect_error(obj$plotSeasIrrCal(), NA)
+  expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
+  expect_error(plotSeasIrrCal(obj, forecasts = FALSE), NA)
 
 })
 
 test_that("SIRatios", {
   obj <- x13Single$new(AirPassengers, "RSA1")
-  expect_error(plotSIRatios(obj), "No results from run available.\n")
+  expect_error(plotSiRatios(obj), "No results from run available.\n")
   obj$run()
-  expect_error(plotSIRatios(obj), NA)
+  expect_error(plotSiRatios(obj), NA)
 
   obj2 <- tramoseatsSingle$new(UKgas, "RSA3")
   obj2$run()
-  expect_error(plotSIRatios(obj2), NA)
+  expect_error(plotSiRatios(obj2), NA)
 })

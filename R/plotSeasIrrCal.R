@@ -21,10 +21,10 @@
 #'
 #' obj$run()
 #' # Plot after run
-#' plotSIC(obj)
+#' plotSeasIrrCal(obj)
 #'
 #' @export
-plotSIC <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
+plotSeasIrrCal <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
                     drawPoints=FALSE, annualComparison=NULL){
 
   if (is.null(x$output$user_defined)) {

@@ -1,12 +1,12 @@
 Package: persephone
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Object-Oriented Wrappers for RJDemetra
 Version: 0.1.0
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package is an object oriented wrapper around the R Package RJDemetra, 
+  which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,7 +21,7 @@ Imports:
     dplyr,
     reshape
 Remotes: 
-    nbbrd/RJDemetra
+    jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/statistikat/persephone
 RoxygenNote: 6.1.1

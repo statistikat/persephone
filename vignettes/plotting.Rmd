@@ -47,12 +47,12 @@ plot(obj, drawPoints=TRUE)
 ```
 
 
-# plotSIC
+# plotSeasIrrCal
 
-A comparison of seasonal-, irreguar components can be done with `plotSIC`.
+Seasonal-, irreguar components can be visualized with `plotSeasIrrCal`.
 
 ```{r}
-plotSIC(obj)
+plotSeasIrrCal(obj)
 ```
 
 # residual plot
