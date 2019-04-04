@@ -21,13 +21,13 @@
 #' obj <- x13Single$new(AirPassengers, "RSA1")
 #' obj$run()
 #' # Plot the SI-ratios after run
-#' plotSIRatios(obj)
+#' plotSiRatios(obj)
 #'
 #' data(UKgas, package = "datasets")
 #' # Generate a persephone object, in this case a tramoseatsSingle object
 #' obj2 <- tramoseatsSingle$new(UKgas, "RSA3")
 #' obj2$run()
-#' plotSIRatios(obj2)
+#' plotSiRatios(obj2)
 #'
 #' @importFrom dplyr group_by summarize
 #' @importFrom reshape melt
@@ -35,7 +35,7 @@
 #' @export
 
 
-plotSIRatios <- function(x, main = NULL, plotly = TRUE, ...){
+plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
 
   variable <- year <- value <- NULL # nolint
 
