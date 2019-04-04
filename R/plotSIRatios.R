@@ -99,7 +99,7 @@ plotSIRatios <- function(x, main = NULL, plotly = TRUE, ...){
                          measure.vars = (c("d8", "d9", "d10", "d10Mean")))
 
     if (is.null(main)) {
-      main <- "SI Ratios and Seasonal Factors by period"
+      main <- "SI Ratios and Seasonal Factors by Period"
     }
 
     p <- ggplot() +
@@ -124,19 +124,7 @@ plotSIRatios <- function(x, main = NULL, plotly = TRUE, ...){
                    "d10Mean" = "blue"),
         guide = guide_legend(override.aes = list(
           linetype = c("blank", "blank", "solid", "solid"),
-          shape = c(16, 16, NA, NA)))) +
-      theme_bw() +
-      #increase/decrease spacing between faceted plots
-      theme(panel.spacing = unit(0, "lines"),
-            strip.background = element_blank(),
-            panel.border = element_rect(linetype = "solid", colour = "grey"),
-            # size=0.1),
-            legend.title = element_blank(),
-            legend.position = "bottom")
-
-    ## plotly schirch -> d8,d9,.. umbenennen oder ueberhaupt mit plotly package
-    ##   arbeiten statt mit ggplot2
-
+          shape = c(16, 16, NA, NA))))
   }
 
   if (inherits(x$output$decomposition, "decomposition_SEATS")) {
@@ -186,7 +174,7 @@ plotSIRatios <- function(x, main = NULL, plotly = TRUE, ...){
 
 
     if (is.null(main)) {
-      main <- "SI-Ratios by period"
+      main <- "SI-Ratios by Period"
     }
 
     p <- ggplot() +
@@ -206,22 +194,29 @@ plotSIRatios <- function(x, main = NULL, plotly = TRUE, ...){
                           values = c("siRatio" = "red", "siRatioMean" = "blue"),
                           guide = guide_legend(override.aes = list(
                             linetype = c("solid", "solid"), #"blank
-                            shape = c(16, NA)))) + #default shape
-      theme_bw() +
-      theme(
-        #increase/decrease spacing between faceted plots
-        panel.spacing = unit(0, "lines"),
-        strip.background = element_blank(),
-        panel.border = element_rect(linetype = "solid", colour = "grey"),
-        # size=0.1),
-        legend.title = element_blank(),
-        legend.position = "bottom"
-      )
-
+                            shape = c(16, NA)))) #default shape
   }
 
+  siRatioTheme <- theme_bw() +
+    theme(panel.spacing = unit(0, "lines"),  #increase/decrease spacing between faceted plots
+          strip.background = element_blank(),
+          panel.border = element_rect(linetype = "solid", colour = "grey"),
+          legend.title = element_blank(),
+          legend.position = "bottom")
+
+  p <- p + siRatioTheme
+
+
   if (plotly) {
+    # quick-'fix' for ggplotly
+    ggplotlyQuickFixTheme <- theme(axis.text.x = element_text(size = 5, angle = 90),
+                                   axis.title.x = element_text(vjust = 0),
+                                   axis.ticks = element_blank())
+
+    p <- p + ggplotlyQuickFixTheme
+
     p <- plotly::ggplotly(p)
+
   }
 
   p
