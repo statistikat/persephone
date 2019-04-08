@@ -31,8 +31,7 @@ tramoseatsSingle <- R6::R6Class(
                                            "RSA3", "RSA4", "RSA5"),
                           userdefined = NULL, ...) {
       userdefined <- union(userdefined, userdefined_default)
-      params <- tramoseats_spec(spec = template)
-      params <- tramoseats_spec(params, ...)
+      params <- tramoseats_spec(spec = template, ...)
       private$params_internal <- params
       private$ts_internal <- ts
       private$userdefined <- userdefined

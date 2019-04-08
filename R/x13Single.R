@@ -32,8 +32,7 @@ x13Single <- R6::R6Class(
       "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
       userdefined=NULL, ...) {
       userdefined <- union(userdefined, userdefined_default)
-      params <- x13_spec(spec = template)
-      params <- x13_spec(params, ...)
+      params <- x13_spec(spec = template, ...)
       private$params_internal <- params
       private$ts_internal <- ts
       private$userdefined <- userdefined
