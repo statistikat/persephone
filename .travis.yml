@@ -4,6 +4,10 @@ language: R
 sudo: false
 cache: packages
 
+branches:
+  only:
+  - master
+
 r_github_packages:
   - jimhester/lintr
   - r-lib/pkgdown
