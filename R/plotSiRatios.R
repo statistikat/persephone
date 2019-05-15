@@ -29,7 +29,7 @@
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
-#' @importFrom dplyr group_by summarize
+#' @importFrom dplyr group_by summarize rename
 #' @importFrom reshape melt
 #'
 #' @export
@@ -188,7 +188,7 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     p <- plotly::ggplotly(p)
 
     # we need to perform showticklabels = FALSE for every xaxis of this plot (there are 12 of them)
-    evalThis <-  paste0("p  %>% layout(",paste0(grep("xaxis", names(p[['x']][["layout"]]), value = TRUE), " = list(visible = FALSE)",collapse=", "),")")
+    evalThis <-  paste0("p  %>% plotly::layout(",paste0(grep("xaxis", names(p[['x']][["layout"]]), value = TRUE), " = list(visible = FALSE)",collapse=", "),")")
     p <- eval(parse(text=evalThis))
 
   }
