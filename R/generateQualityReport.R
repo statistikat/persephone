@@ -1,18 +1,23 @@
 library(persephone)
-
+library(RJDemetra)
 #####################     EXAMPLE 1     #########################
-bla <- window(AirPassengers, end = c(1960,7))
-userdef <- user_defined_variables(sa_object = c("X13-ARIMA"))
+
+# userdef <- user_defined_variables(sa_object = c("X13-ARIMA"))
+#
+# mysa <- x13_spec(AirPassengers, spec = "RSA1", usrdef.outliersEnabled = TRUE,
+#          usrdef.outliersType = c("AO","LS","LS","AO"),
+#          usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"))
+# mysa <- x13(AirPassengers,x13_spec,userdefined=userdef)
+#
+
 obj <- x13Single$new(AirPassengers, "RSA1",usrdef.outliersEnabled = TRUE,
                      usrdef.outliersType = c("AO","LS","LS","AO"),
-                     usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"),
-                     userdefined=userdef)
-# bla <- window(AirPassengers, end = c(1960,7))
-# obj <- x13Single$new(AirPassengers, "RSA1",usrdef.outliersEnabled = TRUE,
-#                      usrdef.outliersType = c("AO"), #,"LS","LS","AO"),
-#                      usrdef.outliersDate = c("1950-01-01"))# ,"1955-04-01","1959-10-01","1959-11-01"))
+                     usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"))#,
+                    # userdefined=user_defined_variables(sa_object = c("X13-ARIMA")))
 
 obj$run()
+x <- obj
+bla <- lapply(x$output$user_defined,print)
 
 univariateQR <- function(x, tsName = "tsName"){
   x$ts
@@ -59,8 +64,8 @@ univariateQR <- function(x, tsName = "tsName"){
        `Residual TD Effect` = ,
        `Q-Stat` = x$output$decomposition$mstats["Q",],
        # Filters used by X12-related methods (Not to be filled by countries using Tramo-Seats)
-       `Final Henderson Filter` = ,
-       `Stage 2 Henderson Filter` = x$output$decomposition$t_filter,
+       `Final Henderson Filter` = x$output$decomposition$t_filter,
+       `Stage 2 Henderson Filter` = ,
        `Seasonal Filter` = x$output$decomposition$s_filter,
         Quality = ,
        `Max-Adj` = ,
