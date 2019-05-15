@@ -74,20 +74,8 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
 
     d8 <- x$output$decomposition$si_ratio[, "d8"] # Final unmodified SI Ratios
     d9 <- x$output$user_defined$decomposition.d9 # Final replacement for SI
-    #   Ratios
     d10 <- x$output$decomposition$si_ratio[, "d10"] # Seasonal Factors
 
-    # #data.table vs
-    #
-    # d10Mean <- data.frame(d10,year=floor(time(d10)),cycleName=cycleName(d10),
-    #                       cycle=cycle(d10),stringsAsFactors = FALSE)
-    # data.table::setDT(d10Mean)
-    # d10Mean[,d10Mean:=mean(d10), by=cycle]
-    # dat <- merge(data.frame(d8, d9, d10), d10Mean,by="d10", sort=FALSE)
-    # dat <- reshape::melt(data=dat, id.vars=c("year","cycle","cycleName") ,
-    #                      measure.vars=(c("d8","d9","d10","d10Mean")))
-
-    # dplyr vs
     d10Mean <- data.frame(d10, cycleName = cycleName(d10))
     d10Mean <- d10Mean %>%
       dplyr::group_by(cycleName) %>%
@@ -95,21 +83,23 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     dat <- merge(data.frame(year = floor(time(d10)), cycleName = cycleName(d10),
                             d8, d9, d10, stringsAsFactors = FALSE),
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
+    dat <- dat %>% rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9, `Seasonal Factor` = d10, `SF Mean` = d10Mean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
-                         measure.vars = (c("d8", "d9", "d10", "d10Mean")))
+                         measure.vars = (c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
+                                           "SF Mean")))
 
     if (is.null(main)) {
       main <- "SI Ratios and Seasonal Factors by Period"
     }
 
     p <- ggplot() +
-      geom_point(data = subset(dat, variable == "d8"),
+      geom_point(data = subset(dat, variable == "SI-Ratio"),
                  aes(x = year, y = value, colour = variable)) +
-      geom_point(data = subset(dat, variable == "d9"), na.rm = TRUE,
+      geom_point(data = subset(dat, variable == "Replaced SI-Ratio"), na.rm = TRUE,
                  aes(x = year, y = value, colour = variable)) +
-      geom_line(data = subset(dat, variable == "d10"),
+      geom_line(data = subset(dat, variable == "Seasonal Factor"),
                 aes(x = year, y = value, colour = variable)) +
-      geom_line(data = subset(dat, variable == "d10Mean"),
+      geom_line(data = subset(dat, variable == "SF Mean"),
                 aes(x = year, y = value, colour = variable)) +
       scale_x_continuous(labels = NULL, breaks = NULL) +
       facet_grid(cols = vars(cycleName), switch = "x") +
@@ -117,11 +107,10 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
       ylab("") +
       xlab("") +
       scale_colour_manual(
-        breaks = c("d8", "d9", "d10", "d10Mean"),
-        labels = c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
+        breaks = c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
                    "SF Mean"),
-        values = c("d8" = "darkgreen", "d9" = "red", "d10" = "black",
-                   "d10Mean" = "blue"),
+        values = c("SI-Ratio" = "darkgreen", "Replaced SI-Ratio" = "red", "Seasonal Factor" = "black",
+                   "SF Mean" = "blue"),
         guide = guide_legend(override.aes = list(
           linetype = c("blank", "blank", "solid", "solid"),
           shape = c(16, 16, NA, NA))))
@@ -149,18 +138,6 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
       sln * iln # SI-Ratio
     }
 
-    # # data.table vs
-    # siRatioMean <- data.frame(siRatio,year=floor(time(siRatio)),
-    #                           cycleName=cycleName(siRatio),
-    #                           cycle=cycle(siRatio),
-    #                           stringsAsFactors = FALSE)
-    # data.table::setDT(siRatioMean)
-    # siRatioMean[,siRatioMean:=mean(siRatio), by=cycle]
-    # dat <- merge(data.frame(siRatio), siRatioMean,by="siRatio", sort=FALSE)
-    # dat <- reshape::melt(data=dat, id.vars=c("year","cycle","cycleName") ,
-    #                      measure.vars=(c("siRatio","siRatioMean")))
-
-    # dplyr vs
     siRatioMean <- data.frame(siRatio, cycleName = cycleName(siRatio))
     siRatioMean <- siRatioMean %>%
       dplyr::group_by(cycleName) %>%
@@ -169,8 +146,10 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
                             cycleName = cycleName(siRatio), siRatio,
                             stringsAsFactors = FALSE),
                  siRatioMean, by = "cycleName", sort = FALSE, all.x = TRUE)
+
+    dat <- dat %>% rename(`SI-Ratio` = siRatio, `Mean` = siRatioMean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
-                         measure.vars = (c("siRatio", "siRatioMean")))
+                         measure.vars = (c("SI-Ratio", "Mean")))
 
 
     if (is.null(main)) {
@@ -178,20 +157,19 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     }
 
     p <- ggplot() +
-      geom_point(data = subset(dat, variable == "siRatio"),
+      geom_point(data = subset(dat, variable == "SI-Ratio"),
                  aes(x = year, y = value, colour = variable)) +
-      geom_line(data = subset(dat, variable == "siRatio"),
+      geom_line(data = subset(dat, variable == "SI-Ratio"),
                 aes(x = year, y = value, colour = variable)) +
-      geom_line(data = subset(dat, variable == "siRatioMean"),
+      geom_line(data = subset(dat, variable == "Mean"),
                 aes(x = year, y = value, colour = variable)) +
       scale_x_continuous(labels = NULL, breaks = NULL) +
       facet_grid(cols = vars(cycleName), switch = "x") +
       ggtitle(main) +
       ylab("") +
       xlab("") +
-      scale_colour_manual(breaks = c("siRatio", "siRatioMean"),
-                          labels = c("SI-Ratio", "Mean"),
-                          values = c("siRatio" = "red", "siRatioMean" = "blue"),
+      scale_colour_manual(breaks = c("SI-Ratio", "Mean"),
+                          values = c("SI-Ratio" = "red", "Mean" = "blue"),
                           guide = guide_legend(override.aes = list(
                             linetype = c("solid", "solid"), #"blank
                             shape = c(16, NA)))) #default shape
@@ -206,19 +184,23 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
 
   p <- p + siRatioTheme
 
+savep <- p
 
   if (plotly) {
-    # quick-'fix' for ggplotly
-    ggplotlyQuickFixTheme <- theme(axis.text.x = element_text(size = 5, angle = 90),
-                                   axis.title.x = element_text(vjust = 0),
-                                   axis.ticks = element_blank())
-
-    p <- p + ggplotlyQuickFixTheme
-
     p <- plotly::ggplotly(p)
+
+    # we need to perform showticklabels = FALSE for every xaxis of this plot (there are 12 of them)
+    evalThis <-  paste0("p  %>% layout(",paste0(grep("xaxis", names(p[['x']][["layout"]]), value = TRUE), " = list(visible = FALSE)",collapse=", "),")")
+    p <- eval(parse(text=evalThis))
 
   }
 
   p
 
 }
+
+
+
+
+
+
