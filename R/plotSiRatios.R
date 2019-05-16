@@ -83,7 +83,7 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     dat <- merge(data.frame(year = floor(time(d10)), cycleName = cycleName(d10),
                             d8, d9, d10, stringsAsFactors = FALSE),
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
-    dat <- dat %>% rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9, `Seasonal Factor` = d10, `SF Mean` = d10Mean)
+    dat <- dat %>% dplyr::rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9, `Seasonal Factor` = d10, `SF Mean` = d10Mean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
                          measure.vars = (c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
                                            "SF Mean")))
@@ -147,7 +147,7 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
                             stringsAsFactors = FALSE),
                  siRatioMean, by = "cycleName", sort = FALSE, all.x = TRUE)
 
-    dat <- dat %>% rename(`SI-Ratio` = siRatio, `Mean` = siRatioMean)
+    dat <- dat %>% dplyr::rename(`SI-Ratio` = siRatio, `Mean` = siRatioMean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
                          measure.vars = (c("SI-Ratio", "Mean")))
 
