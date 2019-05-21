@@ -36,13 +36,13 @@
   
 <meta property="og:title" content="Interactive time series plot for a persephone object — plot" />
 
-<meta property="og:description" content="Produces a dygraph (see the online documentation
-for more detail) for objects of class persephone.
-The function generates an interactive time series plot of the original series,
-the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
-intervals of the original series.
-If no run has been performed on the persephone object, only the original time series is
-plotted." />
+<meta property="og:description" content="Produces a dygraph (see the
+online documentation for more detail)
+for objects of class persephone. The function generates an interactive time
+series plot of the original series, the seasonally adjusted (SA) series and
+the trend as well as one year forecasts with prediction intervals of the
+original series. If no run has been performed on the persephone object,
+only the original time series is plotted." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,13 +128,13 @@ plotted." />
 
     <div class="ref-description">
     
-    <p>Produces a dygraph (see the <a href='https://rstudio.github.io/dygraphs/'>online documentation</a>
-for more detail) for objects of class <a href='persephone.html'>persephone</a>.
-The function generates an interactive time series plot of the original series,
-the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
-intervals of the original series.
-If no run has been performed on the <a href='persephone.html'>persephone</a> object, only the original time series is
-plotted.</p>
+    <p>Produces a dygraph (see the
+<a href='https://rstudio.github.io/dygraphs/'>online documentation</a> for more detail)
+for objects of class <a href='persephone.html'>persephone</a>. The function generates an interactive time
+series plot of the original series, the seasonally adjusted (SA) series and
+the trend as well as one year forecasts with prediction intervals of the
+original series. If no run has been performed on the <a href='persephone.html'>persephone</a> object,
+only the original time series is plotted.</p>
     
     </div>
 
@@ -160,21 +160,24 @@ plotted.</p>
     </tr>
     <tr>
       <th>showOutliers</th>
-      <td><p>logical flag specifying if outliers should be highlighted in the plot</p></td>
+      <td><p>logical flag specifying if outliers should be highlighted
+in the plot</p></td>
     </tr>
     <tr>
       <th>rangeSelector</th>
-      <td><p>logical flag specifying if a range selector should be included in the plot</p></td>
+      <td><p>logical flag specifying if a range selector should be
+included in the plot</p></td>
     </tr>
     <tr>
       <th>drawPoints</th>
-      <td><p>logical flag indicating if a small dot should be drawn at each point, in
+      <td><p>logical flag indicating if a small dot should be drawn at
+each point, in
 addition to a line going through the point.</p></td>
     </tr>
     <tr>
       <th>annualComparison</th>
-      <td><p>integer corresponding to the month or quarter which should be highlighted
-in the plot for every year.</p></td>
+      <td><p>integer corresponding to the month or quarter which
+should be highlighted in the plot for every year.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -203,7 +206,8 @@ in the plot for every year.</p></td>
 <span class='co'># (randomly specify some outliers for illustrative purposes only)</span>
 <span class='no'>obj</span>$<span class='fu'>updateParams</span>(<span class='kw'>usrdef.outliersEnabled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                 <span class='kw'>usrdef.outliersType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AO"</span>,<span class='st'>"LS"</span>,<span class='st'>"LS"</span>),
-                <span class='kw'>usrdef.outliersDate</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1950-01-01"</span>,<span class='st'>"1955-04-01"</span>,<span class='st'>"1959-10-01"</span>))
+                <span class='kw'>usrdef.outliersDate</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1950-01-01"</span>,<span class='st'>"1955-04-01"</span>,
+                                      <span class='st'>"1959-10-01"</span>))
 <span class='co'># Perform run to make updateParams take effect</span>
 <span class='no'>obj</span>$<span class='fu'>run</span>()
 <span class='fu'>plot</span>(<span class='no'>obj</span>)
