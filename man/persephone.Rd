@@ -9,7 +9,8 @@ Common interface for x13 and tramoseats
 \section{Constructor}{
 
 \itemize{
-\item \code{new()}: Initializes an object. See the documentation for the derived classes for details.
+\item \code{new()}: Initializes an object. See the documentation for the derived
+classes for details.
 }
 }
 
@@ -18,10 +19,13 @@ Common interface for x13 and tramoseats
 \itemize{
 \item \code{run(verbose = FALSE)}: Runs the model
 \item \code{updateParams(...)}: Updates the current parameters
-\item \code{plot(...)}: Interactive time series plot for a persephone object, see \link{plot.persephone}
-\item \code{plotSeasIrrCal(...)}: Interactive plot of the seasonal component, irregular component and calendar
+\item \code{plot(...)}: Interactive time series plot for a persephone object, see
+\link{plot.persephone}
+\item \code{plotSeasIrrCal(...)}: Interactive plot of the seasonal component,
+irregular component and calendar
 effects for a persephone object, see \link{plotSeasIrrCal}
-\item \code{plotResiduals(...)}: Several interactive plots in connection with residuals for a persephone
+\item \code{plotResiduals(...)}: Several interactive plots in connection with
+residuals for a persephone
 object, see \link{plotResiduals}
 }
 }
@@ -29,9 +33,11 @@ object, see \link{plotResiduals}
 \section{Read-Only fields}{
 
 \itemize{
-\item \code{params}: A parameters object of class \code{SA_spec}. See \link{x13_spec} and \link{tramoseats_spec}.
+\item \code{params}: A parameters object of class \code{SA_spec}. See \link{x13_spec} and
+\link{tramoseats_spec}.
 \item \code{ts}: The time series.
-\item \code{output}: The return value from the underlying functions \code{x13} or \code{tramoseats}. This slot will
+\item \code{output}: The return value from the underlying functions \code{x13} or
+\code{tramoseats}. This slot will
 be empty (\code{NULL}) before \code{run()} is called for the first time.
 }
 }
@@ -39,7 +45,8 @@ be empty (\code{NULL}) before \code{run()} is called for the first time.
 \section{Parameters}{
 
 \itemize{
-\item \code{verbose}: should the output from the underlying RJDemetra function be displayed after the
+\item \code{verbose}: should the output from the underlying RJDemetra function be
+displayed after the
 run? If \code{FALSE} (the default), the output will be returned invisibly.
 }
 }

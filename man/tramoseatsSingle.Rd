@@ -14,7 +14,8 @@ an R6 class that represents a tramoseats model
 
 \preformatted{
 tramoseatsSingle$new(
-  ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3", "RSA4", "RSA5"),
+  ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
+                   "RSA4", "RSA5"),
   userdefined=NULL, ...
 )
 }
