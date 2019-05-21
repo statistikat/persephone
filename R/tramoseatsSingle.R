@@ -26,7 +26,7 @@ NULL
 #' @export
 tramoseatsSingle <- R6::R6Class(
   "tramoseatsSingle",
-  inherit = persephone,
+  inherit = persephoneSingle,
   public = list(
     initialize = function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2",
                                            "RSA3", "RSA4", "RSA5"),
