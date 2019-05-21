@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period — plotSiRatios • persephone</title>
+<title>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
+period — plotSiRatios • persephone</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -22,6 +23,10 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
@@ -30,12 +35,14 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period — plotSiRatios" />
+<meta property="og:title" content="Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
+period — plotSiRatios" />
 
 <meta property="og:description" content="Produces a ggplot/plotly object for objects of class persephone.
-If the persephone object is of class tramoseatsSingle, the function generates an interactive
-plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class x13Single,
-the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+If the persephone object is of class tramoseatsSingle, the function
+generates an interactive plot of the SI-ratios and their mean. Otherwise,
+i.e. if the object is of class x13Single, the SI-ratios, the replaced
+SI-ratios, the seasonal factors and the mean of the seasonal factors are
 plotted." />
 <meta name="twitter:card" content="summary" />
 
@@ -115,7 +122,8 @@ plotted." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period</h1>
+    <h1>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
+period</h1>
     <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/plotSiRatios.R'><code>R/plotSiRatios.R</code></a></small>
     <div class="hidden name"><code>plotSiRatios.Rd</code></div>
     </div>
@@ -123,9 +131,10 @@ plotted." />
     <div class="ref-description">
     
     <p>Produces a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.
-If the <code>persephone</code> object is of class <code>tramoseatsSingle</code>, the function generates an interactive
-plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class <code>x13Single</code>,
-the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+If the <code>persephone</code> object is of class <code>tramoseatsSingle</code>, the function
+generates an interactive plot of the SI-ratios and their mean. Otherwise,
+i.e. if the object is of class <code>x13Single</code>, the SI-ratios, the replaced
+SI-ratios, the seasonal factors and the mean of the seasonal factors are
 plotted.</p>
     
     </div>
@@ -145,8 +154,8 @@ plotted.</p>
     </tr>
     <tr>
       <th>plotly</th>
-      <td><p>If the return value would be a <code>ggplot</code> object, wrap it in <a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>plotly::ggplotly</a>
-before returning.</p></td>
+      <td><p>If the return value would be a <code>ggplot</code> object, wrap it in
+<a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>plotly::ggplotly</a> before returning.</p></td>
     </tr>
     <tr>
       <th>...</th>
