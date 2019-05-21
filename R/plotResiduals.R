@@ -1,16 +1,18 @@
-#' Several interactive plots in connection with residuals for a persephone object
+#' Several interactive plots in connection with residuals for a persephone
+#' object
 #'
-#' Produces either a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
-#' for more detail) or a `ggplot`/`plotly` object for objects of class [persephone].
+#' Produces either a dygraph (see the
+#' [online documentation](https://rstudio.github.io/dygraphs/) for more detail)
+#' or a `ggplot`/`plotly` object for objects of class [persephone].
 #'
 #' @param x an object of class [persephone].
-#' @param which character (`"res"`,`"acf"`,`"acf2"`,
-#' `"pacf"`,`"sreshist"`, `"nqq"`) selecting the preferred type of plot, see Details.
-#' A numeric value (`1:6`) corresponding to one of these characters is also accepted.
+#' @param which character (`"res"`,`"acf"`,`"acf2"`, `"pacf"`,`"sreshist"`,
+#'   `"nqq"`) selecting the preferred type of plot, see Details. A numeric
+#'   value (`1:6`) corresponding to one of these characters is also accepted.
 #'
 #' @param main plot title
-#' @param plotly If the return value would be a `ggplot` object, wrap it in [plotly::ggplotly]
-#'   before returning.
+#' @param plotly If the return value would be a `ggplot` object, wrap it in
+#'   [plotly::ggplotly] before returning.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @details
@@ -39,13 +41,15 @@
 #'
 #' ## TO DO:
 #' # maybe other theme_bw()
-#' # maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
-#' # maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
+#' # maybe one standard for colors (for dygraph and ggplots -> take dygraph
+#' # colors for ggplots?)
+#' # maybe adjust tooltip for ggplotly (e.g. when count is shown even though
+#' # y=density)
 #'
 #' @export
 plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                                          "sreshist", "nqq"),
-                            main = NULL, plotly = TRUE, ...){
+                            main = NULL, plotly = TRUE, ...) {
 
   ..density.. <- y <- NULL # nolint
 
