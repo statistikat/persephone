@@ -13,7 +13,6 @@ LazyData: true
 Imports: 
     RJDemetra (>= 0.1.1),
     dygraphs,
-    magrittr,
     plotly,
     stringr,
     ggplot2,

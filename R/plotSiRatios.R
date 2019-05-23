@@ -31,7 +31,7 @@
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
-#' @importFrom dplyr group_by summarize
+#' @importFrom dplyr group_by summarize %>%
 #' @importFrom reshape melt
 #'
 #' @export
