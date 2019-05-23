@@ -71,12 +71,19 @@ persephone <- R6::R6Class(
     ts = function() {
       private$ts_internal
     },
+    tsp = function() {
+      private$tsp_internal
+    },
     output = function() {
       private$output_internal
+    },
+    adjusted = function() {
+      self$output$user_defined$sa
     }
   ),
   private = list(
     ts_internal = NULL,
+    tsp_internal = NULL,
     params_internal = NULL,
     output_internal = NULL,
     updateFun = function(params, ...) {

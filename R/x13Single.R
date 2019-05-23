@@ -35,6 +35,7 @@ x13Single <- R6::R6Class(
       params <- x13_spec(spec = template, ...)
       private$params_internal <- params
       private$ts_internal <- ts
+      private$tsp_internal <- tsp(ts)
       private$userdefined <- userdefined
     },
     run = function(verbose = FALSE) {
