@@ -84,7 +84,10 @@ hierarchicalTimeSeries <- R6::R6Class(
     tsp_internal = NULL,
     run_direct = function(ts) {
       ## TODO: make this more flexible
-      private$output_internal <- tramoseats(ts, userdefined = userdefined_default)
+      private$output_internal <- tramoseats(
+        ts,
+        userdefined = userdefined_default
+      )
     }
   )
 )
