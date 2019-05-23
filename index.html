@@ -21,7 +21,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -77,14 +77,8 @@
 <!--/.navbar -->
 
       
-      </header><script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="index_files/jquery-1.11.1/jquery.min.js"></script><link href="index_files/dygraphs-1.1.1/dygraph.css" rel="stylesheet">
-<script src="index_files/dygraphs-1.1.1/dygraph-combined.js"></script><script src="index_files/dygraphs-1.1.1/shapes.js"></script><script src="index_files/moment-2.8.4/moment.js"></script><script src="index_files/moment-timezone-0.2.5/moment-timezone-with-data.js"></script><script src="index_files/moment-fquarter-1.0.0/moment-fquarter.min.js"></script><script src="index_files/dygraphs-binding-1.1.1.6/dygraphs.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="persephone" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#persephone" class="anchor"></a>persephone</h1></div>
@@ -102,21 +96,13 @@
 <p>Objects can be constructed with <code>x13Single$new</code> or <code>tramoseatsSingle$new</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RJDemetra)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   method         from </span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;   [.quosures     rlang</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;   c.quosures     rlang</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;   print.quosures rlang</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"AirPassengers"</span>)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">obj &lt;-<span class="st"> </span>x13Single<span class="op">$</span><span class="kw">new</span>(AirPassengers)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; Registered S3 method overwritten by 'xts':</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;   method     from</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;   as.zoo.xts zoo</span></a></code></pre></div>
-<div id="htmlwidget-4b6a867cabdb902c6854" style="width:90%;height:432.632880098888px;" class="dygraphs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4b6a867cabdb902c6854">{"x":{"attrs":{"title":"Original Time Series","labels":["month","Original"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"series":{"Original":{"axis":"y","drawPoints":false}},"showRangeSelector":true,"rangeSelectorHeight":20,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"monthly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1949-01-01T00:00:00.000Z","1949-02-01T00:00:00.000Z","1949-03-01T00:00:00.000Z","1949-04-01T00:00:00.000Z","1949-05-01T00:00:00.000Z","1949-06-01T00:00:00.000Z","1949-07-01T00:00:00.000Z","1949-08-01T00:00:00.000Z","1949-09-01T00:00:00.000Z","1949-10-01T00:00:00.000Z","1949-11-01T00:00:00.000Z","1949-12-01T00:00:00.000Z","1950-01-01T00:00:00.000Z","1950-02-01T00:00:00.000Z","1950-03-01T00:00:00.000Z","1950-04-01T00:00:00.000Z","1950-05-01T00:00:00.000Z","1950-06-01T00:00:00.000Z","1950-07-01T00:00:00.000Z","1950-08-01T00:00:00.000Z","1950-09-01T00:00:00.000Z","1950-10-01T00:00:00.000Z","1950-11-01T00:00:00.000Z","1950-12-01T00:00:00.000Z","1951-01-01T00:00:00.000Z","1951-02-01T00:00:00.000Z","1951-03-01T00:00:00.000Z","1951-04-01T00:00:00.000Z","1951-05-01T00:00:00.000Z","1951-06-01T00:00:00.000Z","1951-07-01T00:00:00.000Z","1951-08-01T00:00:00.000Z","1951-09-01T00:00:00.000Z","1951-10-01T00:00:00.000Z","1951-11-01T00:00:00.000Z","1951-12-01T00:00:00.000Z","1952-01-01T00:00:00.000Z","1952-02-01T00:00:00.000Z","1952-03-01T00:00:00.000Z","1952-04-01T00:00:00.000Z","1952-05-01T00:00:00.000Z","1952-06-01T00:00:00.000Z","1952-07-01T00:00:00.000Z","1952-08-01T00:00:00.000Z","1952-09-01T00:00:00.000Z","1952-10-01T00:00:00.000Z","1952-11-01T00:00:00.000Z","1952-12-01T00:00:00.000Z","1953-01-01T00:00:00.000Z","1953-02-01T00:00:00.000Z","1953-03-01T00:00:00.000Z","1953-04-01T00:00:00.000Z","1953-05-01T00:00:00.000Z","1953-06-01T00:00:00.000Z","1953-07-01T00:00:00.000Z","1953-08-01T00:00:00.000Z","1953-09-01T00:00:00.000Z","1953-10-01T00:00:00.000Z","1953-11-01T00:00:00.000Z","1953-12-01T00:00:00.000Z","1954-01-01T00:00:00.000Z","1954-02-01T00:00:00.000Z","1954-03-01T00:00:00.000Z","1954-04-01T00:00:00.000Z","1954-05-01T00:00:00.000Z","1954-06-01T00:00:00.000Z","1954-07-01T00:00:00.000Z","1954-08-01T00:00:00.000Z","1954-09-01T00:00:00.000Z","1954-10-01T00:00:00.000Z","1954-11-01T00:00:00.000Z","1954-12-01T00:00:00.000Z","1955-01-01T00:00:00.000Z","1955-02-01T00:00:00.000Z","1955-03-01T00:00:00.000Z","1955-04-01T00:00:00.000Z","1955-05-01T00:00:00.000Z","1955-06-01T00:00:00.000Z","1955-07-01T00:00:00.000Z","1955-08-01T00:00:00.000Z","1955-09-01T00:00:00.000Z","1955-10-01T00:00:00.000Z","1955-11-01T00:00:00.000Z","1955-12-01T00:00:00.000Z","1956-01-01T00:00:00.000Z","1956-02-01T00:00:00.000Z","1956-03-01T00:00:00.000Z","1956-04-01T00:00:00.000Z","1956-05-01T00:00:00.000Z","1956-06-01T00:00:00.000Z","1956-07-01T00:00:00.000Z","1956-08-01T00:00:00.000Z","1956-09-01T00:00:00.000Z","1956-10-01T00:00:00.000Z","1956-11-01T00:00:00.000Z","1956-12-01T00:00:00.000Z","1957-01-01T00:00:00.000Z","1957-02-01T00:00:00.000Z","1957-03-01T00:00:00.000Z","1957-04-01T00:00:00.000Z","1957-05-01T00:00:00.000Z","1957-06-01T00:00:00.000Z","1957-07-01T00:00:00.000Z","1957-08-01T00:00:00.000Z","1957-09-01T00:00:00.000Z","1957-10-01T00:00:00.000Z","1957-11-01T00:00:00.000Z","1957-12-01T00:00:00.000Z","1958-01-01T00:00:00.000Z","1958-02-01T00:00:00.000Z","1958-03-01T00:00:00.000Z","1958-04-01T00:00:00.000Z","1958-05-01T00:00:00.000Z","1958-06-01T00:00:00.000Z","1958-07-01T00:00:00.000Z","1958-08-01T00:00:00.000Z","1958-09-01T00:00:00.000Z","1958-10-01T00:00:00.000Z","1958-11-01T00:00:00.000Z","1958-12-01T00:00:00.000Z","1959-01-01T00:00:00.000Z","1959-02-01T00:00:00.000Z","1959-03-01T00:00:00.000Z","1959-04-01T00:00:00.000Z","1959-05-01T00:00:00.000Z","1959-06-01T00:00:00.000Z","1959-07-01T00:00:00.000Z","1959-08-01T00:00:00.000Z","1959-09-01T00:00:00.000Z","1959-10-01T00:00:00.000Z","1959-11-01T00:00:00.000Z","1959-12-01T00:00:00.000Z","1960-01-01T00:00:00.000Z","1960-02-01T00:00:00.000Z","1960-03-01T00:00:00.000Z","1960-04-01T00:00:00.000Z","1960-05-01T00:00:00.000Z","1960-06-01T00:00:00.000Z","1960-07-01T00:00:00.000Z","1960-08-01T00:00:00.000Z","1960-09-01T00:00:00.000Z","1960-10-01T00:00:00.000Z","1960-11-01T00:00:00.000Z","1960-12-01T00:00:00.000Z"],[112,118,132,129,121,135,148,148,136,119,104,118,115,126,141,135,125,149,170,170,158,133,114,140,145,150,178,163,172,178,199,199,184,162,146,166,171,180,193,181,183,218,230,242,209,191,172,194,196,196,236,235,229,243,264,272,237,211,180,201,204,188,235,227,234,264,302,293,259,229,203,229,242,233,267,269,270,315,364,347,312,274,237,278,284,277,317,313,318,374,413,405,355,306,271,306,315,301,356,348,355,422,465,467,404,347,305,336,340,318,362,348,363,435,491,505,404,359,310,337,360,342,406,396,420,472,548,559,463,407,362,405,417,391,419,461,472,535,622,606,508,461,390,432]]},"evals":["attrs.interactionModel"],"jsHooks":[]}</script><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obj<span class="op">$</span><span class="kw">run</span>()</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"AirPassengers"</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">obj &lt;-<span class="st"> </span>x13Single<span class="op">$</span><span class="kw">new</span>(AirPassengers)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="90%"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obj<span class="op">$</span><span class="kw">run</span>()</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">obj<span class="op">$</span>output<span class="op">$</span>regarima</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; y = regression model + arima (0, 1, 0, 0, 1, 1)</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Log-transformation: yes</span></a>
@@ -178,7 +164,7 @@
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/statistikat/persephone"><img src="https://img.shields.io/travis/statistikat/persephone.svg?logo=travis" alt="Travis-CI Build Status"></a></li>
@@ -189,16 +175,14 @@
 </ul>
 </div>
 </div>
-
 </div>
-
 
       <footer><div class="copyright">
   <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
       </footer>
 </div>
