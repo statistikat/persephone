@@ -52,6 +52,8 @@ hierarchicalTimeSeries <- R6::R6Class(
       })
       sum <- 0
       for (ts in tss) {
+        if (is.null(ts))
+          return(NULL)
         sum <- sum + ts
       }
       sum
