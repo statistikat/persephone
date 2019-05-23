@@ -1,4 +1,6 @@
-test_that("adjusted objects", {
+context("adjusted")
+
+test_that("adjusted", {
   obj_x13 <- x13Single$new(AirPassengers, "RSA3")
 
   ht <- hierarchicalTimeSeries$new(obj_x13, obj_x13)
@@ -10,6 +12,8 @@ test_that("adjusted objects", {
   expect_identical(tsp(ht$adjusted), tsp(ht$adjusted_indirect))
 })
 
+context("nested hierarchies")
+
 test_that("nested hierarchies", {
   obj_x13 <- x13Single$new(AirPassengers, "RSA3")
   ht <- hierarchicalTimeSeries$new(obj_x13, obj_x13)
@@ -20,6 +24,8 @@ test_that("nested hierarchies", {
   expect_identical(tsp(ht2$adjusted), tsp(ht2$adjusted_indirect))
 })
 
+context("incompatible time instances")
+
 test_that("incompatible time instances", {
   obj1 <- x13Single$new(AirPassengers, "RSA3")
   obj2 <- x13Single$new(JohnsonJohnson, "RSA3")
@@ -27,6 +33,8 @@ test_that("incompatible time instances", {
     hierarchicalTimeSeries$new(obj1, obj2)
   )
 })
+
+context("object run by reference")
 
 test_that("object run by reference", {
   obj_x13 <- x13Single$new(AirPassengers, "RSA3")
