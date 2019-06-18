@@ -11,7 +11,7 @@
 #' as well as the directly and indirectly seasonally adjusted aggregate series.
 #'
 #' If no run has been performed on the [persephone] object,
-#' only the original aggregate time series is plotted.
+#' only the original (aggregate) time series is plotted.
 #'
 #' @name plot
 #' @param x an object of class [persephone].

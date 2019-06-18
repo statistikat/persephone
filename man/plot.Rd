@@ -52,7 +52,7 @@ as well as the directly and indirectly seasonally adjusted aggregate series.
 }
 \details{
 If no run has been performed on the \link{persephone} object,
-only the original aggregate time series is plotted.
+only the original (aggregate) time series is plotted.
 }
 \examples{
 # Plotting hierarchicalTimeSeries objects
