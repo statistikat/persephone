@@ -8,17 +8,23 @@
 #' \preformatted{
 #' hierarchicalTimeSeries$new(...)
 #' }
-#' - `...` One or more `persephone` objects that use the same time instances.
+#' - `...` should contain one or more `persephone` objects that use the same
+#'   time instances. All lements supplied here must be named.
+#' - `model` specifies a model to be used. tramoseats or x13
+#' - `userdefined` is passed as the userdefined argument to `tramoseats` or
+#'   `x13`
+#' - `spec` a model specification returned by [x13_spec()] or
+#'   [tramoseats_spec()]
 #'
 #' @examples
 #' obj_x13 <- x13Single$new(AirPassengers, "RSA3")
 #'
-#' ht <- hierarchicalTimeSeries$new(obj_x13, obj_x13)
+#' ht <- hierarchicalTimeSeries$new(a = obj_x13, b = obj_x13)
 #' ht$run()
 #' ht$adjusted
 #' ht$adjusted_indirect
 #'
-#' ht2 <- hierarchicalTimeSeries$new(ht, obj_x13)
+#' ht2 <- hierarchicalTimeSeries$new(a = ht, b = obj_x13)
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
@@ -28,12 +34,17 @@ hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
   public = list(
-    initialize = function(...) {
+    initialize = function(..., model = c("tramoseats", "x13"),
+                          userdefined = NULL, spec = NULL) {
+      private$model <- match.arg(model)
       components <- list(...)
       private$check_classes(components)
+      names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       private$ts_internal <- private$aggregate(components)
+      private$userdefined <- userdefined
+      private$spec <- spec
     },
     run = function(...) {
       ## indirect
@@ -50,22 +61,18 @@ hierarchicalTimeSeries <- R6::R6Class(
   ),
   active = list(
     adjusted_indirect = function() {
+      if (is.null(self$output))
+        return(NULL)
       tss <- lapply(self$components, function(component) {
         component$adjusted
       })
-      sum <- 0
-      for (ts in tss) {
-        if (is.null(ts))
-          return(NULL)
-        sum <- sum + ts
-      }
-      sum
+      private$aggregate_ts(tss)
     }
   ),
   private = list(
     check_classes = function(components) {
       lapply(components, function(component) {
-        stopifnot(inherits(component, "persephone"))
+        stopifnot(is.persephone(component))
       })
     },
     print_table = function(prefix = "") {
@@ -89,18 +96,36 @@ hierarchicalTimeSeries <- R6::R6Class(
       tss <- lapply(components, function(component) {
         component$ts
       })
+      private$aggregate_ts(tss)
+    },
+    aggregate_ts = function(ts_vec) {
       sum <- 0
-      for (ts in tss) {
+      for (ts in ts_vec) {
         sum <- sum + ts
       }
       sum
     },
+    coerce_component_names = function(components) {
+      lapply(seq_along(components), function(i) {
+        parname <- names(components)[i]
+        if (!is.null(parname) & parname != "")
+          return(parname)
+        else
+          stop("all components in 'hierarchicalTimeSeries' must be named")
+      })
+    },
     tsp_internal = NULL,
+    model = NULL,
+    spec = NULL,
     run_direct = function(ts) {
-      ## TODO: make this more flexible
-      private$output_internal <- tramoseats(
+      modelFunction <- switch(private$model, tramoseats = tramoseats, x13 = x13)
+      if (is.null(private$spec))
+        private$spec <- switch(private$model, tramoseats = tramoseats_spec(),
+                               x13 = x13_spec())
+      private$output_internal <- modelFunction(
         ts,
-        userdefined = userdefined_default
+        spec = private$spec,
+        userdefined = union(private$userdefined, userdefined_default)
       )
     }
   )
