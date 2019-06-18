@@ -43,7 +43,10 @@ hierarchicalTimeSeries <- R6::R6Class(
       ## direct
       private$run_direct(self$ts)
     },
-    components = NULL
+    components = NULL,
+    print = function() {
+      print(private$print_table())
+    }
   ),
   active = list(
     adjusted_indirect = function() {
@@ -64,6 +67,15 @@ hierarchicalTimeSeries <- R6::R6Class(
       lapply(components, function(component) {
         stopifnot(inherits(component, "persephone"))
       })
+    },
+    print_table = function(prefix = "") {
+      do.call(rbind, lapply(seq_along(self$components), function(i) {
+        name <- names(self$components)[[i]]
+        component <- self$components[[i]]
+        component$.__enclos_env__$private$print_table(
+          prefix = paste0(prefix, "/", name)
+        )
+      }))
     },
     check_time_instances = function(components) {
       tsps <- lapply(components, function(component) {

@@ -86,6 +86,13 @@ persephone <- R6::R6Class(
     tsp_internal = NULL,
     params_internal = NULL,
     output_internal = NULL,
+    print_table = function(prefix) {
+      data.frame(
+        path  = sub("/", "", prefix),
+        class = class(self)[1],
+        run   = !is.null(self$output)
+      )
+    },
     updateFun = function(params, ...) {
       stop("implement this method")
     }
