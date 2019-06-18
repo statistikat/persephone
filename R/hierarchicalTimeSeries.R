@@ -55,19 +55,13 @@ hierarchicalTimeSeries <- R6::R6Class(
       tss <- lapply(self$components, function(component) {
         component$adjusted
       })
-      sum <- 0
-      for (ts in tss) {
-        if (is.null(ts))
-          return(NULL)
-        sum <- sum + ts
-      }
-      sum
+      private$aggregate_ts(tss)
     }
   ),
   private = list(
     check_classes = function(components) {
       lapply(components, function(component) {
-        stopifnot(inherits(component, "persephone"))
+        stopifnot(is.persephone(component))
       })
     },
     print_table = function(prefix = "") {
@@ -91,8 +85,11 @@ hierarchicalTimeSeries <- R6::R6Class(
       tss <- lapply(components, function(component) {
         component$ts
       })
+      private$aggregate_ts(tss)
+    },
+    aggregate_ts = function(ts_vec) {
       sum <- 0
-      for (ts in tss) {
+      for (ts in ts_vec) {
         sum <- sum + ts
       }
       sum
