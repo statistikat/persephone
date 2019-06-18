@@ -9,6 +9,7 @@
 #' hierarchicalTimeSeries$new(...)
 #' }
 #' - `...` One or more `persephone` objects that use the same time instances.
+#'         Must be named.
 #'
 #' @examples
 #' obj_x13 <- x13Single$new(AirPassengers, "RSA3")
@@ -31,6 +32,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     initialize = function(...) {
       components <- list(...)
       private$check_classes(components)
+      names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       private$ts_internal <- private$aggregate(components)
@@ -94,6 +96,15 @@ hierarchicalTimeSeries <- R6::R6Class(
         sum <- sum + ts
       }
       sum
+    },
+    coerce_component_names = function(components) {
+      lapply(seq_along(components), function(i) {
+        parname <- names(components)[i]
+        if (!is.null(parname) & parname != "")
+          return(parname)
+        else
+          stop("all components in 'hierarchicalTimeSeries' must be named")
+      })
     },
     tsp_internal = NULL,
     run_direct = function(ts) {

@@ -23,6 +23,7 @@ hierarchicalTimeSeries$new(...)
 }
 \itemize{
 \item \code{...} One or more \code{persephone} objects that use the same time instances.
+Must be named
 }
 }
 
