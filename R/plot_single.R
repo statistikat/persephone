@@ -1,14 +1,14 @@
-#' Interactive time series plot for a persephone object
+#' Interactive time series plot for a persephoneSingle object
 #'
 #' Produces a dygraph (see the
 #' [online documentation](https://rstudio.github.io/dygraphs/) for more detail)
-#' for objects of class [persephone]. The function generates an interactive time
+#' for objects of class [persephoneSingle]. The function generates an interactive time
 #' series plot of the original series, the seasonally adjusted (SA) series and
 #' the trend as well as one year forecasts with prediction intervals of the
-#' original series. If no run has been performed on the [persephone] object,
+#' original series. If no run has been performed on the [persephoneSingle] object,
 #' only the original time series is plotted.
 #' @name plot
-#' @param x an object of class [persephone].
+#' @param x an object of class [persephoneSingle].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
 #' @param showOutliers logical flag specifying if outliers should be highlighted
@@ -28,14 +28,14 @@
 #'
 #' # Monthly data
 #' data(AirPassengers, package = "datasets")
-#' # Generate a persephone object, in this case an x13Single object
+#' # Generate a persephoneSingle object, in this case an x13Single object
 #' obj <- x13Single$new(AirPassengers, "RSA1")
-#' # Plot before run of persephone object
+#' # Plot before run of persephoneSingle object
 #' plot(obj, drawPoints = TRUE)
 #' obj$run()
 #' # Plot after run
 #' plot(obj, drawPoints=TRUE)
-#' # Update some parameters of the persephone object
+#' # Update some parameters of the persephoneSingle object
 #' # (randomly specify some outliers for illustrative purposes only)
 #' obj$updateParams(usrdef.outliersEnabled = TRUE,
 #'                 usrdef.outliersType = c("AO","LS","LS"),
@@ -52,7 +52,7 @@
 #' obj2$run()
 #' plot(obj2)
 #'
-#' # Generate a persephone object, in this case a tramoseatsSingle object
+#' # Generate a persephoneSingle object, in this case a tramoseatsSingle object
 #' obj3 <- tramoseatsSingle$new(UKgas, "RSA3")
 #' plot(obj3)
 #' obj3$run()
@@ -64,7 +64,7 @@
 #' @importFrom stringr str_pad
 #' @import ggplot2
 #' @export
-plot.persephone <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
+plot.persephoneSingle <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
                             rangeSelector=TRUE, drawPoints=FALSE,
                             annualComparison=NULL, ...){
 

@@ -12,7 +12,7 @@
 #' - `run(verbose = FALSE)`: Runs the model
 #' - `updateParams(...)`: Updates the current parameters
 #' - `plot(...)`: Interactive time series plot for a persephone object, see
-#'   [plot.persephone]
+#'   [plot.persephoneSingle] or [plot.hierarchicalTimeSeries]
 #' - `plotSeasIrrCal(...)`: Interactive plot of the seasonal component,
 #'   irregular component and calendar
 #' effects for a persephone object, see [plotSeasIrrCal]
@@ -51,7 +51,7 @@ persephone <- R6::R6Class(
       private$params_internal <- private$updateFun(self$params, ...)
     },
     plot = function(...) {
-     plot.persephone(self, ...)
+     plot(self, ...)
     },
     plotSeasIrrCal = function(...) {
       plotSeasIrrCal(self, ...)

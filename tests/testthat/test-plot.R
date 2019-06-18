@@ -1,4 +1,4 @@
-context("plot.persephone")
+context("plot.persephoneSingle")
 
 test_that("plotting works", {
   data(AirPassengers, package = "datasets")

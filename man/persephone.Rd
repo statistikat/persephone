@@ -20,7 +20,7 @@ classes for details.
 \item \code{run(verbose = FALSE)}: Runs the model
 \item \code{updateParams(...)}: Updates the current parameters
 \item \code{plot(...)}: Interactive time series plot for a persephone object, see
-\link{plot.persephone}
+\link{plot.persephoneSingle} or \link{plot.hierarchicalTimeSeries}
 \item \code{plotSeasIrrCal(...)}: Interactive plot of the seasonal component,
 irregular component and calendar
 effects for a persephone object, see \link{plotSeasIrrCal}
