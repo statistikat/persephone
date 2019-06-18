@@ -27,19 +27,20 @@ time instances. All lements supplied here must be named.
 \item \code{model} specifies a model to be used. tramoseats or x13
 \item \code{userdefined} is passed as the userdefined argument to \code{tramoseats} or
 \code{x13}
-\item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or \code{\link[=trmoseats_spec]{trmoseats_spec()}}
+\item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or
+\code{\link[=tramoseats_spec]{tramoseats_spec()}}
 }
 }
 
 \examples{
 obj_x13 <- x13Single$new(AirPassengers, "RSA3")
 
-ht <- hierarchicalTimeSeries$new(obj_x13, obj_x13)
+ht <- hierarchicalTimeSeries$new(a = obj_x13, b = obj_x13)
 ht$run()
 ht$adjusted
 ht$adjusted_indirect
 
-ht2 <- hierarchicalTimeSeries$new(ht, obj_x13)
+ht2 <- hierarchicalTimeSeries$new(a = ht, b = obj_x13)
 ht2$run()
 ht2$adjusted
 ht2$adjusted_indirect

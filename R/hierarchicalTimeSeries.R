@@ -13,17 +13,18 @@
 #' - `model` specifies a model to be used. tramoseats or x13
 #' - `userdefined` is passed as the userdefined argument to `tramoseats` or
 #'   `x13`
-#' - `spec` a model specification returned by [x13_spec()] or [trmoseats_spec()]
+#' - `spec` a model specification returned by [x13_spec()] or
+#'   [tramoseats_spec()]
 #'
 #' @examples
 #' obj_x13 <- x13Single$new(AirPassengers, "RSA3")
 #'
-#' ht <- hierarchicalTimeSeries$new(obj_x13, obj_x13)
+#' ht <- hierarchicalTimeSeries$new(a = obj_x13, b = obj_x13)
 #' ht$run()
 #' ht$adjusted
 #' ht$adjusted_indirect
 #'
-#' ht2 <- hierarchicalTimeSeries$new(ht, obj_x13)
+#' ht2 <- hierarchicalTimeSeries$new(a = ht, b = obj_x13)
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
