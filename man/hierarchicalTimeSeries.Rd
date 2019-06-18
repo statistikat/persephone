@@ -22,8 +22,12 @@ The resulting time series can perform direct and indirect adjustments.
 hierarchicalTimeSeries$new(...)
 }
 \itemize{
-\item \code{...} One or more \code{persephone} objects that use the same time instances.
-Must be named
+\item \code{...} should contain one or more \code{persephone} objects that use the same
+time instances. All lements supplied here must be named.
+\item \code{model} specifies a model to be used. tramoseats or x13
+\item \code{userdefined} is passed as the userdefined argument to \code{tramoseats} or
+\code{x13}
+\item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or \code{\link[=trmoseats_spec]{trmoseats_spec()}}
 }
 }
 

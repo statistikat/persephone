@@ -86,6 +86,7 @@ persephone <- R6::R6Class(
     tsp_internal = NULL,
     params_internal = NULL,
     output_internal = NULL,
+    userdefined = NULL,
     print_table = function(prefix) {
       data.frame(
         component = sub("/", "", prefix),

@@ -8,8 +8,12 @@
 #' \preformatted{
 #' hierarchicalTimeSeries$new(...)
 #' }
-#' - `...` One or more `persephone` objects that use the same time instances.
-#'         Must be named.
+#' - `...` should contain one or more `persephone` objects that use the same
+#'   time instances. All lements supplied here must be named.
+#' - `model` specifies a model to be used. tramoseats or x13
+#' - `userdefined` is passed as the userdefined argument to `tramoseats` or
+#'   `x13`
+#' - `spec` a model specification returned by [x13_spec()] or [trmoseats_spec()]
 #'
 #' @examples
 #' obj_x13 <- x13Single$new(AirPassengers, "RSA3")
@@ -29,13 +33,17 @@ hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
   public = list(
-    initialize = function(...) {
+    initialize = function(..., model = c("tramoseats", "x13"),
+                          userdefined = NULL, spec = NULL) {
+      private$model <- match.arg(model)
       components <- list(...)
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       private$ts_internal <- private$aggregate(components)
+      private$userdefined <- userdefined
+      private$spec <- spec
     },
     run = function(...) {
       ## indirect
@@ -104,11 +112,17 @@ hierarchicalTimeSeries <- R6::R6Class(
       })
     },
     tsp_internal = NULL,
+    model = NULL,
+    spec = NULL,
     run_direct = function(ts) {
-      ## TODO: make this more flexible
-      private$output_internal <- tramoseats(
+      modelFunction <- switch(private$model, tramoseats = tramoseats, x13 = x13)
+      if (is.null(private$spec))
+        private$spec <- switch(private$model, tramoseats = tramoseats_spec(),
+                               x13 = x13_spec())
+      private$output_internal <- modelFunction(
         ts,
-        userdefined = userdefined_default
+        spec = private$spec,
+        userdefined = union(private$userdefined, userdefined_default)
       )
     }
   )
