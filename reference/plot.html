@@ -38,11 +38,13 @@
 
 <meta property="og:description" content="Produces a dygraph (see the
 online documentation for more detail)
-for objects of class persephone. The function generates an interactive time
-series plot of the original series, the seasonally adjusted (SA) series and
-the trend as well as one year forecasts with prediction intervals of the
-original series. If no run has been performed on the persephone object,
-only the original time series is plotted." />
+for objects of class persephone.
+In case of persephoneSingle objects,
+the function generates an interactive time series plot
+of the original series, the seasonally adjusted (SA) series and the trend as
+well as one year forecasts with prediction intervals of the original series.
+For hierarchicalTimeSeries objects, the function plots the original aggregate series
+as well as the directly and indirectly seasonally adjusted aggregate series." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,7 +126,7 @@ only the original time series is plotted." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Interactive time series plot for a persephone object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/plot_hierarchical.R'><code>R/plot_hierarchical.R</code></a>, <a href='https://github.com/statistikat/persephone/blob/master/R/plot_single.R'><code>R/plot_single.R</code></a></small>
     <div class="hidden name"><code>plot.Rd</code></div>
     </div>
 
@@ -132,15 +134,22 @@ only the original time series is plotted." />
     
     <p>Produces a dygraph (see the
 <a href='https://rstudio.github.io/dygraphs/'>online documentation</a> for more detail)
-for objects of class <a href='persephone.html'>persephone</a>. The function generates an interactive time
-series plot of the original series, the seasonally adjusted (SA) series and
-the trend as well as one year forecasts with prediction intervals of the
-original series. If no run has been performed on the <a href='persephone.html'>persephone</a> object,
-only the original time series is plotted.</p>
+for objects of class <a href='persephone.html'>persephone</a>.
+In case of <code>persephoneSingle</code> objects,
+the function generates an interactive time series plot
+of the original series, the seasonally adjusted (SA) series and the trend as
+well as one year forecasts with prediction intervals of the original series.
+For <a href='hierarchicalTimeSeries.html'>hierarchicalTimeSeries</a> objects, the function plots the original aggregate series
+as well as the directly and indirectly seasonally adjusted aggregate series.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for persephone</span>
+    <pre class="usage"><span class='co'># S3 method for hierarchicalTimeSeries</span>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rangeSelector</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>annualComparison</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>)
+
+<span class='co'># S3 method for persephoneSingle</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>forecasts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showOutliers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rangeSelector</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>annualComparison</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
@@ -155,15 +164,6 @@ only the original time series is plotted.</p>
     <tr>
       <th>main</th>
       <td><p>plot title</p></td>
-    </tr>
-    <tr>
-      <th>forecasts</th>
-      <td><p>logical flag indicating if forecasts should be plotted</p></td>
-    </tr>
-    <tr>
-      <th>showOutliers</th>
-      <td><p>logical flag specifying if outliers should be highlighted
-in the plot</p></td>
     </tr>
     <tr>
       <th>rangeSelector</th>
@@ -185,26 +185,65 @@ should be highlighted in the plot for every year.</p></td>
       <th>...</th>
       <td><p>other plotting parameters to affect the plot. Not currently used.</p></td>
     </tr>
+    <tr>
+      <th>forecasts</th>
+      <td><p>logical flag indicating if forecasts should be plotted</p></td>
+    </tr>
+    <tr>
+      <th>showOutliers</th>
+      <td><p>logical flag specifying if outliers should be highlighted
+in the plot</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an object of class <code>dygraphs</code>.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If no run has been performed on the <a href='persephone.html'>persephone</a> object,
+only the original aggregate time series is plotted.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># Plotting hierarchicalTimeSeries objects</span>
+
 <span class='co'># Monthly data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-<span class='co'># Generate a persephone object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='co'># Generate two persephoneSingle objects, in this case two tramoseatsSingle objects</span>
+<span class='no'>tsAir1</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>tsAir2</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='co'># Generate a hierarchicalTimeSeries object</span>
+<span class='no'>htAir</span> <span class='kw'>&lt;-</span> <span class='no'>hierarchicalTimeSeries</span>$<span class='fu'>new</span>(<span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>, <span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>)
 <span class='co'># Plot before run of persephone object</span>
-<span class='fu'>plot</span>(<span class='no'>obj</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'xts':</span>
+<span class='fu'>plot</span>(<span class='no'>htAir</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'xts':</span>
 #&gt; <span class='message'>  method     from</span>
-#&gt; <span class='message'>  as.zoo.xts zoo </span></div><div class='input'><span class='no'>obj</span>$<span class='fu'>run</span>()
+#&gt; <span class='message'>  as.zoo.xts zoo </span></div><div class='input'><span class='no'>htAir</span>$<span class='fu'>run</span>()
+<span class='co'># Plot after run</span>
+<span class='fu'>plot</span>(<span class='no'>htAir</span>, <span class='kw'>drawPoints</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+
+<span class='co'># Quarterly data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='no'>tsUKgas1</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>tsUKgas2</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>htUKgas</span> <span class='kw'>&lt;-</span> <span class='no'>hierarchicalTimeSeries</span>$<span class='fu'>new</span>(<span class='kw'>tsUKgas1</span><span class='kw'>=</span><span class='no'>tsUKgas1</span>, <span class='kw'>tsUKgas2</span><span class='kw'>=</span><span class='no'>tsUKgas2</span>)
+<span class='fu'>plot</span>(<span class='no'>htUKgas</span>)
+<span class='no'>htUKgas</span>$<span class='fu'>run</span>()
+<span class='fu'>plot</span>(<span class='no'>htUKgas</span>)
+
+<span class='co'># Plotting persephoneSingle objects</span>
+
+<span class='co'># Monthly data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='co'># Generate a persephoneSingle object, in this case an x13Single object</span>
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='co'># Plot before run of persephoneSingle object</span>
+<span class='fu'>plot</span>(<span class='no'>obj</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>obj</span>$<span class='fu'>run</span>()
 <span class='co'># Plot after run</span>
 <span class='fu'>plot</span>(<span class='no'>obj</span>, <span class='kw'>drawPoints</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='co'># Update some parameters of the persephone object</span>
+<span class='co'># Update some parameters of the persephoneSingle object</span>
 <span class='co'># (randomly specify some outliers for illustrative purposes only)</span>
 <span class='no'>obj</span>$<span class='fu'>updateParams</span>(<span class='kw'>usrdef.outliersEnabled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                 <span class='kw'>usrdef.outliersType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AO"</span>,<span class='st'>"LS"</span>,<span class='st'>"LS"</span>),
@@ -221,7 +260,7 @@ should be highlighted in the plot for every year.</p></td>
 <span class='no'>obj2</span>$<span class='fu'>run</span>()
 <span class='fu'>plot</span>(<span class='no'>obj2</span>)
 
-<span class='co'># Generate a persephone object, in this case a tramoseatsSingle object</span>
+<span class='co'># Generate a persephoneSingle object, in this case a tramoseatsSingle object</span>
 <span class='no'>obj3</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='fu'>plot</span>(<span class='no'>obj3</span>)
 <span class='no'>obj3</span>$<span class='fu'>run</span>()
@@ -233,6 +272,8 @@ should be highlighted in the plot for every year.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
