@@ -60,6 +60,8 @@ hierarchicalTimeSeries <- R6::R6Class(
   ),
   active = list(
     adjusted_indirect = function() {
+      if (is.null(self$output))
+        return(NULL)
       tss <- lapply(self$components, function(component) {
         component$adjusted
       })
