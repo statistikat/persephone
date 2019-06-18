@@ -3,7 +3,7 @@ library(RJDemetra)
 #####################     EXAMPLE 1     #########################
 
 # userdef <- user_defined_variables(sa_object = c("X13-ARIMA"))
-#
+# userdef <- user_defined_variables(sa_object = c("TRAMO-SEATS"))
 # mysa <- x13_spec(AirPassengers, spec = "RSA1", usrdef.outliersEnabled = TRUE,
 #          usrdef.outliersType = c("AO","LS","LS","AO"),
 #          usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"))
@@ -51,8 +51,7 @@ univariateQR <- function(x, tsName = "tsName"){
        BQ = x$output$regarima$arma[["bq"]],
        # Calendar effects
        LeapYear = x$output$regarima$model$spec_rslt$`Leap year`,
-       #MovingHoliday = x$output$regarima$model$spec_rslt$Easter, # Nicht nur Easter, was noch?
-       Easter = x$output$regarima$model$spec_rslt$Easter, # eigentlich nicht im QR
+       MovingHoliday = x$output$regarima$model$spec_rslt$Easter, # Easter Effect lt. QR Beschreibung
        NbTD = x$output$regarima$model$spec_rslt$`Trading days`, # numeric (>=0)
        Noutliers = x$output$regarima$model$spec_rslt$Outliers,
        # 3 main (most significant) outliers
