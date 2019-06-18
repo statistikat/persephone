@@ -4,7 +4,7 @@
 \alias{plot}
 \alias{plot.hierarchicalTimeSeries}
 \alias{plot.persephoneSingle}
-\title{Interactive time series plot for a hierarchicalTimeSeries object}
+\title{Interactive time series plot for a persephone object}
 \usage{
 \method{plot}{hierarchicalTimeSeries}(x, main = NULL,
   rangeSelector = TRUE, drawPoints = FALSE, annualComparison = NULL,
@@ -15,7 +15,7 @@
   annualComparison = NULL, ...)
 }
 \arguments{
-\item{x}{an object of class \link{hierarchicalTimeSeries}.}
+\item{x}{an object of class \link{persephone}.}
 
 \item{main}{plot title}
 
@@ -35,50 +35,31 @@ should be highlighted in the plot for every year.}
 
 \item{showOutliers}{logical flag specifying if outliers should be highlighted
 in the plot}
-
-\item{x}{an object of class \link{persephoneSingle}.}
-
-\item{main}{plot title}
-
-\item{rangeSelector}{logical flag specifying if a range selector should be
-included in the plot}
-
-\item{drawPoints}{logical flag indicating if a small dot should be drawn at
-each point, in
-addition to a line going through the point.}
-
-\item{annualComparison}{integer corresponding to the month or quarter which
-should be highlighted in the plot for every year.}
-
-\item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
 \value{
-Returns an object of class \code{dygraphs}.
-
 Returns an object of class \code{dygraphs}.
 }
 \description{
 Produces a dygraph (see the
 \href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail)
-for objects of class \link{hierarchicalTimeSeries}. The function generates an interactive time
-series plot of the original aggregate series, the directly and the indirectly seasonally
-adjusted (SA) aggregate series.
-If no run has been performed on the \link{hierarchicalTimeSeries} object,
+for objects of class \link{persephone}.
+In case of \code{persephoneSingle} objects,
+the function generates an interactive time series plot
+of the original series, the seasonally adjusted (SA) series and the trend as
+well as one year forecasts with prediction intervals of the original series.
+For \link{hierarchicalTimeSeries} objects, the function plots the original aggregate series
+as well as the directly and indirectly seasonally adjusted aggregate series.
+}
+\details{
+If no run has been performed on the \link{persephone} object,
 only the original aggregate time series is plotted.
-
-Produces a dygraph (see the
-\href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail)
-for objects of class \link{persephoneSingle}. The function generates an interactive time
-series plot of the original series, the seasonally adjusted (SA) series and
-the trend as well as one year forecasts with prediction intervals of the
-original series. If no run has been performed on the \link{persephoneSingle} object,
-only the original time series is plotted.
 }
 \examples{
+# Plotting hierarchicalTimeSeries objects
 
 # Monthly data
 data(AirPassengers, package = "datasets")
-# Generate two persephone objects, in this case two tramoseatsSingle objects
+# Generate two persephoneSingle objects, in this case two tramoseatsSingle objects
 tsAir1 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 tsAir2 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 # Generate a hierarchicalTimeSeries object
@@ -97,7 +78,8 @@ htUKgas <- hierarchicalTimeSeries$new(tsUKgas1=tsUKgas1, tsUKgas2=tsUKgas2)
 plot(htUKgas)
 htUKgas$run()
 plot(htUKgas)
-#'
+
+# Plotting persephoneSingle objects
 
 # Monthly data
 data(AirPassengers, package = "datasets")

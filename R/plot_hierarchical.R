@@ -1,15 +1,24 @@
-#' Interactive time series plot for a hierarchicalTimeSeries object
+#' Interactive time series plot for a persephone object
 #'
 #' Produces a dygraph (see the
 #' [online documentation](https://rstudio.github.io/dygraphs/) for more detail)
-#' for objects of class [hierarchicalTimeSeries]. The function generates an interactive time
-#' series plot of the original aggregate series, the directly and the indirectly seasonally
-#' adjusted (SA) aggregate series.
-#' If no run has been performed on the [hierarchicalTimeSeries] object,
+#' for objects of class [persephone].
+#' In case of ``persephoneSingle`` objects,
+#' the function generates an interactive time series plot
+#' of the original series, the seasonally adjusted (SA) series and the trend as
+#' well as one year forecasts with prediction intervals of the original series.
+#' For [hierarchicalTimeSeries] objects, the function plots the original aggregate series
+#' as well as the directly and indirectly seasonally adjusted aggregate series.
+#'
+#' If no run has been performed on the [persephone] object,
 #' only the original aggregate time series is plotted.
+#'
 #' @name plot
-#' @param x an object of class [hierarchicalTimeSeries].
+#' @param x an object of class [persephone].
 #' @param main plot title
+#' @param forecasts logical flag indicating if forecasts should be plotted
+#' @param showOutliers logical flag specifying if outliers should be highlighted
+#'   in the plot
 #' @param rangeSelector logical flag specifying if a range selector should be
 #'   included in the plot
 #' @param drawPoints logical flag indicating if a small dot should be drawn at
@@ -22,10 +31,11 @@
 #' @return Returns an object of class `dygraphs`.
 #'
 #' @examples
+#' # Plotting hierarchicalTimeSeries objects
 #'
 #' # Monthly data
 #' data(AirPassengers, package = "datasets")
-#' # Generate two persephone objects, in this case two tramoseatsSingle objects
+#' # Generate two persephoneSingle objects, in this case two tramoseatsSingle objects
 #' tsAir1 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 #' tsAir2 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 #' # Generate a hierarchicalTimeSeries object
@@ -44,7 +54,7 @@
 #' plot(htUKgas)
 #' htUKgas$run()
 #' plot(htUKgas)
-#'#'
+#'
 #' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
 #' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph
 #'   dyHighlight dyAnnotation dyPlotter dyEvent

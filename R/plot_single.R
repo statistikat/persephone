@@ -1,30 +1,6 @@
-#' Interactive time series plot for a persephoneSingle object
-#'
-#' Produces a dygraph (see the
-#' [online documentation](https://rstudio.github.io/dygraphs/) for more detail)
-#' for objects of class [persephoneSingle]. The function generates an interactive time
-#' series plot of the original series, the seasonally adjusted (SA) series and
-#' the trend as well as one year forecasts with prediction intervals of the
-#' original series. If no run has been performed on the [persephoneSingle] object,
-#' only the original time series is plotted.
 #' @name plot
-#' @param x an object of class [persephoneSingle].
-#' @param main plot title
-#' @param forecasts logical flag indicating if forecasts should be plotted
-#' @param showOutliers logical flag specifying if outliers should be highlighted
-#'   in the plot
-#' @param rangeSelector logical flag specifying if a range selector should be
-#'   included in the plot
-#' @param drawPoints logical flag indicating if a small dot should be drawn at
-#'   each point, in
-#'   addition to a line going through the point.
-#' @param annualComparison integer corresponding to the month or quarter which
-#'   should be highlighted in the plot for every year.
-#' @param ... other plotting parameters to affect the plot. Not currently used.
-#'
-#' @return Returns an object of class `dygraphs`.
-#'
 #' @examples
+#' # Plotting persephoneSingle objects
 #'
 #' # Monthly data
 #' data(AirPassengers, package = "datasets")
