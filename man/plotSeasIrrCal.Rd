@@ -2,7 +2,8 @@
 % Please edit documentation in R/plotSeasIrrCal.R
 \name{plotSeasIrrCal}
 \alias{plotSeasIrrCal}
-\title{Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object}
+\title{Interactive plot of the seasonal component, irregular component and calendar
+effects for a persephone object}
 \usage{
 plotSeasIrrCal(x, main = NULL, forecasts = TRUE,
   rangeSelector = TRUE, drawPoints = FALSE, annualComparison = NULL)
@@ -14,19 +15,23 @@ plotSeasIrrCal(x, main = NULL, forecasts = TRUE,
 
 \item{forecasts}{logical flag indicating if forecasts should be plotted}
 
-\item{rangeSelector}{logical flag specifying if a range selector should be included in the plot}
+\item{rangeSelector}{logical flag specifying if a range selector should be
+included in the plot}
 
-\item{drawPoints}{logical flag indicating if a small dot should be drawn at each point, in addition to a line going through the point.}
+\item{drawPoints}{logical flag indicating if a small dot should be drawn at
+each point, in addition to a line going through the point.}
 
-\item{annualComparison}{integer corresponding to the month or quarter which should be highlighted in the plot for every year.}
+\item{annualComparison}{integer corresponding to the month or quarter which
+should be highlighted in the plot for every year.}
 }
 \value{
 Returns an object of class \code{dygraphs}.
 }
 \description{
-Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail).
-The function generates an interactive time series plot of the seasonal component, irregular component and calendar effects
+Produces a dygraph (see the
+\href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail).
+The function generates an interactive time series plot of the seasonal
+component, irregular component and calendar effects
 for a \link{persephone} object together with one year forecasts
 }
 \examples{

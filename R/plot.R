@@ -1,22 +1,25 @@
 #' Interactive time series plot for a persephone object
 #'
-#' Produces a dygraph (see the [online documentation](https://rstudio.github.io/dygraphs/)
-#' for more detail) for objects of class [persephone].
-#' The function generates an interactive time series plot of the original series,
-#' the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
-#' intervals of the original series.
-#' If no run has been performed on the [persephone] object, only the original time series is
-#' plotted.
+#' Produces a dygraph (see the
+#' [online documentation](https://rstudio.github.io/dygraphs/) for more detail)
+#' for objects of class [persephone]. The function generates an interactive time
+#' series plot of the original series, the seasonally adjusted (SA) series and
+#' the trend as well as one year forecasts with prediction intervals of the
+#' original series. If no run has been performed on the [persephone] object,
+#' only the original time series is plotted.
 #' @name plot
 #' @param x an object of class [persephone].
 #' @param main plot title
 #' @param forecasts logical flag indicating if forecasts should be plotted
-#' @param showOutliers logical flag specifying if outliers should be highlighted in the plot
-#' @param rangeSelector logical flag specifying if a range selector should be included in the plot
-#' @param drawPoints logical flag indicating if a small dot should be drawn at each point, in
+#' @param showOutliers logical flag specifying if outliers should be highlighted
+#'   in the plot
+#' @param rangeSelector logical flag specifying if a range selector should be
+#'   included in the plot
+#' @param drawPoints logical flag indicating if a small dot should be drawn at
+#'   each point, in
 #'   addition to a line going through the point.
-#' @param annualComparison integer corresponding to the month or quarter which should be highlighted
-#'   in the plot for every year.
+#' @param annualComparison integer corresponding to the month or quarter which
+#'   should be highlighted in the plot for every year.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @return Returns an object of class `dygraphs`.
@@ -36,7 +39,8 @@
 #' # (randomly specify some outliers for illustrative purposes only)
 #' obj$updateParams(usrdef.outliersEnabled = TRUE,
 #'                 usrdef.outliersType = c("AO","LS","LS"),
-#'                 usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+#'                 usrdef.outliersDate=c("1950-01-01","1955-04-01",
+#'                                       "1959-10-01"))
 #' # Perform run to make updateParams take effect
 #' obj$run()
 #' plot(obj)
@@ -55,8 +59,8 @@
 #' plot(obj3)
 #'
 #' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
-#' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph dyHighlight dyAnnotation
-#'   dyPlotter dyEvent
+#' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph
+#'   dyHighlight dyAnnotation dyPlotter dyEvent
 #' @importFrom stringr str_pad
 #' @import ggplot2
 #' @export

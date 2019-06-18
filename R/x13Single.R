@@ -26,7 +26,7 @@ NULL
 #' @export
 x13Single <- R6::R6Class(
   "x13Single",
-  inherit = persephone,
+  inherit = persephoneSingle,
   public = list(
     initialize = function(ts, template = c(
       "RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
@@ -35,6 +35,7 @@ x13Single <- R6::R6Class(
       params <- x13_spec(spec = template, ...)
       private$params_internal <- params
       private$ts_internal <- ts
+      private$tsp_internal <- tsp(ts)
       private$userdefined <- userdefined
     },
     run = function(verbose = FALSE) {

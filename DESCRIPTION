@@ -13,7 +13,6 @@ LazyData: true
 Imports: 
     RJDemetra (>= 0.1.1),
     dygraphs,
-    magrittr,
     plotly,
     stringr,
     ggplot2,
@@ -29,5 +28,5 @@ Suggests:
     knitr,
     rmarkdown,
     prettydoc,
-    testthat
+    testthat (>= 2.1.0)
 VignetteBuilder: knitr

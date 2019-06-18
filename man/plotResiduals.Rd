@@ -2,7 +2,8 @@
 % Please edit documentation in R/plotResiduals.R
 \name{plotResiduals}
 \alias{plotResiduals}
-\title{Several interactive plots in connection with residuals for a persephone object}
+\title{Several interactive plots in connection with residuals for a persephone
+object}
 \usage{
 plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
   "nqq"), main = NULL, plotly = TRUE, ...)
@@ -10,14 +11,14 @@ plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
 \arguments{
 \item{x}{an object of class \link{persephone}.}
 
-\item{which}{character (\code{"res"},\code{"acf"},\code{"acf2"},
-\code{"pacf"},\code{"sreshist"}, \code{"nqq"}) selecting the preferred type of plot, see Details.
-A numeric value (\code{1:6}) corresponding to one of these characters is also accepted.}
+\item{which}{character (\code{"res"},\code{"acf"},\code{"acf2"}, \code{"pacf"},\code{"sreshist"},
+\code{"nqq"}) selecting the preferred type of plot, see Details. A numeric
+value (\code{1:6}) corresponding to one of these characters is also accepted.}
 
 \item{main}{plot title}
 
-\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in \link[plotly:ggplotly]{plotly::ggplotly}
-before returning.}
+\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in
+\link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
@@ -25,8 +26,9 @@ before returning.}
 Returns an object of class \code{dygraphs}, \code{ggplot} or \code{plotly}
 }
 \description{
-Produces either a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) or a \code{ggplot}/\code{plotly} object for objects of class \link{persephone}.
+Produces either a dygraph (see the
+\href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail)
+or a \code{ggplot}/\code{plotly} object for objects of class \link{persephone}.
 }
 \details{
 The following options are available for the parameter \code{which}.
@@ -52,7 +54,9 @@ plotResiduals(obj, which="acf")
 
 ## TO DO:
 # maybe other theme_bw()
-# maybe one standard for colors (for dygraph and ggplots -> take dygraph colors for ggplots?)
-# maybe adjust tooltip for ggplotly (e.g. when count is shown even though y=density)
+# maybe one standard for colors (for dygraph and ggplots -> take dygraph
+# colors for ggplots?)
+# maybe adjust tooltip for ggplotly (e.g. when count is shown even though
+# y=density)
 
 }

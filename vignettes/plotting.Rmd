@@ -62,4 +62,3 @@ plotSeasIrrCal(obj)
 ```{r}
 plotResiduals(obj, which="acf")
 ```
-

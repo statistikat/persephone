@@ -1,15 +1,17 @@
-#' Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period
+#' Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
+#' period
 #'
 #' Produces a `ggplot`/`plotly` object for objects of class [persephone].
-#' If the `persephone` object is of class `tramoseatsSingle`, the function generates an interactive
-#' plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class `x13Single`,
-#' the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+#' If the `persephone` object is of class `tramoseatsSingle`, the function
+#' generates an interactive plot of the SI-ratios and their mean. Otherwise,
+#' i.e. if the object is of class `x13Single`, the SI-ratios, the replaced
+#' SI-ratios, the seasonal factors and the mean of the seasonal factors are
 #' plotted.
 #'
 #' @param x an object of class [persephone].
 #' @param main plot title
-#' @param plotly If the return value would be a `ggplot` object, wrap it in [plotly::ggplotly]
-#'   before returning.
+#' @param plotly If the return value would be a `ggplot` object, wrap it in
+#'   [plotly::ggplotly] before returning.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @return Returns an object of class `ggplot` or `plotly`
@@ -29,7 +31,7 @@
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
-#' @importFrom dplyr group_by summarize rename
+#' @importFrom dplyr group_by summarize %>%
 #' @importFrom reshape melt
 #'
 #' @export
@@ -83,9 +85,12 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     dat <- merge(data.frame(year = floor(time(d10)), cycleName = cycleName(d10),
                             d8, d9, d10, stringsAsFactors = FALSE),
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
-    dat <- dat %>% dplyr::rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9, `Seasonal Factor` = d10, `SF Mean` = d10Mean)
+
+    dat <- dat %>% dplyr::rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9,
+                                 `Seasonal Factor` = d10, `SF Mean` = d10Mean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
-                         measure.vars = (c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
+                         measure.vars = (c("SI-Ratio", "Replaced SI-Ratio",
+                                           "Seasonal Factor",
                                            "SF Mean")))
 
     if (is.null(main)) {
@@ -95,7 +100,8 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
     p <- ggplot() +
       geom_point(data = subset(dat, variable == "SI-Ratio"),
                  aes(x = year, y = value, colour = variable)) +
-      geom_point(data = subset(dat, variable == "Replaced SI-Ratio"), na.rm = TRUE,
+      geom_point(data = subset(dat, variable == "Replaced SI-Ratio"),
+                 na.rm = TRUE,
                  aes(x = year, y = value, colour = variable)) +
       geom_line(data = subset(dat, variable == "Seasonal Factor"),
                 aes(x = year, y = value, colour = variable)) +
@@ -109,7 +115,8 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
       scale_colour_manual(
         breaks = c("SI-Ratio", "Replaced SI-Ratio", "Seasonal Factor",
                    "SF Mean"),
-        values = c("SI-Ratio" = "darkgreen", "Replaced SI-Ratio" = "red", "Seasonal Factor" = "black",
+        values = c("SI-Ratio" = "darkgreen", "Replaced SI-Ratio" = "red",
+                   "Seasonal Factor" = "black",
                    "SF Mean" = "blue"),
         guide = guide_legend(override.aes = list(
           linetype = c("blank", "blank", "solid", "solid"),
@@ -176,7 +183,8 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
   }
 
   siRatioTheme <- theme_bw() +
-    theme(panel.spacing = unit(0, "lines"),  #increase/decrease spacing between faceted plots
+    #increase/decrease spacing between faceted plots
+    theme(panel.spacing = unit(0, "lines"),
           strip.background = element_blank(),
           panel.border = element_rect(linetype = "solid", colour = "grey"),
           legend.title = element_blank(),
@@ -187,18 +195,16 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
   if (plotly) {
     p <- plotly::ggplotly(p)
 
-    # we need to perform showticklabels = FALSE for every xaxis of this plot (there are 12 of them)
-    evalThis <-  paste0("p  %>% plotly::layout(",paste0(grep("xaxis", names(p[['x']][["layout"]]), value = TRUE), " = list(visible = FALSE)",collapse=", "),")")
-    p <- eval(parse(text=evalThis))
+    # we need to perform showticklabels = FALSE for every xaxis of this plot
+    # (there are 12 of them)
+    evalThis <-  paste0("p  %>% plotly::layout(",
+                        paste0(grep("xaxis", names(p[["x"]][["layout"]]),
+                                    value = TRUE), " = list(visible = FALSE)",
+                               collapse = ", "), ")")
+    p <- eval(parse(text = evalThis))
 
   }
 
   p
 
 }
-
-
-
-
-
-

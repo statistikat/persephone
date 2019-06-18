@@ -2,7 +2,8 @@
 % Please edit documentation in R/plotSiRatios.R
 \name{plotSiRatios}
 \alias{plotSiRatios}
-\title{Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period}
+\title{Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
+period}
 \usage{
 plotSiRatios(x, main = NULL, plotly = TRUE, ...)
 }
@@ -11,8 +12,8 @@ plotSiRatios(x, main = NULL, plotly = TRUE, ...)
 
 \item{main}{plot title}
 
-\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in \link[plotly:ggplotly]{plotly::ggplotly}
-before returning.}
+\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in
+\link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
@@ -21,9 +22,10 @@ Returns an object of class \code{ggplot} or \code{plotly}
 }
 \description{
 Produces a \code{ggplot}/\code{plotly} object for objects of class \link{persephone}.
-If the \code{persephone} object is of class \code{tramoseatsSingle}, the function generates an interactive
-plot of the SI-ratios and their mean. Otherwise, i.e. if the object is of class \code{x13Single},
-the SI-ratios, the replaced SI-ratios, the seasonal factors and the mean of the seasonal factors are
+If the \code{persephone} object is of class \code{tramoseatsSingle}, the function
+generates an interactive plot of the SI-ratios and their mean. Otherwise,
+i.e. if the object is of class \code{x13Single}, the SI-ratios, the replaced
+SI-ratios, the seasonal factors and the mean of the seasonal factors are
 plotted.
 }
 \examples{

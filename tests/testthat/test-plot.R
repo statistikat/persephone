@@ -29,6 +29,16 @@ test_that("plotting works", {
   obj$run(verbose = TRUE)
 })
 
+test_that("plotting quarterly works", {
+  jj <- JohnsonJohnson
+  jj[7] <- 100
+  obj <- x13Single$new(jj, "RSA1")
+  obj$run()
+  expect_error(plot(obj, annualComparison = 1, showOutliers = TRUE), NA)
+})
+
+context("plotSeasIrrCal")
+
 test_that("plotSeasIrrCal", {
   obj <- x13Single$new(AirPassengers, "RSA1")
   expect_error(obj$plotSeasIrrCal(), "No results from run available.\n")
@@ -36,7 +46,12 @@ test_that("plotSeasIrrCal", {
   expect_error(obj$plotSeasIrrCal(), NA)
   expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
   expect_error(plotSeasIrrCal(obj, forecasts = FALSE), NA)
+})
 
+test_that("plotSeasIrrCal quarterly", {
+  obj <- tramoseatsSingle$new(UKgas, "RSA3")
+  obj$run()
+  expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
 })
 
 context("plotResiduals")

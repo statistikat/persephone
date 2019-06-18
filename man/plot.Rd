@@ -16,15 +16,18 @@
 
 \item{forecasts}{logical flag indicating if forecasts should be plotted}
 
-\item{showOutliers}{logical flag specifying if outliers should be highlighted in the plot}
+\item{showOutliers}{logical flag specifying if outliers should be highlighted
+in the plot}
 
-\item{rangeSelector}{logical flag specifying if a range selector should be included in the plot}
+\item{rangeSelector}{logical flag specifying if a range selector should be
+included in the plot}
 
-\item{drawPoints}{logical flag indicating if a small dot should be drawn at each point, in
+\item{drawPoints}{logical flag indicating if a small dot should be drawn at
+each point, in
 addition to a line going through the point.}
 
-\item{annualComparison}{integer corresponding to the month or quarter which should be highlighted
-in the plot for every year.}
+\item{annualComparison}{integer corresponding to the month or quarter which
+should be highlighted in the plot for every year.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
@@ -32,13 +35,13 @@ in the plot for every year.}
 Returns an object of class \code{dygraphs}.
 }
 \description{
-Produces a dygraph (see the \href{https://rstudio.github.io/dygraphs/}{online documentation}
-for more detail) for objects of class \link{persephone}.
-The function generates an interactive time series plot of the original series,
-the seasonally adjusted (SA) series and the trend as well as one year forecasts with prediction
-intervals of the original series.
-If no run has been performed on the \link{persephone} object, only the original time series is
-plotted.
+Produces a dygraph (see the
+\href{https://rstudio.github.io/dygraphs/}{online documentation} for more detail)
+for objects of class \link{persephone}. The function generates an interactive time
+series plot of the original series, the seasonally adjusted (SA) series and
+the trend as well as one year forecasts with prediction intervals of the
+original series. If no run has been performed on the \link{persephone} object,
+only the original time series is plotted.
 }
 \examples{
 
@@ -55,7 +58,8 @@ plot(obj, drawPoints=TRUE)
 # (randomly specify some outliers for illustrative purposes only)
 obj$updateParams(usrdef.outliersEnabled = TRUE,
                 usrdef.outliersType = c("AO","LS","LS"),
-                usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+                usrdef.outliersDate=c("1950-01-01","1955-04-01",
+                                      "1959-10-01"))
 # Perform run to make updateParams take effect
 obj$run()
 plot(obj)

@@ -12,4 +12,5 @@ test_that("implement this function", {
   expect_error(superClass$initialize(), "implement this function")
   expect_error(superClass$run(), "implement this function")
   expect_error(superClass$updateFun(2L), "implement this method")
+  expect_error(superClass$print(), NA)
 })
