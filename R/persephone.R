@@ -88,10 +88,13 @@ persephone <- R6::R6Class(
     output_internal = NULL,
     userdefined = NULL,
     print_table = function(prefix) {
-      data.frame(
-        component = sub("/", "", prefix),
-        class = class(self)[1],
-        run = !is.null(self$output)
+      cbind(
+        data.frame(
+          component = sub("/", "", prefix),
+          class = class(self)[1],
+          run = !is.null(self$output)
+        ),
+        printDiagnostics(self)
       )
     },
     updateFun = function(params, ...) {

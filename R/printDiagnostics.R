@@ -1,18 +1,20 @@
-persephone.printDiagnostics <- function(x){
+printDiagnostics <- function(x) {
+  if (is.null(x$output))
+    return(data.frame(
+      seasonality = NA, log_transform = NA, arima_mdl = NA,
+      n_outliers = NA, q_stat = NA
+    ))
 
-  log_transform <- x$output$regarima$model$spec_rslt$`Log transformation`
-  pdq <- paste0("(",x$output$regarima$arma[["p"]]," ",x$output$regarima$arma[["d"]]," ",x$output$regarima$arma[["q"]],")")
-  bpbdbq <- paste0("(",x$output$regarima$arma[["bp"]]," ",x$output$regarima$arma[["bd"]]," ",x$output$regarima$arma[["bq"]],")")
-  arima_mdl <- paste0(pdq,bpbdbq)
-  n_outliers <- x$output$regarima$model$spec_rslt$Outliers
-  seasonality <- x$output$diagnostics$combined_test$combined_seasonality_test
-  diagnostics <- c(seasonality=seasonality,log_transform=log_transform,arima_mdl=arima_mdl,n_outliers=n_outliers)
+  arma <- x$output$regarima$arma
+  pdq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]],")")
+  bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]]," ", arma[["bq"]], ")")
+  q_stat <- x$output$decomposition$mstats["Q",]
 
-  if (inherits(x$output$decomposition, "decomposition_X11")) {
-    q_stat = x$output$decomposition$mstats["Q",]
-    diagnostics <- c(diagnostics, q_stat)
-  }
-
-return(diagnostics)
-
+  data.frame(
+    seasonality = x$output$diagnostics$combined_test$combined_seasonality_test,
+    log_transform = x$output$regarima$model$spec_rslt$`Log transformation`,
+    arima_mdl = paste0(pdq, bpbdbq),
+    n_outliers = x$output$regarima$model$spec_rslt$Outliers,
+    q_stat = ifelse(is.null(q_stat), NA, q_stat)
+  )
 }

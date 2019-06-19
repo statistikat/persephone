@@ -56,7 +56,10 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     components = NULL,
     print = function() {
-      print(private$print_table())
+      tbl <- private$print_table()
+      if (all(!tbl$run))
+        tbl <- tbl[, 1:3]
+      print(tbl, right = FALSE, row.names = FALSE)
     }
   ),
   active = list(
@@ -76,13 +79,27 @@ hierarchicalTimeSeries <- R6::R6Class(
       })
     },
     print_table = function(prefix = "") {
-      do.call(rbind, lapply(seq_along(self$components), function(i) {
-        name <- names(self$components)[[i]]
-        component <- self$components[[i]]
-        component$.__enclos_env__$private$print_table(
-          prefix = paste0(prefix, "/", name)
-        )
-      }))
+      comp <- do.call(rbind, lapply(
+        seq_along(self$components),
+        function(i) {
+          name <- names(self$components)[[i]]
+          component <- self$components[[i]]
+          component$.__enclos_env__$private$print_table(
+            prefix = paste0(prefix, "/", name)
+          )
+        }
+      ))
+      rbind(
+        cbind(
+          data.frame(
+            component = gsub("^/", "", prefix),
+            class = private$model,
+            run = !is.null(self$output)
+          ),
+          printDiagnostics(self)
+        ),
+        comp
+      )
     },
     check_time_instances = function(components) {
       tsps <- lapply(components, function(component) {
