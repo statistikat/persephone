@@ -32,14 +32,14 @@ plotted.
 
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- x13Single$new(AirPassengers, "RSA1")
+obj <- per_x13(AirPassengers, "RSA1")
 obj$run()
 # Plot the SI-ratios after run
 plotSiRatios(obj)
 
 data(UKgas, package = "datasets")
 # Generate a persephone object, in this case a tramoseatsSingle object
-obj2 <- tramoseatsSingle$new(UKgas, "RSA3")
+obj2 <- per_tramo(UKgas, "RSA3")
 obj2$run()
 plotSiRatios(obj2)
 

@@ -2,6 +2,7 @@
 % Please edit documentation in R/x13Single.R
 \name{x13Single}
 \alias{x13Single}
+\alias{per_x13}
 \title{x13 class}
 \description{
 An R6 class that represents a x13 model.
@@ -13,7 +14,7 @@ An R6 class that represents a x13 model.
 \section{Contructor}{
 
 \preformatted{
-x13Single$new(
+per_x13(
   ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
   userdefined=NULL, ...
 )
@@ -29,7 +30,7 @@ x13Single$new(
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- x13Single$new(AirPassengers, "RSA3")
+obj <- per_x13(AirPassengers, "RSA3")
 obj$run()
 obj$ts
 }

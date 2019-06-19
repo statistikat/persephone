@@ -5,7 +5,7 @@
 #' @section Inherits: [persephone]
 #' @section Contructor:
 #' \preformatted{
-#' x13Single$new(
+#' per_x13(
 #'   ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
 #'   userdefined=NULL, ...
 #' )
@@ -18,7 +18,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- x13Single$new(AirPassengers, "RSA3")
+#' obj <- per_x13(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @name x13Single
@@ -54,3 +54,8 @@ x13Single <- R6::R6Class(
     }
   )
 )
+
+#' @rdname x13Single
+#' @usage NULL
+#' @export
+per_x13 <- x13Single$new

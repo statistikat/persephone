@@ -3,6 +3,7 @@
 \docType{data}
 \name{hierarchicalTimeSeries}
 \alias{hierarchicalTimeSeries}
+\alias{per_hts}
 \title{Define a hierarchical time series}
 \format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
@@ -19,7 +20,7 @@ The resulting time series can perform direct and indirect adjustments.
 \section{Constructor}{
 
 \preformatted{
-hierarchicalTimeSeries$new(...)
+per_hts(...)
 }
 \itemize{
 \item \code{...} should contain one or more \code{persephone} objects that use the same
@@ -33,14 +34,14 @@ time instances. All lements supplied here must be named.
 }
 
 \examples{
-obj_x13 <- x13Single$new(AirPassengers, "RSA3")
+obj_x13 <- per_x13(AirPassengers, "RSA3")
 
-ht <- hierarchicalTimeSeries$new(a = obj_x13, b = obj_x13)
+ht <- per_hts(a = obj_x13, b = obj_x13)
 ht$run()
 ht$adjusted
 ht$adjusted_indirect
 
-ht2 <- hierarchicalTimeSeries$new(a = ht, b = obj_x13)
+ht2 <- per_hts(a = ht, b = obj_x13)
 ht2$run()
 ht2$adjusted
 ht2$adjusted_indirect

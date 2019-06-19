@@ -2,6 +2,7 @@
 % Please edit documentation in R/tramoseatsSingle.R
 \name{tramoseatsSingle}
 \alias{tramoseatsSingle}
+\alias{per_tramo}
 \title{tramoseats class}
 \description{
 an R6 class that represents a tramoseats model
@@ -13,7 +14,7 @@ an R6 class that represents a tramoseats model
 \section{Contructor}{
 
 \preformatted{
-tramoseatsSingle$new(
+per_tramo(
   ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
                    "RSA4", "RSA5"),
   userdefined=NULL, ...
@@ -30,7 +31,7 @@ tramoseatsSingle$new(
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- tramoseatsSingle$new(AirPassengers, "RSA3")
+obj <- per_tramo(AirPassengers, "RSA3")
 obj$run()
 obj$ts
 }

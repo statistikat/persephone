@@ -6,7 +6,7 @@
 #' @section Inherits: [persephone]
 #' @section Constructor:
 #' \preformatted{
-#' hierarchicalTimeSeries$new(...)
+#' per_hts(...)
 #' }
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All lements supplied here must be named.
@@ -17,14 +17,14 @@
 #'   [tramoseats_spec()]
 #'
 #' @examples
-#' obj_x13 <- x13Single$new(AirPassengers, "RSA3")
+#' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'
-#' ht <- hierarchicalTimeSeries$new(a = obj_x13, b = obj_x13)
+#' ht <- per_hts(a = obj_x13, b = obj_x13)
 #' ht$run()
 #' ht$adjusted
 #' ht$adjusted_indirect
 #'
-#' ht2 <- hierarchicalTimeSeries$new(a = ht, b = obj_x13)
+#' ht2 <- per_hts(a = ht, b = obj_x13)
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
@@ -147,3 +147,8 @@ hierarchicalTimeSeries <- R6::R6Class(
     }
   )
 )
+
+#' @rdname hierarchicalTimeSeries
+#' @usage NULL
+#' @export
+per_hts <- hierarchicalTimeSeries$new

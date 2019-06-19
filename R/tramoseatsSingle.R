@@ -5,7 +5,7 @@
 #' @section Inherits: [persephone]
 #' @section Contructor:
 #' \preformatted{
-#' tramoseatsSingle$new(
+#' per_tramo(
 #'   ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
 #'                    "RSA4", "RSA5"),
 #'   userdefined=NULL, ...
@@ -18,7 +18,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- tramoseatsSingle$new(AirPassengers, "RSA3")
+#' obj <- per_tramo(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @name tramoseatsSingle
@@ -54,3 +54,9 @@ tramoseatsSingle <- R6::R6Class(
     }
   )
 )
+
+#' @rdname tramoseatsSingle
+#' @usage NULL
+#' @export
+per_tramo <- tramoseatsSingle$new
+
