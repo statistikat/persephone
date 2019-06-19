@@ -19,18 +19,18 @@ generateQrList <- function(x, tsName = "tsName"){
   res_td <- x$output$diagnostics$residuals_test["f-test on sa (td)",]
   res_td <- ifelse(res_td$P.value < 0.05, "Yes", "No")
 
+  # Arima Model
+  arma <- x$output$regarima$arma
+  pdq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")")
+  bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
+
   QrEntries <- list(tsName = tsName,
        Period = frequency(x$ts),
        Nobs = length(x$ts),
        Start = start(x$ts), # adjust date format
        End = end(x$ts), # adjust date format
        `Log-Transformation` = x$output$regarima$model$spec_rslt$`Log transformation`, #Yes/No/empty
-       P = x$output$regarima$arma[["p"]],
-       D = x$output$regarima$arma[["d"]],
-       Q = x$output$regarima$arma[["q"]],
-       BP = x$output$regarima$arma[["bp"]],
-       BD = x$output$regarima$arma[["bd"]],
-       BQ = x$output$regarima$arma[["bq"]],
+       `ARIMA Model` = bpbdbq,
        # Calendar effects
        LeapYear = x$output$regarima$model$spec_rslt$`Leap year`,
        MovingHoliday = x$output$regarima$model$spec_rslt$Easter, # Easter Effect lt. QR Beschreibung

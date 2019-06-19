@@ -11,6 +11,7 @@ printDiagnostics <- function(x) {
   q_stat <- x$output$decomposition$mstats["Q", ]
 
   data.frame(
+    # seasonality: placeholder (test for stable seasonality)
     seasonality = x$output$diagnostics$combined_test$combined_seasonality_test,
     log_transform = x$output$regarima$model$spec_rslt$`Log transformation`,
     arima_mdl = paste0(pdq, bpbdbq),
