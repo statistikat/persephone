@@ -144,7 +144,7 @@ The resulting time series can perform direct and indirect adjustments.</p>
 
     
     <pre>
-hierarchicalTimeSeries$new(...)
+per_hts(...)
 </pre>
 <ul>
 <li><p><code>...</code> should contain one or more <code>persephone</code> objects that use the same
@@ -158,9 +158,9 @@ time instances. All lements supplied here must be named.</p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
+    <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='x13Single.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
 
-<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='no'>hierarchicalTimeSeries</span>$<span class='fu'>new</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
+<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
 <span class='no'>ht</span>$<span class='fu'>run</span>()
 <span class='no'>ht</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
 #&gt; 1949 247.7036 250.1979 250.3748 255.4177 252.0618 251.6617 251.0775 252.5168
@@ -213,7 +213,7 @@ time instances. All lements supplied here must be named.</p></li>
 #&gt; 1958 763.0615 777.0210 772.6965 757.6000
 #&gt; 1959 878.0997 879.5601 903.4672 913.7823
 #&gt; 1960 966.5037 993.5458 975.1511 977.8607</div><div class='input'>
-<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='no'>hierarchicalTimeSeries</span>$<span class='fu'>new</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
+<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
 <span class='no'>ht2</span>$<span class='fu'>run</span>()
 <span class='no'>ht2</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
 #&gt; 1949  371.5554  375.2969  375.5622  383.1265  378.0928  377.4925  376.6163

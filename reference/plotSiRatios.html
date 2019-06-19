@@ -174,14 +174,14 @@ plotted.</p>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephone object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='x13Single.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='no'>obj</span>$<span class='fu'>run</span>()
 <span class='co'># Plot the SI-ratios after run</span>
 <span class='fu'>plotSiRatios</span>(<span class='no'>obj</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephone object, in this case a tramoseatsSingle object</span>
-<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>obj2</span>$<span class='fu'>run</span>()
 <span class='fu'>plotSiRatios</span>(<span class='no'>obj2</span>)</div></pre>
   </div>

@@ -1,6 +1,6 @@
 pandoc: '2.2'
 pkgdown: 1.3.0.9100
-pkgdown_sha: 41a74a4eca37ac606d4e8e69a538459eec7241e3
+pkgdown_sha: b17fc6b19175c955348e88471316b3cbdd011f15
 articles:
   plotting: plotting.html
 
