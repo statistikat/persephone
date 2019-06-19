@@ -1,31 +1,6 @@
-library(persephone)
-library(RJDemetra)
-#####################     EXAMPLE 1     #########################
-
-# userdef <- user_defined_variables(sa_object = c("X13-ARIMA"))
-# userdef <- user_defined_variables(sa_object = c("TRAMO-SEATS"))
-# mysa <- x13_spec(AirPassengers, spec = "RSA1", usrdef.outliersEnabled = TRUE,
-#          usrdef.outliersType = c("AO","LS","LS","AO"),
-#          usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"))
-# mysa <- x13(AirPassengers,x13_spec,userdefined=userdef)
-#
-
-obj <- x13Single$new(AirPassengers, "RSA1",usrdef.outliersEnabled = TRUE,
-                     usrdef.outliersType = c("AO","LS","LS","AO"),
-                     usrdef.outliersDate = c("1950-01-01","1955-04-01","1959-10-01","1959-11-01"))#,
-                    # userdefined=user_defined_variables(sa_object = c("X13-ARIMA")))
-
-obj$run()
-x <- obj
-bla <- lapply(x$output$user_defined,print)
-
-univariateQR <- function(x, tsName = "tsName"){
+generateQrList <- function(x, tsName = "tsName"){
   x$ts
   x$output
-  # @Regressionskoeffizienten:
-  # H0: coeff=0 -> coeff nicht signifikant wenn 0 in KI liegt (coeff +-2*sterr)
-  # tval=coef/sterr
-  # high t-val -> significant
 
   # Select 3 main (most significant) outliers
   outliers3 <- rep("", 3)
@@ -36,8 +11,15 @@ univariateQR <- function(x, tsName = "tsName"){
     outliers <- outliers[order(abs(outliers[ , "T-stat"]), decreasing = TRUE),]
     outliers3[1 : length(outliers$regcoeff)] <- outliers$regcoeff
     outliers3 <- outliers3[1 : 3]
- }
-  list(tsName = tsName,
+  }
+
+  # Residual Seasonality and TD Effects
+  res_seas <- x$output$diagnostics$residuals_test["f-test on sa (seasonal dummies)",]
+  res_seas <- ifelse(res_seas$P.value < 0.05, "Yes", "No")
+  res_td <- x$output$diagnostics$residuals_test["f-test on sa (td)",]
+  res_td <- ifelse(res_td$P.value < 0.05, "Yes", "No")
+
+  QrEntries <- list(tsName = tsName,
        Period = frequency(x$ts),
        Nobs = length(x$ts),
        Start = start(x$ts), # adjust date format
@@ -59,18 +41,15 @@ univariateQR <- function(x, tsName = "tsName"){
        Outlier2	= outliers3[2],
        Outlier3 = outliers3[3],
        CombinedTest_SI = x$output$diagnostics$combined_test$combined_seasonality_test,
-       `Residual Seasonality` = ,
-       `Residual TD Effect` = ,
+       `Residual Seasonality` = res_seas,
+       `Residual TD Effect` = res_td,
        `Q-Stat` = x$output$decomposition$mstats["Q",],
        # Filters used by X12-related methods (Not to be filled by countries using Tramo-Seats)
        `Final Henderson Filter` = x$output$decomposition$t_filter,
-       `Stage 2 Henderson Filter` = ,
+       `Stage 2 Henderson Filter` = "?",
        `Seasonal Filter` = x$output$decomposition$s_filter,
-        Quality = ,
-       `Max-Adj` = ,
+       Quality = "?",
+       `Max-Adj` = "?")
 
-
-       )
+  return(QrEntries)
 }
-
-
