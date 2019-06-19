@@ -117,9 +117,8 @@ plot.hierarchicalTimeSeries <- function(x, main=NULL,
   }
 
   postRunPlot <- function(
-    main=main, forecasts=forecasts, showOutliers=showOutliers,
-    rangeSelector=rangeSelector, drawPoints=drawPoints,
-    annualComparison=annualComparison){
+    main = main, rangeSelector = rangeSelector, drawPoints = drawPoints,
+    annualComparison = annualComparison) {
 
     if (is.null(main)) {
       main <- "Original, Directly and Indirectly Adjusted Aggregate Series"
@@ -185,8 +184,7 @@ plot.hierarchicalTimeSeries <- function(x, main=NULL,
   if (!is.null(x$output$user_defined)) {
 
     graphObj <- postRunPlot(
-      main = main, forecasts = forecasts, showOutliers = showOutliers,
-      rangeSelector = rangeSelector, drawPoints = drawPoints,
+      main = main, rangeSelector = rangeSelector, drawPoints = drawPoints,
       annualComparison = annualComparison
     )
     graphObj
