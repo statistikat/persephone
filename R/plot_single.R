@@ -40,10 +40,9 @@
 #' @importFrom stringr str_pad
 #' @import ggplot2
 #' @export
-plot.persephoneSingle <- function(x, main=NULL, forecasts=TRUE, showOutliers=TRUE,
-                            rangeSelector=TRUE, drawPoints=FALSE,
-                            annualComparison=NULL, ...){
-
+plot.persephoneSingle <- function(
+  x, main = NULL, forecasts = TRUE, showOutliers = TRUE, rangeSelector = TRUE,
+  drawPoints = FALSE, annualComparison = NULL, ...) {
   # Helper function for annual comparison
   annComp <- function(ts, annualComparison){
 

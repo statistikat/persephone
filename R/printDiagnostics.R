@@ -6,9 +6,9 @@ printDiagnostics <- function(x) {
     ))
 
   arma <- x$output$regarima$arma
-  pdq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]],")")
-  bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]]," ", arma[["bq"]], ")")
-  q_stat <- x$output$decomposition$mstats["Q",]
+  pdq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")")
+  bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
+  q_stat <- x$output$decomposition$mstats["Q", ]
 
   data.frame(
     seasonality = x$output$diagnostics$combined_test$combined_seasonality_test,

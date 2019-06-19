@@ -47,7 +47,8 @@ In case of \code{persephoneSingle} objects,
 the function generates an interactive time series plot
 of the original series, the seasonally adjusted (SA) series and the trend as
 well as one year forecasts with prediction intervals of the original series.
-For \link{hierarchicalTimeSeries} objects, the function plots the original aggregate series
+For \link{hierarchicalTimeSeries} objects, the function plots the original
+aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series.
 }
 \details{
@@ -59,7 +60,8 @@ only the original (aggregate) time series is plotted.
 
 # Monthly data
 data(AirPassengers, package = "datasets")
-# Generate two persephoneSingle objects, in this case two tramoseatsSingle objects
+# Generate two persephoneSingle objects, in this case two tramoseatsSingle
+# objects
 tsAir1 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 tsAir2 <- tramoseatsSingle$new(AirPassengers, "RSA1")
 # Generate a hierarchicalTimeSeries object
