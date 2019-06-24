@@ -59,4 +59,3 @@ tramoseatsSingle <- R6::R6Class(
 #' @usage NULL
 #' @export
 per_tramo <- tramoseatsSingle$new
-
