@@ -3,3 +3,5 @@
 *.log
 *.tex
 *.gz
+presentation_useR.pdf
+*_files
