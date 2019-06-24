@@ -14,3 +14,9 @@ test_that("implement this function", {
   expect_error(superClass$updateFun(2L), "implement this method")
   expect_error(superClass$print(), NA)
 })
+
+test_that("generateQrList", {
+  obj <- x13Single$new(AirPassengers)
+  obj$run()
+  persephone:::generateQrList(obj)
+})
