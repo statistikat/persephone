@@ -52,11 +52,5 @@ plotResiduals(obj)
 # Plot the autocorrelations of the residuals
 plotResiduals(obj, which="acf")
 
-## TO DO:
-# maybe other theme_bw()
-# maybe one standard for colors (for dygraph and ggplots -> take dygraph
-# colors for ggplots?)
-# maybe adjust tooltip for ggplotly (e.g. when count is shown even though
-# y=density)
 
 }
