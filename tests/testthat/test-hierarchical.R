@@ -43,3 +43,25 @@ test_that("object run by reference", {
   ht$run()
   expect_s3_class(obj_x13$adjusted, "ts")
 })
+
+context("hierarchical misc")
+
+test_that("hierarchical generics", {
+  obj_x13 <- x13Single$new(AirPassengers, "RSA3")
+  ht <- hierarchicalTimeSeries$new(a = obj_x13)
+  print(ht)
+  plot(ht, annualComparison = 1)
+  ht$run()
+  print(ht)
+  plot(ht, annualComparison = 1)
+  obj_x132 <- x13Single$new(JohnsonJohnson)
+  ht2 <- hierarchicalTimeSeries$new(a = obj_x132)
+  plot(ht2, annualComparison = 1)
+})
+
+context("hierarchical misc")
+
+test_that("components must be named", {
+  obj_x13 <- x13Single$new(AirPassengers, "RSA3")
+  expect_error(hierarchicalTimeSeries$new(obj_x13), "must be named")
+})

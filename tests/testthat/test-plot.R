@@ -88,3 +88,8 @@ test_that("SIRatios", {
   obj2$run()
   expect_error(plotSiRatios(obj2), NA)
 })
+
+test_that("autoplot", {
+  obj <- x13Single$new(AirPassengers, "RSA1")
+  autoplot(obj)
+})

@@ -125,7 +125,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     coerce_component_names = function(components) {
       lapply(seq_along(components), function(i) {
         parname <- names(components)[i]
-        if (!is.null(parname) & parname != "")
+        if (!is.null(parname) && parname != "")
           return(parname)
         else
           stop("all components in 'hierarchicalTimeSeries' must be named")
