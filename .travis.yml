@@ -1,29 +1,35 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
 language: R
 sudo: false
 cache: packages
-
 branches:
   only:
   - master
-
-r_github_packages:
-  - jimhester/lintr
-  - r-lib/pkgdown
-  - r-lib/covr
 
 notifications:
   email:
     - gregor.decillia@statistik.gv.at
     - angelika.meraner@statistik.gv.at
 
-# lintr setup
+# these packages don't appear in the description file since they are only
+# used to check the package and build documentation. install them from github
+r_github_packages:
+  - jimhester/lintr
+  - r-lib/pkgdown
+  - r-lib/covr
+
+# avoid the following warning in devtools::check()
+# "Unable to find GhostScript executable to run checks on size reduction"
+apt_packages:
+  - ghostscript
+
+# lintr and coveralls
 after_success:
   - R CMD INSTALL $PKG_TARBALL
   - Rscript -e 'covr::coveralls()'
   - Rscript -e 'lintr::lint_package()'
 
+# build github pages via pkgdown
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
