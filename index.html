@@ -98,14 +98,12 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Objects can be constructed with <code>x13Single$new</code> or <code>tramoseatsSingle$new</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RJDemetra)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"AirPassengers"</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">obj &lt;-<span class="st"> </span>x13Single<span class="op">$</span><span class="kw">new</span>(AirPassengers)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">obj &lt;-<span class="st"> </span>x13Single<span class="op">$</span><span class="kw">new</span>(AirPassengers)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="90%"></p>
+<p>The original output from <a href="https://github.com/nbbrd/rjdemetra">RJDemetra</a> can be inspected via the <code>output</code> field.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obj<span class="op">$</span><span class="kw">run</span>()</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">obj<span class="op">$</span>output<span class="op">$</span>regarima</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; y = regression model + arima (0, 1, 0, 0, 1, 1)</span></a>
@@ -126,21 +124,17 @@
 <a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; Residual standard error: 0.03006 on 131 degrees of freedom</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; Log likelihood = 271.5, aic = 947.6 aicc = 949.5, bic(corrected for length) = -6.674</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">AirPassengers</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118</span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229</span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278</span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; Log likelihood = 271.5, aic = 947.6 aicc = 949.5, bic(corrected for length) = -6.674</span></a></code></pre></div>
+</div>
+<div id="further-reading" class="section level2">
+<h2 class="hasAnchor">
+<a href="#further-reading" class="anchor"></a>Further reading</h2>
+<p>More information can be found on the <a href="https://statistikat.github.io/surveysd/">github-pages site</a> for persephone.</p>
+<ul>
+<li>The <a href="https://statistikat.github.io/persephone/articles/plotting.html">plotting vignette</a> contains examples of interactive plots</li>
+<li>An overview of the package is available in the <a href="https://statistikat.github.io/persephone/articles/presentation_useR.pdf">useR!2019 slides</a>
+</li>
+</ul>
 </div>
 </div>
   </div>
@@ -175,7 +169,7 @@
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?logo=github"></a></li>
 <li><a href="https://github.com/statistikat/persephone"><img src="https://img.shields.io/github/languages/code-size/statistikat/persephone.svg?logo=github"></a></li>
 <li><a href="https://github.com/statistikat/persephone/commits/master"><img src="https://img.shields.io/github/last-commit/statistikat/persephone.svg?logo=github"></a></li>
-<li><a href="https://coveralls.io/r/statistikat/persephone?branch=master"><img src="https://coveralls.io/repos/github/statistikat/persephone/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://coveralls.io/r/statistikat/persephone?branch=master&amp;service=github"><img src="https://coveralls.io/repos/github/statistikat/persephone/badge.svg" alt="Coverage status"></a></li>
 </ul>
 </div>
 </div>
