@@ -1,2 +1,5 @@
 *.html
 *.R
+*.log
+*.tex
+*.gz
