@@ -11,7 +11,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "90%"
 )
-library(dygraphs)
 ```
 # persephone
 
@@ -19,7 +18,7 @@ library(dygraphs)
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg?logo=github)](https://www.tidyverse.org/lifecycle/#experimental)
 [![](https://img.shields.io/github/languages/code-size/statistikat/persephone.svg?logo=github)](https://github.com/statistikat/persephone)
 [![](https://img.shields.io/github/last-commit/statistikat/persephone.svg?logo=github)](https://github.com/statistikat/persephone/commits/master)
- [![Coverage status](https://coveralls.io/repos/github/statistikat/persephone/badge.svg)](https://coveralls.io/r/statistikat/persephone?branch=master)
+ [![Coverage status](https://coveralls.io/repos/github/statistikat/persephone/badge.svg)](https://coveralls.io/r/statistikat/persephone?branch=master&service=github)
 
 This package is an object oriented wrapper around the R Package [RJDemetra], which performs
 time series adjustments with the java library [JDemetra+]
@@ -38,19 +37,29 @@ Objects can be constructed with `x13Single$new` or `tramoseatsSingle$new`. Subse
 the `run` method runs the model and `output` gives access to the output object from 
 `RJDemetra`. 
 
-```{r}
-library(RJDemetra)
+```{r, message = FALSE}
 library(persephone)
-
-data("AirPassengers")
 
 obj <- x13Single$new(AirPassengers)
 plot(obj)
-obj$run()
-obj$output$regarima
-AirPassengers
 ```
 
+The original output from [RJDemetra] can be inspected via the `output` field.
+
+```{r}
+obj$run()
+obj$output$regarima
+```
+
+## Further reading
+
+More information can be found on the [github-pages site] for persephone.
+
+* The [plotting vignette] contains examples of interactive plots 
+* An overview of the package is available in the [useR!2019 slides]
 
 [RJDemetra]: https://github.com/nbbrd/rjdemetra
 [JDemetra+]: https://github.com/jdemetra
+[github-pages site]: https://statistikat.github.io/surveysd/
+[useR!2019 slides]: https://statistikat.github.io/persephone/articles/presentation_useR.pdf
+[plotting vignette]: https://statistikat.github.io/persephone/articles/plotting.html
