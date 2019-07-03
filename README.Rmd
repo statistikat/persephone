@@ -60,6 +60,6 @@ More information can be found on the [github-pages site] for persephone.
 
 [RJDemetra]: https://github.com/nbbrd/rjdemetra
 [JDemetra+]: https://github.com/jdemetra
-[github-pages site]: https://statistikat.github.io/surveysd/
+[github-pages site]: https://statistikat.github.io/persephone/
 [useR!2019 slides]: https://statistikat.github.io/persephone/articles/presentation_useR.pdf
 [plotting vignette]: https://statistikat.github.io/persephone/articles/plotting.html

@@ -69,7 +69,7 @@ obj$output$regarima
 ## Further reading
 
 More information can be found on the [github-pages
-site](https://statistikat.github.io/surveysd/) for persephone.
+site](https://statistikat.github.io/persephone/) for persephone.
 
   - The [plotting
     vignette](https://statistikat.github.io/persephone/articles/plotting.html)
