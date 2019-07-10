@@ -9,7 +9,7 @@
 #' per_hts(...)
 #' }
 #' - `...` should contain one or more `persephone` objects that use the same
-#'   time instances. All lements supplied here must be named.
+#'   time instances. All elements supplied here must be named.
 #' - `model` specifies a model to be used. tramoseats or x13
 #' - `userdefined` is passed as the userdefined argument to `tramoseats` or
 #'   `x13`
@@ -19,7 +19,7 @@
 #' @examples
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'
-#' ht <- per_hts(a = obj_x13, b = obj_x13)
+#' ht <- per_hts(a = obj_x13, b = obj_x13, model = "x13")
 #' ht$run()
 #' ht$adjusted
 #' ht$adjusted_indirect
@@ -28,7 +28,30 @@
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
-#'
+#' 
+#' data(ipi_c_eu,package = "RJDemetra")
+#' # Reducing the data set to the EU28 countries
+#' ipi_eu <- ipi_c_eu[,-c(1:3,32:37)]
+#' # We now build persephone objects for the countries
+#' # (the lowest level in the hierachy)
+#' ts_28 <- lapply(ipi_eu, per_tramo)
+#' # We want to add an extra layer and split the EU28 countries in two groups
+#' ht_half_europe_1 <- do.call(per_hts,ts_28[1:14],)
+#' ht_half_europe_2 <- do.call(per_hts,ts_28[15:28])
+#' # Now we generate the object for EU28
+#'  ht_europe <- per_hts(
+#'   halfEU_1 = ht_half_europe_1,
+#'   halfEU_2 = ht_half_europe_2)
+#' # start the seasonal adjustment
+#' ht_europe$run()
+#' # accessing the directly and indirectly adjusted series for EU28
+#' ht_europe$adjusted
+#' ht_europe$adjusted_indirect
+#' # accessing the directly and indirectly adjusted series for the first half of Europe
+#' ht_europe$components$halfEU_2$adjusted
+#' ht_europe$components$halfEU_2$adjusted_indirect
+#' # accessing the adjusted series for a country
+#' ht_europe$components$halfEU_2$components$AT$adjusted
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
