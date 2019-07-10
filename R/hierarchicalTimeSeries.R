@@ -47,7 +47,7 @@
 #' # accessing the directly and indirectly adjusted series for EU28
 #' ht_europe$adjusted
 #' ht_europe$adjusted_indirect
-#' # accessing the directly and indirectly adjusted series for the first half of Europe
+#' # accessing the directly and indirectly adjusted series for half of Europe
 #' ht_europe$components$halfEU_2$adjusted
 #' ht_europe$components$halfEU_2$adjusted_indirect
 #' # accessing the adjusted series for a country
