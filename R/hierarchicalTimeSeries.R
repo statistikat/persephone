@@ -28,7 +28,7 @@
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
-#' 
+#'
 #' data(ipi_c_eu,package = "RJDemetra")
 #' # Reducing the data set to the EU28 countries
 #' ipi_eu <- ipi_c_eu[,-c(1:3,32:37)]
