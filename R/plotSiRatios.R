@@ -10,7 +10,7 @@
 #'
 #' @param x an object of class [persephone].
 #' @param main plot title
-#' @param plotly If the return value would be a `ggplot` object, wrap it in
+#' @param interactive If the return value would be a `ggplot` object, wrap it in
 #'   [plotly::ggplotly] before returning.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
@@ -37,7 +37,7 @@
 #' @export
 
 
-plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
+plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
 
   variable <- year <- value <- NULL # nolint
 
@@ -192,7 +192,7 @@ plotSiRatios <- function(x, main = NULL, plotly = TRUE, ...){
 
   p <- p + siRatioTheme
 
-  if (plotly) {
+  if (interactive) {
     p <- plotly::ggplotly(p)
 
     # we need to perform showticklabels = FALSE for every xaxis of this plot

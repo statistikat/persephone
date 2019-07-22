@@ -19,11 +19,13 @@ value (\code{1:4}) corresponding to one of these characters is also accepted.}
 selecting the preferred type of plot, see Details. A numeric
 value (\code{1:3}) corresponding to one of these characters is also accepted.}
 
-\item{maxobs}{if NULL, maxobs equals the length of the time series for plotType
-\code{"arSpec"} and \code{"periodogram"} and 96 for plotType \code{"arSpecBars"}.}
+\item{maxobs}{maximum number of observations of the time series. If NULL,
+\code{maxobs} equals the length of the time series for plotTypes
+\code{"arSpec"} and \code{"periodogram"} and \code{maxobs=96} for plotType \code{"arSpecBars"}.}
 
-\item{n.freq}{if NULL, n.freq equals 301 for plotType
-\code{"arSpec"} and \code{"periodogram"} and 61 for plotType \code{"arSpecBars"}.}
+\item{n.freq}{the number of frequencies, i.e. the number of points at which to plot.
+If NULL, \code{n.freq=301} for plotTypes
+\code{"arSpec"} and \code{"periodogram"} and \code{n.freq=61} for plotType \code{"arSpecBars"}.}
 
 \item{order}{order of the AR model}
 
@@ -44,9 +46,18 @@ Produces a \code{ggplot}/\code{plotly} object for objects of class \link{perseph
 \details{
 The following options are available for the parameter \code{plotType}.
 \itemize{
-\item \code{arSpec}: The autoregressive spectrum similar to JD+ plots
-\item \code{arSpecBars}: The autoregressive spectrum similar to X-13ARIMA-SEATS plots
-\item \code{periodogram}: The periodogram similar to JD+ plots
+\item \code{arSpec}: The autoregressive spectrum similar to JD+ plots. The default settings
+for the number of frequencies, i.e. the number of points at which to plot, the
+order of the AR model to be fitted and the maximum number of observations of the
+time series are n.freq = 301, order = 30 and maxobs='length of the time series'
+in this case.
+\item \code{arSpecBars}: The autoregressive spectrum similar to X-13ARIMA-SEATS plots.
+The default settings for the number of frequencies, the
+order of the AR model to be fitted and the maximum number of observations are
+n.freq = 61, order = 30 and maxobs=96 in this case.
+\item \code{periodogram}: The raw periodogram similar to JD+ plots.
+The default settings for the number of frequencies and the maximum number of
+observations are n.freq = 301 and maxobs='length of the time series' in this case.
 }
 }
 \examples{
@@ -57,11 +68,13 @@ obj <- x13Single$new(AirPassengers, "RSA5c")
 obj$run()
 
 # Plot the AR-Spectrum after run
-# Autoregressive Spectrum of the original series (similar to JD+ plots)
+# Autoregressive Spectrum of the original series
+# (similar to JD+ plots)
 # where n.freq = 301 and order = 30
 plotSpectrum(obj)
 
-# Autoregressive Spectrum of the original series (similar to X-13ARIMA-SEATS plots)
+# Autoregressive Spectrum of the original series
+# (similar to X-13ARIMA-SEATS plots)
 # where n.freq = 61 and order = 30
 plotSpectrum(obj, plotType="arSpecBars")
 

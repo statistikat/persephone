@@ -6,7 +6,7 @@
 object}
 \usage{
 plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
-  "nqq"), main = NULL, plotly = TRUE, ...)
+  "nqq"), main = NULL, interactive = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}
@@ -17,7 +17,7 @@ value (\code{1:6}) corresponding to one of these characters is also accepted.}
 
 \item{main}{plot title}
 
-\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in
+\item{interactive}{If the return value would be a \code{ggplot} object, wrap it in
 \link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}

@@ -5,15 +5,17 @@
 #'
 #' @param x an object of class [persephone].
 #' @param tsType character (`"original"`,`"sa"`,`"irregular"`,`"residuals"`)
-#'  selecting the preferred type of time series to plot. A numeric
-#'   value (`1:4`) corresponding to one of these characters is also accepted.
+#' selecting the preferred type of time series to plot. A numeric
+#' value (`1:4`) corresponding to one of these characters is also accepted.
 #' @param plotType character (`"arSpec"`,`"arSpecBars"`,`"periodogram"`)
 #' selecting the preferred type of plot, see Details. A numeric
-#'   value (`1:3`) corresponding to one of these characters is also accepted.
-#' @param maxobs if NULL, maxobs equals the length of the time series for plotType
-#' `"arSpec"` and `"periodogram"` and 96 for plotType `"arSpecBars"`.
-#' @param n.freq if NULL, n.freq equals 301 for plotType
-#' `"arSpec"` and `"periodogram"` and 61 for plotType `"arSpecBars"`.
+#' value (`1:3`) corresponding to one of these characters is also accepted.
+#' @param maxobs maximum number of observations of the time series. If NULL,
+#' `maxobs` equals the length of the time series for plotTypes
+#' `"arSpec"` and `"periodogram"` and `maxobs=96` for plotType `"arSpecBars"`.
+#' @param n.freq the number of frequencies, i.e. the number of points at which to plot.
+#' If NULL, `n.freq=301` for plotTypes
+#' `"arSpec"` and `"periodogram"` and `n.freq=61` for plotType `"arSpecBars"`.
 #' @param order order of the AR model
 #' @param main plot title
 #' @param interactive If the return value would be a `ggplot` object, wrap it
@@ -24,9 +26,18 @@
 #'
 #' The following options are available for the parameter `plotType`.
 #'
-#' * `arSpec`: The autoregressive spectrum similar to JD+ plots
-#' * `arSpecBars`: The autoregressive spectrum similar to X-13ARIMA-SEATS plots
-#' * `periodogram`: The periodogram similar to JD+ plots
+#' * `arSpec`: The autoregressive spectrum similar to JD+ plots. The default settings
+#' for the number of frequencies, i.e. the number of points at which to plot, the
+#' order of the AR model to be fitted and the maximum number of observations of the
+#' time series are n.freq = 301, order = 30 and maxobs='length of the time series'
+#' in this case.
+#' * `arSpecBars`: The autoregressive spectrum similar to X-13ARIMA-SEATS plots.
+#' The default settings for the number of frequencies, the
+#' order of the AR model to be fitted and the maximum number of observations are
+#' n.freq = 61, order = 30 and maxobs=96 in this case.
+#' * `periodogram`: The raw periodogram similar to JD+ plots.
+#' The default settings for the number of frequencies and the maximum number of
+#' observations are n.freq = 301 and maxobs='length of the time series' in this case.
 #'
 #' @return Returns an object of class `ggplot` or `plotly`
 #'
@@ -38,11 +49,13 @@
 #' obj$run()
 #'
 #' # Plot the AR-Spectrum after run
-#' # Autoregressive Spectrum of the original series (similar to JD+ plots)
+#' # Autoregressive Spectrum of the original series
+#' # (similar to JD+ plots)
 #' # where n.freq = 301 and order = 30
 #' plotSpectrum(obj)
 #'
-#' # Autoregressive Spectrum of the original series (similar to X-13ARIMA-SEATS plots)
+#' # Autoregressive Spectrum of the original series
+#' # (similar to X-13ARIMA-SEATS plots)
 #' # where n.freq = 61 and order = 30
 #' plotSpectrum(obj, plotType="arSpecBars")
 #'
@@ -156,7 +169,11 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
 
     p <- ggplot(d1s, aes(x = freq, y = spec)) +
       geom_line() + geom_vline(xintercept = td_freq, col = "red", alpha = 0.3) +
-      labs(title=main) +  geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) + theme_minimal()
+      geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) +
+      labs(title=main) +
+      theme_minimal()+
+      ylab("Spectrum") +
+      xlab("Frequency")
 
   } else if (plotType == "arSpec") {
 
@@ -172,8 +189,11 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     d2s <- data.frame(freq = d2s$freq / frequency(d1), spec = 10 * log10(2 * d2s$spec))
 
     p <- ggplot(d2s, aes(x = freq, y = spec)) +
-      geom_line() + geom_vline(xintercept = td_freq, col = "red", alpha = 0.3) +
-      labs(title=main) +  geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) + theme_minimal()+
+      geom_line() +
+      geom_vline(xintercept = td_freq, col = "red", alpha = 0.3) +
+      geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) +
+      labs(title=main) +
+      theme_minimal()+
       ylab("Spectrum") +
       xlab("Frequency")
 
@@ -195,7 +215,7 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     ## Quick-Fix: use closest value of d3s$freq to td_freq
     ## (spec.ar() only allows for a parameter "n.freq=The number of points at which to plot."
     ## but not for a vector of frequencies at which to plot)
-    td_freq_approx <- sapply(td_freq, function(f) d3s$freq[which(abs(d3s$freq - f)==min(abs(d3s$freq - f)))])
+    td_freq_approx <- sapply(td_freq, function(f) d3s$freq[which(abs(d3s$freq - f) == min(abs(d3s$freq - f)))])
 
     # Workaround to recreate X-13ARIMA-SEATS spectral plots (as far as possible) where the scale of the y-axis
     # ranges from a low negative value (e.g. -40) to a higher negative value (e.g. -15)

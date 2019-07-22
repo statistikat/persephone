@@ -5,14 +5,14 @@
 \title{Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
 period}
 \usage{
-plotSiRatios(x, main = NULL, plotly = TRUE, ...)
+plotSiRatios(x, main = NULL, interactive = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}
 
 \item{main}{plot title}
 
-\item{plotly}{If the return value would be a \code{ggplot} object, wrap it in
+\item{interactive}{If the return value would be a \code{ggplot} object, wrap it in
 \link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
