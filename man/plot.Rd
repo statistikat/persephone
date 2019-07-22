@@ -6,10 +6,11 @@
 \alias{plot.persephoneSingle}
 \title{Interactive time series plot for a persephone object}
 \usage{
-plot.hierarchicalTimeSeries(x, main = NULL, rangeSelector = TRUE,
-  drawPoints = FALSE, annualComparison = NULL, ...)
+\method{plot}{hierarchicalTimeSeries}(x, main = NULL,
+  rangeSelector = TRUE, drawPoints = FALSE, annualComparison = NULL,
+  ...)
 
-plot.persephoneSingle(x, main = NULL, forecasts = TRUE,
+\method{plot}{persephoneSingle}(x, main = NULL, forecasts = TRUE,
   showOutliers = TRUE, rangeSelector = TRUE, drawPoints = FALSE,
   annualComparison = NULL, ...)
 }

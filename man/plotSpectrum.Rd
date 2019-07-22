@@ -50,27 +50,34 @@ The following options are available for the parameter \code{plotType}.
 }
 }
 \examples{
-
+# Monthly Data Example
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
 obj <- x13Single$new(AirPassengers, "RSA5c")
 obj$run()
+
 # Plot the AR-Spectrum after run
+# Autoregressive Spectrum of the original series (similar to JD+ plots)
+# where n.freq = 301 and order = 30
 plotSpectrum(obj)
 
-# Autoregressive Spectrum JD+ (more or less)
-# d1s <- spec.pgram(d1, plot=FALSE)
-# d1s <- data.frame(freq = d1s$freq / frequency(d1), spec = d1s$spec)
+# Autoregressive Spectrum of the original series (similar to X-13ARIMA-SEATS plots)
+# where n.freq = 61 and order = 30
+plotSpectrum(obj, plotType="arSpecBars")
 
-# Autoregressive Spectrum x13 (more or less)
-# d3s <- spec.ar(d1, n.freq = 61, order = 30, plot = FALSE)
-# d3s <- data.frame(freq = d3s$freq / frequency(d1),
-# spec = 10 * log10(d3s$spec/sum(d3s$spec)))
+# Periodogram
+plotSpectrum(obj, plotType="periodogram")
+# same as
+plotSpectrum(obj, plotType=3)
 
+# Quarterly Data Example
 data(UKgas, package = "datasets")
 # Generate a persephone object, in this case a tramoseatsSingle object
 obj2 <- tramoseatsSingle$new(UKgas, "RSAfull")
 obj2$run()
-plotSpectrum(obj2)
+plotSpectrum(obj2, tsType="original")
+plotSpectrum(obj2, tsType="sa")
+plotSpectrum(obj2, tsType="irregular")
+plotSpectrum(obj2, tsType="residuals")
 
 }
