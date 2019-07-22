@@ -37,7 +37,11 @@ in \link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
 \value{
-Returns an object of class \code{ggplot} or \code{plotly}
+Returns an object of class \code{ggplot} or \code{plotly}. The seasonal and trading
+day frequencies are indicated in blue and red. For monthly data, the seasonal
+frequencies are 1/12, 2/12, ..., 6/12 and the trading day frequencies are 0.348 and 0.432.
+For quarterly data, the seasonal frequency is 1/4 and the trading day frequencies
+are 0.044375, 0.08875, 0.294375, 0.33875 and 0.38125.
 }
 \description{
 Interactive plot of the periodogram or the autogregressive spectrum.

@@ -40,7 +40,10 @@
 #' observations are n.freq = 301 and maxobs='length of the time series' in this case.
 #'
 #' @return Returns an object of class `ggplot` or `plotly`. The seasonal and trading
-#' day frequencies are indicated in blue and red.
+#' day frequencies are indicated in blue and red. For monthly data, the seasonal
+#' frequencies are 1/12, 2/12, ..., 6/12 and the trading day frequencies are 0.348 and 0.432.
+#' For quarterly data, the seasonal frequency is 1/4 and the trading day frequencies
+#' are 0.044375, 0.08875, 0.294375, 0.33875 and 0.38125.
 #'
 #' @examples
 #' # Monthly Data Example
