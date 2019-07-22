@@ -39,7 +39,8 @@
 #' The default settings for the number of frequencies and the maximum number of
 #' observations are n.freq = 301 and maxobs='length of the time series' in this case.
 #'
-#' @return Returns an object of class `ggplot` or `plotly`
+#' @return Returns an object of class `ggplot` or `plotly`. The seasonal and trading
+#' day frequencies are indicated in blue and red.
 #'
 #' @examples
 #' # Monthly Data Example
