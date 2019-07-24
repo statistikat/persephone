@@ -1,7 +1,12 @@
 #' @importFrom stats start end
 generateQrList <- function(x, tsName = "tsName"){
-  x$ts
-  x$output
+
+  # Method
+  if (inherits(x$output$decomposition, "decomposition_X11")) {
+    method <- "x13"
+  } else {
+    method <- "TS"
+  }
 
   # Select 3 main (most significant) outliers
   outliers3 <- rep("", 3)
@@ -56,7 +61,7 @@ generateQrList <- function(x, tsName = "tsName"){
   max_adj <- 100 * max(abs((x$ts - x$adjusted) / x$ts))
 
   QrEntries <- list(tsName = tsName,
-                    # Method =
+                    Method = method,
                     Period = frequency(x$ts),
                     Nobs = length(x$ts),
                     Start = start(x$ts), # adjust date format
