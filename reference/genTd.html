@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • persephone</title>
+<title>Generation of centered trading day regressor — genTd • persephone</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -34,7 +34,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Generation of centered trading day regressor — genTd" />
+
+<meta property="og:description" content="Generation of centered trading day regressor" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -52,7 +55,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,105 +118,70 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Generation of centered trading day regressor</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/genTd.R'><code>R/genTd.R</code></a></small>
+    <div class="hidden name"><code>genTd.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Generation of centered trading day regressor</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="genTd.html">genTd()</a></code> </p>
-        </td>
-        <td><p>Generation of centered trading day regressor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="hierarchicalTimeSeries.html">hierarchicalTimeSeries</a></code> </p>
-        </td>
-        <td><p>Define a hierarchical time series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is.persephone.html">is.persephone()</a></code> </p>
-        </td>
-        <td><p>is.persephone</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="persephone.html">persephone</a></code> </p>
-        </td>
-        <td><p>persephone class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot.html">plot.hierarchicalTimeSeries()</a></code> <code><a href="plot.html">plot.persephoneSingle()</a></code> </p>
-        </td>
-        <td><p>Interactive time series plot for a persephone object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotResiduals.html">plotResiduals()</a></code> </p>
-        </td>
-        <td><p>Several interactive plots in connection with residuals for a persephone
-object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSeasIrrCal.html">plotSeasIrrCal()</a></code> </p>
-        </td>
-        <td><p>Interactive plot of the seasonal component, irregular component and calendar
-effects for a persephone object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSiRatios.html">plotSiRatios()</a></code> </p>
-        </td>
-        <td><p>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
-period</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSpectrum.html">plotSpectrum()</a></code> </p>
-        </td>
-        <td><p>Spectral Plots</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tramoseatsSingle.html">tramoseatsSingle</a></code> </p>
-        </td>
-        <td><p>tramoseats class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="x13Single.html">x13Single</a></code> </p>
-        </td>
-        <td><p>x13 class</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>genTd</span>(<span class='kw'>ff</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>fYear</span> <span class='kw'>=</span> <span class='fl'>1960</span>, <span class='kw'>lYear</span> <span class='kw'>=</span> <span class='fl'>2099</span>, <span class='no'>ft</span>, <span class='no'>ww</span>, <span class='kw'>reg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ff</th>
+      <td><p>frequency of series</p></td>
+    </tr>
+    <tr>
+      <th>fYear</th>
+      <td><p>first year of calculation of trading day regressor</p></td>
+    </tr>
+    <tr>
+      <th>lYear</th>
+      <td><p>last year of calculation of trading day regressor</p></td>
+    </tr>
+    <tr>
+      <th>ft</th>
+      <td><p>holidays, list of 1. exact date ("mm-dd") and/or 2. name of day (listHolidays() from timeDate function)
+and/or 3. easter relation (e.g. "easter+39")</p></td>
+    </tr>
+    <tr>
+      <th>ww</th>
+      <td><p>vector of individual weights for each holiday with length of ft</p></td>
+    </tr>
+    <tr>
+      <th>reg</th>
+      <td><p>seven day of a week regressor (reg = "td") or weekday/weekend regressor (reg = "wd"). Not yet implemented.</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>matrix of centered trading day variables</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
