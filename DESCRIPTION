@@ -19,7 +19,10 @@ Imports:
     broom,
     dplyr,
     reshape,
-    scales
+    scales,
+    data.table,
+    timeDate,
+    zoo
 Remotes: 
     jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)

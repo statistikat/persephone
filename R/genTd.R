@@ -6,18 +6,18 @@
 #' @param ft holidays, list of 1. exact date ("mm-dd") and/or 2. name of day (listHolidays() from timeDate function)
 #'           and/or 3. easter relation (e.g. "easter+39")
 #' @param ww vector of individual weights for each holiday with length of ft
-#' @param reg seven day of a week regressor (reg = "td") or weekday/weekend regressor (reg = "wd")
+#' @param reg seven day of a week regressor (reg = "td") or weekday/weekend regressor (reg = "wd"). Not yet implemented.
 #' @return matrix of centered trading day variables
 #'
 #' @examples
 #'
-#' @import data.table
 #' @importFrom stats ts
-#' @importFrom timeDate
-#' @importFrom zoo
+#' @importFrom timeDate listHolidays Easter
+#' @importFrom zoo as.yearmon
+#' @importFrom data.table as.data.table .SD
 #' @export
 
-genTD <- function(ff = 12, fYear = 1960, lYear = 2099, ft, ww){
+genTd <- function(ff = 12, fYear = 1960, lYear = 2099, ft, ww, reg = NULL){
   y <- ts(frequency = ff, start = c(fYear, 1), end = c(lYear, ff))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
   preDef <- listHolidays()
