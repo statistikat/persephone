@@ -28,7 +28,7 @@
 #' ht2$run()
 #' ht2$adjusted
 #' ht2$adjusted_indirect
-#' 
+#'
 #' data(ipi_c_eu,package = "RJDemetra")
 #' # Reducing the data set to the EU28 countries
 #' ipi_eu <- ipi_c_eu[,-c(1:3,32:37)]
@@ -36,12 +36,17 @@
 #' # (the lowest level in the hierachy)
 #' ts_28 <- lapply(ipi_eu, per_tramo)
 #' # We want to add an extra layer and split the EU28 countries in two groups
+
 #' ht_half_europe_1 <- do.call(per_hts,ts_28[1:14],)
+#' # possible future syntax
+#' #per_hts(ts_28[1:14], model=list(AT="x13",BE="tramoseats"),spec=list(),
+#' #outlier_enabled(..=TRUE),tradings.leapyw=list(LV=TRUE,AT=dfdjkl,))
 #' ht_half_europe_2 <- do.call(per_hts,ts_28[15:28])
 #' # Now we generate the object for EU28
 #'  ht_europe <- per_hts(
 #'   halfEU_1 = ht_half_europe_1,
-#'   halfEU_2 = ht_half_europe_2)
+#'   halfEU_2 = ht_half_europe_2,
+#'   spec="RSA5c",model="x13")
 #' # start the seasonal adjustment
 #' ht_europe$run()
 #' # accessing the directly and indirectly adjusted series for EU28

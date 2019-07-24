@@ -25,7 +25,7 @@ generateQrList <- function(x, tsName = "tsName"){
 
   # Arima Model
   arma <- x$output$regarima$arma
-  bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
+  bpbdbq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")","(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
 
   QrEntries <- list(tsName = tsName,
        Period = frequency(x$ts),

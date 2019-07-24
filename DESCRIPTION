@@ -18,7 +18,8 @@ Imports:
     ggplot2,
     broom,
     dplyr,
-    reshape
+    reshape,
+    scales
 Remotes: 
     jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)

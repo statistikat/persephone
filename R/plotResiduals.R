@@ -11,7 +11,7 @@
 #'   value (`1:6`) corresponding to one of these characters is also accepted.
 #'
 #' @param main plot title
-#' @param plotly If the return value would be a `ggplot` object, wrap it in
+#' @param interactive If the return value would be a `ggplot` object, wrap it in
 #'   [plotly::ggplotly] before returning.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
@@ -49,7 +49,7 @@
 #' @export
 plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                                          "sreshist", "nqq"),
-                            main = NULL, plotly = TRUE, ...) {
+                            main = NULL, interactive = TRUE, ...) {
 
   ..density.. <- y <- NULL # nolint
 
@@ -220,7 +220,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       theme_bw()
   }
 
-  if (plotly & which %in% c("acf", "acf2", "pacf", "nqq", "sreshist")) {
+  if (interactive & which %in% c("acf", "acf2", "pacf", "nqq", "sreshist")) {
 
     # p <- p + theme_bw()
 
