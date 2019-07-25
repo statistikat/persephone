@@ -1,11 +1,48 @@
 #' @importFrom stats start end
 generateQrList <- function(x, tsName = "tsName"){
 
-  # Method
+  if (is.null(x$output$user_defined)) {
+    stop("No results from run available.\n")
+  }
+
   if (inherits(x$output$decomposition, "decomposition_X11")) {
+
+    # Method
     method <- "x13"
+
+    # Stage 2 Henderson Filter
+    # Seasonal Adjustment with the X-11 Method - Ladiray, Quenneville 2001, p. 72
+    # D6: preliminary seasonally adjusted series, D iteration
+    # D7: preliminary trend-cycle, D iteration
+    prelim_sa <- x$output$user_defined$decomposition.d6
+    prelim_c <- x$output$user_defined$decomposition.d7
+    if (x$output$user_defined$mode == "Additive") {
+      prelim_i <- prelim_sa - prelim_c
+      c_bar <- 1 / (length(prelim_c) - 1) * sum(abs(diff(prelim_c, 1) - mean(diff(prelim_c, 1))))
+      i_bar <- 1 / (length(prelim_i) - 1) * sum(abs(diff(prelim_i, 1) - mean(diff(prelim_i, 1))))
+    } else if (x$output$user_defined$mode == "Multiplicative") {
+      prelim_i <- prelim_sa / prelim_c
+      c_bar <- 1 / (length(prelim_c) - 1) * sum(abs(prelim_c / lag(prelim_c, k = 1) - mean(prelim_c / lag(prelim_c, k = 1))))
+      i_bar <- 1 / (length(prelim_i) - 1) * sum(abs(prelim_i / lag(prelim_i, k = 1) - mean(prelim_i / lag(prelim_i, k = 1))))
+    }
+    ic_ratio <- i_bar / c_bar
+    if (ic_ratio < 1) {
+      stage2_henderson <- "H9"
+    } else if (ic_ratio >= 1 & ic_ratio < 3.5) {
+      stage2_henderson <- "H13"
+    } else {
+      stage2_henderson <- "H23"
+    }
+
+    final_henderson <- paste0("H",unlist(strsplit(x$output$decomposition$t_filter, " " , fixed=TRUE))[1])
+    seasonal_filter <- x$output$decomposition$s_filter
+    q_stat <- x$output$decomposition$mstats["Q", ]
   } else {
     method <- "TS"
+    stage2_henderson <- ""
+    final_henderson <- ""
+    seasonal_filter <- ""
+    q_stat <- ""
   }
 
   # Select 3 main (most significant) outliers
@@ -33,29 +70,6 @@ generateQrList <- function(x, tsName = "tsName"){
   bpbdbq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")",
                    "(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
 
-  # Stage 2 Henderson Filter
-  # Seasonal Adjustment with the X-11 Method - Ladiray, Quenneville 2001, p. 72
-  # D6: preliminary seasonally adjusted series, D iteration
-  # D7: preliminary trend-cycle, D iteration
-  prelim_sa <- x$output$user_defined$decomposition.d6
-  prelim_c <- x$output$user_defined$decomposition.d7
-  if (x$output$user_defined$mode == "Additive") {
-    prelim_i <- prelim_sa - prelim_c
-    c_bar <- 1 / (length(prelim_c) - 1) * sum(abs(diff(prelim_c, 1) - mean(diff(prelim_c, 1))))
-    i_bar <- 1 / (length(prelim_i) - 1) * sum(abs(diff(prelim_i, 1) - mean(diff(prelim_i, 1))))
-  } else if (x$output$user_defined$mode == "Multiplicative") {
-    prelim_i <- prelim_sa / prelim_c
-    c_bar <- 1 / (length(prelim_c) - 1) * sum(abs(prelim_c / lag(prelim_c, k = 1) - mean(prelim_c / lag(prelim_c, k = 1))))
-    i_bar <- 1 / (length(prelim_i) - 1) * sum(abs(prelim_i / lag(prelim_i, k = 1) - mean(prelim_i / lag(prelim_i, k = 1))))
-  }
-  ic_ratio <- i_bar / c_bar
-  if (ic_ratio < 1) {
-    stage2_henderson <- "H9"
-  } else if (ic_ratio >= 1 & ic_ratio < 3.5) {
-    stage2_henderson <- "H13"
-  } else {
-    stage2_henderson <- "H23"
-  }
 
   # Indicator of the "size" of the seasonal and calendar adjustment
   max_adj <- 100 * max(abs((x$ts - x$adjusted) / x$ts))
@@ -82,12 +96,12 @@ generateQrList <- function(x, tsName = "tsName"){
                       x$output$diagnostics$combined_test$combined_seasonality_test,
                     `Residual Seasonality` = res_seas,
                     `Residual TD Effect` = res_td,
-                    `Q-Stat` = x$output$decomposition$mstats["Q", ],
+                    `Q-Stat` = q_stat,
                     # Filters used by X12-related methods (Not to be filled by countries
                     # using Tramo-Seats)
-                    `Final Henderson Filter` = paste0("H",unlist(strsplit(x$output$decomposition$t_filter, " " , fixed=TRUE))[1]),
+                    `Final Henderson Filter` = final_henderson,
                     `Stage 2 Henderson Filter` = stage2_henderson, # needs verification
-                    `Seasonal Filter` = x$output$decomposition$s_filter,
+                    `Seasonal Filter` = seasonal_filter,
                     # Quality = "?", # no real documentation for JD+ global quality indicator
                     `Max-Adj` = paste0(round(max_adj), "%"))
 
