@@ -50,11 +50,11 @@ generateQrList <- function(x, tsName = "tsName"){
   }
 
   if (frequency(x$ts) == 12) {
-    start_ts = paste0("m",start(x$ts)[2]," ", start(x$ts)[1])
-    end_ts = paste0("m",end(x$ts)[2]," ", end(x$ts)[1])
+    start_ts = paste0(start(x$ts)[2],"-", start(x$ts)[1])
+    end_ts = paste0(end(x$ts)[2],"-", end(x$ts)[1])
   } else if (frequency(x$ts) == 4) {
-    start_ts = paste0("q",start(x$ts)[2]," ", start(x$ts)[1])
-    end_ts = paste0("q",end(x$ts)[2]," ", end(x$ts)[1])
+    start_ts = paste0(start(x$ts)[2],"-", start(x$ts)[1])
+    end_ts = paste0(end(x$ts)[2],"-", end(x$ts)[1])
   }
   # Select 3 main (most significant) outliers
   outliers3 <- rep(NA, 3)
