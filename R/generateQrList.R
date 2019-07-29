@@ -49,6 +49,13 @@ generateQrList <- function(x, tsName = "tsName"){
     q_stat <- NA
   }
 
+  if (frequency(x$ts) == 12) {
+    start_ts = paste0("m",start(x$ts)[2]," ", start(x$ts)[1])
+    end_ts = paste0("m",end(x$ts)[2]," ", end(x$ts)[1])
+  } else if (frequency(x$ts) == 4) {
+    start_ts = paste0("q",start(x$ts)[2]," ", start(x$ts)[1])
+    end_ts = paste0("q",end(x$ts)[2]," ", end(x$ts)[1])
+  }
   # Select 3 main (most significant) outliers
   outliers3 <- rep(NA, 3)
   if (!is.null(x$output$regarima$regression.coefficients)) {
@@ -58,9 +65,9 @@ generateQrList <- function(x, tsName = "tsName"){
     outliers <- regcoeff[substr(regcoeff$regcoeff, 1, 2) %in%
                            c("AO", "LS", "TC"), ]
     if (nrow(outliers) > 0) {
-    outliers <- outliers[order(abs(outliers[, "T-stat"]), decreasing = TRUE), ]
-    outliers3[1:length(outliers$regcoeff)] <- outliers$regcoeff
-    outliers3 <- outliers3[1:3]
+      outliers <- outliers[order(abs(outliers[, "T-stat"]), decreasing = TRUE), ]
+      outliers3[1:length(outliers$regcoeff)] <- outliers$regcoeff
+      outliers3 <- outliers3[1:3]
     }
   }
 
@@ -84,8 +91,8 @@ generateQrList <- function(x, tsName = "tsName"){
                     Method = method,
                     Period = frequency(x$ts),
                     Nobs = length(x$ts),
-                    Start = start(x$ts), # adjust date format
-                    End = end(x$ts), # adjust date format
+                    Start = start_ts,
+                    End = end_ts,
                     `Log-Transformation` =
                       x$output$regarima$model$spec_rslt$`Log transformation`, #Yes/No/empty
                     `ARIMA Model` = bpbdbq,
