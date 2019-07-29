@@ -34,28 +34,34 @@ generateQrList <- function(x, tsName = "tsName"){
       stage2_henderson <- "H23"
     }
 
-    final_henderson <- paste0("H",unlist(strsplit(x$output$decomposition$t_filter, " " , fixed=TRUE))[1])
+    if(grepl("-",x$output$decomposition$t_filter)){
+      final_henderson <- paste0("H",unlist(strsplit(x$output$decomposition$t_filter, "-" , fixed=TRUE))[1])
+    }else{
+      final_henderson <- paste0("H",unlist(strsplit(x$output$decomposition$t_filter, " " , fixed=TRUE))[1])
+    }
     seasonal_filter <- x$output$decomposition$s_filter
-    q_stat <- x$output$decomposition$mstats["Q", ]
+    q_stat <- round(x$output$decomposition$mstats["Q", ],digits=2)
   } else {
     method <- "TS"
-    stage2_henderson <- ""
-    final_henderson <- ""
-    seasonal_filter <- ""
-    q_stat <- ""
+    stage2_henderson <- NA
+    final_henderson <- NA
+    seasonal_filter <- NA
+    q_stat <- NA
   }
 
   # Select 3 main (most significant) outliers
-  outliers3 <- rep("", 3)
+  outliers3 <- rep(NA, 3)
   if (!is.null(x$output$regarima$regression.coefficients)) {
     regcoeff <- as.data.frame(x$output$regarima$regression.coefficients,
                               stringsAsFactors = FALSE)
     regcoeff$regcoeff <- row.names(regcoeff)
     outliers <- regcoeff[substr(regcoeff$regcoeff, 1, 2) %in%
                            c("AO", "LS", "TC"), ]
+    if (nrow(outliers) > 0) {
     outliers <- outliers[order(abs(outliers[, "T-stat"]), decreasing = TRUE), ]
     outliers3[1:length(outliers$regcoeff)] <- outliers$regcoeff
     outliers3 <- outliers3[1:3]
+    }
   }
 
   # Residual Seasonality and TD Effects
