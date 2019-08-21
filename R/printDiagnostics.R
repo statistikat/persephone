@@ -16,6 +16,6 @@ printDiagnostics <- function(x) {
     log_transform = x$output$regarima$model$spec_rslt$`Log transformation`,
     arima_mdl = paste0(pdq, bpbdbq),
     n_outliers = x$output$regarima$model$spec_rslt$Outliers,
-    q_stat = ifelse(is.null(q_stat), NA, round(q_stat, digits=2))
+    q_stat = ifelse(is.null(q_stat), NA, round(q_stat, digits = 2))
   )
 }

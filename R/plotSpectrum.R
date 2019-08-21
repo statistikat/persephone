@@ -13,37 +13,39 @@
 #' @param maxobs maximum number of observations of the time series. If NULL,
 #' `maxobs` equals the length of the time series for plotTypes
 #' `"arSpec"` and `"periodogram"` and `maxobs=96` for plotType `"arSpecBars"`.
-#' @param n.freq the number of frequencies, i.e. the number of points at which to plot.
-#' If NULL, `n.freq=301` for plotTypes
-#' `"arSpec"` and `"periodogram"` and `n.freq=61` for plotType `"arSpecBars"`.
+#' @param n.freq the number of frequencies, i.e. the number of points at which
+#'   to plot. If NULL, `n.freq=301` for plotTypes `"arSpec"` and `"periodogram"`
+#'   and `n.freq=61` for plotType `"arSpecBars"`.
 #' @param order order of the AR model
 #' @param main plot title
 #' @param interactive If the return value would be a `ggplot` object, wrap it
-#' in [plotly::ggplotly] before returning.
+#'   in [plotly::ggplotly] before returning.
 #' @param ... other plotting parameters to affect the plot. Not currently used.
 #'
 #' @details
 #'
 #' The following options are available for the parameter `plotType`.
 #'
-#' * `arSpec`: The autoregressive spectrum similar to JD+ plots. The default settings
-#' for the number of frequencies, i.e. the number of points at which to plot, the
-#' order of the AR model to be fitted and the maximum number of observations of the
-#' time series are n.freq = 301, order = 30 and maxobs='length of the time series'
-#' in this case.
+#' * `arSpec`: The autoregressive spectrum similar to JD+ plots. The default
+#'   settings for the number of frequencies, i.e. the number of points at which
+#'   to plot, the order of the AR model to be fitted and the maximum number of
+#'   observations of the time series are n.freq = 301, order = 30 and
+#'   maxobs='length of the time series' in this case.
 #' * `arSpecBars`: The autoregressive spectrum similar to X-13ARIMA-SEATS plots.
-#' The default settings for the number of frequencies, the
-#' order of the AR model to be fitted and the maximum number of observations are
-#' n.freq = 61, order = 30 and maxobs=96 in this case.
-#' * `periodogram`: The raw periodogram similar to JD+ plots.
-#' The default settings for the number of frequencies and the maximum number of
-#' observations are n.freq = 301 and maxobs='length of the time series' in this case.
+#'   The default settings for the number of frequencies, the order of the AR
+#'   model to be fitted and the maximum number of observations are n.freq = 61,
+#'   order = 30 and maxobs=96 in this case.
+#' * `periodogram`: The raw periodogram similar to JD+ plots. The default
+#'   settings for the number of frequencies and the maximum number of
+#'   observations are n.freq = 301 and maxobs='length of the time series' in
+#'   this case.
 #'
-#' @return Returns an object of class `ggplot` or `plotly`. The seasonal and trading
-#' day frequencies are indicated in blue and red. For monthly data, the seasonal
-#' frequencies are 1/12, 2/12, ..., 6/12 and the trading day frequencies are 0.348 and 0.432.
-#' For quarterly data, the seasonal frequency is 1/4 and the trading day frequencies
-#' are 0.044375, 0.08875, 0.294375, 0.33875 and 0.38125.
+#' @return Returns an object of class `ggplot` or `plotly`. The seasonal and
+#'   trading day frequencies are indicated in blue and red. For monthly data,
+#'   the seasonal frequencies are 1/12, 2/12, ..., 6/12 and the trading day
+#'   frequencies are 0.348 and 0.432. For quarterly data, the seasonal
+#'   frequency is 1/4 and the trading day frequencies are 0.044375, 0.08875,
+#'   0.294375, 0.33875 and 0.38125.
 #'
 #' @examples
 #' # Monthly Data Example
@@ -81,11 +83,11 @@
 #' @importFrom stats window ts spec.ar spec.pgram
 #'
 #' @export
-plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
+plotSpectrum <- function(x,
+                         tsType = c("original", "sa", "irregular", "residuals"),
                          plotType = c("arSpec", "arSpecBars", "periodogram"),
-                         maxobs = NULL , n.freq = NULL, order = 30,
-                         main = NULL, interactive = TRUE, ...){
-
+                         maxobs = NULL, n.freq = NULL, order = 30,
+                         main = NULL, interactive = TRUE, ...) {
 
   freq <- spec <- spec_new1 <- NULL # nolint
 
@@ -99,15 +101,15 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     plotType <- match.arg(plotType)
   }
   if (is.numeric(tsType)) {
-    tsType <- c("original","sa","irregular","residuals")[tsType]
+    tsType <- c("original", "sa", "irregular", "residuals")[tsType]
   }else{
     tsType <- match.arg(tsType)
   }
   if (is.null(n.freq)) {
     if (plotType %in% c("arSpec", "periodogram")) {
-      n.freq = 301
+      n.freq <- 301
     } else if (plotType == "arSpecBars") {
-      n.freq = 61
+      n.freq <- 61
     }
   }
 
@@ -129,24 +131,26 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
 
   # Seasonal and trading day frequencies
   if (frequency(tsobj) == 4) {
-    td_freq <- c(0.044375,0.08875,0.294375,0.33875,0.38125)
-    seas_freq <- 1/4
+    td_freq <- c(0.044375, 0.08875, 0.294375, 0.33875, 0.38125)
+    seas_freq <- 1 / 4
     seas_freq_lab <- c("1/4")
     minobs <- 60
   } else if (frequency(tsobj) == 12) {
     td_freq <- c(0.348, 0.432)
-    seas_freq <- c(1/12,2/12,3/12,4/12,5/12,6/12)
-    seas_freq_lab <- c("1/12","2/12","3/12","4/12","5/12","6/12")
+    seas_freq <- c(1 / 12, 2 / 12, 3 / 12, 4 / 12, 5 / 12, 6 / 12)
+    seas_freq_lab <- c("1/12", "2/12", "3/12", "4/12", "5/12", "6/12")
     minobs <- 80
   }
 
   # minobs error (minobs=60 for quartlery data, minobs=80 for monthly data)
   if (length(tsobj) <= minobs) {
-    stop("The minimum number of observations needed to compute the spectrum is ",minobs,".")
+    stop("The minimum number of observations needed to compute the spectrum",
+         " is ", minobs, ".")
   }
 
   # maxobs
-  # The default starting date for the spectral plots is set to be 96 observations (8 years of monthly data)
+  # The default starting date for the spectral plots is set to be 96
+  # observations (8 years of monthly data)
   # from the end of the series for X-13ARIMA-SEATS
   # maxobs <- length(tsobj) # JD+
   # maxobs <- 96 # X-13ARIMA-SEATS
@@ -160,7 +164,9 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     }
   }
   if (length(tsobj) > maxobs) {
-    d1 <- window(d1, start = start(lag(ts(end = end(d1), frequency = frequency(d1)), maxobs-2)))
+    d1 <- window(d1, start = start(lag(
+      ts(end = end(d1), frequency = frequency(d1)), maxobs - 2
+    )))
   }
 
   if (plotType == "periodogram") {
@@ -168,14 +174,14 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     if (is.null(main)) {
       main <- paste0("Periodogram of the ", tsType, " series")
     }
-    d1s <- spec.pgram(d1, plot=FALSE)
+    d1s <- spec.pgram(d1, plot = FALSE)
     d1s <- data.frame(freq = d1s$freq / frequency(d1), spec = d1s$spec)
 
     p <- ggplot(d1s, aes(x = freq, y = spec)) +
       geom_line() + geom_vline(xintercept = td_freq, col = "red", alpha = 0.3) +
-      geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) +
-      labs(title=main) +
-      theme_minimal()+
+      geom_vline(xintercept = seas_freq, col = "blue", alpha = 0.3) +
+      labs(title = main) +
+      theme_minimal() +
       ylab("Spectrum") +
       xlab("Frequency")
 
@@ -190,14 +196,15 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
     # Default settings in JD+
     # d2s <- spec.ar(d1, n.freq = 301, order = 30, plot = FALSE)
     d2s <- spec.ar(d1, n.freq = n.freq, order = order, plot = FALSE)
-    d2s <- data.frame(freq = d2s$freq / frequency(d1), spec = 10 * log10(2 * d2s$spec))
+    d2s <- data.frame(freq = d2s$freq / frequency(d1),
+                      spec = 10 * log10(2 * d2s$spec))
 
     p <- ggplot(d2s, aes(x = freq, y = spec)) +
       geom_line() +
       geom_vline(xintercept = td_freq, col = "red", alpha = 0.3) +
-      geom_vline(xintercept = seas_freq, col = "blue", alpha=0.3) +
-      labs(title=main) +
-      theme_minimal()+
+      geom_vline(xintercept = seas_freq, col = "blue", alpha = 0.3) +
+      labs(title = main) +
+      theme_minimal() +
       ylab("Spectrum") +
       xlab("Frequency")
 
@@ -211,35 +218,52 @@ plotSpectrum <- function(x, tsType = c("original","sa","irregular","residuals"),
 
     # Default settings in X-13ARIMA-SEATS
     # d3s <- spec.ar(d1, n.freq = 61, order = 30, plot = FALSE)
-    # Not 100% sure what X-13ARIMA-SEATS really does but 10 * log10(d3s$spec/sum(d3s$spec)
+    # Not 100% sure what X-13ARIMA-SEATS really does but
+    # 10 * log10(d3s$spec/sum(d3s$spec)
     # comes closest to the scale they use
     d3s <- spec.ar(d1, n.freq = n.freq, order = order, plot = FALSE)
-    d3s <- data.frame(freq = d3s$freq / frequency(d1), spec = 10 * log10(d3s$spec/sum(d3s$spec)))
+    d3s <- data.frame(freq = d3s$freq / frequency(d1),
+                      spec = 10 * log10(d3s$spec / sum(d3s$spec)))
 
     ## Quick-Fix: use closest value of d3s$freq to td_freq
-    ## (spec.ar() only allows for a parameter "n.freq=The number of points at which to plot."
+    ## (spec.ar() only allows for a parameter "n.freq=The number of points at
+    ## which to plot."
     ## but not for a vector of frequencies at which to plot)
-    td_freq_approx <- sapply(td_freq, function(f) d3s$freq[which(abs(d3s$freq - f) == min(abs(d3s$freq - f)))])
+    td_freq_approx <- sapply(td_freq, function(f) {
+      d3s$freq[which(abs(d3s$freq - f) == min(abs(d3s$freq - f)))]
+    })
 
-    # Workaround to recreate X-13ARIMA-SEATS spectral plots (as far as possible) where the scale of the y-axis
-    # ranges from a low negative value (e.g. -40) to a higher negative value (e.g. -15)
-    d3s$spec_new1 <- scales::rescale(d3s$spec, from=range(d3s$spec),  to = c(1, max(d3s$spec - min(d3s$spec))))
+    # Workaround to recreate X-13ARIMA-SEATS spectral plots (as far as possible)
+    # where the scale of the y-axis
+    # ranges from a low negative value (e.g. -40) to a higher negative value
+    # (e.g. -15)
+    d3s$spec_new1 <- scales::rescale(d3s$spec, from = range(d3s$spec),
+                                     to = c(1, max(d3s$spec - min(d3s$spec))))
     #d3s$spec_new2 <- d3s$spec - min(d3s$spec)
-    #d3s$spec_rescaled <-  scales::rescale(d3s$spec_new1, to = c(min(d3s$spec), max(d3s$spec)))
+    #d3s$spec_rescaled <-  scales::rescale(d3s$spec_new1, to = c(min(d3s$spec),
+    #max(d3s$spec)))
     #d3s[order(d3s$spec_new2),]
-    breaks_15 <- seq(1,max(d3s$spec_new1),length=15)
-    labels_15 <- as.character(round(scales::rescale(breaks_15, to = c(min(d3s$spec), max(d3s$spec))),digits=0))
+    breaks_15 <- seq(1, max(d3s$spec_new1), length = 15)
+    labels_15 <- as.character(round(
+      scales::rescale(breaks_15, to = c(min(d3s$spec), max(d3s$spec))),
+      digits = 0
+    ))
 
-    seas_td_col <- rep("grey",length(d3s$freq))
-    seas_td_col[which(d3s$freq%in%seas_freq)] <- "blue"
-    seas_td_col[which(d3s$freq%in%td_freq_approx)] <- "red"
+    seas_td_col <- rep("grey", length(d3s$freq))
+    seas_td_col[which(d3s$freq %in% seas_freq)] <- "blue"
+    seas_td_col[which(d3s$freq %in% td_freq_approx)] <- "red"
 
     p <- ggplot(d3s,  aes(x = freq, y = abs(spec_new1))) +
-      geom_bar(stat = "identity", position = "dodge", fill= seas_td_col, width = 0.003) +
-      scale_x_continuous(breaks = c(seas_freq, td_freq_approx),
-                         labels = c(seas_freq_lab,as.character(round(td_freq_approx,digits=3))))+
-      scale_y_continuous(breaks=breaks_15, labels=labels_15) +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1, size = rel(0.9))) +
+      geom_bar(stat = "identity", position = "dodge",
+               fill = seas_td_col, width = 0.003) +
+      scale_x_continuous(
+        breaks = c(seas_freq, td_freq_approx),
+        labels = c(seas_freq_lab,
+                   as.character(round(td_freq_approx, digits = 3)))
+      ) +
+      scale_y_continuous(breaks = breaks_15, labels = labels_15) +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1,
+                                       size = rel(0.9))) +
       ggtitle(main) +
       ylab("Spectrum") +
       xlab("Frequency")

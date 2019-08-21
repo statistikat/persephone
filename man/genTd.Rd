@@ -13,12 +13,14 @@ genTd(ff = 12, fYear = 1960, lYear = 2099, ft, ww, reg = NULL)
 
 \item{lYear}{last year of calculation of trading day regressor}
 
-\item{ft}{holidays, list of 1. exact date ("mm-dd") and/or 2. name of day (listHolidays() from timeDate function)
-and/or 3. easter relation (e.g. "easter+39")}
+\item{ft}{holidays, list of 1. exact date ("mm-dd") and/or 2. name of day
+(listHolidays() from timeDate function) and/or 3. easter relation
+(e.g. "easter+39")}
 
 \item{ww}{vector of individual weights for each holiday with length of ft}
 
-\item{reg}{seven day of a week regressor (reg = "td") or weekday/weekend regressor (reg = "wd"). Not yet implemented.}
+\item{reg}{seven day of a week regressor (reg = "td") or weekday/weekend
+regressor (reg = "wd"). Not yet implemented.}
 }
 \value{
 matrix of centered trading day variables
