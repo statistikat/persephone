@@ -17,6 +17,12 @@ test_that("implement this function", {
 
 test_that("generateQrList", {
   obj <- x13Single$new(AirPassengers)
+  expect_error(persephone:::generateQrList(obj),
+               "No results from run available.\n")
+  obj$run()
+  persephone:::generateQrList(obj)
+
+  obj <- per_tramo(UKgas)
   obj$run()
   persephone:::generateQrList(obj)
 })
