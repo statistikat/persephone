@@ -6,7 +6,8 @@
 #' @section Inherits: [persephone]
 #' @section Constructor:
 #' \preformatted{
-#' per_hts(...)
+#' per_hts(..., model = c("tramoseats", "x13"),
+#'         userdefined = NULL, spec = NULL)
 #' }
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.

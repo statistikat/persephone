@@ -20,7 +20,8 @@ The resulting time series can perform direct and indirect adjustments.
 \section{Constructor}{
 
 \preformatted{
-per_hts(...)
+per_hts(..., model = c("tramoseats", "x13"),
+        userdefined = NULL, spec = NULL)
 }
 \itemize{
 \item \code{...} should contain one or more \code{persephone} objects that use the same
