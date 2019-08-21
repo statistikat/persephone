@@ -28,6 +28,3 @@ matrix of centered trading day variables
 \description{
 Generation of centered trading day regressor
 }
-\examples{
-
-}

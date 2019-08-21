@@ -11,8 +11,6 @@
 #'   regressor (reg = "wd"). Not yet implemented.
 #' @return matrix of centered trading day variables
 #'
-#' @examples
-#'
 #' @importFrom stats ts
 #' @importFrom timeDate Easter
 #' @importFrom data.table as.data.table .SD
