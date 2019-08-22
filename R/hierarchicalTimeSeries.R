@@ -84,7 +84,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       private$ts_internal <- private$aggregate(components)
-      private$userdefined <- userdefined
+      private$userdefined <- union(userdefined, userdefined_default)
       private$spec <- spec
     },
     run = function(...) {
@@ -101,6 +101,19 @@ hierarchicalTimeSeries <- R6::R6Class(
       if (all(!tbl$run))
         tbl <- tbl[, 1:3]
       print(tbl, right = FALSE, row.names = FALSE)
+    },
+    iterate = function(fun, as_table = FALSE) {
+      comp <- lapply(
+        self$components,
+        function(component) {
+          component$iterate(fun)
+        }
+      )
+
+      res <- c(super$iterate(fun), comp)
+      if (as_table)
+        res <- as_table_nested_list(res)
+      res
     }
   ),
   active = list(
@@ -119,28 +132,8 @@ hierarchicalTimeSeries <- R6::R6Class(
         stopifnot(is.persephone(component))
       })
     },
-    print_table = function(prefix = "") {
-      comp <- do.call(rbind, lapply(
-        seq_along(self$components),
-        function(i) {
-          name <- names(self$components)[[i]]
-          component <- self$components[[i]]
-          component$.__enclos_env__$private$print_table(
-            prefix = paste0(prefix, "/", name)
-          )
-        }
-      ))
-      rbind(
-        cbind(
-          data.frame(
-            component = gsub("^/", "", prefix),
-            class = private$model,
-            run = !is.null(self$output)
-          ),
-          printDiagnostics(self)
-        ),
-        comp
-      )
+    print_table = function() {
+      self$iterate(printDiagnostics, as_table = TRUE)
     },
     check_time_instances = function(components) {
       tsps <- lapply(components, function(component) {
@@ -172,7 +165,6 @@ hierarchicalTimeSeries <- R6::R6Class(
           stop("all components in 'hierarchicalTimeSeries' must be named")
       })
     },
-    tsp_internal = NULL,
     model = NULL,
     spec = NULL,
     run_direct = function(ts) {
@@ -183,7 +175,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$output_internal <- modelFunction(
         ts,
         spec = private$spec,
-        userdefined = union(private$userdefined, userdefined_default)
+        userdefined = private$userdefined
       )
     }
   )

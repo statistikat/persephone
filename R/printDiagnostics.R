@@ -1,6 +1,7 @@
 printDiagnostics <- function(x) {
   if (is.null(x$output))
     return(data.frame(
+      run = !is.null(x$output), class = class(x)[1],
       seasonality = NA, log_transform = NA, arima_mdl = NA,
       n_outliers = NA, q_stat = NA
     ))
@@ -11,6 +12,8 @@ printDiagnostics <- function(x) {
   q_stat <- x$output$decomposition$mstats["Q", ]
 
   data.frame(
+    run = !is.null(x$output),
+    class = class(x)[1],
     # seasonality: placeholder (test for stable seasonality)
     seasonality = x$output$diagnostics$combined_test$combined_seasonality_test,
     log_transform = x$output$regarima$model$spec_rslt$`Log transformation`,
