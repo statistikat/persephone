@@ -56,10 +56,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/plotting.html">Plotting with persephone</a>
+      <a href="articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
-      <a href="articles/presentation_useR.pdf">persephone useR!2019 (PDF)</a>
+      <a href="articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
     </li>
   </ul>
 </li>
@@ -91,17 +91,19 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the package directly from GitHub with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install the package from GitHub</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># optional: also install vignettes (needs prettydoc)</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Objects can be constructed with <code>x13Single$new</code> or <code>tramoseatsSingle$new</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
+<p>Objects can be constructed with <code>per_x13</code> or <code>per_tramo</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">obj &lt;-<span class="st"> </span>x13Single<span class="op">$</span><span class="kw">new</span>(AirPassengers)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">obj &lt;-<span class="st"> </span><span class="kw"><a href="reference/x13Single.html">per_x13</a></span>(AirPassengers)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/plot.html">plot</a></span>(obj)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="90%"></p>
 <p>The original output from <a href="https://github.com/nbbrd/rjdemetra">RJDemetra</a> can be inspected via the <code>output</code> field.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obj<span class="op">$</span><span class="kw">run</span>()</a>
@@ -131,8 +133,8 @@
 <a href="#further-reading" class="anchor"></a>Further reading</h2>
 <p>More information can be found on the <a href="https://statistikat.github.io/persephone/">github-pages site</a> for persephone.</p>
 <ul>
-<li>The <a href="https://statistikat.github.io/persephone/articles/plotting.html">plotting vignette</a> contains examples of interactive plots</li>
-<li>An overview of the package is available in the <a href="https://statistikat.github.io/persephone/articles/presentation_useR.pdf">useR!2019 slides</a>
+<li>The <a href="https://statistikat.github.io/persephone/articles/persephone-plotting.html">plotting vignette</a> contains examples of interactive plots</li>
+<li>An overview of the package is available in the <a href="https://statistikat.github.io/persephone/articles/persephone-useR.pdf">useR!2019 slides</a>
 </li>
 </ul>
 </div>

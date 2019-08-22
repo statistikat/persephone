@@ -92,10 +92,10 @@ The resulting time series can perform direct and indirect adjustments." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/plotting.html">Plotting with persephone</a>
+      <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
-      <a href="../articles/presentation_useR.pdf">persephone useR!2019 (PDF)</a>
+      <a href="../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
     </li>
   </ul>
 </li>
@@ -272,25 +272,36 @@ time instances. All elements supplied here must be named.</p></li>
 #&gt; 1958 1193.2154 1148.7527 1160.4653 1153.0959 1150.8778
 #&gt; 1959 1316.5551 1318.9030 1311.0936 1349.5863 1389.3928
 #&gt; 1960 1441.9343 1443.3619 1475.5960 1468.3267 1468.1929</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ipi_c_eu</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJDemetra"</span>)
+<span class='co'>#-------- example with industrial price indices -----------</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ipi_c_eu</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJDemetra"</span>)
 <span class='co'># Reducing the data set to the EU28 countries</span>
-<span class='no'>ipi_eu</span> <span class='kw'>&lt;-</span> <span class='no'>ipi_c_eu</span>[,-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>,<span class='fl'>32</span>:<span class='fl'>37</span>)]
+<span class='no'>ipi_eu</span> <span class='kw'>&lt;-</span> <span class='no'>ipi_c_eu</span>[, -<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>32</span>:<span class='fl'>37</span>)]
 <span class='co'># We now build persephone objects for the countries</span>
 <span class='co'># (the lowest level in the hierachy)</span>
 <span class='no'>ts_28</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>ipi_eu</span>, <span class='no'>per_tramo</span>)
+
 <span class='co'># We want to add an extra layer and split the EU28 countries in two groups</span>
-<span class='no'>ht_half_europe_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>,<span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>],)
-<span class='co'># possible future syntax</span>
-<span class='co'>#per_hts(ts_28[1:14], model=list(AT="x13",BE="tramoseats"),spec=list(),</span>
-<span class='co'>#outlier_enabled(..=TRUE),tradings.leapyw=list(LV=TRUE,AT=dfdjkl,))</span>
-<span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>,<span class='no'>ts_28</span>[<span class='fl'>15</span>:<span class='fl'>28</span>])
+<span class='no'>ht_half_europe_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>])
+
+<span class='co'>## possible future syntax</span>
+<span class='co'>#per_hts(ts_28[1:14], model = list(AT = "x13", BE = "tramoseats"),</span>
+<span class='co'>#        spec = list(), outlier_enabled(.. = TRUE),</span>
+<span class='co'>#        tradings.leapyw = list(LV = TRUE, AT = dfdjkl, ))</span>
+
+<span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>15</span>:<span class='fl'>28</span>])
+
 <span class='co'># Now we generate the object for EU28</span>
- <span class='no'>ht_europe</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(
+<span class='no'>ht_europe</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(
   <span class='kw'>halfEU_1</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_1</span>,
   <span class='kw'>halfEU_2</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_2</span>,
-  <span class='kw'>spec</span><span class='kw'>=</span><span class='st'>"RSA5c"</span>,<span class='kw'>model</span><span class='kw'>=</span><span class='st'>"x13"</span>)
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='st'>"RSA5c"</span>,
+  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"x13"</span>
+)
+
 <span class='co'># start the seasonal adjustment</span>
 <span class='no'>ht_europe</span>$<span class='fu'>run</span>()
+
 <span class='co'># accessing the directly and indirectly adjusted series for EU28</span>
 <span class='no'>ht_europe</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
 #&gt; 2000 2226.613 2256.290 2274.005 2286.720 2315.177 2329.826 2316.971 2327.037
@@ -334,7 +345,8 @@ time instances. All elements supplied here must be named.</p></li>
 #&gt; 2006 2803.582 2808.052 2812.984 2879.420
 #&gt; 2007 2904.283 2910.564 2916.007 2944.339
 #&gt; 2008 2854.027 2795.891 2667.587 2550.749
-#&gt; 2009 2468.555 2483.872 2486.337 2451.624</div><div class='input'><span class='co'># accessing the directly and indirectly adjusted series for half of Europe</span>
+#&gt; 2009 2468.555 2483.872 2486.337 2451.624</div><div class='input'>
+<span class='co'># accessing the directly and indirectly adjusted series for half of Europe</span>
 <span class='no'>ht_europe</span>$<span class='no'>components</span>$<span class='no'>halfEU_2</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
 #&gt; 2000 1049.790 1059.608 1061.476 1083.690 1086.986 1089.063 1090.856 1101.975
 #&gt; 2001 1123.511 1114.726 1114.029 1095.600 1116.013 1095.997 1093.243 1102.353
@@ -409,7 +421,8 @@ time instances. All elements supplied here must be named.</p></li>
 #&gt; 2014 1351.932 1360.667 1360.901 1359.258
 #&gt; 2015 1400.566 1424.801 1418.083 1406.179
 #&gt; 2016 1441.553 1442.563 1453.104 1470.335
-#&gt; 2017 1530.987 1529.990 1551.697 1566.482</div><div class='input'><span class='co'># accessing the adjusted series for a country</span>
+#&gt; 2017 1530.987 1529.990 1551.697 1566.482</div><div class='input'>
+<span class='co'># accessing the adjusted series for a country</span>
 <span class='no'>ht_europe</span>$<span class='no'>components</span>$<span class='no'>halfEU_2</span>$<span class='no'>components</span>$<span class='no'>AT</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
 #&gt; 1996  50.90527  50.99849  51.13906  50.66368  52.16428  52.07320  52.27379
 #&gt; 1997  54.50998  54.23184  54.30778  55.51295  53.78102  55.16677  55.17382
