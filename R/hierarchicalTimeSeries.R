@@ -184,12 +184,12 @@ hierarchicalTimeSeries <- R6::R6Class(
     spec = NULL,
     run_direct = function(ts) {
       modelFunction <- switch(private$model, tramoseats = tramoseats, x13 = x13)
-      if (is.null(private$spec))
-        private$spec <- switch(private$model, tramoseats = tramoseats_spec(),
-                               x13 = x13_spec())
+      if (is.null(self$spec))
+        spec <- switch(private$model, tramoseats = tramoseats_spec(),
+                       x13 = x13_spec())
       private$output_internal <- modelFunction(
         ts,
-        spec = private$spec,
+        spec = spec,
         userdefined = private$userdefined
       )
     }

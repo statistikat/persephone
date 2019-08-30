@@ -76,7 +76,7 @@ persephone <- R6::R6Class(
       if (is.null(userdefined) || !is.na(userdefined))
         private$userdefined <- union(userdefined, userdefined_default)
       if (is.null(spec) || !is.na(spec))
-        private$spec <- spec
+        private$spec_internal <- spec
     }
   ),
   ## read-only access to params, ts, and output
@@ -95,6 +95,9 @@ persephone <- R6::R6Class(
     },
     adjusted = function() {
       self$output$user_defined$sa
+    },
+    spec = function() {
+      private$spec_internal
     }
   ),
   private = list(
@@ -103,7 +106,7 @@ persephone <- R6::R6Class(
     params_internal = NULL,
     output_internal = NULL,
     userdefined = NULL,
-    spec = NULL,
+    spec_internal = NULL,
     print_table = function(prefix) {
       cbind(
         data.frame(
