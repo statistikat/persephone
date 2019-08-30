@@ -1,5 +1,5 @@
 #' @importFrom stats start end
-generateQrList <- function(x, tsName = "tsName"){
+generateQrList <- function(x){
 
   if (is.null(x$output$user_defined)) {
     stop("No results from run available.\n")
@@ -96,7 +96,6 @@ generateQrList <- function(x, tsName = "tsName"){
   max_adj <- 100 * max(abs((x$ts - x$adjusted) / x$ts))
 
   QrEntries <- list(
-    tsName = tsName,
     Method = method,
     Period = frequency(x$ts),
     Nobs = length(x$ts),
