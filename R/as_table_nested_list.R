@@ -1,4 +1,5 @@
 as_table_nested_list <- function(x, prefix = "") {
+  . <- NULL
   seq_along(x) %>%
     lapply(
       function(i) {
