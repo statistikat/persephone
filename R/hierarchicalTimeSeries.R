@@ -84,8 +84,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       private$ts_internal <- private$aggregate(components)
-      private$userdefined <- union(userdefined, userdefined_default)
-      private$spec <- spec
+      super$set_options(userdefined = userdefined, spec = spec)
     },
     run = function(...) {
       ## indirect
@@ -101,6 +100,14 @@ hierarchicalTimeSeries <- R6::R6Class(
       if (all(!tbl$run))
         tbl <- tbl[, 1:3]
       print(tbl, right = FALSE, row.names = FALSE)
+    },
+    set_options = function(userdefined = NA, spec = NA, recursive = TRUE) {
+      super$set_options(userdefined, spec, recursive)
+      if (recursive)
+        lapply(self$components, function(x) {
+          x$set_options(userdefined, spec, recursive)
+        })
+      invisible(NULL)
     },
     iterate = function(fun, as_table = FALSE) {
       comp <- lapply(

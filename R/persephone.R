@@ -60,7 +60,23 @@ persephone <- R6::R6Class(
       plotResiduals(self, ...)
     },
     print = function() {
-
+      message("A persephone object")
+      if (!is.null(self$output)) {
+        tbl <- private$print_table("")
+        tbl <- tbl[, -1]
+        print(tbl, right = FALSE, row.names = FALSE)
+      } else {
+      }
+    },
+    iterate = function(fun) {
+      list(value = fun(self))
+    },
+    set_options = function(userdefined = NA,
+                           spec = NA, recursive = TRUE) {
+      if (is.null(userdefined) || !is.na(userdefined))
+        private$userdefined <- union(userdefined, userdefined_default)
+      if (is.null(spec) || !is.na(spec))
+        private$spec <- spec
     }
   ),
   ## read-only access to params, ts, and output
@@ -87,6 +103,7 @@ persephone <- R6::R6Class(
     params_internal = NULL,
     output_internal = NULL,
     userdefined = NULL,
+    spec = NULL,
     print_table = function(prefix) {
       cbind(
         data.frame(
