@@ -9,10 +9,12 @@
 <title>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
 period — plotSiRatios • persephone</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -35,9 +37,9 @@ period — plotSiRatios • persephone</title>
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
 period — plotSiRatios" />
-
 <meta property="og:description" content="Produces a ggplot/plotly object for objects of class persephone.
 If the persephone object is of class tramoseatsSingle, the function
 generates an interactive plot of the SI-ratios and their mean. Otherwise,
@@ -45,6 +47,7 @@ i.e. if the object is of class x13Single, the SI-ratios, the replaced
 SI-ratios, the seasonal factors and the mean of the seasonal factors are
 plotted." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -98,6 +101,9 @@ plotted." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/persephone-hierarchical.html">Hierarchical time series</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -106,7 +112,6 @@ plotted." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statistikat/persephone">
@@ -134,18 +139,16 @@ period</h1>
     </div>
 
     <div class="ref-description">
-    
     <p>Produces a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.
 If the <code>persephone</code> object is of class <code>tramoseatsSingle</code>, the function
 generates an interactive plot of the SI-ratios and their mean. Otherwise,
 i.e. if the object is of class <code>x13Single</code>, the SI-ratios, the replaced
 SI-ratios, the seasonal factors and the mean of the seasonal factors are
 plotted.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>plotSiRatios</span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -167,24 +170,23 @@ plotted.</p>
       <td><p>other plotting parameters to affect the plot. Not currently used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an object of class <code>ggplot</code> or <code>plotly</code></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephone object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='x13Single.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='no'>obj</span>$<span class='fu'>run</span>()
 <span class='co'># Plot the SI-ratios after run</span>
 <span class='fu'>plotSiRatios</span>(<span class='no'>obj</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephone object, in this case a tramoseatsSingle object</span>
-<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>obj2</span>$<span class='fu'>run</span>()
 <span class='fu'>plotSiRatios</span>(<span class='no'>obj2</span>)</div></pre>
   </div>
@@ -192,9 +194,7 @@ plotted.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

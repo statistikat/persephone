@@ -8,10 +8,12 @@
 
 <title>Spectral Plots — plotSpectrum • persephone</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -34,11 +36,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Spectral Plots — plotSpectrum" />
 
+<meta property="og:title" content="Spectral Plots — plotSpectrum" />
 <meta property="og:description" content="Interactive plot of the periodogram or the autogregressive spectrum.
 Produces a ggplot/plotly object for objects of class persephone." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -92,6 +95,9 @@ Produces a ggplot/plotly object for objects of class persephone." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/persephone-hierarchical.html">Hierarchical time series</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -100,7 +106,6 @@ Produces a ggplot/plotly object for objects of class persephone." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statistikat/persephone">
@@ -127,16 +132,14 @@ Produces a ggplot/plotly object for objects of class persephone." />
     </div>
 
     <div class="ref-description">
-    
     <p>Interactive plot of the periodogram or the autogregressive spectrum.
 Produces a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>plotSpectrum</span>(<span class='no'>x</span>, <span class='kw'>tsType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"original"</span>, <span class='st'>"sa"</span>, <span class='st'>"irregular"</span>, <span class='st'>"residuals"</span>),
   <span class='kw'>plotType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"arSpec"</span>, <span class='st'>"arSpecBars"</span>, <span class='st'>"periodogram"</span>), <span class='kw'>maxobs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>n.freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -186,7 +189,7 @@ in <a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>plotly::ggplotly</a> b
       <td><p>other plotting parameters to affect the plot. Not currently used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an object of class <code>ggplot</code> or <code>plotly</code>. The seasonal and
@@ -195,7 +198,6 @@ the seasonal frequencies are 1/12, 2/12, ..., 6/12 and the trading day
 frequencies are 0.348 and 0.432. For quarterly data, the seasonal
 frequency is 1/4 and the trading day frequencies are 0.044375, 0.08875,
 0.294375, 0.33875 and 0.38125.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following options are available for the parameter <code>plotType</code>.</p><ul>
@@ -214,13 +216,12 @@ observations are n.freq = 301 and maxobs='length of the time series' in
 this case.</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Monthly Data Example</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephone object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='no'>x13Single</span>$<span class='fu'>new</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA5c"</span>)
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA5c"</span>)
 <span class='no'>obj</span>$<span class='fu'>run</span>()
 
 <span class='co'># Plot the AR-Spectrum after run</span>
@@ -241,8 +242,8 @@ this case.</p></li>
 
 <span class='co'># Quarterly Data Example</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-<span class='co'># Generate a persephone object, in this case a tramoseatsSingle object</span>
-<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='no'>tramoseatsSingle</span>$<span class='fu'>new</span>(<span class='no'>UKgas</span>, <span class='st'>"RSAfull"</span>)
+<span class='co'># Generate a persephone object, in this case a tramoseats object</span>
+<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSAfull"</span>)
 <span class='no'>obj2</span>$<span class='fu'>run</span>()
 <span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"original"</span>)
 <span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"sa"</span>)
@@ -253,11 +254,8 @@ this case.</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -8,10 +8,12 @@
 
 <title>Interactive time series plot for a persephone object — plot • persephone</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -34,8 +36,8 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Interactive time series plot for a persephone object — plot" />
 
+<meta property="og:title" content="Interactive time series plot for a persephone object — plot" />
 <meta property="og:description" content="Produces a dygraph (see the
 online documentation for more detail)
 for objects of class persephone.
@@ -47,6 +49,7 @@ For hierarchicalTimeSeries objects, the function plots the original
 aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -100,6 +103,9 @@ as well as the directly and indirectly seasonally adjusted aggregate series." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/persephone-hierarchical.html">Hierarchical time series</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -108,7 +114,6 @@ as well as the directly and indirectly seasonally adjusted aggregate series." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statistikat/persephone">
@@ -135,7 +140,6 @@ as well as the directly and indirectly seasonally adjusted aggregate series." />
     </div>
 
     <div class="ref-description">
-    
     <p>Produces a dygraph (see the
 <a href='https://rstudio.github.io/dygraphs/'>online documentation</a> for more detail)
 for objects of class <a href='persephone.html'>persephone</a>.
@@ -146,7 +150,6 @@ well as one year forecasts with prediction intervals of the original series.
 For <a href='hierarchicalTimeSeries.html'>hierarchicalTimeSeries</a> objects, the function plots the original
 aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for hierarchicalTimeSeries</span>
@@ -158,7 +161,7 @@ as well as the directly and indirectly seasonally adjusted aggregate series.</p>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>forecasts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showOutliers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rangeSelector</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>annualComparison</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -200,16 +203,14 @@ should be highlighted in the plot for every year.</p></td>
 in the plot</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an object of class <code>dygraphs</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If no run has been performed on the <a href='persephone.html'>persephone</a> object,
 only the original (aggregate) time series is plotted.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Plotting hierarchicalTimeSeries objects</span>
@@ -218,8 +219,8 @@ only the original (aggregate) time series is plotted.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate two persephoneSingle objects, in this case two tramoseatsSingle</span>
 <span class='co'># objects</span>
-<span class='no'>tsAir1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
-<span class='no'>tsAir2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>tsAir1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>tsAir2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='co'># Generate a hierarchicalTimeSeries object</span>
 <span class='no'>htAir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>, <span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>)
 <span class='co'># Plot before run of persephone object</span>
@@ -231,8 +232,8 @@ only the original (aggregate) time series is plotted.</p>
 
 <span class='co'># Quarterly data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-<span class='no'>tsUKgas1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>tsUKgas2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>tsUKgas1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>tsUKgas2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>htUKgas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>tsUKgas1</span><span class='kw'>=</span><span class='no'>tsUKgas1</span>, <span class='kw'>tsUKgas2</span><span class='kw'>=</span><span class='no'>tsUKgas2</span>)
 <span class='fu'>plot</span>(<span class='no'>htUKgas</span>)
 <span class='no'>htUKgas</span>$<span class='fu'>run</span>()
@@ -243,7 +244,7 @@ only the original (aggregate) time series is plotted.</p>
 <span class='co'># Monthly data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='co'># Generate a persephoneSingle object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='x13Single.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='co'># Plot before run of persephoneSingle object</span>
 <span class='fu'>plot</span>(<span class='no'>obj</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>obj</span>$<span class='fu'>run</span>()
@@ -261,13 +262,13 @@ only the original (aggregate) time series is plotted.</p>
 
 <span class='co'># Quarterly data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='x13Single.html'>per_x13</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='fu'>plot</span>(<span class='no'>obj2</span>)
 <span class='no'>obj2</span>$<span class='fu'>run</span>()
 <span class='fu'>plot</span>(<span class='no'>obj2</span>)
 
 <span class='co'># Generate a persephoneSingle object, in this case a tramoseatsSingle object</span>
-<span class='no'>obj3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tramoseatsSingle.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>obj3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='fu'>plot</span>(<span class='no'>obj3</span>)
 <span class='no'>obj3</span>$<span class='fu'>run</span>()
 <span class='fu'>plot</span>(<span class='no'>obj3</span>)</div></pre>
@@ -276,11 +277,8 @@ only the original (aggregate) time series is plotted.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
