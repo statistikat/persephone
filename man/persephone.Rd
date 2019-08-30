@@ -52,5 +52,5 @@ run? If \code{FALSE} (the default), the output will be returned invisibly.
 }
 
 \seealso{
-\link{x13Single}, \link{tramoseatsSingle}
+\code{\link[=per_x13]{per_x13()}}, \code{\link[=per_tramo]{per_tramo()}}
 }

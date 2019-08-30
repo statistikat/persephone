@@ -20,7 +20,7 @@ per_x13(ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3",
 An R6 class that represents a x13 model.
 }
 \section{Inherits}{
- \code{persephone}
+ \link{persephone}
 }
 
 \examples{

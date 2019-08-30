@@ -20,7 +20,7 @@ per_tramo(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
 an R6 class that represents a tramoseats model
 }
 \section{Inherits}{
- \code{persephone}
+ \link{persephone}
 }
 
 \examples{

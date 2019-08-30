@@ -5,10 +5,6 @@
 \alias{hierarchicalTimeSeries}
 \alias{per_hts}
 \title{Define a hierarchical time series}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-hierarchicalTimeSeries
-}
 \description{
 Combine mutliple objects of persephone objects into a new persephone object.
 The resulting time series can perform direct and indirect adjustments.
@@ -27,10 +23,19 @@ per_hts(..., model = c("tramoseats", "x13"),
 \item \code{...} should contain one or more \code{persephone} objects that use the same
 time instances. All elements supplied here must be named.
 \item \code{model} specifies a model to be used. tramoseats or x13
-\item \code{userdefined} is passed as the userdefined argument to \code{tramoseats} or
-\code{x13}
+\item \code{userdefined} is passed as the userdefined argument to \code{\link[=tramoseats]{tramoseats()}} or
+\code{\link[=x13]{x13()}}
 \item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or
 \code{\link[=tramoseats_spec]{tramoseats_spec()}}
+}
+}
+
+\section{Fields}{
+
+\itemize{
+\item \code{$components}. A list of \code{persephone} objects.
+\item \strong{\code{$adjusted_indirect}}. Results from indirect adjustments which means the
+components are first adjusted and the adjusted series are then aggregated
 }
 }
 

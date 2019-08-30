@@ -15,7 +15,7 @@ x13Single <- R6::R6Class(
 #'
 #' An R6 class that represents a x13 model.
 #'
-#' @section Inherits: `persephone`
+#' @section Inherits: [persephone]
 #' @param ts a time series
 #' @param template passed as the `spec` argument to [x13_spec()]
 #' @param userdefined passed as the `userdefined` argument to [x13()]

@@ -15,7 +15,7 @@ tramoseatsSingle <- R6::R6Class(
 #'
 #' an R6 class that represents a tramoseats model
 #'
-#' @section Inherits: `persephone`
+#' @section Inherits: [persephone]
 #' @param ts a time series
 #' @param template passed as the `spec` argument to [tramoseats_spec()]
 #' @param userdefined passed as the `userdefined` argument to [tramoseats()]

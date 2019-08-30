@@ -4,6 +4,8 @@
 #' The resulting time series can perform direct and indirect adjustments.
 #'
 #' @section Inherits: [persephone]
+#' @usage NULL
+#' @format NULL
 #' @section Constructor:
 #' \preformatted{
 #' per_hts(..., model = c("tramoseats", "x13"),
@@ -12,10 +14,16 @@
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
 #' - `model` specifies a model to be used. tramoseats or x13
-#' - `userdefined` is passed as the userdefined argument to `tramoseats` or
-#'   `x13`
+#' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
+#'   [x13()]
 #' - `spec` a model specification returned by [x13_spec()] or
 #'   [tramoseats_spec()]
+#'
+#' @section Fields:
+#'
+#' * `$components`. A list of `persephone` objects.
+#' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
+#'   components are first adjusted and the adjusted series are then aggregated
 #'
 #' @examples
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
