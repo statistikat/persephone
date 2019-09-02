@@ -16,13 +16,14 @@ The resulting time series can perform direct and indirect adjustments.
 \section{Constructor}{
 
 \preformatted{
-per_hts(..., model = c("tramoseats", "x13"),
+per_hts(..., method = c("tramoseats", "x13"),
         userdefined = NULL, spec = NULL)
 }
 \itemize{
 \item \code{...} should contain one or more \code{persephone} objects that use the same
 time instances. All elements supplied here must be named.
-\item \code{model} specifies a model to be used. tramoseats or x13
+\item \code{list} a list of \code{persephone} objects as alternative input to \code{...}.
+\item \code{method} specifies the method to be used. tramoseats or x13
 \item \code{userdefined} is passed as the userdefined argument to \code{\link[=tramoseats]{tramoseats()}} or
 \code{\link[=x13]{x13()}}
 \item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or
@@ -42,7 +43,7 @@ components are first adjusted and the adjusted series are then aggregated
 \examples{
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 
-ht <- per_hts(a = obj_x13, b = obj_x13, model = "x13")
+ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 ht$run()
 ht$adjusted
 ht$adjusted_indirect
@@ -62,13 +63,9 @@ ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
 ts_28 <- lapply(ipi_eu, per_tramo)
 
 # We want to add an extra layer and split the EU28 countries in two groups
-ht_half_europe_1 <- do.call(per_hts, ts_28[1:14])
+ht_half_europe_1  <- per_hts(list = ts_28[1:14], method = "tramoseats")
 
-## possible future syntax
-#per_hts(ts_28[1:14], model = list(AT = "x13", BE = "tramoseats"),
-#        spec = list(), outlier_enabled(.. = TRUE),
-#        tradings.leapyw = list(LV = TRUE, AT = dfdjkl, ))
-
+# Alternative way to use do.call
 ht_half_europe_2 <- do.call(per_hts, ts_28[15:28])
 
 # Now we generate the object for EU28
@@ -76,7 +73,7 @@ ht_europe <- per_hts(
   halfEU_1 = ht_half_europe_1,
   halfEU_2 = ht_half_europe_2,
   spec = "RSA5c",
-  model = "x13"
+  method = "x13"
 )
 
 # start the seasonal adjustment
