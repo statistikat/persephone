@@ -8,12 +8,13 @@
 #' @format NULL
 #' @section Constructor:
 #' \preformatted{
-#' per_hts(..., model = c("tramoseats", "x13"),
+#' per_hts(..., method = c("tramoseats", "x13"),
 #'         userdefined = NULL, spec = NULL)
 #' }
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
-#' - `model` specifies a model to be used. tramoseats or x13
+#' - `list` a list of `persephone` objects as alternative input to `...`.
+#' - `method` specifies the method to be used. tramoseats or x13
 #' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
 #'   [x13()]
 #' - `spec` a model specification returned by [x13_spec()] or
@@ -28,7 +29,7 @@
 #' @examples
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'
-#' ht <- per_hts(a = obj_x13, b = obj_x13, model = "x13")
+#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 #' ht$run()
 #' ht$adjusted
 #' ht$adjusted_indirect
@@ -48,13 +49,9 @@
 #' ts_28 <- lapply(ipi_eu, per_tramo)
 #'
 #' # We want to add an extra layer and split the EU28 countries in two groups
-#' ht_half_europe_1 <- do.call(per_hts, ts_28[1:14])
+#' ht_half_europe_1  <- per_hts(list = ts_28[1:14], method = "tramoseats")
 #'
-#' ## possible future syntax
-#' #per_hts(ts_28[1:14], model = list(AT = "x13", BE = "tramoseats"),
-#' #        spec = list(), outlier_enabled(.. = TRUE),
-#' #        tradings.leapyw = list(LV = TRUE, AT = dfdjkl, ))
-#'
+#' # Alternative way to use do.call
 #' ht_half_europe_2 <- do.call(per_hts, ts_28[15:28])
 #'
 #' # Now we generate the object for EU28
@@ -62,7 +59,7 @@
 #'   halfEU_1 = ht_half_europe_1,
 #'   halfEU_2 = ht_half_europe_2,
 #'   spec = "RSA5c",
-#'   model = "x13"
+#'   method = "x13"
 #' )
 #'
 #' # start the seasonal adjustment
@@ -83,10 +80,22 @@ hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
   public = list(
-    initialize = function(..., model = c("tramoseats", "x13"),
-                          userdefined = NULL, spec = NULL) {
-      private$model <- match.arg(model)
-      components <- list(...)
+    initialize = function(..., method = c("tramoseats", "x13"),
+                          userdefined = NULL, spec = NULL, list = NULL) {
+      private$method <- match.arg(method)
+      if(!is.null(list)){
+        components <- list
+        if(is.null(names(components))){
+          names(components) <- paste0("ts",seq_along(components))
+        }
+        if(length(list(...))>0){
+          warning("If the list argument is specified, additional arguments as ...
+                  will be ignored.")
+        }
+      }else{
+        components <- list(...)
+      }
+      
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
@@ -180,16 +189,16 @@ hierarchicalTimeSeries <- R6::R6Class(
           stop("all components in 'hierarchicalTimeSeries' must be named")
       })
     },
-    model = NULL,
+    method = NULL,
     spec = NULL,
     run_direct = function(ts) {
-      modelFunction <- switch(private$model, tramoseats = tramoseats, x13 = x13)
+      methodFunction <- switch(private$method, tramoseats = tramoseats, x13 = x13)
       if (is.null(self$spec))
-        spec <- switch(private$model, tramoseats = tramoseats_spec(),
+        spec <- switch(private$method, tramoseats = tramoseats_spec(),
                        x13 = x13_spec())
       else
         spec <- self$spec
-      private$output_internal <- modelFunction(
+      private$output_internal <- methodFunction(
         ts,
         spec = spec,
         userdefined = private$userdefined
