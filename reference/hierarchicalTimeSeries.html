@@ -98,6 +98,9 @@ The resulting time series can perform direct and indirect adjustments." />
       <a href="../articles/persephone-hierarchical.html">Hierarchical time series</a>
     </li>
     <li>
+      <a href="../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -146,13 +149,18 @@ The resulting time series can perform direct and indirect adjustments.</p>
     
 
 <pre>
-per_hts(..., model = c("tramoseats", "x13"),
+per_hts(..., method = c("tramoseats", "x13"),
         userdefined = NULL, spec = NULL)
 </pre>
 <ul>
 <li><p><code>...</code> should contain one or more <code>persephone</code> objects that use the same
 time instances. All elements supplied here must be named.</p></li>
-<li><p><code>model</code> specifies a model to be used. tramoseats or x13</p></li>
+<li><p><code>list</code> a list of <code>persephone</code> objects as alternative input to <code>...</code>.</p></li>
+<li><p><code>weights</code> either a vector
+if the same weight is used for all time points or a list of ts objects or a mts object
+if the weight varies for different time points. They must have the same length as
+the number of components.</p></li>
+<li><p><code>method</code> specifies the method to be used. tramoseats or x13</p></li>
 <li><p><code>userdefined</code> is passed as the userdefined argument to <code>tramoseats()</code> or
 <code>x13()</code></p></li>
 <li><p><code>spec</code> a model specification returned by <code>x13_spec()</code> or
@@ -173,7 +181,7 @@ components are first adjusted and the adjusted series are then aggregated</p></l
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
 
-<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
+<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
 <span class='no'>ht</span>$<span class='fu'>run</span>()
 <span class='no'>ht</span>$<span class='no'>adjusted</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
 #&gt; 1949 247.4333 250.5063 251.8663 256.3079 258.0207 253.7141 247.8066 251.5403
@@ -289,13 +297,9 @@ components are first adjusted and the adjusted series are then aggregated</p></l
 <span class='no'>ts_28</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>ipi_eu</span>, <span class='no'>per_tramo</span>)
 
 <span class='co'># We want to add an extra layer and split the EU28 countries in two groups</span>
-<span class='no'>ht_half_europe_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>])
+<span class='no'>ht_half_europe_1</span>  <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"tramoseats"</span>)
 
-<span class='co'>## possible future syntax</span>
-<span class='co'>#per_hts(ts_28[1:14], model = list(AT = "x13", BE = "tramoseats"),</span>
-<span class='co'>#        spec = list(), outlier_enabled(.. = TRUE),</span>
-<span class='co'>#        tradings.leapyw = list(LV = TRUE, AT = dfdjkl, ))</span>
-
+<span class='co'># Alternative way to use do.call</span>
 <span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>15</span>:<span class='fl'>28</span>])
 
 <span class='co'># Now we generate the object for EU28</span>
@@ -303,7 +307,7 @@ components are first adjusted and the adjusted series are then aggregated</p></l
   <span class='kw'>halfEU_1</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_1</span>,
   <span class='kw'>halfEU_2</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_2</span>,
   <span class='kw'>spec</span> <span class='kw'>=</span> <span class='st'>"RSA5c"</span>,
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"x13"</span>
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>
 )
 
 <span class='co'># start the seasonal adjustment</span>

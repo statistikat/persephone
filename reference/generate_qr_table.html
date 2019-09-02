@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>x13 class — per_x13 • persephone</title>
+<title>Generate figures from the EUROSTAT quality report — generate_qr_table • persephone</title>
 
 
 <!-- jquery -->
@@ -37,8 +37,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="x13 class — per_x13" />
-<meta property="og:description" content="An R6 class that represents a x13 model." />
+<meta property="og:title" content="Generate figures from the EUROSTAT quality report — generate_qr_table" />
+<meta property="og:description" content="This function uses the method iterate to create figures for a quality
+report for each component of a hierarchical persephone object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,67 +129,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>x13 class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/x13Single.R'><code>R/x13Single.R</code></a></small>
-    <div class="hidden name"><code>per_x13.Rd</code></div>
+    <h1>Generate figures from the EUROSTAT quality report</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/generate_qr_table.R'><code>R/generate_qr_table.R</code></a></small>
+    <div class="hidden name"><code>generate_qr_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R6 class that represents a x13 model.</p>
+    <p>This function uses the method <code>iterate</code> to create figures for a quality
+report for each component of a hierarchical <code>persephone</code> object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>per_x13</span>(<span class='no'>ts</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"RSA5c"</span>, <span class='st'>"RSA0"</span>, <span class='st'>"RSA1"</span>, <span class='st'>"RSA2c"</span>, <span class='st'>"RSA3"</span>,
-  <span class='st'>"RSA4c"</span>, <span class='st'>"X11"</span>), <span class='kw'>userdefined</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>generate_qr_table</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ts</th>
-      <td><p>a time series</p></td>
-    </tr>
-    <tr>
-      <th>template</th>
-      <td><p>passed as the <code>spec</code> argument to <code>x13_spec()</code></p></td>
-    </tr>
-    <tr>
-      <th>userdefined</th>
-      <td><p>passed as the <code>userdefined</code> argument to <code>x13()</code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed to <code>x13_spec()</code></p></td>
+      <th>x</th>
+      <td><p>a persephone object</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="inherits"><a class="anchor" href="#inherits"></a>Inherits</h2>
+    <h2 class="hasAnchor" id="columns"><a class="anchor" href="#columns"></a>Columns</h2>
 
-    <p><a href='persephone.html'>persephone</a></p>
+    
+
+<ul>
+<li><p><strong>component</strong> is a column added by <code>iterate()</code> and informs where in the
+hierarchy a certain component is.</p></li>
+<li><p><strong>Method</strong> is <code>TS</code> for <code>tramoseats()</code> and <code>x13</code> for <code>x13()</code></p></li>
+<li><p><strong>Period</strong> is <code>12</code> for yearly measurements and <code>4</code> for quarterly measurements</p></li>
+<li><p><strong>Start</strong> denotes the start of the time series</p></li>
+<li><p><strong>End</strong> denotes the end of the time series</p></li>
+<li><p><strong>Log.Transformation</strong></p></li>
+<li><p><strong>ARIMA.Model</strong></p></li>
+<li><p><strong>LeapYear</strong></p></li>
+<li><p><strong>MovingHoliday</strong></p></li>
+<li><p><strong>NbTF</strong></p></li>
+<li><p><strong>Noutliers</strong> Number of outliers</p></li>
+<li><p><strong>Outlier1</strong></p></li>
+<li><p><strong>Outlier2</strong></p></li>
+<li><p><strong>Outlier3</strong></p></li>
+<li><p><strong>CombinedTest_SI</strong></p></li>
+<li><p><strong>Residual.Seasonality</strong></p></li>
+<li><p><strong>Residual.TD.Effect</strong></p></li>
+<li><p><strong>Q.Stat</strong></p></li>
+<li><p><strong>Final.Henderson.Filter</strong></p></li>
+<li><p><strong>Stage.2.Henderson.Filter</strong></p></li>
+<li><p><strong>Seasonal.Filter</strong></p></li>
+<li><p><strong>Max.Adj</strong></p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
-
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>per_x13</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>obj</span>$<span class='fu'>run</span>()
-<span class='no'>obj</span>$<span class='no'>ts</span></div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
-#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
-#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
-#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194
-#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201
-#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229
-#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278
-#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306
-#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336
-#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
-#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
-#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
+<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
+<span class='no'>ht</span>$<span class='fu'>run</span>()
+<span class='fu'>generate_qr_table</span>(<span class='no'>ht</span>)</div><div class='output co'>#&gt;   component Method Period Nobs  Start     End Log.Transformation    ARIMA.Model
+#&gt; 1              x13     12  144 1-1949 12-1960               TRUE (0 1 0)(0 1 1)
+#&gt; 2         a    x13     12  144 1-1949 12-1960               TRUE (0 1 1)(0 1 1)
+#&gt; 3         b    x13     12  144 1-1949 12-1960               TRUE (0 1 1)(0 1 1)
+#&gt;   LeapYear MovingHoliday NbTD Noutliers    Outlier1 Outlier2 Outlier3
+#&gt; 1    FALSE          TRUE    6         1 AO (5-1951)     &lt;NA&gt;     &lt;NA&gt;
+#&gt; 2    FALSE         FALSE    0         0        &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+#&gt; 3    FALSE         FALSE    0         0        &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+#&gt;   CombinedTest_SI Residual.Seasonality Residual.TD.Effect Q.Stat
+#&gt; 1         Present                   No                 No   0.22
+#&gt; 2         Present                   No                Yes   0.26
+#&gt; 3         Present                   No                Yes   0.26
+#&gt;   Final.Henderson.Filter Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
+#&gt; 1                     H9                      H13             3x3     26%
+#&gt; 2                     H9                      H13             3x3     25%
+#&gt; 3                     H9                      H13             3x3     25%</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#inherits">Inherits</a></li>
+      <li><a href="#columns">Columns</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
