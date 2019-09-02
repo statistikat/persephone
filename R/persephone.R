@@ -62,10 +62,12 @@ persephone <- R6::R6Class(
     print = function() {
       message("A persephone object")
       if (!is.null(self$output)) {
+        message("Output:")
         tbl <- private$print_table("")
         tbl <- tbl[, -1]
         print(tbl, right = FALSE, row.names = FALSE)
       } else {
+        message("Not yet run.")
       }
     },
     iterate = function(fun) {
