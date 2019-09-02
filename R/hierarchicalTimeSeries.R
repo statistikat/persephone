@@ -164,6 +164,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     components = NULL,
     weights = NULL,
+    indirect = NA,
     print = function() {
       tbl <- private$print_table()
       if (all(!tbl$run))
@@ -219,6 +220,15 @@ hierarchicalTimeSeries <- R6::R6Class(
       if (is.null(self$output))
         return(NULL)
       private$aggregate(self$components, self$weights, which = "adjusted_indirect")
+    },
+    adjusted = function() {
+      if (is.na(self$indirect)){
+        warning("The decision between direct and indirect adjustment was not recoreded yet.
+                Direct adjustment is returned.")
+      }else if(self$indirect){
+        return(self$adjusted_indirect)
+      }
+      return(self$adjusted_direct)
     }
   ),
   private = list(
