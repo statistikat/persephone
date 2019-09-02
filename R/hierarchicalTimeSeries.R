@@ -116,7 +116,7 @@ hierarchicalTimeSeries <- R6::R6Class(
                  components or none.")
           }
           for(i in which(componentsHts)){
-            weights_ts[[i]] <- ts(rowSums(components[[i]]$weights),
+            weights_ts[[i]] <- ts(1,#rowSums(components[[i]]$weights),
                                   start = start(components[[i]]$weights[,1]),
                                   end = end(components[[i]]$weights[,1]),
                                   frequency = frequency(components[[i]]$weights[,1]))
