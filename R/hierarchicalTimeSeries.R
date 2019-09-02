@@ -140,8 +140,11 @@ hierarchicalTimeSeries <- R6::R6Class(
       if("mts"%in%class(weights)){
         weights_ts <- weights
       }else{
-        if(length(weights_ts)==0){
+        if(length(weights_ts)==0&&!is.list(weights)){
           weights_ts <- NULL
+        }else if (length(weights_ts)==0&&is.list(weights)){
+          weights_ts <- do.call("cbind",weights)
+          colnames(weights_ts) <- names(components)    
         }else{
           weights_ts <- do.call("cbind",weights_ts)
           colnames(weights_ts) <- names(components)
