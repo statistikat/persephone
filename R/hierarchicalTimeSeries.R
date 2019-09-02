@@ -138,6 +138,16 @@ hierarchicalTimeSeries <- R6::R6Class(
       if (as_table)
         res <- as_table_nested_list(res)
       res
+    },
+    get_component = function(component_id) {
+      if (length(component_id) == 0 || component_id == "")
+        return(self)
+      component_path <- strsplit(component_id, "/")[[1]]
+      direct_child <- component_path[1]
+      if (length(component_path) == 1)
+        return(self$components[[direct_child]])
+      rest <- paste(component_path[-1], collapse = "/")
+      self$components[[direct_child]]$get_component(rest)
     }
   ),
   active = list(
