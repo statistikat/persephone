@@ -116,7 +116,7 @@ hierarchicalTimeSeries <- R6::R6Class(
                  components or none.")
           }
           for(i in which(componentsHts)){
-            weights_ts[[i]] <- ts(1,#rowSums(components[[i]]$weights),
+            weights_ts[[i]] <- ts(rowSums(components[[i]]$weights),
                                   start = start(components[[i]]$weights[,1]),
                                   end = end(components[[i]]$weights[,1]),
                                   frequency = frequency(components[[i]]$weights[,1]))
@@ -269,10 +269,12 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate_ts = function(ts_vec,weights_ts) {
       sum <- 0
+      sumW <- 0
       for (i in seq_along(ts_vec)) {
         sum <- sum + ts_vec[[i]] * weights_ts[[i]]
+        sumW <- sumW +  weights_ts[[i]]
       }
-      sum
+      sum/sumW
     },
     coerce_component_names = function(components) {
       lapply(seq_along(components), function(i) {
