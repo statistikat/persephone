@@ -121,132 +121,132 @@
 <a class="sourceLine" id="cb4-4" data-line-number="4">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe])</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe])</a></code></pre></div>
 <p>An additional layer is only the nothern part and southern part</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">norhterb_europe =</span> hts_ne,</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">westerb_europe =</span> hts_we,</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">norhtern_europe =</span> hts_ne,</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">western_europe =</span> hts_we,</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">                 <span class="dt">central_europe =</span> hts_ce</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">                 <span class="dt">south_eastern_europ =</span> hts_see</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">                 <span class="dt">south_eastern_europe =</span> hts_see</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">)</a></code></pre></div>
 <p>Finally we aggregate them to the whole of EU.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">                 <span class="dt">south_part =</span> hts_sp</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">ht_europe</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;  component                         run   class                 </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;                                    FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  north_part                        FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  north_part/norhterb_europe        FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;  north_part/norhterb_europe/DK     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  north_part/norhterb_europe/FI     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  north_part/norhterb_europe/SE     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  north_part/westerb_europe         FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  north_part/westerb_europe/FR      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  north_part/westerb_europe/BE      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  north_part/westerb_europe/NL      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;  north_part/westerb_europe/IE      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;  north_part/westerb_europe/UK      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;  north_part/central_europe         FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;  north_part/central_europe/HR      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;  north_part/central_europe/DE      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  north_part/central_europe/CZ      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt;  north_part/central_europe/SK      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt;  north_part/central_europe/HU      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt;  north_part/central_europe/AT      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt;  north_part/central_europe/SI      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt;  north_part/central_europe/LU      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt;  north_part/central_europe/EE      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt;  north_part/central_europe/LT      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt;  north_part/central_europe/LV      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt;  north_part/central_europe/PL      FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt;  south_part                        FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt;  south_part/southern_europe        FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt;  south_part/southern_europe/IT     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt;  south_part/southern_europe/ES     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt;  south_part/southern_europe/PT     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt;  south_part/southern_europe/MT     FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt;  south_part/south_eastern_europ    FALSE hierarchicalTimeSeries</span></a>
-<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt;  south_part/south_eastern_europ/BG FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt;  south_part/south_eastern_europ/EL FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt;  south_part/south_eastern_europ/CY FALSE tramoseatsSingle      </span></a>
-<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt;  south_part/south_eastern_europ/RO FALSE tramoseatsSingle</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;  component                          run   class                 </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;                                     FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  north_part                         FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  north_part/norhtern_europe         FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;  north_part/norhtern_europe/DK      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  north_part/norhtern_europe/FI      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  north_part/norhtern_europe/SE      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  north_part/western_europe          FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  north_part/western_europe/FR       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  north_part/western_europe/BE       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  north_part/western_europe/NL       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;  north_part/western_europe/IE       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;  north_part/western_europe/UK       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;  north_part/central_europe          FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;  north_part/central_europe/HR       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;  north_part/central_europe/DE       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  north_part/central_europe/CZ       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt;  north_part/central_europe/SK       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt;  north_part/central_europe/HU       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt;  north_part/central_europe/AT       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt;  north_part/central_europe/SI       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt;  north_part/central_europe/LU       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt;  north_part/central_europe/EE       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt;  north_part/central_europe/LT       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt;  north_part/central_europe/LV       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt;  north_part/central_europe/PL       FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt;  south_part                         FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt;  south_part/southern_europe         FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt;  south_part/southern_europe/IT      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt;  south_part/southern_europe/ES      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt;  south_part/southern_europe/PT      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt;  south_part/southern_europe/MT      FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt;  south_part/south_eastern_europe    FALSE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt;  south_part/south_eastern_europe/BG FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt;  south_part/south_eastern_europe/EL FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt;  south_part/south_eastern_europe/CY FALSE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt;  south_part/south_eastern_europe/RO FALSE tramoseatsSingle</span></a></code></pre></div>
 <p>Now we make the first run:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ht_europe<span class="op">$</span><span class="kw">run</span>()</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">ht_europe</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;  component                         run  class                  seasonality</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;                                    TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  north_part                        TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;  north_part/norhterb_europe        TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  north_part/norhterb_europe/DK     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  north_part/norhterb_europe/FI     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  north_part/norhterb_europe/SE     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  north_part/westerb_europe         TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  north_part/westerb_europe/FR      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  north_part/westerb_europe/BE      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  north_part/westerb_europe/NL      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  north_part/westerb_europe/IE      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  north_part/westerb_europe/UK      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;  north_part/central_europe         TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;  north_part/central_europe/HR      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;  north_part/central_europe/DE      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt;  north_part/central_europe/CZ      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;  north_part/central_europe/SK      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;  north_part/central_europe/HU      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt;  north_part/central_europe/AT      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt;  north_part/central_europe/SI      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;  north_part/central_europe/LU      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt;  north_part/central_europe/EE      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt;  north_part/central_europe/LT      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt;  north_part/central_europe/LV      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt;  north_part/central_europe/PL      TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt;  south_part                        TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt;  south_part/southern_europe        TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt;  south_part/southern_europe/IT     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;  south_part/southern_europe/ES     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt;  south_part/southern_europe/PT     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt;  south_part/southern_europe/MT     TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt;  south_part/south_eastern_europ    TRUE hierarchicalTimeSeries Present    </span></a>
-<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt;  south_part/south_eastern_europ/BG TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt;  south_part/south_eastern_europ/EL TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt;  south_part/south_eastern_europ/CY TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="co">#&gt;  south_part/south_eastern_europ/RO TRUE tramoseatsSingle       Present    </span></a>
-<a class="sourceLine" id="cb7-40" data-line-number="40"><span class="co">#&gt;  log_transform arima_mdl      n_outliers q_stat</span></a>
-<a class="sourceLine" id="cb7-41" data-line-number="41"><span class="co">#&gt;   TRUE         (1 1 0)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-42" data-line-number="42"><span class="co">#&gt;   TRUE         (1 1 0)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-43" data-line-number="43"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 4          NA    </span></a>
-<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="co">#&gt;  FALSE         (1 1 0)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-48" data-line-number="48"><span class="co">#&gt;   TRUE         (2 1 1)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-49" data-line-number="49"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-50" data-line-number="50"><span class="co">#&gt;   TRUE         (2 1 0)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-51" data-line-number="51"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-52" data-line-number="52"><span class="co">#&gt;   TRUE         (2 1 0)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-53" data-line-number="53"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-54" data-line-number="54"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-55" data-line-number="55"><span class="co">#&gt;   TRUE         (3 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-56" data-line-number="56"><span class="co">#&gt;   TRUE         (1 1 0)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-57" data-line-number="57"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 4          NA    </span></a>
-<a class="sourceLine" id="cb7-58" data-line-number="58"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-59" data-line-number="59"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-60" data-line-number="60"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-61" data-line-number="61"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-62" data-line-number="62"><span class="co">#&gt;   TRUE         (0 1 1)(1 1 1) 4          NA    </span></a>
-<a class="sourceLine" id="cb7-63" data-line-number="63"><span class="co">#&gt;  FALSE         (0 1 2)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-64" data-line-number="64"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-65" data-line-number="65"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-66" data-line-number="66"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-67" data-line-number="67"><span class="co">#&gt;   TRUE         (3 1 0)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-68" data-line-number="68"><span class="co">#&gt;  FALSE         (0 1 1)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-69" data-line-number="69"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 5          NA    </span></a>
-<a class="sourceLine" id="cb7-70" data-line-number="70"><span class="co">#&gt;   TRUE         (2 1 0)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-71" data-line-number="71"><span class="co">#&gt;   TRUE         (2 1 0)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-72" data-line-number="72"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
-<a class="sourceLine" id="cb7-73" data-line-number="73"><span class="co">#&gt;   TRUE         (1 1 0)(0 1 1) 3          NA    </span></a>
-<a class="sourceLine" id="cb7-74" data-line-number="74"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 0          NA    </span></a>
-<a class="sourceLine" id="cb7-75" data-line-number="75"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
-<a class="sourceLine" id="cb7-76" data-line-number="76"><span class="co">#&gt;   TRUE         (0 1 1)(0 1 1) 3          NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;  component                          run  class                 </span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;                                     TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  north_part                         TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;  north_part/norhtern_europe         TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  north_part/norhtern_europe/DK      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  north_part/norhtern_europe/FI      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  north_part/norhtern_europe/SE      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  north_part/western_europe          TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  north_part/western_europe/FR       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  north_part/western_europe/BE       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  north_part/western_europe/NL       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  north_part/western_europe/IE       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  north_part/western_europe/UK       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;  north_part/central_europe          TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;  north_part/central_europe/HR       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;  north_part/central_europe/DE       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt;  north_part/central_europe/CZ       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;  north_part/central_europe/SK       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;  north_part/central_europe/HU       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt;  north_part/central_europe/AT       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt;  north_part/central_europe/SI       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;  north_part/central_europe/LU       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt;  north_part/central_europe/EE       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt;  north_part/central_europe/LT       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt;  north_part/central_europe/LV       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt;  north_part/central_europe/PL       TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt;  south_part                         TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt;  south_part/southern_europe         TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt;  south_part/southern_europe/IT      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;  south_part/southern_europe/ES      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt;  south_part/southern_europe/PT      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt;  south_part/southern_europe/MT      TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt;  south_part/south_eastern_europe    TRUE hierarchicalTimeSeries</span></a>
+<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt;  south_part/south_eastern_europe/BG TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt;  south_part/south_eastern_europe/EL TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt;  south_part/south_eastern_europe/CY TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="co">#&gt;  south_part/south_eastern_europe/RO TRUE tramoseatsSingle      </span></a>
+<a class="sourceLine" id="cb7-40" data-line-number="40"><span class="co">#&gt;  seasonality log_transform arima_mdl      n_outliers q_stat</span></a>
+<a class="sourceLine" id="cb7-41" data-line-number="41"><span class="co">#&gt;  Present      TRUE         (1 1 0)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-42" data-line-number="42"><span class="co">#&gt;  Present      TRUE         (1 1 0)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-43" data-line-number="43"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 4          NA    </span></a>
+<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="co">#&gt;  Present     FALSE         (1 1 0)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-48" data-line-number="48"><span class="co">#&gt;  Present      TRUE         (2 1 1)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-49" data-line-number="49"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-50" data-line-number="50"><span class="co">#&gt;  Present      TRUE         (2 1 0)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-51" data-line-number="51"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-52" data-line-number="52"><span class="co">#&gt;  Present      TRUE         (2 1 0)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-53" data-line-number="53"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-54" data-line-number="54"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-55" data-line-number="55"><span class="co">#&gt;  Present      TRUE         (3 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-56" data-line-number="56"><span class="co">#&gt;  Present      TRUE         (1 1 0)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-57" data-line-number="57"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 4          NA    </span></a>
+<a class="sourceLine" id="cb7-58" data-line-number="58"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-59" data-line-number="59"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-60" data-line-number="60"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-61" data-line-number="61"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-62" data-line-number="62"><span class="co">#&gt;  Present      TRUE         (0 1 1)(1 1 1) 4          NA    </span></a>
+<a class="sourceLine" id="cb7-63" data-line-number="63"><span class="co">#&gt;  Present     FALSE         (0 1 2)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-64" data-line-number="64"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-65" data-line-number="65"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-66" data-line-number="66"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-67" data-line-number="67"><span class="co">#&gt;  Present      TRUE         (3 1 0)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-68" data-line-number="68"><span class="co">#&gt;  Present     FALSE         (0 1 1)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-69" data-line-number="69"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 5          NA    </span></a>
+<a class="sourceLine" id="cb7-70" data-line-number="70"><span class="co">#&gt;  Present      TRUE         (2 1 0)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-71" data-line-number="71"><span class="co">#&gt;  Present      TRUE         (2 1 0)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-72" data-line-number="72"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 2          NA    </span></a>
+<a class="sourceLine" id="cb7-73" data-line-number="73"><span class="co">#&gt;  Present      TRUE         (1 1 0)(0 1 1) 3          NA    </span></a>
+<a class="sourceLine" id="cb7-74" data-line-number="74"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 0          NA    </span></a>
+<a class="sourceLine" id="cb7-75" data-line-number="75"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 1          NA    </span></a>
+<a class="sourceLine" id="cb7-76" data-line-number="76"><span class="co">#&gt;  Present      TRUE         (0 1 1)(0 1 1) 3          NA</span></a></code></pre></div>
 <div id="weights" class="section level1">
 <h1 class="hasAnchor">
 <a href="#weights" class="anchor"></a>Weights</h1>
@@ -385,32 +385,32 @@
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">12.31519</td>
+<td align="right">12.39361</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">12.31214</td>
+<td align="right">12.21925</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">12.47273</td>
+<td align="right">12.56144</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">13.91509</td>
+<td align="right">13.18851</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">13.25138</td>
+<td align="right">14.69293</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">16.15933</td>
+<td align="right">12.22083</td>
 </tr>
 </tbody>
 </table>
@@ -426,27 +426,27 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">20.31519</td>
+<td align="right">20.39361</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">20.31214</td>
+<td align="right">20.21925</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
-<td align="right">20.47273</td>
+<td align="right">20.56144</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">21.91509</td>
+<td align="right">21.18851</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
-<td align="right">21.25138</td>
+<td align="right">22.69293</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">24.15933</td>
+<td align="right">20.22083</td>
 <td align="right">8</td>
 </tr>
 </tbody>
