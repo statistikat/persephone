@@ -167,7 +167,12 @@ hierarchicalTimeSeries <- R6::R6Class(
         tbl <- tbl[, 1:3]
       print(tbl, right = FALSE, row.names = FALSE)
     },
-    set_options = function(userdefined = NA, spec = NA, recursive = TRUE) {
+    set_options = function(userdefined = NA, spec = NA, recursive = TRUE,
+                           component = "") {
+      if (component != "") {
+        root <- self$get_component(component)
+        return(root$set_options(userdefined, spec, recursive))
+      }
       super$set_options(userdefined, spec, recursive)
       if (recursive)
         lapply(self$components, function(x) {
@@ -175,7 +180,11 @@ hierarchicalTimeSeries <- R6::R6Class(
         })
       invisible(NULL)
     },
-    iterate = function(fun, as_table = FALSE) {
+    iterate = function(fun, as_table = FALSE, component = "") {
+      if (component != "") {
+        root <- self$get_component(component)
+        return(root$iterate(fun, as_table))
+      }
       comp <- lapply(
         self$components,
         function(component) {
@@ -187,6 +196,19 @@ hierarchicalTimeSeries <- R6::R6Class(
       if (as_table)
         res <- as_table_nested_list(res)
       res
+    },
+    get_component = function(component_id) {
+      if (length(component_id) == 0 || component_id == "")
+        return(self)
+      component_path <- strsplit(component_id, "/")[[1]]
+      direct_child <- component_path[1]
+      if (length(component_path) == 1)
+        return(self$components[[direct_child]])
+      rest <- paste(component_path[-1], collapse = "/")
+      self$components[[direct_child]]$get_component(rest)
+    },
+    generate_qr_table = function() {
+      self$iterate(generateQrList, as_table = TRUE)
     }
   ),
   active = list(
