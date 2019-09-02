@@ -1,0 +1,82 @@
+---
+title: "Hierarchical time series"
+author: "Gregor de Cillia"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    df_print: kable
+vignette: >
+  %\VignetteIndexEntry{Hierarchical time series}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "95%"
+)
+```
+
+Hierarchical time series are time series that can be divided into sub-series.
+In `persephone`, such objects are created similar to a nested list. The
+following example creates a series with European aggregate based on another aggregate of south and north European countries or their IPI respectively.
+
+First we load the data from the `RJDemetra` and remove the EU aggregate.
+```{r}
+library(persephone)
+data(ipi_c_eu, package = "RJDemetra")
+ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
+```
+
+For all countries' time series we now want to generate a persephone object with Tramo as method.
+```{r}
+ts_28 <- lapply(ipi_eu, per_tramo)
+```
+
+We generate a additional layer based on a certain regional grouping of the countries
+
+```{r}
+south_eastern_europe <- c("BG","EL","CY","RO")
+northern_europe <- c("DK","FI","SE")
+central_europe <- c("HR","DE","CZ","SK","HU","AT","SI","LU","EE","LT","LV","PL")
+southern_europe <- c("IT","ES","PT","MT")
+western_europe <- c("FR","BE","NL","IE","UK")
+```
+
+The list argument can be used to create a hierachical persephone object based on a list of persephone objects.
+
+```{r}
+hts_see <- per_hts(list = ts_28[south_eastern_europe])
+hts_ne <- per_hts(list = ts_28[northern_europe])
+hts_ce <- per_hts(list = ts_28[central_europe])
+hts_se <- per_hts(list = ts_28[southern_europe])
+hts_we <- per_hts(list = ts_28[western_europe])
+```
+
+
+An additional layer is only the nothern part and southern part
+```{r}
+hts_np <- per_hts(norhterb_europe = hts_ne,
+                 westerb_europe = hts_we,
+                 central_europe = hts_ce
+)
+hts_sp <- per_hts(southern_europe = hts_se,
+                 south_eastern_europ = hts_see
+)
+```
+
+Finally we aggregate them to the whole of EU.
+```{r}
+ht_europe <- per_hts(north_part = hts_np,
+                 south_part = hts_sp
+)
+ht_europe
+```
+
+Now we make the first run:
+```{r}
+ht_europe$run()
+ht_europe
+```
