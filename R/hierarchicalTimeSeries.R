@@ -14,6 +14,10 @@
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
 #' - `list` a list of `persephone` objects as alternative input to `...`.
+#' - `weights` either a vector 
+#' if the same weight is used for all time points or a list of ts objects or a mts object
+#' if the weight varies for different time points. They must have the same length as
+#' the number of components.
 #' - `method` specifies the method to be used. tramoseats or x13
 #' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
 #'   [x13()]
@@ -81,7 +85,8 @@ hierarchicalTimeSeries <- R6::R6Class(
   inherit = persephone,
   public = list(
     initialize = function(..., method = c("tramoseats", "x13"),
-                          userdefined = NULL, spec = NULL, list = NULL) {
+                          userdefined = NULL, spec = NULL, list = NULL,
+                          weights = NULL) {
       private$method <- match.arg(method)
       if(!is.null(list)){
         components <- list
@@ -95,12 +100,55 @@ hierarchicalTimeSeries <- R6::R6Class(
       }else{
         components <- list(...)
       }
+      componentsHts <- sapply(components, function(x) "hierarchicalTimeSeries"%in%class(x))
+      if(!is.null(weights)){
+        if(ifelse(is.list(weights)||is.vector(weights), length(weights), ncol(weights)) != sum(!componentsHts)){
+        stop("If the weights argument is provided,
+             its length must be equal to the number of components.")
+        }
+      }
+      weights_ts <- list()
+      if(any(componentsHts)){
+        weightsNull <- sapply(components, function(x)is.null(x$weights))
+        if(any(!weightsNull)){
+          if(any(weightsNull)){
+            stop("At the moment it is only supported to use either weights for all
+                 components or none.")
+          }
+          for(i in which(componentsHts)){
+            weights_ts[[i]] <- ts(rowSums(components[[i]]$weights),
+                                  start = start(components[[i]]$weights[,1]),
+                                  end = end(components[[i]]$weights[,1]),
+                                  frequency = frequency(components[[i]]$weights[,1]))
+          }  
+        }
+      }
+      if(!is.list(weights)&!is.null(weights)){
+        for(i in which(!componentsHts)){
+          weights_ts[[i]] <- ts(weights[i], start = start(components[[i]]$ts),
+                                end = end(components[[i]]$ts),
+                                frequency = frequency(components[[i]]$ts))
+          weights_ts[[i]] <- ts(c(weights_ts[[i]],rep(tail(weights_ts[[i]],1),4*frequency(components[[i]]$ts))),
+                                start = start(components[[i]]$ts), frequency = frequency(components[[i]]$ts))
+        }
+      }
       
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
-      private$ts_internal <- private$aggregate(components)
+      if("mts"%in%class(weights)){
+        weights_ts <- weights
+      }else{
+        if(length(weights_ts)==0){
+          weights_ts <- NULL
+        }else{
+          weights_ts <- do.call("cbind",weights_ts)
+          colnames(weights_ts) <- names(components)
+        }  
+      }
+      self$weights <- weights_ts
+      private$ts_internal <- private$aggregate(components, self$weights)
       super$set_options(userdefined = userdefined, spec = spec)
     },
     run = function(...) {
@@ -112,6 +160,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$run_direct(self$ts)
     },
     components = NULL,
+    weights = NULL,
     print = function() {
       tbl <- private$print_table()
       if (all(!tbl$run))
@@ -157,16 +206,16 @@ hierarchicalTimeSeries <- R6::R6Class(
         return(self$components[[direct_child]])
       rest <- paste(component_path[-1], collapse = "/")
       self$components[[direct_child]]$get_component(rest)
+    },
+    generate_qr_table = function() {
+      self$iterate(generateQrList, as_table = TRUE)
     }
   ),
   active = list(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      tss <- lapply(self$components, function(component) {
-        component$adjusted
-      })
-      private$aggregate_ts(tss)
+      private$aggregate(self$components, self$weights, which = "adjusted")
     }
   ),
   private = list(
@@ -186,16 +235,26 @@ hierarchicalTimeSeries <- R6::R6Class(
         stop("All components need to have the same time instances")
       tsps[[1]]
     },
-    aggregate = function(components) {
+    aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
-        component$ts
+        component[[which]]
       })
-      private$aggregate_ts(tss)
+      weights_ts <- lapply(tss, function(x){
+        x <- x*0+1
+        x[is.na(x)] <- 1
+      })
+      if(!is.null(weights)){
+        for(i in seq_along(tss)){
+          weights_ts[[i]] <- window(weights[,i], start = start(tss[[i]]),
+                 end = end(tss[[i]]))
+        }
+      }
+      private$aggregate_ts(tss, weights_ts)
     },
-    aggregate_ts = function(ts_vec) {
+    aggregate_ts = function(ts_vec,weights_ts) {
       sum <- 0
-      for (ts in ts_vec) {
-        sum <- sum + ts
+      for (i in seq_along(ts_vec)) {
+        sum <- sum + ts_vec[[i]] * weights_ts[[i]]
       }
       sum
     },
