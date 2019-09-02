@@ -95,7 +95,7 @@ persephone <- R6::R6Class(
     output = function() {
       private$output_internal
     },
-    adjusted = function() {
+    adjusted_direct = function() {
       self$output$user_defined$sa
     },
     spec = function() {

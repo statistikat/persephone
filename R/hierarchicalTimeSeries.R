@@ -35,12 +35,12 @@
 #'
 #' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 #' ht$run()
-#' ht$adjusted
+#' ht$adjusted_direct
 #' ht$adjusted_indirect
 #'
 #' ht2 <- per_hts(a = ht, b = obj_x13)
 #' ht2$run()
-#' ht2$adjusted
+#' ht2$adjusted_direct
 #' ht2$adjusted_indirect
 #'
 #' #-------- example with industrial price indices -----------
@@ -70,15 +70,15 @@
 #' ht_europe$run()
 #'
 #' # accessing the directly and indirectly adjusted series for EU28
-#' ht_europe$adjusted
+#' ht_europe$adjusted_direct
 #' ht_europe$adjusted_indirect
 #'
 #' # accessing the directly and indirectly adjusted series for half of Europe
-#' ht_europe$components$halfEU_2$adjusted
+#' ht_europe$components$halfEU_2$adjusted_direct
 #' ht_europe$components$halfEU_2$adjusted_indirect
 #'
 #' # accessing the adjusted series for a country
-#' ht_europe$components$halfEU_2$components$AT$adjusted
+#' ht_europe$components$halfEU_2$components$AT$adjusted_direct
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
@@ -215,7 +215,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      private$aggregate(self$components, self$weights, which = "adjusted")
+      private$aggregate(self$components, self$weights, which = "adjusted_direct")
     }
   ),
   private = list(

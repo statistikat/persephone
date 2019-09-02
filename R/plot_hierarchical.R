@@ -127,7 +127,7 @@ plot.hierarchicalTimeSeries <- function(x, main=NULL,
     }
 
     y <- x$ts
-    sa_dir <- x$adjusted
+    sa_dir <- x$adjusted_direct
     sa_indir <- x$adjusted_indirect
 
     # Forecasts not implemented yet
