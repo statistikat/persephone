@@ -215,7 +215,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      private$aggregate(self$components, self$weights, which = "adjusted_direct")
+      private$aggregate(self$components, self$weights, which = "adjusted_indirect")
     }
   ),
   private = list(
@@ -237,6 +237,9 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
+        if(which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
+          return(component[["adjusted_direct"]])
+        }
         component[[which]]
       })
       weights_ts <- lapply(tss, function(x){
