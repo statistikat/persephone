@@ -7,8 +7,10 @@ output:
     df_print: kable
 vignette: >
   %\VignetteIndexEntry{Hierarchical time series - construction and weights}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -58,12 +60,12 @@ hts_we <- per_hts(list = ts_28[western_europe])
 
 An additional layer is only the nothern part and southern part
 ```{r}
-hts_np <- per_hts(norhterb_europe = hts_ne,
-                 westerb_europe = hts_we,
+hts_np <- per_hts(norhtern_europe = hts_ne,
+                 western_europe = hts_we,
                  central_europe = hts_ce
 )
 hts_sp <- per_hts(southern_europe = hts_se,
-                 south_eastern_europ = hts_see
+                 south_eastern_europe = hts_see
 )
 ```
 

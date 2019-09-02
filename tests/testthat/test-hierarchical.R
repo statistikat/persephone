@@ -77,28 +77,28 @@ test_that("weights as scalars", {
                 weights = c(2, 2, 2)
                 )
   
-  expect_true(all.equal(ht$ts, 6 * obj_x13$ts))
+  expect_true(all.equal(ht$ts, obj_x13$ts))
   expect_true(all(ht$weights == 2))
   ht$run()
-  expect_true(all.equal(ht$components$a$adjusted_direct*6,ht$adjusted_indirect))
+  expect_true(all.equal(ht$components$a$adjusted_direct, ht$adjusted_indirect))
   
   ht2 <- per_hts(a = obj_x13,
                  b = obj_x13,
                  c = obj_x13,
                  weights = c(3, 3, 3)
   )
-  expect_true(all.equal(ht2$ts, 9 * obj_x13$ts))
+  expect_true(all.equal(ht2$ts, obj_x13$ts))
   expect_true(all(ht2$weights == 3))
   
   ht0 <- per_hts(a0 = ht,
                  b0 = ht2)
   
-  expect_true(all.equal(ht0$ts, 15 * obj_x13$ts))
+  expect_true(all.equal(ht0$ts, obj_x13$ts))
   
   ht0$run()
-  expect_true(all.equal(ht0$adjusted_indirect,15*ht0$components$a0$components$a$adjusted_direct))
+  expect_true(all.equal(ht0$adjusted_indirect, ht0$components$a0$components$a$adjusted_direct))
   
-  expect_true(is.character(all.equal(ht0$adjusted_direct,15*ht0$components$a0$components$a$adjusted_direct)))
+  expect_true(is.character(all.equal(ht0$adjusted_direct, ht0$components$a0$components$a$adjusted_direct)))
 })
 
 
@@ -116,28 +116,28 @@ test_that("weights as mts", {
                 weights = cbind(w2,w2,w2)
   )
   
-  expect_true(all.equal(ht$ts, 6 * obj_x13$ts))
+  expect_true(all.equal(ht$ts, obj_x13$ts))
   expect_true(all(ht$weights == 2))
   ht$run()
-  expect_true(all.equal(ht$components$a$adjusted_direct*6,ht$adjusted_indirect))
+  expect_true(all.equal(ht$components$a$adjusted_direct,ht$adjusted_indirect))
   
   ht2 <- per_hts(a = obj_x13,
                  b = obj_x13,
                  c = obj_x13,
                  weights = cbind(w3,w3,w3)
   )
-  expect_true(all.equal(ht2$ts, 9 * obj_x13$ts))
+  expect_true(all.equal(ht2$ts, obj_x13$ts))
   expect_true(all(ht2$weights == 3))
   
   ht0 <- per_hts(a0 = ht,
                  b0 = ht2)
   
-  expect_true(all.equal(ht0$ts, 15 * obj_x13$ts))
+  expect_true(all.equal(ht0$ts, obj_x13$ts))
   
   ht0$run()
-  expect_true(all.equal(ht0$adjusted_indirect,15*ht0$components$a0$components$a$adjusted_direct))
+  expect_true(all.equal(ht0$adjusted_indirect, ht0$components$a0$components$a$adjusted_direct))
   
-  expect_true(is.character(all.equal(ht0$adjusted_direct,15*ht0$components$a0$components$a$adjusted_direct)))
+  expect_true(is.character(all.equal(ht0$adjusted_direct, ht0$components$a0$components$a$adjusted_direct)))
 })
 
 
@@ -155,26 +155,53 @@ test_that("weights as list", {
                 weights = list(w2,w2,w2)
   )
   
-  expect_true(all.equal(ht$ts, 6 * obj_x13$ts))
+  expect_true(all.equal(ht$ts, obj_x13$ts))
   expect_true(all(ht$weights == 2))
   ht$run()
-  expect_true(all.equal(ht$components$a$adjusted_direct*6,ht$adjusted_indirect))
+  expect_true(all.equal(ht$components$a$adjusted_direct, ht$adjusted_indirect))
   
   ht2 <- per_hts(a = obj_x13,
                  b = obj_x13,
                  c = obj_x13,
                  weights = list(w3,w3,w3)
   )
-  expect_true(all.equal(ht2$ts, 9 * obj_x13$ts))
+  expect_true(all.equal(ht2$ts, obj_x13$ts))
   expect_true(all(ht2$weights == 3))
   
   ht0 <- per_hts(a0 = ht,
                  b0 = ht2)
   
-  expect_true(all.equal(ht0$ts, 15 * obj_x13$ts))
+  expect_true(all.equal(ht0$ts, obj_x13$ts))
   
   ht0$run()
-  expect_true(all.equal(ht0$adjusted_indirect,15*ht0$components$a0$components$a$adjusted_direct))
+  expect_true(all.equal(ht0$adjusted_indirect, ht0$components$a0$components$a$adjusted_direct))
   
-  expect_true(is.character(all.equal(ht0$adjusted_direct,15*ht0$components$a0$components$a$adjusted_direct)))
+  expect_true(is.character(all.equal(ht0$adjusted_direct, ht0$components$a0$components$a$adjusted_direct)))
+})
+
+
+
+test_that("weights as scalars - unequal", {
+  ht1 <- per_hts(a = per_x13(AirPassengers*0+1, "RSA3"),
+                b = per_x13(AirPassengers*0+1, "RSA3"),
+                c = per_x13(AirPassengers*0+1, "RSA3"),
+                weights = c(1, 2, 3)
+  )
+  
+  expect_true(all.equal(ht1$ts, AirPassengers*0+1))
+  
+  ht2 <- per_hts(a = per_x13(AirPassengers*0+100, "RSA3"),
+                b = per_x13(AirPassengers*0+200, "RSA3"),
+                c = per_x13(AirPassengers*0+400, "RSA3"),
+                weights = c(1, 2, 4)
+  )
+  
+  expect_true(all.equal(ht2$ts, AirPassengers*0+300))
+  
+  
+  ht0 <- per_hts(a0 = ht1,
+                 b0 = ht2)
+  
+  expect_true(all.equal(ht0$ts, AirPassengers*0+162))
+  
 })
