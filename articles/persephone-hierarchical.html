@@ -131,13 +131,13 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; Warning in (function () : The decision between direct and indirect adjustment was not recoreded yet.</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;                 Direct adjustment is returned.</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;           Jan      Feb      Mar      Apr      May      Jun</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; 1949 247.7036 250.1979 250.3748 255.4177 252.0618 251.6617</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; 1949 123.8518 125.0990 125.1874 127.7088 126.0309 125.8308</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">display_result</span>(hts<span class="op">$</span>components<span class="op">$</span>a<span class="op">$</span>adjusted)</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;           Jan      Feb      Mar      Apr      May      Jun</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 1949 123.7166 125.2532 125.9332 128.1540 129.0103 126.8570</span></a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">display_result</span>(hts<span class="op">$</span>adjusted_indirect)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;           Jan      Feb      Mar      Apr      May      Jun</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 1949 247.5684 250.3521 251.1206 255.8628 255.0413 252.6879</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 1949 123.7842 125.1761 125.5603 127.9314 127.5206 126.3439</span></a></code></pre></div>
 <p>The last line displays the results of an indirect adjustment which amounts to <code>a$adjusted</code> + <code>b$adjusted</code> in this case.</p>
 <div id="several-levels-of-hierarchies" class="section level2">
 <h2 class="hasAnchor">
@@ -178,14 +178,14 @@
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(obj<span class="op">$</span>adjusted),</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">       <span class="dt">var =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(obj<span class="op">$</span>adjusted))</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">})</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;     component      mean      var</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 1             1120.3566 445.0695</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 2         hts  560.1783 222.5347</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 3       hts/a  280.0419 111.5113</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 4       hts/b  280.0892 111.2674</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 5   hts_child  280.0892 111.2674</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 6 hts_child/a  280.0419 111.5113</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 7           b  280.0892 111.2674</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;     component     mean      var</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 1             280.0892 111.2674</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 2         hts 280.0892 111.2674</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 3       hts/a 280.0419 111.5113</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 4       hts/b 280.0892 111.2674</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 5   hts_child 280.0892 111.2674</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 6 hts_child/a 280.0419 111.5113</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 7           b 280.0892 111.2674</span></a></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_nested<span class="op">$</span><span class="kw">iterate</span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, persephone<span class="op">:::</span>generateQrList)[, <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;     component Method Period Nobs  Start     End Log.Transformation</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; 1                 TS     12  144 1-1949 12-1960               TRUE</span></a>
