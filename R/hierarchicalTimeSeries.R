@@ -215,7 +215,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      private$aggregate_ts(self$components, self$weights, which = "adjusted")
+      private$aggregate(self$components, self$weights, which = "adjusted")
     }
   ),
   private = list(
