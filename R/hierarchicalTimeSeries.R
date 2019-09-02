@@ -184,7 +184,7 @@ hierarchicalTimeSeries <- R6::R6Class(
         })
       invisible(NULL)
     },
-    iterate = function(fun, as_table = FALSE, component = "") {
+    iterate = function(fun, as_table = FALSE, component = "", unnest = FALSE) {
       if (component != "") {
         root <- self$get_component(component)
         return(root$iterate(fun, as_table))
@@ -198,7 +198,9 @@ hierarchicalTimeSeries <- R6::R6Class(
 
       res <- c(super$iterate(fun), comp)
       if (as_table)
-        res <- as_table_nested_list(res)
+        return(as_table_nested_list(res))
+      if (unnest)
+        return(unnest_nested_list(res))
       res
     },
     get_component = function(component_id) {
