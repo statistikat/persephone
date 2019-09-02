@@ -157,6 +157,9 @@ hierarchicalTimeSeries <- R6::R6Class(
         return(self$components[[direct_child]])
       rest <- paste(component_path[-1], collapse = "/")
       self$components[[direct_child]]$get_component(rest)
+    },
+    generate_qr_table = function() {
+      self$iterate(generateQrList, as_table = TRUE)
     }
   ),
   active = list(
