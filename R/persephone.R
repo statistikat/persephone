@@ -103,6 +103,12 @@ persephone <- R6::R6Class(
     },
     spec = function() {
       private$spec_internal
+    },
+    forecasts = function(){
+      self$output$final$forecasts
+    },
+    forecasts_direct = function(){
+      self$output$final$forecasts
     }
   ),
   private = list(
