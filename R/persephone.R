@@ -70,8 +70,12 @@ persephone <- R6::R6Class(
         message("Not yet run.")
       }
     },
-    iterate = function(fun) {
-      list(value = fun(self))
+    iterate = function(fun, as_table = FALSE, unnest = FALSE) {
+      res <- list(value = fun(self))
+      private$convert_list(res, as_table, unnest)
+    },
+    generate_qr_table = function() {
+      self$iterate(generateQrList, as_table = TRUE)
     },
     set_options = function(userdefined = NA,
                            spec = NA, recursive = TRUE) {
@@ -112,6 +116,14 @@ persephone <- R6::R6Class(
     }
   ),
   private = list(
+    convert_list = function(res, as_table = FALSE, unnest = FALSE) {
+      if (as_table)
+        return(as_table_nested_list(res))
+      else if (unnest)
+        return(unnest_nested_list(res))
+      else
+        return(res)
+    },
     ts_internal = NULL,
     tsp_internal = NULL,
     params_internal = NULL,

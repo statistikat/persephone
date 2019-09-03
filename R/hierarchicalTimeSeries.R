@@ -213,11 +213,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       )
 
       res <- c(super$iterate(fun), comp)
-      if (as_table)
-        return(as_table_nested_list(res))
-      if (unnest)
-        return(unnest_nested_list(res))
-      res
+      private$convert_list(res, as_table, unnest)
     },
     get_component = function(component_id) {
       if (length(component_id) == 0 || component_id == "")
@@ -229,8 +225,8 @@ hierarchicalTimeSeries <- R6::R6Class(
       rest <- paste(component_path[-1], collapse = "/")
       self$components[[direct_child]]$get_component(rest)
     },
-    generate_qr_table = function() {
-      self$iterate(generateQrList, as_table = TRUE)
+    generate_qr_table = function(component = "") {
+      self$iterate(generateQrList, as_table = TRUE, component = component)
     }
   ),
   active = list(
