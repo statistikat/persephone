@@ -121,21 +121,21 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">southern_europe &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"IT"</span>,<span class="st">"ES"</span>,<span class="st">"PT"</span>,<span class="st">"MT"</span>)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">western_europe &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FR"</span>,<span class="st">"BE"</span>,<span class="st">"NL"</span>,<span class="st">"IE"</span>,<span class="st">"UK"</span>)</a></code></pre></div>
 <p>The list argument can be used to create a hierachical persephone object based on a list of persephone objects.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe])</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe])</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe])</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe])</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe])</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe])</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe])</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe])</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe])</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe])</a></code></pre></div>
 <p>An additional layer is only the nothern part and southern part</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">norhtern_europe =</span> hts_ne,</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">norhtern_europe =</span> hts_ne,</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">western_europe =</span> hts_we,</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">                 <span class="dt">central_europe =</span> hts_ce</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">                 <span class="dt">south_eastern_europe =</span> hts_see</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7">)</a></code></pre></div>
 <p>Finally we aggregate them to the whole of EU.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">                 <span class="dt">south_part =</span> hts_sp</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">ht_europe</a>
@@ -262,17 +262,17 @@
 <a href="#time-invariant-weights" class="anchor"></a>Time-invariant weights</h2>
 <p>The weights parameter will be set as numeric vector with length equal to the number of components.</p>
 <p>Almost the same call, but with weights, one for each component and one for all time points.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe], <span class="dt">weights=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="fl">10.5</span>))</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe], <span class="dt">weights=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="fl">10.5</span>))</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe], <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>))</a></code></pre></div>
 <p>In additional aggregation steps, the weight is automatically summed up. So e.g. the weight for central europe is 12, the sum of 12 times 1.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">northern_europe =</span> hts_ne,</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">northern_europe =</span> hts_ne,</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">                 <span class="dt">western_europe =</span> hts_we,</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">                 <span class="dt">central_europe =</span> hts_ce</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">                 <span class="dt">south_eastern_europe =</span> hts_see</a>
 <a class="sourceLine" id="cb9-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb9-8" data-line-number="8">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(hts_np<span class="op">$</span>weights))</a></code></pre></div>
@@ -315,7 +315,7 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">                 <span class="dt">south_part =</span> hts_sp</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"></a>
@@ -362,22 +362,22 @@
 <a class="sourceLine" id="cb11-2" data-line-number="2">weights_eu[<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(weights_eu)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">weights_eu[,<span class="st">"AT"</span>] &lt;-<span class="st"> </span>weights_eu[,<span class="st">"AT"</span>]<span class="op">+</span><span class="kw"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span>(weights_eu[,<span class="st">"AT"</span>])</a></code></pre></div>
 <p>We can now call the <code>per_hts</code> function with the mts as input.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe],</a>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">hts_see &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[south_eastern_europe],</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">                   <span class="dt">weights=</span>weights_eu[,south_eastern_europe])</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe],</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">hts_ne &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[northern_europe],</a>
 <a class="sourceLine" id="cb12-4" data-line-number="4">                  <span class="dt">weights=</span>weights_eu[,northern_europe])</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe],</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">hts_ce &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[central_europe],</a>
 <a class="sourceLine" id="cb12-6" data-line-number="6">                  <span class="dt">weights=</span>weights_eu[,central_europe])</a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe],</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">hts_se &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[southern_europe],</a>
 <a class="sourceLine" id="cb12-8" data-line-number="8">                  <span class="dt">weights=</span>weights_eu[,southern_europe])</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe],</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">hts_we &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[western_europe],</a>
 <a class="sourceLine" id="cb12-10" data-line-number="10">                  <span class="dt">weights=</span>weights_eu[,western_europe])</a></code></pre></div>
 <p>And then we can proceed as before.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">northern_europe =</span> hts_ne,</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">hts_np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">northern_europe =</span> hts_ne,</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">                 <span class="dt">western_europe =</span> hts_we,</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">                 <span class="dt">central_europe =</span> hts_ce</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">hts_sp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">southern_europe =</span> hts_se,</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">                 <span class="dt">south_eastern_europe =</span> hts_see</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(hts_np<span class="op">$</span>weights))</a></code></pre></div>
@@ -391,36 +391,36 @@
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">12.18715</td>
+<td align="right">14.18851</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">13.93552</td>
+<td align="right">12.22448</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">12.41139</td>
+<td align="right">15.94203</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">13.06536</td>
+<td align="right">13.01509</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">14.17777</td>
+<td align="right">12.83000</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="right">5</td>
-<td align="right">14.75832</td>
+<td align="right">12.10669</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hierarchicalTimeSeries.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ht_europe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">north_part =</span> hts_np,</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">                 <span class="dt">south_part =</span> hts_sp</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"></a>
@@ -432,27 +432,27 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">20.18715</td>
+<td align="right">22.18851</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">21.93552</td>
+<td align="right">20.22448</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
-<td align="right">20.41139</td>
+<td align="right">23.94203</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">21.06536</td>
+<td align="right">21.01509</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
-<td align="right">22.17777</td>
+<td align="right">20.83000</td>
 <td align="right">8</td>
 </tr>
 <tr class="even">
-<td align="right">22.75832</td>
+<td align="right">20.10669</td>
 <td align="right">8</td>
 </tr>
 </tbody>
@@ -482,7 +482,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">

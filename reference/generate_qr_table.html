@@ -190,7 +190,7 @@ measurements</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
+<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_hts.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
 <span class='no'>ht</span>$<span class='fu'>run</span>()
 <span class='fu'>generate_qr_table</span>(<span class='no'>ht</span>)</div><div class='output co'>#&gt;   component Method Period Nobs  Start     End Log.Transformation    ARIMA.Model
 #&gt; 1              x13     12  144 1-1949 12-1960               TRUE (0 1 0)(0 1 1)
@@ -224,7 +224,7 @@ measurements</p></li>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">

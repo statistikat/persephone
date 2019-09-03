@@ -156,7 +156,7 @@ In case of <code>persephoneSingle</code> objects,
 the function generates an interactive time series plot
 of the original series, the seasonally adjusted (SA) series and the trend as
 well as one year forecasts with prediction intervals of the original series.
-For <a href='hierarchicalTimeSeries.html'>hierarchicalTimeSeries</a> objects, the function plots the original
+For <a href='per_hts.html'>hierarchicalTimeSeries</a> objects, the function plots the original
 aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series.</p>
     </div>
@@ -231,7 +231,7 @@ only the original (aggregate) time series is plotted.</p>
 <span class='no'>tsAir1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='no'>tsAir2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA1"</span>)
 <span class='co'># Generate a hierarchicalTimeSeries object</span>
-<span class='no'>htAir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>, <span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>)
+<span class='no'>htAir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_hts.html'>per_hts</a></span>(<span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>, <span class='kw'>tsAir1</span><span class='kw'>=</span><span class='no'>tsAir1</span>)
 <span class='co'># Plot before run of persephone object</span>
 <span class='fu'>plot</span>(<span class='no'>htAir</span>, <span class='kw'>drawPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'xts':</span>
 #&gt; <span class='message'>  method     from</span>
@@ -243,7 +243,7 @@ only the original (aggregate) time series is plotted.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
 <span class='no'>tsUKgas1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>tsUKgas2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>htUKgas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>tsUKgas1</span><span class='kw'>=</span><span class='no'>tsUKgas1</span>, <span class='kw'>tsUKgas2</span><span class='kw'>=</span><span class='no'>tsUKgas2</span>)
+<span class='no'>htUKgas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_hts.html'>per_hts</a></span>(<span class='kw'>tsUKgas1</span><span class='kw'>=</span><span class='no'>tsUKgas1</span>, <span class='kw'>tsUKgas2</span><span class='kw'>=</span><span class='no'>tsUKgas2</span>)
 <span class='fu'>plot</span>(<span class='no'>htUKgas</span>)
 <span class='no'>htUKgas</span>$<span class='fu'>run</span>()
 <span class='fu'>plot</span>(<span class='no'>htUKgas</span>)
@@ -297,7 +297,7 @@ only the original (aggregate) time series is plotted.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">

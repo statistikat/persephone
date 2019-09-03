@@ -142,7 +142,7 @@ over all children of a hierarchical time series produced with per_hts()." />
 
     <div class="ref-description">
     <p>This funtion is an alias to the method <code>iterate</code> and can be used to iterate
-over all children of a hierarchical time series produced with <code><a href='hierarchicalTimeSeries.html'>per_hts()</a></code>.</p>
+over all children of a hierarchical time series produced with <code><a href='per_hts.html'>per_hts()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>iterate</span>(<span class='no'>x</span>, <span class='no'>fun</span>, <span class='kw'>as_table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>component</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -176,8 +176,8 @@ is an entry of the resulting list?</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
-<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
+<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_hts.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
+<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_hts.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
 <span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)[<span class='fl'>1</span>]})</div><div class='output co'>#&gt; $value
 #&gt; [1] "hierarchicalTimeSeries"
 #&gt; 
@@ -244,7 +244,7 @@ is an entry of the resulting list?</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">
