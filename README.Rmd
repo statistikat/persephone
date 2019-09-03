@@ -57,11 +57,15 @@ obj$output$regarima
 
 More information can be found on the [github-pages site] for persephone.
 
-* The [plotting vignette] contains examples of interactive plots 
-* An overview of the package is available in the [useR!2019 slides]
+* An overview of the package is available in the [useR!2019 slides].
+* The [plotting vignette] contains examples of interactive plots htat can be
+  created with `persephone`.
+* More information about hierarchical time series can be found in the
+  [hierarchical timeseries vignette].
 
 [RJDemetra]: https://github.com/nbbrd/rjdemetra
 [JDemetra+]: https://github.com/jdemetra
 [github-pages site]: https://statistikat.github.io/persephone/
 [useR!2019 slides]: https://statistikat.github.io/persephone/articles/persephone-useR.pdf
 [plotting vignette]: https://statistikat.github.io/persephone/articles/persephone-plotting.html
+[hierarchical timeseries vignette]: https://statistikat.github.io/persephone/articles/persephone-hierarchical.html

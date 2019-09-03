@@ -9,7 +9,8 @@
 #' * __component__ is a column added by `iterate()` and informs where in the
 #'   hierarchy a certain component is.
 #' * __Method__ is `TS` for [tramoseats()] and `x13` for [x13()]
-#' * __Period__ is `12` for yearly measurements and `4` for quarterly measurements
+#' * __Period__ is `12` for yearly measurements and `4` for quarterly
+#'   measurements
 #' * __Start__ denotes the start of the time series
 #' * __End__ denotes the end of the time series
 #' * __Log.Transformation__

@@ -1,7 +1,7 @@
 Package: persephone
 Type: Package
 Title: Object-Oriented Wrappers for RJDemetra
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"))
