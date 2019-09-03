@@ -1,31 +1,42 @@
 ---
 title: "Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra"
 author: "Angelika Meraner, Gregor de Cillia, Alexander Kowarik"
-date: "2 9 2019"
+date: "`r Sys.Date()`"
 output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Abstract
+## Introduction
 
-The R-package persephone is developed to enable easy processing during the production of seasonally adjusted estimates. 
-It builds on top of RJDemetra, an R interface to JDemetra+, and provides analytical tools such as interactive plots to support the SA expert. 
+The R-package `persephone` was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
+It builds on top of `RJDemetra` (<https://github.com/jdemetra/rjdemetra>), an R interface to JDemetra+, and provides analytical tools such as interactive plots to support the SA expert. 
 The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
-Furthermore it will support hierarchical time series and tackle the issue of direct vs indirect adjustment.
+Furthermore it supports hierarchical time series and should enable the future development of diagnostics for direct vs indirect adjustment, e.g. by using some results from the Hackathon on RJDemetra in Frankfurt.
 
+## Installation
 
-## R Markdown
+The package can be installed from GitHub via 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r installation, eval = FALSE}
+devtools::install_github("statistikat/persephone")
 ```
+
+Optionally it can be installed including vignettes (needs prettydoc):
+
+```{r installation2, eval = FALSE}
+devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
+```
+
+
+## Getting started: Constructing Objects
+
 
 ## Including Plots
 
@@ -36,3 +47,5 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## References
