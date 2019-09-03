@@ -78,7 +78,7 @@ As we can see, the runs of `hts` are available to this object.
 To iterate over all components of a `per_hts` object, the `iterate` method
 can be used. It baehaves similar to `lapply`.
 
-```{r}
+```{r, warning=FALSE}
 hts_nested$run()
 hts_nested$iterate(as_table = TRUE, function(obj) {
   list(mean = mean(obj$adjusted),

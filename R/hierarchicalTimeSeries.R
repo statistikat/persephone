@@ -14,7 +14,7 @@
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
 #' - `list` a list of `persephone` objects as alternative input to `...`.
-#' - `weights` either a vector 
+#' - `weights` either a vector
 #' if the same weight is used for all time points or a list of ts objects or a mts object
 #' if the weight varies for different time points. They must have the same length as
 #' the number of components.
@@ -35,12 +35,12 @@
 #'
 #' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 #' ht$run()
-#' ht$adjusted
+#' ht$adjusted_direct
 #' ht$adjusted_indirect
 #'
 #' ht2 <- per_hts(a = ht, b = obj_x13)
 #' ht2$run()
-#' ht2$adjusted
+#' ht2$adjusted_direct
 #' ht2$adjusted_indirect
 #'
 #' #-------- example with industrial price indices -----------
@@ -70,15 +70,15 @@
 #' ht_europe$run()
 #'
 #' # accessing the directly and indirectly adjusted series for EU28
-#' ht_europe$adjusted
+#' ht_europe$adjusted_direct
 #' ht_europe$adjusted_indirect
 #'
 #' # accessing the directly and indirectly adjusted series for half of Europe
-#' ht_europe$components$halfEU_2$adjusted
+#' ht_europe$components$halfEU_2$adjusted_direct
 #' ht_europe$components$halfEU_2$adjusted_indirect
 #'
 #' # accessing the adjusted series for a country
-#' ht_europe$components$halfEU_2$components$AT$adjusted
+#' ht_europe$components$halfEU_2$components$AT$adjusted_direct
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
@@ -120,7 +120,7 @@ hierarchicalTimeSeries <- R6::R6Class(
                                   start = start(components[[i]]$weights[,1]),
                                   end = end(components[[i]]$weights[,1]),
                                   frequency = frequency(components[[i]]$weights[,1]))
-          }  
+          }
         }
       }
       if(!is.list(weights)&!is.null(weights)){
@@ -132,7 +132,7 @@ hierarchicalTimeSeries <- R6::R6Class(
                                 start = start(components[[i]]$ts), frequency = frequency(components[[i]]$ts))
         }
       }
-      
+
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
@@ -140,12 +140,15 @@ hierarchicalTimeSeries <- R6::R6Class(
       if("mts"%in%class(weights)){
         weights_ts <- weights
       }else{
-        if(length(weights_ts)==0){
+        if(length(weights_ts)==0&&!is.list(weights)){
           weights_ts <- NULL
+        }else if (length(weights_ts)==0&&is.list(weights)){
+          weights_ts <- do.call("cbind",weights)
+          colnames(weights_ts) <- names(components)
         }else{
           weights_ts <- do.call("cbind",weights_ts)
           colnames(weights_ts) <- names(components)
-        }  
+        }
       }
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)
@@ -161,6 +164,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     components = NULL,
     weights = NULL,
+    indirect = NA,
     print = function() {
       tbl <- private$print_table()
       if (all(!tbl$run))
@@ -180,7 +184,7 @@ hierarchicalTimeSeries <- R6::R6Class(
         })
       invisible(NULL)
     },
-    iterate = function(fun, as_table = FALSE, component = "") {
+    iterate = function(fun, as_table = FALSE, component = "", unnest = FALSE) {
       if (component != "") {
         root <- self$get_component(component)
         return(root$iterate(fun, as_table))
@@ -194,7 +198,9 @@ hierarchicalTimeSeries <- R6::R6Class(
 
       res <- c(super$iterate(fun), comp)
       if (as_table)
-        res <- as_table_nested_list(res)
+        return(as_table_nested_list(res))
+      if (unnest)
+        return(unnest_nested_list(res))
       res
     },
     get_component = function(component_id) {
@@ -215,7 +221,16 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      private$aggregate(self$components, self$weights, which = "adjusted")
+      private$aggregate(self$components, self$weights, which = "adjusted_indirect")
+    },
+    adjusted = function() {
+      if (is.na(self$indirect)){
+        warning("The decision between direct and indirect adjustment was not recoreded yet.
+                Direct adjustment is returned.")
+      }else if(self$indirect){
+        return(self$adjusted_indirect)
+      }
+      return(self$adjusted_direct)
     }
   ),
   private = list(
@@ -237,6 +252,9 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
+        if(which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
+          return(component[["adjusted_direct"]])
+        }
         component[[which]]
       })
       weights_ts <- lapply(tss, function(x){
@@ -253,10 +271,12 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate_ts = function(ts_vec,weights_ts) {
       sum <- 0
+      sumW <- 0
       for (i in seq_along(ts_vec)) {
         sum <- sum + ts_vec[[i]] * weights_ts[[i]]
+        sumW <- sumW +  weights_ts[[i]]
       }
-      sum
+      sum/sumW
     },
     coerce_component_names = function(components) {
       lapply(seq_along(components), function(i) {
