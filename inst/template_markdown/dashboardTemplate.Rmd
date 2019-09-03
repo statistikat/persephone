@@ -1,0 +1,40 @@
+---
+title: "persephone Diagnostics Dashboard"
+output: flexdashboard::flex_dashboard
+vertical_layout: scroll
+---
+
+Summary
+===================================== 
+
+```{r}
+diagnostics <- generate_qr_table(obj)
+DT::datatable(diagnostics)
+```
+
+```{r run-out, include=FALSE}
+out <- NULL
+options(knitr.duplicate.label = 'allow')
+
+i <- 0
+md_strings <- obj$iterate(function(x) {
+  i <<- i + 1
+  
+comp <- unlist(strsplit(as.character(diagnostics[{{i}},"component"]), "/", fixed=TRUE))
+comp <- comp[length(comp)]
+
+  list(md_text = knitr::knit_child(
+    text = knitr::knit_expand('dashboardTemplateChild.Rmd'),
+    envir = list(i = i, x = x, diagnostics=diagnostics, comp=comp)
+  ))
+}, as_table = TRUE)
+#out <- paste(out, collapse = "\n\n")
+
+out <- paste(md_strings$md_text, collapse = "\n\n")
+print(out)
+#`r paste(knitr::knit_child(text = out), collapse = '')`
+```
+
+`r paste(knitr::knit_child(text = out), collapse = '\n\n')`
+
+

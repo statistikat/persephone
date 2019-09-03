@@ -22,7 +22,9 @@ Imports:
     scales,
     data.table,
     timeDate,
-    zoo
+    zoo,
+    fs,
+    rstudioapi
 Remotes: 
     jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)

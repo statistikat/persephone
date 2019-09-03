@@ -1,0 +1,32 @@
+`r paste0({{i}}, " ", comp, "{data-navmenu=\"Time Series\"}")`  
+===================================== 
+
+
+```{r, eval = TRUE,echo=FALSE}
+print(diagnostics[{{i}},])
+```
+
+Row
+-------------------------------------
+    
+### Chart 1
+
+```{r}
+plot(x)
+```
+
+
+Row
+-------------------------------------
+    
+### Chart 2
+    
+```{r}
+plotSiRatios(x, interactive = FALSE)
+```
+    
+### Chart 3
+
+```{r}
+#plotSpectrum(x)
+```
