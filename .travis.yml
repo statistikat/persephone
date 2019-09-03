@@ -15,7 +15,7 @@ notifications:
 # these packages don't appear in the description file since they are only
 # used to check the package and build documentation. install them from github
 r_github_packages:
-  - jimhester/lintr
+  - jimhester/lintr@dfe00be
   - r-lib/pkgdown
   - r-lib/covr
 
