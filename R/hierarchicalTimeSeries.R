@@ -30,6 +30,14 @@
 #' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
 #'   components are first adjusted and the adjusted series are then aggregated
 #'
+#' @section Methods:
+#' * `$iterate(fun, ...)` can be used to iterate over the hierarchy tree. See
+#'   [iterate()].
+#' * `$set_options(userdefined, spec, recursive = TRUE, component = "")` sets
+#'   options for all entries of the dependency tree recursively if
+#'   `recursive = TRUE` (the default). See
+#'   `vignette("persephone-hierarchical")`.
+#'
 #' @examples
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'

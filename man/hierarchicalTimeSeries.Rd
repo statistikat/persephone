@@ -44,6 +44,18 @@ components are first adjusted and the adjusted series are then aggregated
 }
 }
 
+\section{Methods}{
+
+\itemize{
+\item \code{$iterate(fun, ...)} can be used to iterate over the hierarchy tree. See
+\code{\link[=iterate]{iterate()}}.
+\item \code{$set_options(userdefined, spec, recursive = TRUE, component = "")} sets
+options for all entries of the dependency tree recursively if
+\code{recursive = TRUE} (the default). See
+\code{vignette("persephone-hierarchical")}.
+}
+}
+
 \examples{
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 
