@@ -72,7 +72,7 @@ over all children of a hierarchical time series produced with per_hts()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.1</span>
       </span>
     </div>
 
@@ -111,6 +111,9 @@ over all children of a hierarchical time series produced with per_hts()." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -133,7 +136,7 @@ over all children of a hierarchical time series produced with per_hts()." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Iterate over a hierarchical persephone object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/as_table_nested_list.R'><code>R/as_table_nested_list.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/iterate.R'><code>R/iterate.R</code></a></small>
     <div class="hidden name"><code>iterate.Rd</code></div>
     </div>
 
@@ -175,69 +178,56 @@ is an entry of the resulting list?</p></td>
     <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
 <span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
-<span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)})</div><div class='output co'>#&gt; $value
-#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+<span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)[<span class='fl'>1</span>]})</div><div class='output co'>#&gt; $value
+#&gt; [1] "hierarchicalTimeSeries"
 #&gt; 
 #&gt; $a
 #&gt; $a$value
-#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; [1] "hierarchicalTimeSeries"
 #&gt; 
 #&gt; $a$a
 #&gt; $a$a$value
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
 #&gt; 
 #&gt; $a$b
 #&gt; $a$b$value
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
 #&gt; 
 #&gt; 
 #&gt; $b
 #&gt; $b$value
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
-#&gt; </div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>))}, <span class='kw'>as_table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    component                  class
-#&gt; 1            hierarchicalTimeSeries
-#&gt; 2                        persephone
-#&gt; 3                                R6
-#&gt; 4          a hierarchicalTimeSeries
-#&gt; 5          a             persephone
-#&gt; 6          a                     R6
-#&gt; 7        a/a              x13Single
-#&gt; 8        a/a       persephoneSingle
-#&gt; 9        a/a             persephone
-#&gt; 10       a/a                     R6
-#&gt; 11       a/b              x13Single
-#&gt; 12       a/b       persephoneSingle
-#&gt; 13       a/b             persephone
-#&gt; 14       a/b                     R6
-#&gt; 15         b              x13Single
-#&gt; 16         b       persephoneSingle
-#&gt; 17         b             persephone
-#&gt; 18         b                     R6</div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>))}, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)[<span class='fl'>1</span>])}, <span class='kw'>as_table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   component                  class
+#&gt; 1           hierarchicalTimeSeries
+#&gt; 2         a hierarchicalTimeSeries
+#&gt; 3       a/a              x13Single
+#&gt; 4       a/b              x13Single
+#&gt; 5         b              x13Single</div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)[<span class='fl'>1</span>])}, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [[1]]$class
-#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; [1] "hierarchicalTimeSeries"
 #&gt; 
 #&gt; 
 #&gt; $a
 #&gt; $a$class
-#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; [1] "hierarchicalTimeSeries"
 #&gt; 
 #&gt; 
 #&gt; $`a/a`
 #&gt; $`a/a`$class
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
 #&gt; 
 #&gt; $`a/b`
 #&gt; $`a/b`$class
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
 #&gt; 
 #&gt; $b
 #&gt; $b$class
-#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; [1] "x13Single"
 #&gt; 
 #&gt; </div></pre>
   </div>

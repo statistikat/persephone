@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • persephone</title>
+<title>Changelog • persephone</title>
 
 
 <!-- jquery -->
@@ -37,7 +37,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -56,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -130,118 +130,60 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/statistikat/persephone/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <table class="ref-index">
-
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="genTd.html">genTd()</a></code> </p>
-        </td>
-        <td><p>Generation of centered trading day regressor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="generate_qr_table.html">generate_qr_table()</a></code> </p>
-        </td>
-        <td><p>Generate figures from the EUROSTAT quality report</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="hierarchicalTimeSeries.html">hierarchicalTimeSeries</a></code> </p>
-        </td>
-        <td><p>Define a hierarchical time series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is.persephone.html">is.persephone()</a></code> </p>
-        </td>
-        <td><p>is.persephone</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="iterate.html">iterate()</a></code> </p>
-        </td>
-        <td><p>Iterate over a hierarchical persephone object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="per_tramo.html">per_tramo()</a></code> </p>
-        </td>
-        <td><p>tramoseats class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="per_x13.html">per_x13()</a></code> </p>
-        </td>
-        <td><p>x13 class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="persephone.html">persephone</a></code> </p>
-        </td>
-        <td><p>persephone class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot.html">plot(<i>&lt;hierarchicalTimeSeries&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;persephoneSingle&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Interactive time series plot for a persephone object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotResiduals.html">plotResiduals()</a></code> </p>
-        </td>
-        <td><p>Several interactive plots in connection with residuals for a persephone
-object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSeasIrrCal.html">plotSeasIrrCal()</a></code> </p>
-        </td>
-        <td><p>Interactive plot of the seasonal component, irregular component and calendar
-effects for a persephone object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSiRatios.html">plotSiRatios()</a></code> </p>
-        </td>
-        <td><p>Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
-period</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSpectrum.html">plotSpectrum()</a></code> </p>
-        </td>
-        <td><p>Spectral Plots</p></td>
-      </tr>
-    </tbody>
-    </table>
+    <div id="persephone-0-1-1" class="section level1">
+<h1 class="page-header">
+<a href="#persephone-0-1-1" class="anchor"></a>persephone 0.1.1</h1>
+<div id="implement-utilities-for-hierarchical-time-series" class="section level2">
+<h2 class="hasAnchor">
+<a href="#implement-utilities-for-hierarchical-time-series" class="anchor"></a>Implement utilities for hierarchical time series</h2>
+<ul>
+<li>Iterating</li>
+<li>recursive setting of options</li>
+<li>weighted aggregates (for example: price indices)
+<ul>
+<li>also support time-variant weights</li>
+</ul>
+</li>
+<li>implement direct and indirect adjustments</li>
+</ul>
+</div>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>documentation</h2>
+<ul>
+<li>vignette “persephone-hierarchical”</li>
+<li>vignette “persephone-plotting”</li>
+<li>add Rd-documentation for R6 classes (constructor, methods and fields)</li>
+</ul>
+</div>
+<div id="plotting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting" class="anchor"></a>plotting</h2>
+<p>add several interactive plotting mehtods with the packages <code>dygraphs</code> and <code>plotly</code></p>
+</div>
+<div id="eurostat-quality-report-first-steps" class="section level2">
+<h2 class="hasAnchor">
+<a href="#eurostat-quality-report-first-steps" class="anchor"></a>EUROSTAT quality report (first steps)</h2>
+<p>add function <code>generateQrList()</code> and method <code>$generate_qr_table()</code> for hierarchical models.</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#persephone-0-1-1">0.1.1</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
 
