@@ -24,9 +24,9 @@ per_hts(..., method = c("tramoseats", "x13"),
 time instances. All elements supplied here must be named.
 \item \code{list} a list of \code{persephone} objects as alternative input to \code{...}.
 \item \code{weights} either a vector
-if the same weight is used for all time points or a list of ts objects or a mts object
-if the weight varies for different time points. They must have the same length as
-the number of components.
+if the same weight is used for all time points or a list of ts objects or a
+mts object if the weight varies for different time points. They must have
+the same length as the number of components.
 \item \code{method} specifies the method to be used. tramoseats or x13
 \item \code{userdefined} is passed as the userdefined argument to \code{\link[=tramoseats]{tramoseats()}} or
 \code{\link[=x13]{x13()}}

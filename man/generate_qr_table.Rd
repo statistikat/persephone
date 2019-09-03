@@ -19,7 +19,8 @@ report for each component of a hierarchical \code{persephone} object
 \item \strong{component} is a column added by \code{iterate()} and informs where in the
 hierarchy a certain component is.
 \item \strong{Method} is \code{TS} for \code{\link[=tramoseats]{tramoseats()}} and \code{x13} for \code{\link[=x13]{x13()}}
-\item \strong{Period} is \code{12} for yearly measurements and \code{4} for quarterly measurements
+\item \strong{Period} is \code{12} for yearly measurements and \code{4} for quarterly
+measurements
 \item \strong{Start} denotes the start of the time series
 \item \strong{End} denotes the end of the time series
 \item \strong{Log.Transformation}

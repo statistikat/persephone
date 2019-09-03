@@ -15,9 +15,9 @@
 #'   time instances. All elements supplied here must be named.
 #' - `list` a list of `persephone` objects as alternative input to `...`.
 #' - `weights` either a vector
-#' if the same weight is used for all time points or a list of ts objects or a mts object
-#' if the weight varies for different time points. They must have the same length as
-#' the number of components.
+#' if the same weight is used for all time points or a list of ts objects or a
+#' mts object if the weight varies for different time points. They must have
+#' the same length as the number of components.
 #' - `method` specifies the method to be used. tramoseats or x13
 #' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
 #'   [x13()]
@@ -88,48 +88,56 @@ hierarchicalTimeSeries <- R6::R6Class(
                           userdefined = NULL, spec = NULL, list = NULL,
                           weights = NULL) {
       private$method <- match.arg(method)
-      if(!is.null(list)){
+      if (!is.null(list)) {
         components <- list
-        if(is.null(names(components))){
-          names(components) <- paste0("ts",seq_along(components))
+        if (is.null(names(components))) {
+          names(components) <- paste0("ts", seq_along(components))
         }
-        if(length(list(...))>0){
-          warning("If the list argument is specified, additional arguments as ...
-                  will be ignored.")
+        if (length(list(...)) > 0) {
+          warning("If the list argument is specified, additional arguments ",
+                  " as ... will be ignored.")
         }
-      }else{
+      } else {
         components <- list(...)
       }
-      componentsHts <- sapply(components, function(x) "hierarchicalTimeSeries"%in%class(x))
-      if(!is.null(weights)){
-        if(ifelse(is.list(weights)||is.vector(weights), length(weights), ncol(weights)) != sum(!componentsHts)){
+      componentsHts <- sapply(
+        components,
+        function(x) "hierarchicalTimeSeries" %in% class(x))
+      if (!is.null(weights)) {
+        if (ifelse(is.list(weights) || is.vector(weights),
+                   length(weights), ncol(weights)) != sum(!componentsHts)) {
         stop("If the weights argument is provided,
              its length must be equal to the number of components.")
         }
       }
       weights_ts <- list()
-      if(any(componentsHts)){
+      if (any(componentsHts)) {
         weightsNull <- sapply(components, function(x)is.null(x$weights))
-        if(any(!weightsNull)){
-          if(any(weightsNull)){
-            stop("At the moment it is only supported to use either weights for all
-                 components or none.")
+        if (any(!weightsNull)) {
+          if (any(weightsNull)) {
+            stop("At the moment it is only supported to use either weights ",
+                 "for all components or none.")
           }
-          for(i in which(componentsHts)){
-            weights_ts[[i]] <- ts(rowSums(components[[i]]$weights),
-                                  start = start(components[[i]]$weights[,1]),
-                                  end = end(components[[i]]$weights[,1]),
-                                  frequency = frequency(components[[i]]$weights[,1]))
+          for (i in which(componentsHts)) {
+            weights_ts[[i]] <- ts(
+              rowSums(components[[i]]$weights),
+              start = start(components[[i]]$weights[, 1]),
+              end = end(components[[i]]$weights[, 1]),
+              frequency = frequency(components[[i]]$weights[, 1]))
           }
         }
       }
-      if(!is.list(weights)&!is.null(weights)){
-        for(i in which(!componentsHts)){
+      if (!is.list(weights) & !is.null(weights)) {
+        for (i in which(!componentsHts)) {
           weights_ts[[i]] <- ts(weights[i], start = start(components[[i]]$ts),
                                 end = end(components[[i]]$ts),
                                 frequency = frequency(components[[i]]$ts))
-          weights_ts[[i]] <- ts(c(weights_ts[[i]],rep(tail(weights_ts[[i]],1),4*frequency(components[[i]]$ts))),
-                                start = start(components[[i]]$ts), frequency = frequency(components[[i]]$ts))
+          weights_ts[[i]] <- ts(
+            c(weights_ts[[i]],
+              rep(tail(weights_ts[[i]], 1), 4 * frequency(components[[i]]$ts))),
+            start = start(components[[i]]$ts),
+            frequency = frequency(components[[i]]$ts)
+          )
         }
       }
 
@@ -137,16 +145,16 @@ hierarchicalTimeSeries <- R6::R6Class(
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
-      if("mts"%in%class(weights)){
+      if ("mts" %in% class(weights)) {
         weights_ts <- weights
-      }else{
-        if(length(weights_ts)==0&&!is.list(weights)){
+      } else {
+        if (length(weights_ts) == 0 && !is.list(weights)) {
           weights_ts <- NULL
-        }else if (length(weights_ts)==0&&is.list(weights)){
-          weights_ts <- do.call("cbind",weights)
+        } else if (length(weights_ts) == 0 && is.list(weights)) {
+          weights_ts <- do.call("cbind", weights)
           colnames(weights_ts) <- names(components)
         }else{
-          weights_ts <- do.call("cbind",weights_ts)
+          weights_ts <- do.call("cbind", weights_ts)
           colnames(weights_ts) <- names(components)
         }
       }
@@ -221,13 +229,14 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      private$aggregate(self$components, self$weights, which = "adjusted_indirect")
+      private$aggregate(self$components, self$weights,
+                        which = "adjusted_indirect")
     },
     adjusted = function() {
-      if (is.na(self$indirect)){
-        warning("The decision between direct and indirect adjustment was not recoreded yet.
-                Direct adjustment is returned.")
-      }else if(self$indirect){
+      if (is.na(self$indirect)) {
+        warning("The decision between direct and indirect adjustment was not ",
+        "recoreded yet. Direct adjustment is returned.")
+      } else if (self$indirect) {
         return(self$adjusted_indirect)
       }
       return(self$adjusted_direct)
@@ -252,31 +261,32 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
-        if(which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
+        if (which == "adjusted_indirect" &
+            "persephoneSingle" %in% class(component)) {
           return(component[["adjusted_direct"]])
         }
         component[[which]]
       })
-      weights_ts <- lapply(tss, function(x){
-        x <- x*0+1
+      weights_ts <- lapply(tss, function(x) {
+        x <- x * 0 + 1
         x[is.na(x)] <- 1
       })
-      if(!is.null(weights)){
-        for(i in seq_along(tss)){
-          weights_ts[[i]] <- window(weights[,i], start = start(tss[[i]]),
+      if (!is.null(weights)) {
+        for (i in seq_along(tss)) {
+          weights_ts[[i]] <- window(weights[, i], start = start(tss[[i]]),
                  end = end(tss[[i]]))
         }
       }
       private$aggregate_ts(tss, weights_ts)
     },
-    aggregate_ts = function(ts_vec,weights_ts) {
+    aggregate_ts = function(ts_vec, weights_ts) {
       sum <- 0
       sumW <- 0
       for (i in seq_along(ts_vec)) {
         sum <- sum + ts_vec[[i]] * weights_ts[[i]]
         sumW <- sumW +  weights_ts[[i]]
       }
-      sum/sumW
+      sum / sumW
     },
     coerce_component_names = function(components) {
       lapply(seq_along(components), function(i) {
@@ -290,7 +300,8 @@ hierarchicalTimeSeries <- R6::R6Class(
     method = NULL,
     spec = NULL,
     run_direct = function(ts) {
-      methodFunction <- switch(private$method, tramoseats = tramoseats, x13 = x13)
+      methodFunction <- switch(private$method, tramoseats = tramoseats,
+                               x13 = x13)
       if (is.null(self$spec))
         spec <- switch(private$method, tramoseats = tramoseats_spec(),
                        x13 = x13_spec())
