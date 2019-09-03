@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate figures from the EUROSTAT quality report — generate_qr_table • persephone</title>
+<title>Iterate over a hierarchical persephone object — iterate • persephone</title>
 
 
 <!-- jquery -->
@@ -37,9 +37,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Generate figures from the EUROSTAT quality report — generate_qr_table" />
-<meta property="og:description" content="This function uses the method iterate to create figures for a quality
-report for each component of a hierarchical persephone object" />
+<meta property="og:title" content="Iterate over a hierarchical persephone object — iterate" />
+<meta property="og:description" content="This funtion is an alias to the method iterate and can be used to iterate
+over all children of a hierarchical time series produced with per_hts()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,85 +129,119 @@ report for each component of a hierarchical persephone object" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate figures from the EUROSTAT quality report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/generate_qr_table.R'><code>R/generate_qr_table.R</code></a></small>
-    <div class="hidden name"><code>generate_qr_table.Rd</code></div>
+    <h1>Iterate over a hierarchical persephone object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/as_table_nested_list.R'><code>R/as_table_nested_list.R</code></a></small>
+    <div class="hidden name"><code>iterate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function uses the method <code>iterate</code> to create figures for a quality
-report for each component of a hierarchical <code>persephone</code> object</p>
+    <p>This funtion is an alias to the method <code>iterate</code> and can be used to iterate
+over all children of a hierarchical time series produced with <code><a href='hierarchicalTimeSeries.html'>per_hts()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>generate_qr_table</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>iterate</span>(<span class='no'>x</span>, <span class='no'>fun</span>, <span class='kw'>as_table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>component</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a persephone object</p></td>
+      <td><p>a hierarchical persephone object</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>a function with one argument</p></td>
+    </tr>
+    <tr>
+      <th>as_table</th>
+      <td><p>should the return value be coerced to a <code>data.frame</code>?</p></td>
+    </tr>
+    <tr>
+      <th>component</th>
+      <td><p>a component id from which the iteration should start</p></td>
+    </tr>
+    <tr>
+      <th>unnest</th>
+      <td><p>should the return value be unnested, so that every component
+is an entry of the resulting list?</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="columns"><a class="anchor" href="#columns"></a>Columns</h2>
-
-    
-
-<ul>
-<li><p><strong>component</strong> is a column added by <code><a href='iterate.html'>iterate()</a></code> and informs where in the
-hierarchy a certain component is.</p></li>
-<li><p><strong>Method</strong> is <code>TS</code> for <code>tramoseats()</code> and <code>x13</code> for <code>x13()</code></p></li>
-<li><p><strong>Period</strong> is <code>12</code> for yearly measurements and <code>4</code> for quarterly measurements</p></li>
-<li><p><strong>Start</strong> denotes the start of the time series</p></li>
-<li><p><strong>End</strong> denotes the end of the time series</p></li>
-<li><p><strong>Log.Transformation</strong></p></li>
-<li><p><strong>ARIMA.Model</strong></p></li>
-<li><p><strong>LeapYear</strong></p></li>
-<li><p><strong>MovingHoliday</strong></p></li>
-<li><p><strong>NbTF</strong></p></li>
-<li><p><strong>Noutliers</strong> Number of outliers</p></li>
-<li><p><strong>Outlier1</strong></p></li>
-<li><p><strong>Outlier2</strong></p></li>
-<li><p><strong>Outlier3</strong></p></li>
-<li><p><strong>CombinedTest_SI</strong></p></li>
-<li><p><strong>Residual.Seasonality</strong></p></li>
-<li><p><strong>Residual.TD.Effect</strong></p></li>
-<li><p><strong>Q.Stat</strong></p></li>
-<li><p><strong>Final.Henderson.Filter</strong></p></li>
-<li><p><strong>Stage.2.Henderson.Filter</strong></p></li>
-<li><p><strong>Seasonal.Filter</strong></p></li>
-<li><p><strong>Max.Adj</strong></p></li>
-</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
 <span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
-<span class='no'>ht</span>$<span class='fu'>run</span>()
-<span class='fu'>generate_qr_table</span>(<span class='no'>ht</span>)</div><div class='output co'>#&gt;   component Method Period Nobs  Start     End Log.Transformation    ARIMA.Model
-#&gt; 1              x13     12  144 1-1949 12-1960               TRUE (0 1 0)(0 1 1)
-#&gt; 2         a    x13     12  144 1-1949 12-1960               TRUE (0 1 1)(0 1 1)
-#&gt; 3         b    x13     12  144 1-1949 12-1960               TRUE (0 1 1)(0 1 1)
-#&gt;   LeapYear MovingHoliday NbTD Noutliers    Outlier1 Outlier2 Outlier3
-#&gt; 1    FALSE          TRUE    6         1 AO (5-1951)     &lt;NA&gt;     &lt;NA&gt;
-#&gt; 2    FALSE         FALSE    0         0        &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
-#&gt; 3    FALSE         FALSE    0         0        &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
-#&gt;   CombinedTest_SI Residual.Seasonality Residual.TD.Effect Q.Stat
-#&gt; 1         Present                   No                 No   0.22
-#&gt; 2         Present                   No                Yes   0.26
-#&gt; 3         Present                   No                Yes   0.26
-#&gt;   Final.Henderson.Filter Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
-#&gt; 1                     H9                      H13             3x3     26%
-#&gt; 2                     H9                      H13             3x3     25%
-#&gt; 3                     H9                      H13             3x3     25%</div><div class='input'>
-</div></pre>
+<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hierarchicalTimeSeries.html'>per_hts</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
+<span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)})</div><div class='output co'>#&gt; $value
+#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; 
+#&gt; $a
+#&gt; $a$value
+#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; 
+#&gt; $a$a
+#&gt; $a$a$value
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; 
+#&gt; $a$b
+#&gt; $a$b$value
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $b
+#&gt; $b$value
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; </div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>))}, <span class='kw'>as_table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    component                  class
+#&gt; 1            hierarchicalTimeSeries
+#&gt; 2                        persephone
+#&gt; 3                                R6
+#&gt; 4          a hierarchicalTimeSeries
+#&gt; 5          a             persephone
+#&gt; 6          a                     R6
+#&gt; 7        a/a              x13Single
+#&gt; 8        a/a       persephoneSingle
+#&gt; 9        a/a             persephone
+#&gt; 10       a/a                     R6
+#&gt; 11       a/b              x13Single
+#&gt; 12       a/b       persephoneSingle
+#&gt; 13       a/b             persephone
+#&gt; 14       a/b                     R6
+#&gt; 15         b              x13Single
+#&gt; 16         b       persephoneSingle
+#&gt; 17         b             persephone
+#&gt; 18         b                     R6</div><div class='input'><span class='no'>ht2</span>$<span class='fu'>iterate</span>(<span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>))}, <span class='kw'>unnest</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [[1]]$class
+#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; 
+#&gt; 
+#&gt; $a
+#&gt; $a$class
+#&gt; [1] "hierarchicalTimeSeries" "persephone"             "R6"                    
+#&gt; 
+#&gt; 
+#&gt; $`a/a`
+#&gt; $`a/a`$class
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; 
+#&gt; $`a/b`
+#&gt; $`a/b`$class
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; 
+#&gt; $b
+#&gt; $b$class
+#&gt; [1] "x13Single"        "persephoneSingle" "persephone"       "R6"              
+#&gt; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#columns">Columns</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

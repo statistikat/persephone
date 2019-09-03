@@ -92,7 +92,7 @@
       <h1>Hierarchical time series</h1>
                         <h4 class="author">Gregor de Cillia</h4>
             
-            <h4 class="date">2019-09-02</h4>
+            <h4 class="date">2019-09-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statistikat/persephone/blob/master/vignettes/persephone-hierarchical.Rmd"><code>vignettes/persephone-hierarchical.Rmd</code></a></small>
       <div class="hidden name"><code>persephone-hierarchical.Rmd</code></div>
@@ -174,7 +174,7 @@
 <a href="#iterating-over-the-hierarchy-tree" class="anchor"></a>Iterating over the hierarchy tree</h2>
 <p>To iterate over all components of a <code>per_hts</code> object, the <code>iterate</code> method can be used. It baehaves similar to <code>lapply</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">hts_nested<span class="op">$</span><span class="kw">run</span>()</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">hts_nested<span class="op">$</span><span class="kw">iterate</span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, <span class="cf">function</span>(obj) {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">hts_nested<span class="op">$</span><span class="kw"><a href="../reference/iterate.html">iterate</a></span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, <span class="cf">function</span>(obj) {</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(obj<span class="op">$</span>adjusted),</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">       <span class="dt">var =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(obj<span class="op">$</span>adjusted))</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">})</a>
@@ -186,7 +186,7 @@
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 5   hts_child 280.0892 111.2674</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 6 hts_child/a 280.0419 111.5113</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 7           b 280.0892 111.2674</span></a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_nested<span class="op">$</span><span class="kw">iterate</span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, persephone<span class="op">:::</span>generateQrList)[, <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">hts_nested<span class="op">$</span><span class="kw"><a href="../reference/iterate.html">iterate</a></span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, persephone<span class="op">:::</span>generateQrList)[, <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;     component Method Period Nobs  Start     End Log.Transformation</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; 1                 TS     12  144 1-1949 12-1960               TRUE</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; 2         hts     TS     12  144 1-1949 12-1960               TRUE</span></a>
@@ -214,7 +214,7 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7">## check if options where applied correctly</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">hts_nested<span class="op">$</span><span class="kw">iterate</span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, get_spec)</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">hts_nested<span class="op">$</span><span class="kw"><a href="../reference/iterate.html">iterate</a></span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, get_spec)</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;     component spec</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 1             RSA1</span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 2         hts RSA1</span></a>
@@ -226,7 +226,7 @@
 <a class="sourceLine" id="cb6-17" data-line-number="17"></a>
 <a class="sourceLine" id="cb6-18" data-line-number="18">## modify options beginning from hts</a>
 <a class="sourceLine" id="cb6-19" data-line-number="19">hts<span class="op">$</span><span class="kw">set_options</span>(<span class="dt">spec =</span> <span class="st">"RSA0"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb6-20" data-line-number="20">hts_nested<span class="op">$</span><span class="kw">iterate</span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, get_spec)</a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">hts_nested<span class="op">$</span><span class="kw"><a href="../reference/iterate.html">iterate</a></span>(<span class="dt">as_table =</span> <span class="ot">TRUE</span>, get_spec)</a>
 <a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;     component spec</span></a>
 <a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 1             RSA1</span></a>
 <a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; 2         hts RSA0</span></a>
