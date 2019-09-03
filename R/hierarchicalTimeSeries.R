@@ -371,6 +371,6 @@ per_hts <- hierarchicalTimeSeries$new
 
 
 startEndAsDecimal <- function(x){
-  x[1]+(x[2]-1)/12
+  x[1] + (x[2] - 1) / 12
 }
 
