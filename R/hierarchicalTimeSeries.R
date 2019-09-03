@@ -226,12 +226,36 @@ hierarchicalTimeSeries <- R6::R6Class(
         warning("The decision between direct and indirect adjustment was not recoreded yet.
                 Direct adjustment is returned.")
       }else if(self$indirect){
-        return(self$adjusted_indirect)
+        return(private$adjusted_indirect_one_step)
       }
       return(self$adjusted_direct)
+    },
+    forecasts = function(){
+      if (is.na(self$indirect)){
+        warning("The decision between direct and indirect adjustment was not recoreded yet.
+                Direct forecasts are returned.")
+      }else if(self$indirect){
+        return(private$forecasts_indirect_one_step)
+      }
+      return(self$forecasts_direct)
+    },
+    forecasts_indirect = function(){
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "forecasts_indirect")
     }
   ),
   private = list(
+    forecasts_indirect_one_step = function() {
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "forecasts")
+    },
+    adjusted_indirect_one_step = function() {
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "adjusted")
+    },
     check_classes = function(components) {
       lapply(components, function(component) {
         stopifnot(is.persephone(component))
@@ -251,7 +275,10 @@ hierarchicalTimeSeries <- R6::R6Class(
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
         if(which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
-          return(component[["adjusted_direct"]])
+          return(component[["adjusted"]])
+        }
+        if(which == "forecasts_indirect" & "persephoneSingle" %in% class(component)){
+          return(component[["forecasts"]])
         }
         component[[which]]
       })
@@ -261,13 +288,27 @@ hierarchicalTimeSeries <- R6::R6Class(
       })
       if(!is.null(weights)){
         for(i in seq_along(tss)){
-          weights_ts[[i]] <- window(weights[,i], start = start(tss[[i]]),
-                 end = end(tss[[i]]))
+          if(startEndAsDecimal(end(weights[,i]))<startEndAsDecimal(end(tss[[i]]))){
+            weights_ts[[i]] <- ts(tail(weights[,i],1),start = start(tss[[i]]),
+            end = end(tss[[i]]), frequency = frequency(tss[[i]]))
+          }else{
+            weights_ts[[i]] <- window(weights[,i], start = start(tss[[i]]),
+                                      end = end(tss[[i]]))
+          }
         }
       }
-      private$aggregate_ts(tss, weights_ts)
+      out <- private$aggregate_ts(tss, weights_ts)
+      colnames(out) <- colnames(tss[[1]])
+      return(out)
     },
-    aggregate_ts = function(ts_vec,weights_ts) {
+    aggregate_ts = function(ts_vec, weights_ts) {
+      if(!"mts"%in%class(ts_vec)){
+        return(private$aggregate_ts0(ts_vec, weights_ts))
+      }
+      do.call("cbind",lapply(ts_vec, private$aggregate_ts0,
+                             weights_ts = weights_ts))
+    },
+    aggregate_ts0 = function(ts_vec, weights_ts) {
       sum <- 0
       sumW <- 0
       for (i in seq_along(ts_vec)) {
@@ -307,3 +348,9 @@ hierarchicalTimeSeries <- R6::R6Class(
 #' @usage NULL
 #' @export
 per_hts <- hierarchicalTimeSeries$new
+
+
+startEndAsDecimal <- function(x){
+  x[1]+(x[2]-1)/12
+}
+
