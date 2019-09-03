@@ -6,6 +6,7 @@
 #' @section Inherits: [persephone]
 #' @usage NULL
 #' @format NULL
+#' @rdname per_hts
 #' @section Constructor:
 #' \preformatted{
 #' per_hts(..., method = c("tramoseats", "x13"),
@@ -360,7 +361,6 @@ hierarchicalTimeSeries <- R6::R6Class(
   )
 )
 
-#' @rdname hierarchicalTimeSeries
 #' @usage NULL
 #' @export
 per_hts <- hierarchicalTimeSeries$new
