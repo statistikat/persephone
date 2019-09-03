@@ -14,7 +14,7 @@
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
 #' - `list` a list of `persephone` objects as alternative input to `...`.
-#' - `weights` either a vector 
+#' - `weights` either a vector
 #' if the same weight is used for all time points or a list of ts objects or a mts object
 #' if the weight varies for different time points. They must have the same length as
 #' the number of components.
@@ -120,7 +120,7 @@ hierarchicalTimeSeries <- R6::R6Class(
                                   start = start(components[[i]]$weights[,1]),
                                   end = end(components[[i]]$weights[,1]),
                                   frequency = frequency(components[[i]]$weights[,1]))
-          }  
+          }
         }
       }
       if(!is.list(weights)&!is.null(weights)){
@@ -128,11 +128,9 @@ hierarchicalTimeSeries <- R6::R6Class(
           weights_ts[[i]] <- ts(weights[i], start = start(components[[i]]$ts),
                                 end = end(components[[i]]$ts),
                                 frequency = frequency(components[[i]]$ts))
-          weights_ts[[i]] <- ts(c(weights_ts[[i]],rep(tail(weights_ts[[i]],1),4*frequency(components[[i]]$ts))),
-                                start = start(components[[i]]$ts), frequency = frequency(components[[i]]$ts))
         }
       }
-      
+
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
@@ -144,11 +142,11 @@ hierarchicalTimeSeries <- R6::R6Class(
           weights_ts <- NULL
         }else if (length(weights_ts)==0&&is.list(weights)){
           weights_ts <- do.call("cbind",weights)
-          colnames(weights_ts) <- names(components)    
+          colnames(weights_ts) <- names(components)
         }else{
           weights_ts <- do.call("cbind",weights_ts)
           colnames(weights_ts) <- names(components)
-        }  
+        }
       }
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)
