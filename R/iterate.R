@@ -62,5 +62,5 @@ unnest_nested_list <- function(x, prefix = "") {
 #' ht2$iterate(function(x) {list(class = class(x)[1])}, unnest = TRUE)
 #' @export
 iterate <- function(x, fun, as_table = FALSE, component = "", unnest = FALSE) {
- x$iterate(fun, as_table = FALSE, component = "", unnest = FALSE)
+ x$iterate(fun, as_table = as_table, component = component, unnest = unnest)
 }
