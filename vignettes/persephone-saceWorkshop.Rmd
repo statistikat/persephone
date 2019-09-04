@@ -36,22 +36,22 @@ Optionally it can be installed including vignettes (needs prettydoc):
 devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
-
-# Getting Started: Constructing Persephone Objects
-
 Load the package:
 
 ```{r}
 library(persephone)
 ```
 
-An object of class `persephone` can be constructed for only one or for multiple (hierarchical) time series objects. 
+# Constructing Persephone Objects
+
+An object of class `persephone` can be constructed for only one or for multiple time series objects 
+comprising a hierarchy. 
 Depending on whether seasonal adjusment should performed with X-13 or with TRAMO-SEATS,
 'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
 Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
 Batch objects without a hierarchy at not supported at the moment but will be in the near future.
 
-`persephone` objects call the functions of **RJDemetra** in the background, so for documentation
+Persephone objects call the functions of **RJDemetra** in the background, so for documentation
 on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
 
 ## Persephone Single Objects
@@ -67,7 +67,7 @@ data(AirPassengers, package = "datasets")
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 ```
 
-Now, different methods can be called for the persephone object `obj_x13`.
+Now different methods can be called for the persephone object `obj_x13`.
 The `run()` method runs the model and `output` gives access to the original output object from 
 **RJDemetra**. Without a run, most methods for the object will not work since no results are available then. 
 
@@ -78,8 +78,11 @@ obj_x13$output$regarima
 
 Several plot methods have been implemented. The default S3 generic `plot()` for example 
 shows the time series with the `dygraphs` package. The result is a zoomable representation of the series, 
-see Figure \@ref(fig:plotmethod)
+see Figure \@ref(fig:plotmethod).
 
+```{r , eval=FALSE}
+plot(hts_EU28$components$EA19)
+``
 
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '100%'}
 knitr::include_graphics("resources/plot.png")
@@ -87,5 +90,131 @@ knitr::include_graphics("resources/plot.png")
 
 ## Persephone Hierarchical Objects
 
+Hierarchical persephone objects are created with `per_hts()` after combining several 'single' objects in a list.
+We shall call these 'single' objects components in this multivariate context.
+
+### Aggregates without Weights
+
+In the example below, we use time series of the volume index of production for total industry (except construction) 
+of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through
+June 2019. Some series contain missing values.
+
+Load the package's internal datasets:
+
+```{r}
+data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
+```
+
+We use the calendar and not seasonally adjusted dataset `pi_caladj` for illustrative purposes because it
+does not contain any missing values and we remove the EU-28 and EA-19 (Euro Area) aggregates.
+
+```{r}
+pi_caladj <- pi_caladj[ , -c(1:2)]
+```
+
+For all countries’ time series we want to generate persephone objects with x13 as method.
+
+```{r}
+ts_28 <- lapply(pi_caladj, per_x13)
+```
+
+The list argument can be used to create a hierarchical persephone object based on a list of 
+persephone single objects. Here we aggregate the EA-19 countries and set the method to be used 
+for the direct adjustment of the aggregate series to x13 as well.
+
+```{r}
+hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13")
+```
+
+We now generate our final hierarchical persephone object `hts_EU28`
+
+```{r}
+non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]))
+```
+
+and have a look at it's structure:
+
+```{r}
+hts_EU28
+```
+
+We make the first run
+
+```{r}
+hts_EU28$run()
+```
+
+and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fertig sein):
+
+```{r}
+# summary(hts_EU28)
+```
+
+The only plot function implemented for hierarchical persephone objects at the moment is the S3 generic `plot()`,
+see Figure \@ref(fig:plotmethodhts).
+
+```{r , eval=FALSE}
+plot(hts_EU28)
+```
+```{r , echo=FALSE, fig.cap="\\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane", out.width = '100%'}
+knitr::include_graphics("resources/plot_hts.png")
+```
+
+We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the autocorrelations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$get_component("EA19/BE")` or 
+by ` hts_EU28$components$EA19$components$BE`.
+
+```{r , fig.cap="\\label{fig:acfresbg} Output of the plotResiduals() method for the Belgian time series", out.width = '100%'}
+plotResiduals(hts_EU28$get_component("EA19/BE"), which = "acf", interactive = FALSE)
+```
+
+Also the results of lower level aggregate series are accessed via the components. 
+The EA19 aggregate for example would be plotted by using the following command:
+
+```{r , eval=FALSE}
+plot(hts_EU28$get_component("EA19"))
+```
+
+### Weighted Aggregates
+
+If the time series are indices, we are not really interested in the sum of the components but in the weighted sum.
+We can use either time-invariant or time-variant weights.
+
+#### Time-invariant weights
+
+The weights parameter is set as a numeric vector with length equal to the number of components.
+The hierarchical persephone object is constructed the same way as in the previous section but 
+with weights, one for each component. Internally, an `mts` object is then created with constant
+weights for all time points.
+
+```{r}
+w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
+w_non_EA19 <- weights_pi_eu28$weight[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+
+hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+
+# hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]), weights = c(??,w_non_EA19))
+```
+
+We can have a look at the weights of an object by accessing the weights-slot:
+
+```{r}
+head(hts_EA19$weights)
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
+# weights_pi_ea19$weight 
+# # is equal to  
+# w_EA19/sum(w_EA19)*100
+```
+
+#### Time-variant weights
+
+We do not have a real example for time-variant weights which is why we generate artificial ones
+for our example:
+
 
 # References
+
+
