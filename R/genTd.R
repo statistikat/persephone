@@ -36,7 +36,7 @@
 #' }
 #' @importFrom stats ts
 #' @importFrom timeDate listHolidays Easter
-#' @importFrom zoo as.yearmon
+#' @importFrom zoo as.yearmon as.Date.ts as.Date.yearmon
 #' @export
 genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
@@ -52,7 +52,7 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
       a <- as.Date(Easter(year =start(y)[1]:end(y)[1])) -
                            as.numeric(substr(x,8,nchar(x)))
     } else if(x %in% preDef){
-      a <- as.Date(get(x)(year = start(y)[1]:end(y)[1]))
+      a <- as.Date(getExportedValue("timeDate",x)(year = start(y)[1]:end(y)[1]))
     } else{
       a <- as.Date(paste0(seq(start(y)[1],end(y)[1]),paste0("-",x)))
     }
@@ -67,8 +67,8 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
     fti <- floor(ti)
     si <- round(freq * (ti - fti)) + 1
 
-    d0 <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=0)
-    dN <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=1)
+    d0 <- as.Date.yearmon(as.yearmon(paste(c(fti, si), collapse="-")), frac = 0)
+    dN <- as.Date.yearmon(as.yearmon(paste(c(fti, si), collapse="-")), frac = 1)
 
     rT <- seq(from=d0,to=dN,by="day")
     days <- weekdays(rT, abbreviate = TRUE)
@@ -98,7 +98,7 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
   }
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1), frequency = freq)
 
-  row.names(dd) <- substr(as.character(as.Date(time(y))),1,7)
+  row.names(dd) <- substr(as.character(as.Date.ts(time(y))),1,7)
   days <- list(dd,td0,td1)
-  return(days[])
+  return(days)
 }
