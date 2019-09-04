@@ -2,7 +2,9 @@
 title: "Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra"
 author: "Angelika Meraner, Gregor de Cillia, Alexander Kowarik"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+ bookdown::pdf_document2:
+  fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,14 +15,14 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+# Introduction
 
-The R-package `persephone` was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
-It builds on top of `RJDemetra` (<https://github.com/jdemetra/rjdemetra>), an R interface to JDemetra+, and provides analytical tools such as interactive plots to support the SA expert. 
+The R-package **persephone** was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
+It builds on top of **RJDemetra** (\url{https://github.com/jdemetra/rjdemetra}), an R interface to JDemetra+ (https://github.com/jdemetra), and provides analytical tools such as interactive plots to support the SA expert. 
 The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
-Furthermore it supports hierarchical time series and should enable the future development of diagnostics for direct vs indirect adjustment, e.g. by using some results from the Hackathon on RJDemetra in Frankfurt.
+Furthermore it supports hierarchical time series and should enable future incorporation of diagnostics for direct vs indirect adjustment.
 
-## Installation
+# Installation
 
 The package can be installed from GitHub via 
 
@@ -35,17 +37,55 @@ devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
 
-## Getting started: Constructing Objects
+# Getting Started: Constructing Persephone Objects
 
+Load the package:
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+library(persephone)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+An object of class `persephone` can be constructed for only one or for multiple (hierarchical) time series objects. 
+Depending on whether seasonal adjusment should performed with X-13 or with TRAMO-SEATS,
+'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
+Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
+Batch objects without a hierarchy at not supported at the moment but will be in the near future.
 
-## References
+`persephone` objects call the functions of **RJDemetra** in the background, so for documentation
+on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
+
+## Persephone Single Objects
+
+Univariate persephone objects are created with `per_x13()` or `per_tramo()` from univariate time series objects 
+such as the `AirPassengers` dataset.
+A predefined JDemetra+ model specification has to be provided by the user, in this example we use `"RSA3"` 
+(Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
+
+
+```{r}
+data(AirPassengers, package = "datasets")
+obj_x13 <- per_x13(AirPassengers, "RSA3")
+```
+
+Now, different methods can be called for the persephone object `obj_x13`.
+The `run()` method runs the model and `output` gives access to the original output object from 
+**RJDemetra**. Without a run, most methods for the object will not work since no results are available then. 
+
+```{r}
+obj_x13$run()
+obj_x13$output$regarima
+```
+
+Several plot methods have been implemented. The default S3 generic `plot()` for example 
+shows the time series with the `dygraphs` package. The result is a zoomable representation of the series, 
+see Figure \@ref(fig:plotmethod)
+
+
+```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '100%'}
+knitr::include_graphics("resources/plot.png")
+```
+
+## Persephone Hierarchical Objects
+
+
+# References

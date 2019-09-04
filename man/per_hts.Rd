@@ -27,7 +27,8 @@ time instances. All elements supplied here must be named.
 if the same weight is used for all time points or a list of ts objects or a
 mts object if the weight varies for different time points. They must have
 the same length as the number of components.
-\item \code{method} specifies the method to be used. tramoseats or x13
+\item \code{method} specifies the method to be used for the direct adjustment of the aggregate
+series. tramoseats or x13
 \item \code{userdefined} is passed as the userdefined argument to \code{\link[=tramoseats]{tramoseats()}} or
 \code{\link[=x13]{x13()}}
 \item \code{spec} a model specification returned by \code{\link[=x13_spec]{x13_spec()}} or
