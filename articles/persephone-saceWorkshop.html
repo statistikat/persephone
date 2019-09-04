@@ -107,33 +107,60 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>The R-package <code>persephone</code> was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. It builds on top of <code>RJDemetra</code> (<a href="https://github.com/jdemetra/rjdemetra" class="uri">https://github.com/jdemetra/rjdemetra</a>), an R interface to JDemetra+, and provides analytical tools such as interactive plots to support the SA expert. The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report. Furthermore it supports hierarchical time series and should enable the future development of diagnostics for direct vs indirect adjustment, e.g. by using some results from the Hackathon on RJDemetra in Frankfurt.</p>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>The R-package <strong>persephone</strong> was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. It builds on top of <strong>RJDemetra</strong> (), an R interface to JDemetra+ (<a href="https://github.com/jdemetra" class="uri">https://github.com/jdemetra</a>), and provides analytical tools such as interactive plots to support the SA expert. The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report. Furthermore it supports hierarchical time series and should enable future incorporation of diagnostics for direct vs indirect adjustment.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div id="installation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h1>
 <p>The package can be installed from GitHub via</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>)</a></code></pre></div>
 <p>Optionally it can be installed including vignettes (needs prettydoc):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
-<div id="getting-started-constructing-objects" class="section level2">
+<div id="getting-started-constructing-persephone-objects" class="section level1">
+<h1 class="hasAnchor">
+<a href="#getting-started-constructing-persephone-objects" class="anchor"></a>Getting Started: Constructing Persephone Objects</h1>
+<p>Load the package:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a></code></pre></div>
+<p>An object of class <code>persephone</code> can be constructed for only one or for multiple (hierarchical) time series objects. Depending on whether seasonal adjusment should performed with X-13 or with TRAMO-SEATS, ‘single’ persephone objects are constructed with the functions <code><a href="../reference/per_x13.html">per_x13()</a></code> or <code><a href="../reference/per_tramo.html">per_tramo()</a></code>. Multiple ‘single’ objects can then be combined with <code><a href="../reference/per_hts.html">per_hts()</a></code> to build a hierarchical persephone object. Batch objects without a hierarchy at not supported at the moment but will be in the near future.</p>
+<p><code>persephone</code> objects call the functions of <strong>RJDemetra</strong> in the background, so for documentation on the respective X-13 or TRAMO-SEATS methods refer to the R-help of <strong>RJDemetra</strong>.</p>
+<div id="persephone-single-objects" class="section level2">
 <h2 class="hasAnchor">
-<a href="#getting-started-constructing-objects" class="anchor"></a>Getting started: Constructing Objects</h2>
+<a href="#persephone-single-objects" class="anchor"></a>Persephone Single Objects</h2>
+<p>Univariate persephone objects are created with <code><a href="../reference/per_x13.html">per_x13()</a></code> or <code><a href="../reference/per_tramo.html">per_tramo()</a></code> from univariate time series objects such as the <code>AirPassengers</code> dataset. A predefined JDemetra+ model specification has to be provided by the user, in this example we use <code>"RSA3"</code> (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(AirPassengers, <span class="dt">package =</span> <span class="st">"datasets"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">obj_x13 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_x13.html">per_x13</a></span>(AirPassengers, <span class="st">"RSA3"</span>)</a></code></pre></div>
+<p>Now, different methods can be called for the persephone object <code>obj_x13</code>. The <code>run()</code> method runs the model and <code>output</code> gives access to the original output object from <strong>RJDemetra</strong>. Without a run, most methods for the object will not work since no results are available then.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">obj_x13<span class="op">$</span><span class="kw">run</span>()</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">obj_x13<span class="op">$</span>output<span class="op">$</span>regarima</a></code></pre></div>
+<pre><code>## y = regression model + arima (0, 1, 1, 0, 1, 1)
+## Log-transformation: yes
+## Coefficients:
+##           Estimate Std. Error
+## Theta(1)   -0.4018      0.081
+## BTheta(1)  -0.5569      0.078
+## 
+## 
+## Residual standard error: 0.03672 on 131 degrees of freedom
+## Log likelihood = 244.7, aic = 987.2 aicc = 987.4, bic(corrected for length) = -6.535</code></pre>
+<p>Several plot methods have been implemented. The default S3 generic <code><a href="../reference/plot.html">plot()</a></code> for example shows the time series with the <code>dygraphs</code> package. The result is a zoomable representation of the series, see Figure @ref(fig:plotmethod)</p>
+<div class="figure">
+<img src="resources/plot.png" alt="\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane" width="100%"><p class="caption">
+ Output of the plot() method in the R-Studio viewer pane
+</p>
 </div>
-<div id="including-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#including-plots" class="anchor"></a>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="persephone-saceWorkshop_files/figure-html/pressure-1.png" width="700"></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </div>
-<div id="references" class="section level2">
+<div id="persephone-hierarchical-objects" class="section level2">
 <h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<a href="#persephone-hierarchical-objects" class="anchor"></a>Persephone Hierarchical Objects</h2>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 </div>
   </div>
 
@@ -145,8 +172,12 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#installation">Installation</a></li>
-      <li><a href="#getting-started-constructing-objects">Getting started: Constructing Objects</a></li>
-      <li><a href="#including-plots">Including Plots</a></li>
+      <li>
+<a href="#getting-started-constructing-persephone-objects">Getting Started: Constructing Persephone Objects</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#persephone-single-objects">Persephone Single Objects</a></li>
+      <li><a href="#persephone-hierarchical-objects">Persephone Hierarchical Objects</a></li>
+      </ul>
+</li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
