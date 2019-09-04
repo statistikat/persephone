@@ -31,7 +31,6 @@
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
-#' @importFrom dplyr group_by summarize %>%
 #' @importFrom reshape melt
 #'
 #' @export
@@ -78,16 +77,15 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
     d9 <- x$output$user_defined$decomposition.d9 # Final replacement for SI
     d10 <- x$output$decomposition$si_ratio[, "d10"] # Seasonal Factors
 
-    d10Mean <- data.frame(d10, cycleName = cycleName(d10))
-    d10Mean <- d10Mean %>%
-      dplyr::group_by(cycleName) %>%
-      dplyr::summarize(d10Mean = mean(d10))
+    d10By <- by(d10, list(cycleName(d10)), mean)
+    d10Mean <- data.frame(cycleName = names(d10By),
+                           d10Mean = as.vector(d10By))
     dat <- merge(data.frame(year = floor(time(d10)), cycleName = cycleName(d10),
                             d8, d9, d10, stringsAsFactors = FALSE),
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
+    colnames(dat) <- c("cycleName", "year", "SI-Ratio", "Replaced SI-Ratio",
+                       "Seasonal Factor", "SF Mean")
 
-    dat <- dat %>% dplyr::rename(`SI-Ratio` = d8, `Replaced SI-Ratio` = d9,
-                                 `Seasonal Factor` = d10, `SF Mean` = d10Mean)
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
                          measure.vars = (c("SI-Ratio", "Replaced SI-Ratio",
                                            "Seasonal Factor",
@@ -145,16 +143,15 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
       sln * iln # SI-Ratio
     }
 
-    siRatioMean <- data.frame(siRatio, cycleName = cycleName(siRatio))
-    siRatioMean <- siRatioMean %>%
-      dplyr::group_by(cycleName) %>%
-      dplyr::summarize(siRatioMean = mean(siRatio))
+    siRatioBy <- by(siRatio, list(cycleName(siRatio)), mean)
+    siRatioMean <- data.frame(cycleName = names(siRatioBy),
+                              siRatioMean = as.vector(siRatioBy))
+
     dat <- merge(data.frame(year = floor(time(siRatio)),
                             cycleName = cycleName(siRatio), siRatio,
                             stringsAsFactors = FALSE),
                  siRatioMean, by = "cycleName", sort = FALSE, all.x = TRUE)
-
-    dat <- dat %>% dplyr::rename(`SI-Ratio` = siRatio, `Mean` = siRatioMean)
+    colnames(dat) <- c("cycleName","year","SI-Ratio","Mean")
     dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
                          measure.vars = (c("SI-Ratio", "Mean")))
 
