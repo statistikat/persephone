@@ -31,7 +31,6 @@
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
-#' @importFrom reshape melt
 #' @importFrom magrittr %>%
 #'
 #' @export
@@ -86,11 +85,17 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
     colnames(dat) <- c("cycleName", "year", "SI-Ratio", "Replaced SI-Ratio",
                        "Seasonal Factor", "SF Mean")
-
-    dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
-                         measure.vars = (c("SI-Ratio", "Replaced SI-Ratio",
-                                           "Seasonal Factor",
-                                           "SF Mean")))
+    dat1 <- dat[,c("year","cycleName","SI-Ratio")]
+    dat2 <- dat[,c("year","cycleName","Replaced SI-Ratio")]
+    dat3 <- dat[,c("year","cycleName","Seasonal Factor")]
+    dat4 <- dat[,c("year","cycleName","SF Mean")]
+    colnames(dat1)[3] <- colnames(dat2)[3] <-
+      colnames(dat3)[3] <- colnames(dat4)[3] <- "value"
+    dat1$variable <- "SI-Ratio"
+    dat2$variable <- "Replaced SI-Ratio"
+    dat3$variable <- "Seasonal Factor"
+    dat4$variable <- "SF Mean"
+    dat <- rbind(dat1, dat2, dat3, dat4)
 
     if (is.null(main)) {
       main <- "SI Ratios and Seasonal Factors by Period"
@@ -153,9 +158,13 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
                             stringsAsFactors = FALSE),
                  siRatioMean, by = "cycleName", sort = FALSE, all.x = TRUE)
     colnames(dat) <- c("cycleName","year","SI-Ratio","Mean")
-    dat <- reshape::melt(data = dat, id.vars = c("year", "cycleName"),
-                         measure.vars = (c("SI-Ratio", "Mean")))
 
+    dat1 <- dat[,c("year", "cycleName", "SI-Ratio")]
+    dat2 <- dat[,c("year", "cycleName", "Mean")]
+    colnames(dat1)[3] <- colnames(dat2)[3] <-  "value"
+    dat1$variable <- "SI-Ratio"
+    dat2$variable <- "Mean"
+    dat <- rbind(dat1, dat2)
 
     if (is.null(main)) {
       main <- "SI-Ratios by Period"
