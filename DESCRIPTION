@@ -5,7 +5,8 @@ Version: 0.1.1
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
-  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = "aut"))
+  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut"), comment=c(ORCID="0000-0001-8598-4130"))
+  )
 Description: This package is an object oriented wrapper around the R Package RJDemetra, 
   which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
