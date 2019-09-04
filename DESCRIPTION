@@ -23,6 +23,7 @@ Imports:
     scales,
     data.table,
     timeDate,
+    magrittr,
     zoo
 Remotes: 
     jdemetra/rjdemetra

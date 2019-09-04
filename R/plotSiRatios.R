@@ -32,6 +32,7 @@
 #' plotSiRatios(obj2)
 #'
 #' @importFrom reshape melt
+#' @importFrom magrittr %>%
 #'
 #' @export
 
