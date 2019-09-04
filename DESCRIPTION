@@ -1,25 +1,28 @@
 Package: persephone
 Type: Package
 Title: Object-Oriented Wrappers for RJDemetra
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
-  person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"))
+  person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
+  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut"), comment=c(ORCID="0000-0001-8598-4130"))
+  )
 Description: This package is an object oriented wrapper around the R Package RJDemetra, 
   which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 2.10)
 Imports: 
     RJDemetra (>= 0.1.1),
     dygraphs,
     plotly,
-    stringr,
     ggplot2,
-    broom,
-    dplyr,
-    reshape,
-    scales
+    scales,
+    data.table,
+    timeDate,
+    magrittr,
+    zoo
 Remotes: 
     jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)
@@ -30,5 +33,6 @@ Suggests:
     rmarkdown,
     prettydoc,
     testthat (>= 2.1.0),
-    forecast
+    forecast,
+    bookdown
 VignetteBuilder: knitr

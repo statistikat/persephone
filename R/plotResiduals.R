@@ -96,7 +96,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     result <- data.frame(
       date = paste0(c(floor(time(result) + .01)), "-",
-                    str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
+                    stringfix(c(cycle(result)), 2, "0"), "-01"),
       x = c(result))
 
     p <- ggplot(result,  aes(x = x)) + ## ,stat(density)
@@ -120,7 +120,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     result <- regarima$residuals / regarima$residuals.stat$st.error
     result <- data.frame(date = paste0(
       c(floor(time(result) + .01)), "-",
-      str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
+      stringfix(c(cycle(result)), 2, "0"), "-01"),
       y = c(result))
 
     p <- ggplot(result, aes(sample = y)) +
@@ -139,16 +139,16 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- acf(regarima$residuals, plot = FALSE)
-    result$lag <- result$lag * frequency(x$ts)
-    #to show whole numbers for lags
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- broom::tidy(result)
     # start from lag1
-    result <- result[-1, ]
+    # to show whole numbers for lags
+    result <- data.frame(lag = result$lag[-1] * frequency(x$ts),
+                         acf = result$acf[-1, 1, 1])
+
 
     # require(forecast)
     # ggAcf(regarima$residuals, lag.max = NULL,
@@ -174,16 +174,15 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- acf(regarima$residuals ^ 2, plot = FALSE)
-    result$lag <- result$lag * frequency(x$ts)
-    #to show whole numbers for lags
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- broom::tidy(result)
     # start from lag1
-    result <- result[-1, ]
+    # to show whole numbers for lags
+    result <- data.frame(lag = result$lag[-1] * frequency(x$ts),
+                         acf = result$acf[-1, 1, 1])
 
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +
@@ -201,14 +200,15 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     }
 
     result <- pacf(regarima$residuals, plot = FALSE)
-    result$lag <- result$lag * frequency(x$ts)
-    #to show whole numbers for lags
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
     ci <- qnorm((1 + ci) / 2) / sqrt(result$n.used)
 
-    result <- broom::tidy(result)
+    #to show whole numbers for lags
+    result <- data.frame(lag = result$lag * frequency(x$ts),
+                         acf = result$acf[, 1, 1])
+
 
     p <- ggplot(result, aes(x = lag, y = acf)) +
       geom_bar(stat = "identity", width = 0.1) +

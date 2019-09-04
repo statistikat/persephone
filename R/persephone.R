@@ -33,7 +33,7 @@
 #' - `verbose`: should the output from the underlying RJDemetra function be
 #'   displayed after the
 #'   run? If `FALSE` (the default), the output will be returned invisibly.
-#' @seealso [x13Single], [tramoseatsSingle]
+#' @seealso [per_x13()], [per_tramo()]
 #' @name persephone
 #' @import RJDemetra
 NULL
@@ -60,7 +60,29 @@ persephone <- R6::R6Class(
       plotResiduals(self, ...)
     },
     print = function() {
-
+      message("A persephone object")
+      if (!is.null(self$output)) {
+        message("Output:")
+        tbl <- private$print_table("")
+        tbl <- tbl[, -1]
+        print(tbl, right = FALSE, row.names = FALSE)
+      } else {
+        message("Not yet run.")
+      }
+    },
+    iterate = function(fun, as_table = FALSE, unnest = FALSE) {
+      res <- list(value = fun(self))
+      private$convert_list(res, as_table, unnest)
+    },
+    generate_qr_table = function() {
+      self$iterate(generateQrList, as_table = TRUE)
+    },
+    set_options = function(userdefined = NA,
+                           spec = NA, recursive = TRUE) {
+      if (is.null(userdefined) || !is.na(userdefined))
+        private$userdefined <- union(userdefined, userdefined_default)
+      if (is.null(spec) || !is.na(spec))
+        private$spec_internal <- spec
     }
   ),
   ## read-only access to params, ts, and output
@@ -78,15 +100,36 @@ persephone <- R6::R6Class(
       private$output_internal
     },
     adjusted = function() {
+      self$adjusted_direct
+    },
+    adjusted_direct = function() {
       self$output$user_defined$sa
+    },
+    spec = function() {
+      private$spec_internal
+    },
+    forecasts = function(){
+      self$output$final$forecasts
+    },
+    forecasts_direct = function(){
+      self$output$final$forecasts
     }
   ),
   private = list(
+    convert_list = function(res, as_table = FALSE, unnest = FALSE) {
+      if (as_table)
+        return(as_table_nested_list(res))
+      else if (unnest)
+        return(unnest_nested_list(res))
+      else
+        return(res)
+    },
     ts_internal = NULL,
     tsp_internal = NULL,
     params_internal = NULL,
     output_internal = NULL,
     userdefined = NULL,
+    spec_internal = NULL,
     print_table = function(prefix) {
       cbind(
         data.frame(
@@ -106,5 +149,6 @@ persephone <- R6::R6Class(
 userdefined_default <- c(
   "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f", "i_f",
   "cal_f", "preprocessing.model.y_f", "preprocessing.model.y_ef",
-  "decomposition.d9"
+  "decomposition.d6", "decomposition.d7", "decomposition.d9",
+  "mode"
 )

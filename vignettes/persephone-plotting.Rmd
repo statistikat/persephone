@@ -7,7 +7,7 @@ output:
     theme: cayman
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Interactive vizualization of persephone objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -34,7 +34,7 @@ package. The result is a zoomable representation of the series.
 ```{r}
 library(persephone)
 
-obj <- x13Single$new(AirPassengers, "RSA1")
+obj <- per_x13(AirPassengers, "RSA1")
 plot(obj, drawPoints = TRUE)
 ```
 

@@ -23,9 +23,9 @@ value (\code{1:3}) corresponding to one of these characters is also accepted.}
 \code{maxobs} equals the length of the time series for plotTypes
 \code{"arSpec"} and \code{"periodogram"} and \code{maxobs=96} for plotType \code{"arSpecBars"}.}
 
-\item{n.freq}{the number of frequencies, i.e. the number of points at which to plot.
-If NULL, \code{n.freq=301} for plotTypes
-\code{"arSpec"} and \code{"periodogram"} and \code{n.freq=61} for plotType \code{"arSpecBars"}.}
+\item{n.freq}{the number of frequencies, i.e. the number of points at which
+to plot. If NULL, \code{n.freq=301} for plotTypes \code{"arSpec"} and \code{"periodogram"}
+and \code{n.freq=61} for plotType \code{"arSpecBars"}.}
 
 \item{order}{order of the AR model}
 
@@ -37,7 +37,12 @@ in \link[plotly:ggplotly]{plotly::ggplotly} before returning.}
 \item{...}{other plotting parameters to affect the plot. Not currently used.}
 }
 \value{
-Returns an object of class \code{ggplot} or \code{plotly}
+Returns an object of class \code{ggplot} or \code{plotly}. The seasonal and
+trading day frequencies are indicated in blue and red. For monthly data,
+the seasonal frequencies are 1/12, 2/12, ..., 6/12 and the trading day
+frequencies are 0.348 and 0.432. For quarterly data, the seasonal
+frequency is 1/4 and the trading day frequencies are 0.044375, 0.08875,
+0.294375, 0.33875 and 0.38125.
 }
 \description{
 Interactive plot of the periodogram or the autogregressive spectrum.
@@ -46,25 +51,26 @@ Produces a \code{ggplot}/\code{plotly} object for objects of class \link{perseph
 \details{
 The following options are available for the parameter \code{plotType}.
 \itemize{
-\item \code{arSpec}: The autoregressive spectrum similar to JD+ plots. The default settings
-for the number of frequencies, i.e. the number of points at which to plot, the
-order of the AR model to be fitted and the maximum number of observations of the
-time series are n.freq = 301, order = 30 and maxobs='length of the time series'
-in this case.
+\item \code{arSpec}: The autoregressive spectrum similar to JD+ plots. The default
+settings for the number of frequencies, i.e. the number of points at which
+to plot, the order of the AR model to be fitted and the maximum number of
+observations of the time series are n.freq = 301, order = 30 and
+maxobs='length of the time series' in this case.
 \item \code{arSpecBars}: The autoregressive spectrum similar to X-13ARIMA-SEATS plots.
-The default settings for the number of frequencies, the
-order of the AR model to be fitted and the maximum number of observations are
-n.freq = 61, order = 30 and maxobs=96 in this case.
-\item \code{periodogram}: The raw periodogram similar to JD+ plots.
-The default settings for the number of frequencies and the maximum number of
-observations are n.freq = 301 and maxobs='length of the time series' in this case.
+The default settings for the number of frequencies, the order of the AR
+model to be fitted and the maximum number of observations are n.freq = 61,
+order = 30 and maxobs=96 in this case.
+\item \code{periodogram}: The raw periodogram similar to JD+ plots. The default
+settings for the number of frequencies and the maximum number of
+observations are n.freq = 301 and maxobs='length of the time series' in
+this case.
 }
 }
 \examples{
 # Monthly Data Example
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- x13Single$new(AirPassengers, "RSA5c")
+obj <- per_x13(AirPassengers, "RSA5c")
 obj$run()
 
 # Plot the AR-Spectrum after run
@@ -85,8 +91,8 @@ plotSpectrum(obj, plotType=3)
 
 # Quarterly Data Example
 data(UKgas, package = "datasets")
-# Generate a persephone object, in this case a tramoseatsSingle object
-obj2 <- tramoseatsSingle$new(UKgas, "RSAfull")
+# Generate a persephone object, in this case a tramoseats object
+obj2 <- per_tramo(UKgas, "RSAfull")
 obj2$run()
 plotSpectrum(obj2, tsType="original")
 plotSpectrum(obj2, tsType="sa")

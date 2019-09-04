@@ -6,3 +6,6 @@
 ^\.travis\.yml$
 .lintr
 pkgdown
+^doc$
+^Meta$
+^docs$

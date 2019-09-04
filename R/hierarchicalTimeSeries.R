@@ -4,75 +4,173 @@
 #' The resulting time series can perform direct and indirect adjustments.
 #'
 #' @section Inherits: [persephone]
+#' @usage NULL
+#' @format NULL
+#' @rdname per_hts
 #' @section Constructor:
 #' \preformatted{
-#' per_hts(...)
+#' per_hts(..., method = c("tramoseats", "x13"),
+#'         userdefined = NULL, spec = NULL)
 #' }
 #' - `...` should contain one or more `persephone` objects that use the same
 #'   time instances. All elements supplied here must be named.
-#' - `model` specifies a model to be used. tramoseats or x13
-#' - `userdefined` is passed as the userdefined argument to `tramoseats` or
-#'   `x13`
+#' - `list` a list of `persephone` objects as alternative input to `...`.
+#' - `weights` either a vector
+#' if the same weight is used for all time points or a list of ts objects or a
+#' mts object if the weight varies for different time points. They must have
+#' the same length as the number of components.
+#' - `method` specifies the method to be used for the direct adjustment of the aggregate
+#' series. tramoseats or x13
+#' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
+#'   [x13()]
 #' - `spec` a model specification returned by [x13_spec()] or
 #'   [tramoseats_spec()]
+#'
+#' @section Fields:
+#'
+#' * `$components`. A list of `persephone` objects.
+#' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
+#'   components are first adjusted and the adjusted series are then aggregated
+#'
+#' @section Methods:
+#' * `$iterate(fun, ...)` can be used to iterate over the hierarchy tree. See
+#'   [iterate()].
+#' * `$set_options(userdefined, spec, recursive = TRUE, component = "")` sets
+#'   options for all entries of the dependency tree recursively if
+#'   `recursive = TRUE` (the default). See
+#'   `vignette("persephone-hierarchical")`.
 #'
 #' @examples
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'
-#' ht <- per_hts(a = obj_x13, b = obj_x13, model = "x13")
+#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 #' ht$run()
-#' ht$adjusted
+#' ht$adjusted_direct
 #' ht$adjusted_indirect
 #'
 #' ht2 <- per_hts(a = ht, b = obj_x13)
 #' ht2$run()
-#' ht2$adjusted
+#' ht2$adjusted_direct
 #' ht2$adjusted_indirect
 #'
-#' data(ipi_c_eu,package = "RJDemetra")
+#' #-------- example with industrial price indices -----------
+#'
+#' data(ipi_c_eu, package = "RJDemetra")
 #' # Reducing the data set to the EU28 countries
-#' ipi_eu <- ipi_c_eu[,-c(1:3,32:37)]
+#' ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
 #' # We now build persephone objects for the countries
 #' # (the lowest level in the hierachy)
 #' ts_28 <- lapply(ipi_eu, per_tramo)
+#'
 #' # We want to add an extra layer and split the EU28 countries in two groups
-
-#' ht_half_europe_1 <- do.call(per_hts,ts_28[1:14],)
-#' # possible future syntax
-#' #per_hts(ts_28[1:14], model=list(AT="x13",BE="tramoseats"),spec=list(),
-#' #outlier_enabled(..=TRUE),tradings.leapyw=list(LV=TRUE,AT=dfdjkl,))
-#' ht_half_europe_2 <- do.call(per_hts,ts_28[15:28])
+#' ht_half_europe_1  <- per_hts(list = ts_28[1:14], method = "tramoseats")
+#'
+#' # Alternative way to use do.call
+#' ht_half_europe_2 <- do.call(per_hts, ts_28[15:28])
+#'
 #' # Now we generate the object for EU28
-#'  ht_europe <- per_hts(
+#' ht_europe <- per_hts(
 #'   halfEU_1 = ht_half_europe_1,
 #'   halfEU_2 = ht_half_europe_2,
-#'   spec="RSA5c",model="x13")
+#'   spec = "RSA5c",
+#'   method = "x13"
+#' )
+#'
 #' # start the seasonal adjustment
 #' ht_europe$run()
+#'
 #' # accessing the directly and indirectly adjusted series for EU28
-#' ht_europe$adjusted
+#' ht_europe$adjusted_direct
 #' ht_europe$adjusted_indirect
+#'
 #' # accessing the directly and indirectly adjusted series for half of Europe
-#' ht_europe$components$halfEU_2$adjusted
+#' ht_europe$components$halfEU_2$adjusted_direct
 #' ht_europe$components$halfEU_2$adjusted_indirect
+#'
 #' # accessing the adjusted series for a country
-#' ht_europe$components$halfEU_2$components$AT$adjusted
+#' ht_europe$components$halfEU_2$components$AT$adjusted_direct
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
   public = list(
-    initialize = function(..., model = c("tramoseats", "x13"),
-                          userdefined = NULL, spec = NULL) {
-      private$model <- match.arg(model)
-      components <- list(...)
+    initialize = function(..., method = c("tramoseats", "x13"),
+                          userdefined = NULL, spec = NULL, list = NULL,
+                          weights = NULL) {
+      private$method <- match.arg(method)
+      if (!is.null(list)) {
+        components <- list
+        if (is.null(names(components))) {
+          names(components) <- paste0("ts", seq_along(components))
+        }
+        if (length(list(...)) > 0) {
+          warning("If the list argument is specified, additional arguments ",
+                  " as ... will be ignored.")
+        }
+      } else {
+        components <- list(...)
+      }
+      componentsHts <- sapply(
+        components,
+        function(x) "hierarchicalTimeSeries" %in% class(x))
+      if (!is.null(weights)) {
+        if (ifelse(is.list(weights) || is.vector(weights),
+                   length(weights), ncol(weights)) != sum(!componentsHts)) {
+        stop("If the weights argument is provided,
+             its length must be equal to the number of components.")
+        }
+      }
+      weights_ts <- list()
+      if (any(componentsHts)) {
+        weightsNull <- sapply(components, function(x)is.null(x$weights))
+        if (any(!weightsNull)) {
+          if (any(weightsNull)) {
+            stop("At the moment it is only supported to use either weights ",
+                 "for all components or none.")
+          }
+          for (i in which(componentsHts)) {
+            weights_ts[[i]] <- ts(
+              rowSums(components[[i]]$weights),
+              start = start(components[[i]]$weights[, 1]),
+              end = end(components[[i]]$weights[, 1]),
+              frequency = frequency(components[[i]]$weights[, 1]))
+          }
+        }
+      }
+      if (!is.list(weights) & !is.null(weights)) {
+        for (i in which(!componentsHts)) {
+          weights_ts[[i]] <- ts(weights[i], start = start(components[[i]]$ts),
+                                end = end(components[[i]]$ts),
+                                frequency = frequency(components[[i]]$ts))
+          weights_ts[[i]] <- ts(
+            c(weights_ts[[i]],
+              rep(tail(weights_ts[[i]], 1), 4 * frequency(components[[i]]$ts))),
+            start = start(components[[i]]$ts),
+            frequency = frequency(components[[i]]$ts)
+          )
+        }
+      }
+
       private$check_classes(components)
       names(components) <- private$coerce_component_names(components)
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
-      private$ts_internal <- private$aggregate(components)
-      private$userdefined <- userdefined
-      private$spec <- spec
+      if ("mts" %in% class(weights)) {
+        weights_ts <- weights
+      } else {
+        if (length(weights_ts) == 0 && !is.list(weights)) {
+          weights_ts <- NULL
+        } else if (length(weights_ts) == 0 && is.list(weights)) {
+          weights_ts <- do.call("cbind", weights)
+          colnames(weights_ts) <- names(components)
+        }else{
+          weights_ts <- do.call("cbind", weights_ts)
+          colnames(weights_ts) <- names(components)
+        }
+      }
+      self$weights <- weights_ts
+      private$ts_internal <- private$aggregate(components, self$weights)
+      super$set_options(userdefined = userdefined, spec = spec)
     },
     run = function(...) {
       ## indirect
@@ -83,51 +181,105 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$run_direct(self$ts)
     },
     components = NULL,
+    weights = NULL,
+    indirect = NA,
     print = function() {
       tbl <- private$print_table()
       if (all(!tbl$run))
         tbl <- tbl[, 1:3]
       print(tbl, right = FALSE, row.names = FALSE)
+    },
+    set_options = function(userdefined = NA, spec = NA, recursive = TRUE,
+                           component = "") {
+      if (component != "") {
+        root <- self$get_component(component)
+        return(root$set_options(userdefined, spec, recursive))
+      }
+      super$set_options(userdefined, spec, recursive)
+      if (recursive)
+        lapply(self$components, function(x) {
+          x$set_options(userdefined, spec, recursive)
+        })
+      invisible(NULL)
+    },
+    iterate = function(fun, as_table = FALSE, component = "", unnest = FALSE) {
+      if (component != "") {
+        root <- self$get_component(component)
+        return(root$iterate(fun, as_table))
+      }
+      comp <- lapply(
+        self$components,
+        function(component) {
+          component$iterate(fun)
+        }
+      )
+
+      res <- c(super$iterate(fun), comp)
+      private$convert_list(res, as_table, unnest)
+    },
+    get_component = function(component_id) {
+      if (length(component_id) == 0 || component_id == "")
+        return(self)
+      component_path <- strsplit(component_id, "/")[[1]]
+      direct_child <- component_path[1]
+      if (length(component_path) == 1)
+        return(self$components[[direct_child]])
+      rest <- paste(component_path[-1], collapse = "/")
+      self$components[[direct_child]]$get_component(rest)
+    },
+    generate_qr_table = function(component = "") {
+      self$iterate(generateQrList, as_table = TRUE, component = component)
     }
   ),
   active = list(
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
-      tss <- lapply(self$components, function(component) {
-        component$adjusted
-      })
-      private$aggregate_ts(tss)
+      private$aggregate(self$components, self$weights,
+                        which = "adjusted_indirect")
+    },
+    adjusted = function() {
+      if (is.na(self$indirect)) {
+        warning("The decision between direct and indirect adjustment was not recoreded yet.
+                Direct adjustment is returned.")
+      } else if (self$indirect) {
+        return(private$adjusted_indirect_one_step())
+      }
+      return(self$adjusted_direct)
+    },
+    forecasts = function(){
+      if (is.na(self$indirect)){
+        warning("The decision between direct and indirect adjustment was not recoreded yet.
+                Direct forecasts are returned.")
+      }else if(self$indirect){
+        return(private$forecasts_indirect_one_step())
+      }
+      return(self$forecasts_direct)
+    },
+    forecasts_indirect = function(){
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "forecasts_indirect")
     }
   ),
   private = list(
+    forecasts_indirect_one_step = function() {
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "forecasts")
+    },
+    adjusted_indirect_one_step = function() {
+      if (is.null(self$output))
+        return(NULL)
+      private$aggregate(self$components, self$weights, which = "adjusted")
+    },
     check_classes = function(components) {
       lapply(components, function(component) {
         stopifnot(is.persephone(component))
       })
     },
-    print_table = function(prefix = "") {
-      comp <- do.call(rbind, lapply(
-        seq_along(self$components),
-        function(i) {
-          name <- names(self$components)[[i]]
-          component <- self$components[[i]]
-          component$.__enclos_env__$private$print_table(
-            prefix = paste0(prefix, "/", name)
-          )
-        }
-      ))
-      rbind(
-        cbind(
-          data.frame(
-            component = gsub("^/", "", prefix),
-            class = private$model,
-            run = !is.null(self$output)
-          ),
-          printDiagnostics(self)
-        ),
-        comp
-      )
+    print_table = function() {
+      self$iterate(printDiagnostics, as_table = TRUE)
     },
     check_time_instances = function(components) {
       tsps <- lapply(components, function(component) {
@@ -137,18 +289,66 @@ hierarchicalTimeSeries <- R6::R6Class(
         stop("All components need to have the same time instances")
       tsps[[1]]
     },
-    aggregate = function(components) {
+    aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
-        component$ts
+         if (which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
+           return(component[["adjusted"]])
+         }
+         if (which == "forecasts_indirect" & "persephoneSingle" %in% class(component)){
+           return(component[["forecasts"]])
+         }
+        component[[which]]
       })
-      private$aggregate_ts(tss)
-    },
-    aggregate_ts = function(ts_vec) {
-      sum <- 0
-      for (ts in ts_vec) {
-        sum <- sum + ts
+      weights_ts <- NULL
+      if (!is.null(weights)){
+        weights_ts <- lapply(tss, function(x) {
+          x <- x * 0 + 1
+          x[is.na(x)] <- 1
+        })
+        for (i in seq_along(tss)){
+          if (startEndAsDecimal(end(weights[,i]))<startEndAsDecimal(end(tss[[i]]))){
+            weights_ts[[i]] <- ts(tail(weights[,i],1),start = start(tss[[i]]),
+            end = end(tss[[i]]), frequency = frequency(tss[[i]]))
+          } else {
+            weights_ts[[i]] <- window(weights[,i], start = start(tss[[i]]),
+                                      end = end(tss[[i]]))
+          }
+        }
       }
-      sum
+      out <- private$aggregate_ts(tss, weights_ts)
+      return(out)
+    },
+    aggregate_ts = function(ts_vec, weights_ts) {
+      if(!"mts"%in%class(ts_vec[[1]])) {
+        return(private$aggregate_ts0(ts_vec, weights_ts))
+      }
+      # TODO: Maybe a do.call on 4 lapplys is not the easiest option here
+      out <- do.call("cbind",lapply(
+        lapply(1:ncol(ts_vec[[1]]), function(ind) lapply(ts_vec, function(x) x[,ind])),
+        private$aggregate_ts0,
+                             weights_ts = weights_ts))
+      colnames(out) <- colnames(ts_vec[[1]])
+      return(out)
+    },
+    aggregate_ts0 = function(ts_vec, weights_ts) {
+      if(length(ts_vec) == 1){
+        return(ts_vec[[1]])
+      }
+      if(!is.null(weights_ts)) {
+        ts_vec <- do.call("cbind", ts_vec)
+        weights_ts <- do.call("cbind", weights_ts)
+        out <- ts_vec[,1] * 0
+        for(i in 1:nrow(ts_vec)){
+          out[i] <- weighted.mean(ts_vec[i, ], weights_ts[i, ])
+        }
+      } else {
+        ts_vecX <- do.call("cbind", ts_vec)
+        out <- ts(rowSums(ts_vecX),
+                  start = start(ts_vecX),
+                  frequency = frequency(ts_vecX))
+
+      }
+      return(out)
     },
     coerce_component_names = function(components) {
       lapply(seq_along(components), function(i) {
@@ -159,24 +359,30 @@ hierarchicalTimeSeries <- R6::R6Class(
           stop("all components in 'hierarchicalTimeSeries' must be named")
       })
     },
-    tsp_internal = NULL,
-    model = NULL,
+    method = NULL,
     spec = NULL,
     run_direct = function(ts) {
-      modelFunction <- switch(private$model, tramoseats = tramoseats, x13 = x13)
-      if (is.null(private$spec))
-        private$spec <- switch(private$model, tramoseats = tramoseats_spec(),
-                               x13 = x13_spec())
-      private$output_internal <- modelFunction(
+      methodFunction <- switch(private$method, tramoseats = tramoseats,
+                               x13 = x13)
+      if (is.null(self$spec))
+        spec <- switch(private$method, tramoseats = tramoseats_spec(),
+                       x13 = x13_spec())
+      else
+        spec <- self$spec
+      private$output_internal <- methodFunction(
         ts,
-        spec = private$spec,
-        userdefined = union(private$userdefined, userdefined_default)
+        spec = spec,
+        userdefined = private$userdefined
       )
     }
   )
 )
 
-#' @rdname hierarchicalTimeSeries
 #' @usage NULL
 #' @export
 per_hts <- hierarchicalTimeSeries$new
+
+
+startEndAsDecimal <- function(x){
+  x[1] + (x[2] - 1) / 12
+}

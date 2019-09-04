@@ -25,22 +25,24 @@ time series adjustments with the java library [JDemetra+]
 
 ## Installation
 
-You can install the package directly from GitHub with
 
 ``` r
+# install the package from GitHub
 devtools::install_github("statistikat/persephone")
+
+# optional: also install vignettes (needs prettydoc)
+devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
 ## Usage
 
-Objects can be constructed with `x13Single$new` or `tramoseatsSingle$new`. Subseqentually, 
+Objects can be constructed with `per_x13` or `per_tramo`. Subseqentually, 
 the `run` method runs the model and `output` gives access to the output object from 
 `RJDemetra`. 
 
 ```{r, message = FALSE}
 library(persephone)
-
-obj <- x13Single$new(AirPassengers)
+obj <- per_x13(AirPassengers)
 plot(obj)
 ```
 
@@ -55,11 +57,15 @@ obj$output$regarima
 
 More information can be found on the [github-pages site] for persephone.
 
-* The [plotting vignette] contains examples of interactive plots 
-* An overview of the package is available in the [useR!2019 slides]
+* An overview of the package is available in the [useR!2019 slides].
+* The [plotting vignette] contains examples of interactive plots htat can be
+  created with `persephone`.
+* More information about hierarchical time series can be found in the
+  [hierarchical timeseries vignette].
 
 [RJDemetra]: https://github.com/nbbrd/rjdemetra
 [JDemetra+]: https://github.com/jdemetra
 [github-pages site]: https://statistikat.github.io/persephone/
-[useR!2019 slides]: https://statistikat.github.io/persephone/articles/presentation_useR.pdf
-[plotting vignette]: https://statistikat.github.io/persephone/articles/plotting.html
+[useR!2019 slides]: https://statistikat.github.io/persephone/articles/persephone-useR.pdf
+[plotting vignette]: https://statistikat.github.io/persephone/articles/persephone-plotting.html
+[hierarchical timeseries vignette]: https://statistikat.github.io/persephone/articles/persephone-hierarchical.html

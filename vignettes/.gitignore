@@ -3,5 +3,6 @@
 *.log
 *.tex
 *.gz
-presentation_useR.pdf
+persephone-useR.pdf
+persephone-saceWorkshop.pdf
 *_files

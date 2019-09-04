@@ -18,22 +18,23 @@ series adjustments with the java library
 
 ## Installation
 
-You can install the package directly from GitHub with
-
 ``` r
+# install the package from GitHub
 devtools::install_github("statistikat/persephone")
+
+# optional: also install vignettes (needs prettydoc)
+devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
 ## Usage
 
-Objects can be constructed with `x13Single$new` or
-`tramoseatsSingle$new`. Subseqentually, the `run` method runs the model
-and `output` gives access to the output object from `RJDemetra`.
+Objects can be constructed with `per_x13` or `per_tramo`.
+Subseqentually, the `run` method runs the model and `output` gives
+access to the output object from `RJDemetra`.
 
 ``` r
 library(persephone)
-
-obj <- x13Single$new(AirPassengers)
+obj <- per_x13(AirPassengers)
 plot(obj)
 ```
 
@@ -71,8 +72,12 @@ obj$output$regarima
 More information can be found on the [github-pages
 site](https://statistikat.github.io/persephone/) for persephone.
 
-  - The [plotting
-    vignette](https://statistikat.github.io/persephone/articles/plotting.html)
-    contains examples of interactive plots
   - An overview of the package is available in the [useR\!2019
-    slides](https://statistikat.github.io/persephone/articles/presentation_useR.pdf)
+    slides](https://statistikat.github.io/persephone/articles/persephone-useR.pdf).
+  - The [plotting
+    vignette](https://statistikat.github.io/persephone/articles/persephone-plotting.html)
+    contains examples of interactive plots htat can be created with
+    `persephone`.
+  - More information about hierarchical time series can be found in the
+    [hierarchical timeseries
+    vignette](https://statistikat.github.io/persephone/articles/persephone-hierarchical.html).

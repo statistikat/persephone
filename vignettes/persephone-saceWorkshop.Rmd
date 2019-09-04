@@ -1,0 +1,91 @@
+---
+title: "Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra"
+author: "Angelika Meraner, Gregor de Cillia, Alexander Kowarik"
+date: "`r Sys.Date()`"
+output: 
+ bookdown::pdf_document2:
+  fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+The R-package **persephone** was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
+It builds on top of **RJDemetra** (\url{https://github.com/jdemetra/rjdemetra}), an R interface to JDemetra+ (https://github.com/jdemetra), and provides analytical tools such as interactive plots to support the SA expert. 
+The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
+Furthermore it supports hierarchical time series and should enable future incorporation of diagnostics for direct vs indirect adjustment.
+
+# Installation
+
+The package can be installed from GitHub via 
+
+```{r installation, eval = FALSE}
+devtools::install_github("statistikat/persephone")
+```
+
+Optionally it can be installed including vignettes (needs prettydoc):
+
+```{r installation2, eval = FALSE}
+devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
+```
+
+
+# Getting Started: Constructing Persephone Objects
+
+Load the package:
+
+```{r}
+library(persephone)
+```
+
+An object of class `persephone` can be constructed for only one or for multiple (hierarchical) time series objects. 
+Depending on whether seasonal adjusment should performed with X-13 or with TRAMO-SEATS,
+'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
+Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
+Batch objects without a hierarchy at not supported at the moment but will be in the near future.
+
+`persephone` objects call the functions of **RJDemetra** in the background, so for documentation
+on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
+
+## Persephone Single Objects
+
+Univariate persephone objects are created with `per_x13()` or `per_tramo()` from univariate time series objects 
+such as the `AirPassengers` dataset.
+A predefined JDemetra+ model specification has to be provided by the user, in this example we use `"RSA3"` 
+(Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
+
+
+```{r}
+data(AirPassengers, package = "datasets")
+obj_x13 <- per_x13(AirPassengers, "RSA3")
+```
+
+Now, different methods can be called for the persephone object `obj_x13`.
+The `run()` method runs the model and `output` gives access to the original output object from 
+**RJDemetra**. Without a run, most methods for the object will not work since no results are available then. 
+
+```{r}
+obj_x13$run()
+obj_x13$output$regarima
+```
+
+Several plot methods have been implemented. The default S3 generic `plot()` for example 
+shows the time series with the `dygraphs` package. The result is a zoomable representation of the series, 
+see Figure \@ref(fig:plotmethod)
+
+
+```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '100%'}
+knitr::include_graphics("resources/plot.png")
+```
+
+## Persephone Hierarchical Objects
+
+
+# References

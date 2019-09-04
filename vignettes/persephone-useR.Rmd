@@ -8,9 +8,10 @@ pkgdown:
   as_is: true
   extension: pdf
 vignette: >
-  %\VignetteIndexEntry{presentation of persephone on useR!2019}
+  %\VignetteIndexEntry{Presentation of persephone on useR!2019}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+\setkeys{Gin}{width=\textwidth,height=\textheight,keepaspectratio}
 \includepdf[pages=-, fitpaper=true]{resources/slides_useR.pdf}
