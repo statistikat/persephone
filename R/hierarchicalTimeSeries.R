@@ -290,12 +290,12 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
-        if (which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
-          return(component[["adjusted"]])
-        }
-        if (which == "forecasts_indirect" & "persephoneSingle" %in% class(component)){
-          return(component[["forecasts"]])
-        }
+         if (which == "adjusted_indirect" & "persephoneSingle" %in% class(component)){
+           return(component[["adjusted"]])
+         }
+         if (which == "forecasts_indirect" & "persephoneSingle" %in% class(component)){
+           return(component[["forecasts"]])
+         }
         component[[which]]
       })
       weights_ts <- NULL
@@ -315,15 +315,19 @@ hierarchicalTimeSeries <- R6::R6Class(
         }
       }
       out <- private$aggregate_ts(tss, weights_ts)
-      colnames(out) <- colnames(tss[[1]])
       return(out)
     },
     aggregate_ts = function(ts_vec, weights_ts) {
-      if(!"mts"%in%class(ts_vec)) {
+      if(!"mts"%in%class(ts_vec[[1]])) {
         return(private$aggregate_ts0(ts_vec, weights_ts))
       }
-      do.call("cbind",lapply(ts_vec, private$aggregate_ts0,
+      # TODO: Maybe a do.call on 4 lapplys is not the easiest option here
+      out <- do.call("cbind",lapply(
+        lapply(1:ncol(ts_vec[[1]]), function(ind) lapply(ts_vec, function(x) x[,ind])),
+        private$aggregate_ts0,
                              weights_ts = weights_ts))
+      colnames(out) <- colnames(ts_vec[[1]])
+      return(out)
     },
     aggregate_ts0 = function(ts_vec, weights_ts) {
       if(length(ts_vec) == 1){
