@@ -22,23 +22,23 @@
 #'
 #'
 #' @examples
-#' hdAT <- genTD(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
+#' \dontrun{
+#' hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
 #'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
 #'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"))
-#' hdAT1 <- genTD(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
+#' hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
 #'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
 #'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"),
 #'                         weight = c(rep(1,11),0.6,rep(1,2),0.6))
 #' myspec1 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "None",
 #'                         usrdef.varEnabled = TRUE, usrdef.var = dhAT1[[3]][,1:6])
 #' myspec1$regarima
-#'
+#' }
 #' @importFrom stats ts
 #' @importFrom timeDate listHolidays Easter
 #' @importFrom zoo as.yearmon
 #' @export
-
-genTD <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
+genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
   preDef <- listHolidays()
