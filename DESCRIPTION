@@ -36,5 +36,6 @@ Suggests:
     rmarkdown,
     prettydoc,
     testthat (>= 2.1.0),
-    forecast
+    forecast,
+    bookdown
 VignetteBuilder: knitr
