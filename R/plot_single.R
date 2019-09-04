@@ -37,7 +37,6 @@
 #' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
 #' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph
 #'   dyHighlight dyAnnotation dyPlotter dyEvent
-#' @importFrom stringr str_pad
 #' @import ggplot2
 #' @export
 plot.persephoneSingle <- function(
@@ -51,14 +50,14 @@ plot.persephoneSingle <- function(
       annCompLab <- month.abb[annualComparison]
       #annCompLab <- month.name[annualComparison]
       annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
-                           str_pad(annualComparison, 2, "left", "0"),
+                           stringfix(annualComparison, 2, "0"),
                            "-01")
     }else if (frequency(ts) == 4) {
       annCompLab <- paste0("Q", annualComparison)
       #annCompLab <- paste0(annualComparison,". Quarter")
       annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
-                           str_pad(c(1, 4, 7, 10)[annualComparison],
-                                   2, "left", "0"), "-01")
+                           stringfix(c(1, 4, 7, 10)[annualComparison],
+                                   2, "0"), "-01")
     }
     return(list(annCompVec = annCompVec, annCompLab = annCompLab))
 
@@ -149,7 +148,7 @@ plot.persephoneSingle <- function(
       if (frequency(x$ts) == 12) {
         outliers <- sapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
                           function(y) paste0(
-                            y[[2]], "-", str_pad(y[[1]], 2, "left", "0"), "-01")
+                            y[[2]], "-", stringfix(y[[1]], 2, "0"), "-01")
         )
       }else{
         outliers <- sapply(
@@ -159,8 +158,8 @@ plot.persephoneSingle <- function(
           ),
           function(y) paste0(
             y[[2]], "-",
-            str_pad(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
-                    2, "left", "0"), "-01"))
+            stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
+                    2, "0"), "-01"))
       }
 
       for (i in 1:length(outliers)) {
@@ -216,4 +215,15 @@ plot.persephoneSingle <- function(
       annualComparison = annualComparison
     )
   }
+}
+stringfix <- function (x, l, fill = " ")
+{
+  x <- sapply(x, function(x) {
+    if (is.na(x)) {
+      return("")
+    }
+    paste0(paste0(rep(fill, l - nchar(x)), collapse = ""),
+           x)
+  })
+  return(x)
 }

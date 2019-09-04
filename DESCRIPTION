@@ -17,7 +17,6 @@ Imports:
     RJDemetra (>= 0.1.1),
     dygraphs,
     plotly,
-    stringr,
     ggplot2,
     scales,
     data.table,

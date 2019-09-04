@@ -96,7 +96,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     result <- data.frame(
       date = paste0(c(floor(time(result) + .01)), "-",
-                    str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
+                    stringfix(c(cycle(result)), 2, "0"), "-01"),
       x = c(result))
 
     p <- ggplot(result,  aes(x = x)) + ## ,stat(density)
@@ -120,7 +120,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
     result <- regarima$residuals / regarima$residuals.stat$st.error
     result <- data.frame(date = paste0(
       c(floor(time(result) + .01)), "-",
-      str_pad(c(cycle(result)), 2, "left", "0"), "-01"),
+      stringfix(c(cycle(result)), 2, "0"), "-01"),
       y = c(result))
 
     p <- ggplot(result, aes(sample = y)) +

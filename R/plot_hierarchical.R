@@ -60,7 +60,6 @@
 #' @importFrom stats time cycle dnorm frequency lag acf qnorm pacf
 #' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph
 #'   dyHighlight dyAnnotation dyPlotter dyEvent
-#' @importFrom stringr str_pad
 #' @import ggplot2
 #' @export
 plot.hierarchicalTimeSeries <- function(x, main=NULL,
@@ -75,14 +74,14 @@ plot.hierarchicalTimeSeries <- function(x, main=NULL,
       annCompLab <- month.abb[annualComparison]
       #annCompLab <- month.name[annualComparison]
       annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
-                           str_pad(annualComparison, 2, "left", "0"),
+                           stringfix(annualComparison, 2, "0"),
                            "-01")
     }else if (frequency(ts) == 4) {
       annCompLab <- paste0("Q", annualComparison)
       #annCompLab <- paste0(annualComparison,". Quarter")
       annCompVec <- paste0(substr(annCompVec, 1, 4), "-",
-                           str_pad(c(1, 4, 7, 10)[annualComparison],
-                                   2, "left", "0"), "-01")
+                           stringfix(c(1, 4, 7, 10)[annualComparison],
+                                   2, "0"), "-01")
     }
     return(list(annCompVec = annCompVec, annCompLab = annCompLab))
 
