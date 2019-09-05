@@ -160,10 +160,15 @@ hierarchicalTimeSeries <- R6::R6Class(
       } else if (length(weights_ts) == 0 && is.list(weights)) {
         weights_ts <- do.call("cbind", weights)
         colnames(weights_ts) <- names(components)
+      }else if (length(weights_ts) > 0 && is.list(weights)){
+        weights_ts[!componentsHts] <- weights
+        weights_ts <- do.call("cbind", weights_ts)
+        colnames(weights_ts) <- names(components)
       }else{
         weights_ts <- do.call("cbind", weights_ts)
         colnames(weights_ts) <- names(components)
       }
+
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)
       super$set_options(userdefined = userdefined, spec = spec)
