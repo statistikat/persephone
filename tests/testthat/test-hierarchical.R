@@ -34,16 +34,6 @@ test_that("incompatible time instances", {
   )
 })
 
-context("object run by reference")
-
-test_that("object run by reference", {
-  obj_x13 <- per_x13(AirPassengers, "RSA3")
-  ht <- per_hts(a = obj_x13)
-  expect_true(is.null(obj_x13$adjusted_direct))
-  ht$run()
-  expect_s3_class(obj_x13$adjusted_direct, "ts")
-})
-
 context("hierarchical misc")
 
 test_that("hierarchical generics", {
