@@ -345,7 +345,7 @@ test_that("output of indirect and direct and option in indirect", {
 
 })
 
-test_that("output of indirect and direct and option in indirect", {
+test_that("PI time-invariant weights", {
 ## ------------------------------------------------------------------------
   data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
   pi_caladj <- pi_caladj[ , -c(1:2)]
@@ -364,4 +364,32 @@ test_that("output of indirect and direct and option in indirect", {
   hts_EU28b <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
   expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
 
+})
+
+
+
+test_that("PI time-variant weights", {
+  data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
+  pi_caladj <- pi_caladj[ , -c(1:2)]
+  ts_28 <- lapply(pi_caladj, per_x13)
+  weights_pi_eu28_time <- do.call("c", apply(weights_pi_eu28,1, function(x){
+    l <-  list(ts(rlnorm(nrow(pi_caladj))/5 + as.numeric(x[2]),
+                  start = start(pi_caladj),
+                  end = end(pi_caladj),
+                  frequency = frequency(pi_caladj)))
+    names(l) <- x[1]
+    return(l)
+  }))
+  non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+  w_EA19 <- weights_pi_eu28_time[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
+  w_non_EA19 <- weights_pi_eu28_time[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+
+  hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+  # Mit zwischen Aggregat
+  hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
+  hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
+
+  #Ohne zwischen Aggregat
+  hts_EU28b <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
+  expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
 })
