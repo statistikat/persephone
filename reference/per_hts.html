@@ -136,7 +136,7 @@ The resulting time series can perform direct and indirect adjustments." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Define a hierarchical time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/hierarchicalTimeSeries.R'><code>R/hierarchicalTimeSeries.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/per_hts.R'><code>R/per_hts.R</code></a></small>
     <div class="hidden name"><code>per_hts.Rd</code></div>
     </div>
 
@@ -170,8 +170,8 @@ argument can also handle <code>mts objects</code></p></li>
 if the same weight is used for all time points or a list of ts objects or a
 mts object if the weight varies for different time points. They must have
 the same length as the number of components.</p></li>
-<li><p><code>method</code> specifies the method to be used for the direct adjustment of the aggregate
-series. tramoseats or x13</p></li>
+<li><p><code>method</code> specifies the method to be used for the direct adjustment of the
+aggregate series. tramoseats or x13</p></li>
 <li><p><code>userdefined</code> is passed as the userdefined argument to <code>tramoseats()</code> or
 <code>x13()</code></p></li>
 <li><p><code>spec</code> a model specification returned by <code>x13_spec()</code> or
