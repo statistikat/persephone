@@ -20,9 +20,13 @@ per_hts(..., method = c("tramoseats", "x13"),
         userdefined = NULL, spec = NULL)
 }
 \itemize{
-\item \code{...} should contain one or more \code{persephone} objects that use the same
-time instances. All elements supplied here must be named.
-\item \code{list} a list of \code{persephone} objects as alternative input to \code{...}.
+\item \code{...} should contain one or more objects which are either of class
+\code{persephone} or can be coerced to \code{persephone} objects with
+\code{as_persephone}. If more than one element is supplied, the underlying
+time series must have the same time instances. All elements supplied
+in \code{...} must be named.
+\item \code{list} a list of \code{persephone} objects as alternative input to \code{...}. This
+argument can also handle \code{mts objects}
 \item \code{weights} either a vector
 if the same weight is used for all time points or a list of ts objects or a
 mts object if the weight varies for different time points. They must have
@@ -75,15 +79,12 @@ ht2$adjusted_indirect
 data(ipi_c_eu, package = "RJDemetra")
 # Reducing the data set to the EU28 countries
 ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
-# We now build persephone objects for the countries
-# (the lowest level in the hierachy)
-ts_28 <- lapply(ipi_eu, per_tramo)
 
 # We want to add an extra layer and split the EU28 countries in two groups
-ht_half_europe_1  <- per_hts(list = ts_28[1:14], method = "tramoseats")
+ht_half_europe_1  <- per_hts(list = ipi_eu[, 1:14], method = "tramoseats")
 
 # Alternative way to use do.call
-ht_half_europe_2 <- do.call(per_hts, ts_28[15:28])
+ht_half_europe_2 <- do.call(per_hts, ipi_eu[, 15:28])
 
 # Now we generate the object for EU28
 ht_europe <- per_hts(

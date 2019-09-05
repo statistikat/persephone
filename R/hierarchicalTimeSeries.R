@@ -12,9 +12,13 @@
 #' per_hts(..., method = c("tramoseats", "x13"),
 #'         userdefined = NULL, spec = NULL)
 #' }
-#' - `...` should contain one or more `persephone` objects that use the same
-#'   time instances. All elements supplied here must be named.
-#' - `list` a list of `persephone` objects as alternative input to `...`.
+#' - `...` should contain one or more objects which are either of class
+#'   `persephone` or can be coerced to `persephone` objects with
+#'   `as_persephone`. If more than one element is supplied, the underlying
+#'   time series must have the same time instances. All elements supplied
+#'   in `...` must be named.
+#' - `list` a list of `persephone` objects as alternative input to `...`. This
+#'   argument can also handle `mts objects`
 #' - `weights` either a vector
 #' if the same weight is used for all time points or a list of ts objects or a
 #' mts object if the weight varies for different time points. They must have
@@ -58,15 +62,12 @@
 #' data(ipi_c_eu, package = "RJDemetra")
 #' # Reducing the data set to the EU28 countries
 #' ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
-#' # We now build persephone objects for the countries
-#' # (the lowest level in the hierachy)
-#' ts_28 <- lapply(ipi_eu, per_tramo)
 #'
 #' # We want to add an extra layer and split the EU28 countries in two groups
-#' ht_half_europe_1  <- per_hts(list = ts_28[1:14], method = "tramoseats")
+#' ht_half_europe_1  <- per_hts(list = ipi_eu[, 1:14], method = "tramoseats")
 #'
 #' # Alternative way to use do.call
-#' ht_half_europe_2 <- do.call(per_hts, ts_28[15:28])
+#' ht_half_europe_2 <- do.call(per_hts, ipi_eu[, 15:28])
 #'
 #' # Now we generate the object for EU28
 #' ht_europe <- per_hts(
@@ -110,6 +111,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       } else {
         components <- list(...)
       }
+      components <- lapply(components, as.persephone)
       componentsHts <- sapply(
         components,
         function(x) "hierarchicalTimeSeries" %in% class(x))
