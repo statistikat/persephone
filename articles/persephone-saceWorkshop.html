@@ -98,7 +98,7 @@
       <h1>Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra</h1>
                         <h4 class="author">Angelika Meraner, Gregor de Cillia, Alexander Kowarik</h4>
             
-            <h4 class="date">2019-09-04</h4>
+            <h4 class="date">2019-09-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statistikat/persephone/blob/master/vignettes/persephone-saceWorkshop.Rmd"><code>vignettes/persephone-saceWorkshop.Rmd</code></a></small>
       <div class="hidden name"><code>persephone-saceWorkshop.Rmd</code></div>
@@ -240,8 +240,12 @@
 <a class="sourceLine" id="cb20-2" data-line-number="2">w_non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>weight[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
 <a class="sourceLine" id="cb20-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb20-4" data-line-number="4">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>, <span class="dt">weights=</span>w_EA19)</a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co"># hts_EU28 &lt;- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]), weights = c(??,w_non_EA19))</span></a></code></pre></div>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co"># Mit zwischen Aggregat</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#hts_non_EA19 &lt;- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#hts_EU28 &lt;- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#Ohne zwischen Aggregat</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">EA19 =</span> hts_EA19),ts_<span class="dv">28</span>[non_EA19]), <span class="dt">weights =</span> w_non_EA19)</a></code></pre></div>
 <p>We can have a look at the weights of an object by accessing the weights-slot:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(hts_EA19<span class="op">$</span>weights)</a></code></pre></div>
 <pre><code>##         BE     DE   EE    IE    EL    ES     FR     IT    CY    LT    LV
