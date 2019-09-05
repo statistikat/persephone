@@ -192,8 +192,12 @@ w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_e
 w_non_EA19 <- weights_pi_eu28$weight[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
 
 hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+# Mit zwischen Aggregat
+#hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
+#hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
 
-# hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]), weights = c(??,w_non_EA19))
+#Ohne zwischen Aggregat
+hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
 
 We can have a look at the weights of an object by accessing the weights-slot:
