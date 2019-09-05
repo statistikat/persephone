@@ -153,17 +153,16 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$tsp_internal <- private$check_time_instances(components)
       self$components <- components
       if ("mts" %in% class(weights)) {
-        weights_ts <- weights
-      } else {
-        if (length(weights_ts) == 0 && !is.list(weights)) {
-          weights_ts <- NULL
-        } else if (length(weights_ts) == 0 && is.list(weights)) {
-          weights_ts <- do.call("cbind", weights)
-          colnames(weights_ts) <- names(components)
-        }else{
-          weights_ts <- do.call("cbind", weights_ts)
-          colnames(weights_ts) <- names(components)
-        }
+        weights_ts[!componentsHts] <- as.list(weights)
+      }
+      if (length(weights_ts) == 0 && !is.list(weights)) {
+        weights_ts <- NULL
+      } else if (length(weights_ts) == 0 && is.list(weights)) {
+        weights_ts <- do.call("cbind", weights)
+        colnames(weights_ts) <- names(components)
+      }else{
+        weights_ts <- do.call("cbind", weights_ts)
+        colnames(weights_ts) <- names(components)
       }
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)

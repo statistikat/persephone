@@ -343,3 +343,24 @@ test_that("output of indirect and direct and option in indirect", {
                         check.attributes = FALSE))
 
 })
+
+test_that("output of indirect and direct and option in indirect", {
+## ------------------------------------------------------------------------
+  data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
+  pi_caladj <- pi_caladj[ , -c(1:2)]
+  ts_28 <- lapply(pi_caladj, per_x13)
+  non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+  w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
+  w_non_EA19 <- weights_pi_eu28$weight[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+
+  hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+# Mit zwischen Aggregat
+  hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
+  hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
+
+#Ohne zwischen Aggregat
+  hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+  hts_EU28b <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
+  expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
+
+})
