@@ -217,7 +217,27 @@ head(hts_EA19$weights)
 
 We do not have a real example for time-variant weights which is why we generate artificial ones
 for our example:
+```{r}
+weights_pi_eu28_time <- do.call("c", apply(weights_pi_eu28,1, function(x){
+   l <-  list(ts(rlnorm(nrow(pi_caladj))/5 + as.numeric(x[2]),start = start(pi_caladj),
+                 end = end(pi_caladj),
+                 frequency = frequency(pi_caladj)))
+   names(l) <- x[1]
+   return(l)
+   }))
 
+w_EA19 <- weights_pi_eu28_time[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
+w_non_EA19 <- weights_pi_eu28_time[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
+
+hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+# Mit zwischen Aggregat
+#hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
+#hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
+
+#Ohne zwischen Aggregat
+hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
+
+```
 
 # References
 
