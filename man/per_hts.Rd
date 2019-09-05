@@ -84,7 +84,7 @@ ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
 ht_half_europe_1  <- per_hts(list = ipi_eu[, 1:14], method = "tramoseats")
 
 # Alternative way to use do.call
-ht_half_europe_2 <- do.call(per_hts, ipi_eu[, 15:28])
+ht_half_europe_2 <- do.call(per_hts, as.list(ipi_eu[, 15:28]))
 
 # Now we generate the object for EU28
 ht_europe <- per_hts(

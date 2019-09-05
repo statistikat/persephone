@@ -33,7 +33,8 @@
 #' - `verbose`: should the output from the underlying RJDemetra function be
 #'   displayed after the
 #'   run? If `FALSE` (the default), the output will be returned invisibly.
-#' @seealso [per_x13()], [per_tramo()]
+#' @section derived classes:
+#' [per_x13()], [per_tramo()], [per_hts()]
 #' @name persephone
 #' @import RJDemetra
 NULL
