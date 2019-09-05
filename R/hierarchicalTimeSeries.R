@@ -122,7 +122,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       }
       weights_ts <- list()
       if (any(componentsHts)) {
-        weightsNull <- sapply(components, function(x)is.null(x$weights))
+        weightsNull <- sapply(components[componentsHts], function(x)is.null(x$weights))
         if (any(!weightsNull)) {
           if (any(weightsNull)) {
             stop("At the moment it is only supported to use either weights ",
@@ -136,18 +136,15 @@ hierarchicalTimeSeries <- R6::R6Class(
               frequency = frequency(components[[i]]$weights[, 1]))
           }
         }
+
       }
       if (!is.list(weights) & !is.null(weights)) {
-        for (i in which(!componentsHts)) {
-          weights_ts[[i]] <- ts(weights[i], start = start(components[[i]]$ts),
-                                end = end(components[[i]]$ts),
-                                frequency = frequency(components[[i]]$ts))
-          weights_ts[[i]] <- ts(
-            c(weights_ts[[i]],
-              rep(tail(weights_ts[[i]], 1), 4 * frequency(components[[i]]$ts))),
-            start = start(components[[i]]$ts),
-            frequency = frequency(components[[i]]$ts)
-          )
+        which_components_not_Hts <- which(!componentsHts)
+        for (i in seq_along(which_components_not_Hts)) {
+          j <- which_components_not_Hts[i]
+          weights_ts[[j]] <- ts(weights[i], start = start(components[[j]]$ts),
+                                end = end(components[[j]]$ts),
+                                frequency = frequency(components[[j]]$ts))
         }
       }
 
