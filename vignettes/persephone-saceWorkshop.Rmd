@@ -30,13 +30,13 @@ The package can be installed from GitHub via
 devtools::install_github("statistikat/persephone")
 ```
 
-Optionally it can be installed including vignettes (needs prettydoc):
+Optionally it can be installed including vignettes (needs prettydoc).
 
 ```{r installation2, eval = FALSE}
 devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
-Load the package:
+Load the package.
 
 ```{r}
 library(persephone)
@@ -81,9 +81,8 @@ shows the time series with the `dygraphs` package. The result is a zoomable repr
 see Figure \@ref(fig:plotmethod).
 
 ```{r , eval=FALSE}
-plot(hts_EU28$components$EA19)
-``
-
+plot(obj_x13)
+```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '100%'}
 knitr::include_graphics("resources/plot.png")
 ```
@@ -91,28 +90,41 @@ knitr::include_graphics("resources/plot.png")
 ## Persephone Hierarchical Objects
 
 Hierarchical persephone objects are created with `per_hts()` after combining several 'single' objects in a list.
-We shall call these 'single' objects components in this multivariate context.
+We shall call these 'single' objects 'components' in this multivariate context.
 
-### Aggregates without Weights
-
-In the example below, we use time series of the volume index of production for total industry (except construction) 
+In the examples below, we use time series of the volume index of production for total industry (except construction) 
 of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through
 June 2019. Some series contain missing values.
 
-Load the package's internal datasets:
+Load the package's internal datasets.
 
 ```{r}
-data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
+data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_ea19)
 ```
 
-We use the calendar and not seasonally adjusted dataset `pi_caladj` for illustrative purposes because it
-does not contain any missing values and we remove the EU-28 and EA-19 (Euro Area) aggregates.
+We use the calendar and not seasonally adjusted data `pi_caladj` for illustrative purposes because it
+only contains one missing value. `weights_pi_ea19` and `weights_pi_ea19` are the datasets containing 
+the weights per country.
+
+We remove the EU-28 and EA-19 (Euro Area) aggregates.
 
 ```{r}
+pi_caladj_orig <- pi_caladj
 pi_caladj <- pi_caladj[ , -c(1:2)]
 ```
 
-For all countries’ time series we want to generate persephone objects with x13 as method.
+We remove the last time instance because of the missing value.
+
+```{r}
+pi_caladj <- window(pi_caladj, end = c(2019, 5))
+```
+
+### Aggregates without Weights
+
+We construct a hierarchical persephone object that does not contain weights and returns aggregate 
+series as the sum of the components.
+
+To get started, we generate persephone objects with x13 as method for all countries’ time series.
 
 ```{r}
 ts_28 <- lapply(pi_caladj, per_x13)
@@ -133,7 +145,7 @@ non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_
 hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]))
 ```
 
-and have a look at it's structure:
+and have a look at it's structure.
 
 ```{r}
 hts_EU28
@@ -145,7 +157,7 @@ We make the first run
 hts_EU28$run()
 ```
 
-and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fertig sein):
+and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fertig sein).
 
 ```{r}
 # summary(hts_EU28)
@@ -187,23 +199,31 @@ The hierarchical persephone object is constructed the same way as in the previou
 with weights, one for each component. Internally, an `mts` object is then created with constant
 weights for all time points.
 
+```{r, echo=FALSE}
+# right now bug in package, this object is overwritten after run of hts object
+ts_28 <- lapply(pi_caladj, per_x13)
+```
+
+We include the weights from the dataset `weights_pi_eu28` in the hierarchical persephone object
+
 ```{r}
 w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
 w_non_EA19 <- weights_pi_eu28$weight[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
 
-hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
-# Mit zwischen Aggregat
-#hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
-#hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
-
-#Ohne zwischen Aggregat
+hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights = w_EA19)
 hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
 
-We can have a look at the weights of an object by accessing the weights-slot:
+and perform a run.
 
 ```{r}
-head(hts_EA19$weights)
+hts_EU28$run()
+```
+
+We can have a look at the weights of an object by accessing the weights-slot.
+
+```{r}
+head(hts_EU28$weights)
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -213,10 +233,28 @@ head(hts_EA19$weights)
 # w_EA19/sum(w_EA19)*100
 ```
 
+We can also show that the EU-28 aggregate series generated by persephone matches the 
+data published by Eurostat apart from certain rounding differences:
+
+```{r}
+# Eurostat EU28-Series
+window(pi_caladj_orig[, "EU28"], start = c(2019,1))
+
+# Persephone EU28-Series
+window(hts_EU28$ts, start = c(2019,1))
+
+# Maximum absolute difference
+max(abs(pi_caladj_orig[, "EU28"] - hts_EU28$ts))
+```
 #### Time-variant weights
 
 We do not have a real example for time-variant weights which is why we generate artificial ones
-for our example:
+for our example.
+
+```{r, echo=FALSE}
+# right now bug in package, this object is overwritten after run of hts object
+ts_28 <- lapply(pi_caladj, per_x13)
+```
 ```{r}
 weights_pi_eu28_time <- do.call("c", apply(weights_pi_eu28,1, function(x){
    l <-  list(ts(rlnorm(nrow(pi_caladj))/5 + as.numeric(x[2]),start = start(pi_caladj),
@@ -225,20 +263,36 @@ weights_pi_eu28_time <- do.call("c", apply(weights_pi_eu28,1, function(x){
    names(l) <- x[1]
    return(l)
    }))
+```
 
+We can then create a hierarchical persephone object as in the previous section
+
+```{r}
 w_EA19 <- weights_pi_eu28_time[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
 w_non_EA19 <- weights_pi_eu28_time[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
 
 hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
-# Mit zwischen Aggregat
-#hts_non_EA19 <- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)
-#hts_EU28 <- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)
-
-#Ohne zwischen Aggregat
 hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
-
 ```
 
-# References
+and perform a run.
+
+```{r}
+hts_EU28$run()
+```
+
+# Eurostat Report
+
+The function `generate_qr_table()` renders a Eurostat quality report in the form of a `data.frame` which can then be exported by the user.
+
+```{r}
+eurostatQR <- generate_qr_table(hts_EU28)
+head(eurostatQR)
+```
+
+The Eurostat QR corresponds to the JD+ plugin version 1, see \url{https://ec.europa.eu/eurostat/cros/content/61-insee-plugin-eurostat-job-vacancy-survey_en},
+with the exception that no overall index of quality is included since it does not seem to be exported by
+**RJDemetra** and is not trivial to reverse engineer.
+
 
 
