@@ -38,7 +38,8 @@
   
 
 <meta property="og:title" content="is.persephone — is.persephone" />
-<meta property="og:description" content="Check if an R object is of or derives from the class persephone" />
+<meta property="og:description" content="Check if an R object is of or derives from the class persephone or convert
+an object to persephone" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -140,23 +141,27 @@
     </div>
 
     <div class="ref-description">
-    <p>Check if an R object is of or derives from the class <code>persephone</code></p>
+    <p>Check if an R object is of or derives from the class <code>persephone</code> or convert
+an object to persephone</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is.persephone</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>is.persephone</span>(<span class='no'>x</span>)
+
+<span class='fu'>as.persephone</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>R object to be tested</p></td>
+      <td><p>R object to be tested or converted.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>is.persephone</span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>is.persephone</span>(<span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>as.persephone</span>(<span class='no'>AirPassengers</span>)
+<span class='no'>obj</span>$<span class='fu'>run</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

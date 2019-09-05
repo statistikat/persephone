@@ -159,9 +159,13 @@ per_hts(..., method = c("tramoseats", "x13"),
         userdefined = NULL, spec = NULL)
 </pre>
 <ul>
-<li><p><code>...</code> should contain one or more <code>persephone</code> objects that use the same
-time instances. All elements supplied here must be named.</p></li>
-<li><p><code>list</code> a list of <code>persephone</code> objects as alternative input to <code>...</code>.</p></li>
+<li><p><code>...</code> should contain one or more objects which are either of class
+<code>persephone</code> or can be coerced to <code>persephone</code> objects with
+<code>as_persephone</code>. If more than one element is supplied, the underlying
+time series must have the same time instances. All elements supplied
+in <code>...</code> must be named.</p></li>
+<li><p><code>list</code> a list of <code>persephone</code> objects as alternative input to <code>...</code>. This
+argument can also handle <code>mts objects</code></p></li>
 <li><p><code>weights</code> either a vector
 if the same weight is used for all time points or a list of ts objects or a
 mts object if the weight varies for different time points. They must have
@@ -312,15 +316,12 @@ options for all entries of the dependency tree recursively if
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ipi_c_eu</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJDemetra"</span>)
 <span class='co'># Reducing the data set to the EU28 countries</span>
 <span class='no'>ipi_eu</span> <span class='kw'>&lt;-</span> <span class='no'>ipi_c_eu</span>[, -<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>32</span>:<span class='fl'>37</span>)]
-<span class='co'># We now build persephone objects for the countries</span>
-<span class='co'># (the lowest level in the hierachy)</span>
-<span class='no'>ts_28</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>ipi_eu</span>, <span class='no'>per_tramo</span>)
 
 <span class='co'># We want to add an extra layer and split the EU28 countries in two groups</span>
-<span class='no'>ht_half_europe_1</span>  <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"tramoseats"</span>)
+<span class='no'>ht_half_europe_1</span>  <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='no'>ipi_eu</span>[, <span class='fl'>1</span>:<span class='fl'>14</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"tramoseats"</span>)
 
 <span class='co'># Alternative way to use do.call</span>
-<span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>15</span>:<span class='fl'>28</span>])
+<span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>ipi_eu</span>[, <span class='fl'>15</span>:<span class='fl'>28</span>]))
 
 <span class='co'># Now we generate the object for EU28</span>
 <span class='no'>ht_europe</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(

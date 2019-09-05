@@ -117,9 +117,9 @@
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>The package can be installed from GitHub via</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>)</a></code></pre></div>
-<p>Optionally it can be installed including vignettes (needs prettydoc):</p>
+<p>Optionally it can be installed including vignettes (needs prettydoc).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"statistikat/persephone"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>Load the package:</p>
+<p>Load the package.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(persephone)</a></code></pre></div>
 </div>
 <div id="constructing-persephone-objects" class="section level1">
@@ -147,8 +147,7 @@
 ## Residual standard error: 0.03672 on 131 degrees of freedom
 ## Log likelihood = 244.7, aic = 987.2 aicc = 987.4, bic(corrected for length) = -6.535</code></pre>
 <p>Several plot methods have been implemented. The default S3 generic <code><a href="../reference/plot.html">plot()</a></code> for example shows the time series with the <code>dygraphs</code> package. The result is a zoomable representation of the series, see Figure @ref(fig:plotmethod).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(hts_EU28<span class="op">$</span>components<span class="op">$</span>EA19)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">``</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(obj_x13)</a></code></pre></div>
 <div class="figure">
 <img src="resources/plot.png" alt="\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane" width="100%"><p class="caption">
  Output of the plot() method in the R-Studio viewer pane
@@ -158,24 +157,29 @@
 <div id="persephone-hierarchical-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#persephone-hierarchical-objects" class="anchor"></a>Persephone Hierarchical Objects</h2>
-<p>Hierarchical persephone objects are created with <code><a href="../reference/per_hts.html">per_hts()</a></code> after combining several ‘single’ objects in a list. We shall call these ‘single’ objects components in this multivariate context.</p>
+<p>Hierarchical persephone objects are created with <code><a href="../reference/per_hts.html">per_hts()</a></code> after combining several ‘single’ objects in a list. We shall call these ‘single’ objects ‘components’ in this multivariate context.</p>
+<p>In the examples below, we use time series of the volume index of production for total industry (except construction) of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through June 2019. Some series contain missing values.</p>
+<p>Load the package’s internal datasets.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_ea19)</a></code></pre></div>
+<p>We use the calendar and not seasonally adjusted data <code>pi_caladj</code> for illustrative purposes because it only contains one missing value. <code>weights_pi_ea19</code> and <code>weights_pi_ea19</code> are the datasets containing the weights per country.</p>
+<p>We remove the EU-28 and EA-19 (Euro Area) aggregates.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">pi_caladj_orig &lt;-<span class="st"> </span>pi_caladj</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">pi_caladj &lt;-<span class="st"> </span>pi_caladj[ , <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a></code></pre></div>
+<p>We remove the last time instance because of the missing value.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">pi_caladj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(pi_caladj, <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>, <span class="dv">5</span>))</a></code></pre></div>
 <div id="aggregates-without-weights" class="section level3">
 <h3 class="hasAnchor">
 <a href="#aggregates-without-weights" class="anchor"></a>Aggregates without Weights</h3>
-<p>In the example below, we use time series of the volume index of production for total industry (except construction) of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through June 2019. Some series contain missing values.</p>
-<p>Load the package’s internal datasets:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)</a></code></pre></div>
-<p>We use the calendar and not seasonally adjusted dataset <code>pi_caladj</code> for illustrative purposes because it does not contain any missing values and we remove the EU-28 and EA-19 (Euro Area) aggregates.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">pi_caladj &lt;-<span class="st"> </span>pi_caladj[ , <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a></code></pre></div>
-<p>For all countries’ time series we want to generate persephone objects with x13 as method.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ts_<span class="dv">28</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(pi_caladj, per_x13)</a></code></pre></div>
+<p>We construct a hierarchical persephone object that does not contain weights and returns aggregate series as the sum of the components.</p>
+<p>To get started, we generate persephone objects with x13 as method for all countries’ time series.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">ts_<span class="dv">28</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(pi_caladj, per_x13)</a></code></pre></div>
 <p>The list argument can be used to create a hierarchical persephone object based on a list of persephone single objects. Here we aggregate the EA-19 countries and set the method to be used for the direct adjustment of the aggregate series to x13 as well.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>)</a></code></pre></div>
 <p>We now generate our final hierarchical persephone object <code>hts_EU28</code></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>country[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">EA19=</span>hts_EA19,ts_<span class="dv">28</span>[non_EA19]))</a></code></pre></div>
-<p>and have a look at it’s structure:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">hts_EU28</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>country[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">EA19=</span>hts_EA19,ts_<span class="dv">28</span>[non_EA19]))</a></code></pre></div>
+<p>and have a look at it’s structure.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">hts_EU28</a></code></pre></div>
 <pre><code>##  component run   class                 
 ##            FALSE hierarchicalTimeSeries
 ##  EA19      FALSE hierarchicalTimeSeries
@@ -208,25 +212,25 @@
 ##  SE        FALSE x13Single             
 ##  UK        FALSE x13Single</code></pre>
 <p>We make the first run</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">hts_EU28<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
-<p>and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fertig sein):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># summary(hts_EU28)</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">hts_EU28<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
+<p>and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fertig sein).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># summary(hts_EU28)</span></a></code></pre></div>
 <p>The only plot function implemented for hierarchical persephone objects at the moment is the S3 generic <code><a href="../reference/plot.html">plot()</a></code>, see Figure @ref(fig:plotmethodhts).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(hts_EU28)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(hts_EU28)</a></code></pre></div>
 <div class="figure">
 <img src="resources/plot_hts.png" alt="\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane" width="100%"><p class="caption">
  Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane
 </p>
 </div>
 <p>We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the autocorrelations of the residuals for the Belgian time series, see Figure @ref(fig:acfresbg), where the component <code>"BE"</code> can either be addressed by <code>hts_EU28$get_component("EA19/BE")</code> or by <code>hts_EU28$components$EA19$components$BE</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/plotResiduals.html">plotResiduals</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19/BE"</span>), <span class="dt">which =</span> <span class="st">"acf"</span>, <span class="dt">interactive =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/plotResiduals.html">plotResiduals</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19/BE"</span>), <span class="dt">which =</span> <span class="st">"acf"</span>, <span class="dt">interactive =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <div class="figure">
-<img src="persephone-saceWorkshop_files/figure-html/unnamed-chunk-16-1.png" alt="\label{fig:acfresbg} Output of the plotResiduals() method for the Belgian time series" width="100%"><p class="caption">
+<img src="persephone-saceWorkshop_files/figure-html/unnamed-chunk-17-1.png" alt="\label{fig:acfresbg} Output of the plotResiduals() method for the Belgian time series" width="100%"><p class="caption">
  Output of the plotResiduals() method for the Belgian time series
 </p>
 </div>
 <p>Also the results of lower level aggregate series are accessed via the components. The EA19 aggregate for example would be plotted by using the following command:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="../reference/plot.html">plot</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19"</span>))</a></code></pre></div>
 </div>
 <div id="weighted-aggregates" class="section level3">
 <h3 class="hasAnchor">
@@ -236,62 +240,101 @@
 <h4 class="hasAnchor">
 <a href="#time-invariant-weights" class="anchor"></a>Time-invariant weights</h4>
 <p>The weights parameter is set as a numeric vector with length equal to the number of components. The hierarchical persephone object is constructed the same way as in the previous section but with weights, one for each component. Internally, an <code>mts</code> object is then created with constant weights for all time points.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">w_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>weight[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">w_non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>weight[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>, <span class="dt">weights=</span>w_EA19)</a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co"># Mit zwischen Aggregat</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#hts_non_EA19 &lt;- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#hts_EU28 &lt;- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#Ohne zwischen Aggregat</span></a>
-<a class="sourceLine" id="cb20-10" data-line-number="10">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">EA19 =</span> hts_EA19),ts_<span class="dv">28</span>[non_EA19]), <span class="dt">weights =</span> w_non_EA19)</a></code></pre></div>
-<p>We can have a look at the weights of an object by accessing the weights-slot:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(hts_EA19<span class="op">$</span>weights)</a></code></pre></div>
-<pre><code>##         BE     DE   EE    IE    EL    ES     FR     IT    CY    LT    LV
-## [1,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-## [2,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-## [3,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-## [4,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-## [5,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-## [6,] 2.643 27.047 0.16 4.348 0.679 5.799 11.262 11.304 0.057 0.134 0.222
-##         LU    MT    NL    AT    PT    SI    SK    FI
-## [1,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362
-## [2,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362
-## [3,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362
-## [4,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362
-## [5,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362
-## [6,] 0.147 0.037 3.659 2.701 1.109 0.375 0.706 1.362</code></pre>
+<p>We include the weights from the dataset <code>weights_pi_eu28</code> in the hierarchical persephone object</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">w_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>weight[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">w_non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>weight[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>, <span class="dt">weights =</span> w_EA19)</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">EA19 =</span> hts_EA19),ts_<span class="dv">28</span>[non_EA19]), <span class="dt">weights =</span> w_non_EA19)</a></code></pre></div>
+<p>and perform a run.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">hts_EU28<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
+<p>We can have a look at the weights of an object by accessing the weights-slot.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(hts_EU28<span class="op">$</span>weights)</a></code></pre></div>
+<pre><code>##        EA19    BG    CZ    DK    HR    HU    PL    RO    SE     UK
+## [1,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795
+## [2,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795
+## [3,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795
+## [4,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795
+## [5,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795
+## [6,] 73.751 0.394 1.977 1.879 0.324 1.126 3.835 0.993 2.926 12.795</code></pre>
+<p>We can also show that the EU-28 aggregate series generated by persephone matches the data published by Eurostat apart from certain rounding differences:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># Eurostat EU28-Series</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(pi_caladj_orig[, <span class="st">"EU28"</span>], <span class="dt">start =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>,<span class="dv">1</span>))</a></code></pre></div>
+<pre><code>##        Jan   Feb   Mar   Apr   May   Jun
+## 2019 103.4 103.4 114.1 104.6 106.7 106.8</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># Persephone EU28-Series</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(hts_EU28<span class="op">$</span>ts, <span class="dt">start =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>,<span class="dv">1</span>))</a></code></pre></div>
+<pre><code>##           Jan      Feb      Mar      Apr      May
+## 2019 103.3384 103.3205 113.9927 104.4974 106.5973</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># Maximum absolute difference</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(pi_caladj_orig[, <span class="st">"EU28"</span>] <span class="op">-</span><span class="st"> </span>hts_EU28<span class="op">$</span>ts))</a></code></pre></div>
+<pre><code>## [1] 0.112941</code></pre>
 </div>
 <div id="time-variant-weights" class="section level4">
 <h4 class="hasAnchor">
 <a href="#time-variant-weights" class="anchor"></a>Time-variant weights</h4>
-<p>We do not have a real example for time-variant weights which is why we generate artificial ones for our example:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">weights_pi_eu28_time &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="st">"c"</span>, <span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(weights_pi_eu28,<span class="dv">1</span>, <span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">   l &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(pi_caladj))<span class="op">/</span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(x[<span class="dv">2</span>]),<span class="dt">start =</span> <span class="kw"><a href="https://rdrr.io/r/stats/start.html">start</a></span>(pi_caladj),</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">                 <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/stats/start.html">end</a></span>(pi_caladj),</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">                 <span class="dt">frequency =</span> <span class="kw"><a href="https://rdrr.io/r/stats/time.html">frequency</a></span>(pi_caladj)))</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">   <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(l) &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(l)</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">   }))</a>
-<a class="sourceLine" id="cb23-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9">w_EA19 &lt;-<span class="st"> </span>weights_pi_eu28_time[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
-<a class="sourceLine" id="cb23-10" data-line-number="10">w_non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28_time[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
-<a class="sourceLine" id="cb23-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb23-12" data-line-number="12">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>, <span class="dt">weights=</span>w_EA19)</a>
-<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co"># Mit zwischen Aggregat</span></a>
-<a class="sourceLine" id="cb23-14" data-line-number="14"><span class="co">#hts_non_EA19 &lt;- per_hts(list = ts_28[non_EA19], weights = w_non_EA19)</span></a>
-<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="co">#hts_EU28 &lt;- per_hts(EA19 = hts_EA19, non_EA19 = hts_non_EA19)</span></a>
-<a class="sourceLine" id="cb23-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="co">#Ohne zwischen Aggregat</span></a>
-<a class="sourceLine" id="cb23-18" data-line-number="18">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">EA19 =</span> hts_EA19),ts_<span class="dv">28</span>[non_EA19]), <span class="dt">weights =</span> w_non_EA19)</a></code></pre></div>
+<p>We do not have a real example for time-variant weights which is why we generate artificial ones for our example.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">weights_pi_eu28_time &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="st">"c"</span>, <span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(weights_pi_eu28,<span class="dv">1</span>, <span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">   l &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(pi_caladj))<span class="op">/</span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(x[<span class="dv">2</span>]),<span class="dt">start =</span> <span class="kw"><a href="https://rdrr.io/r/stats/start.html">start</a></span>(pi_caladj),</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">                 <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/stats/start.html">end</a></span>(pi_caladj),</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">                 <span class="dt">frequency =</span> <span class="kw"><a href="https://rdrr.io/r/stats/time.html">frequency</a></span>(pi_caladj)))</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">   <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(l) &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(l)</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">   }))</a></code></pre></div>
+<p>We can then create a hierarchical persephone object as in the previous section</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">w_EA19 &lt;-<span class="st"> </span>weights_pi_eu28_time[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">w_non_EA19 &lt;-<span class="st"> </span>weights_pi_eu28_time[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>weights_pi_eu28<span class="op">$</span>country <span class="op">%in%</span><span class="st"> </span>weights_pi_ea19<span class="op">$</span>country)]</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[weights_pi_ea19<span class="op">$</span>country], <span class="dt">method =</span> <span class="st">"x13"</span>, <span class="dt">weights=</span>w_EA19)</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">EA19 =</span> hts_EA19),ts_<span class="dv">28</span>[non_EA19]), <span class="dt">weights =</span> w_non_EA19)</a></code></pre></div>
+<p>and perform a run.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">hts_EU28<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
 </div>
 </div>
 </div>
 </div>
-<div id="references" class="section level1">
+<div id="eurostat-report" class="section level1">
 <h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<a href="#eurostat-report" class="anchor"></a>Eurostat Report</h1>
+<p>The function <code><a href="../reference/generate_qr_table.html">generate_qr_table()</a></code> renders a Eurostat quality report in the form of a <code>data.frame</code> which can then be exported by the user.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">eurostatQR &lt;-<span class="st"> </span><span class="kw"><a href="../reference/generate_qr_table.html">generate_qr_table</a></span>(hts_EU28)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(eurostatQR)</a></code></pre></div>
+<pre><code>##   component Method Period Nobs  Start    End Log.Transformation
+## 1               TS     12  233 1-2000 5-2019               TRUE
+## 2      EA19    x13     12  233 1-2000 5-2019              FALSE
+## 3   EA19/BE    x13     12  233 1-2000 5-2019              FALSE
+## 4   EA19/DE    x13     12  233 1-2000 5-2019              FALSE
+## 5   EA19/EE    x13     12  233 1-2000 5-2019               TRUE
+## 6   EA19/IE    x13     12  233 1-2000 5-2019               TRUE
+##      ARIMA.Model LeapYear MovingHoliday NbTD Noutliers     Outlier1
+## 1 (1 1 0)(0 1 1)    FALSE         FALSE    6         2 LS (11-2008)
+## 2 (0 1 1)(0 1 1)     TRUE         FALSE    7         2 LS (11-2008)
+## 3 (0 1 1)(0 1 1)     TRUE         FALSE    7         2 LS (11-2008)
+## 4 (1 1 2)(0 1 1)     TRUE         FALSE    7         3  LS (1-2009)
+## 5 (3 1 1)(0 1 1)    FALSE         FALSE    0         2 LS (10-2008)
+## 6 (1 1 1)(0 1 1)    FALSE          TRUE    0         4  LS (2-2015)
+##       Outlier2    Outlier3 CombinedTest_SI Residual.Seasonality
+## 1  LS (1-2009)        &lt;NA&gt;         Present                   No
+## 2 TC (11-2008)        &lt;NA&gt;         Present                   No
+## 3  AO (5-2009)        &lt;NA&gt;         Present                   No
+## 4 LS (11-2008) TC (3-2009)         Present                   No
+## 5 TC (10-2008)        &lt;NA&gt;         Present                   No
+## 6  LS (2-2014) AO (3-2018)            None                   No
+##   Residual.TD.Effect Q.Stat Final.Henderson.Filter
+## 1                 No     NA                   &lt;NA&gt;
+## 2                 No   0.23                    H13
+## 3                 No   0.35                    H13
+## 4                 No   0.23                    H13
+## 5                Yes   0.26                    H13
+## 6                 No   1.76                    H23
+##   Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
+## 1                     &lt;NA&gt;            &lt;NA&gt;     20%
+## 2                      H13             3x5     27%
+## 3                      H13             3x5     14%
+## 4                      H13             3x5      9%
+## 5                      H13             3x5     12%
+## 6                      H23             3x5     23%</code></pre>
+<p>The Eurostat QR corresponds to the JD+ plugin version 1, see , with the exception that no overall index of quality is included since it does not seem to be exported by <strong>RJDemetra</strong> and is not trivial to reverse engineer.</p>
 </div>
   </div>
 
@@ -309,7 +352,7 @@
       <li><a href="#persephone-hierarchical-objects">Persephone Hierarchical Objects</a></li>
       </ul>
 </li>
-      <li><a href="#references">References</a></li>
+      <li><a href="#eurostat-report">Eurostat Report</a></li>
       </ul>
 </div>
       </div>
