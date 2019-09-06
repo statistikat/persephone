@@ -9,6 +9,9 @@ vignette: >
   %\VignetteIndexEntry{Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: ["persephone.bib"]
+biblio-style: "natbib"
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}
@@ -17,26 +20,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-The R-package **persephone** was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
-It builds on top of **RJDemetra** (\url{https://github.com/jdemetra/rjdemetra}), an R interface to JDemetra+ (https://github.com/jdemetra), and provides analytic tools such as interactive plots to support the SA expert. 
-The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
-Furthermore it supports hierarchical time series and should enable future incorporation of diagnostics for direct vs indirect adjustment.
+The R-package [@R] **persephone** [@persephone] was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. It will be used as a successor of the R package **x12** [@x12] which is currently used at Statistics Austria.
+
+**RJDemetra** [@RJDemetra], an R interface to JDemetra+ (https://github.com/jdemetra) is used to perform the seasonal adjustment. Additional,  analytic tools such as interactive plots are developed to support the SA expert. 
+This tool makes it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
+The support of hierarchical time series is of importance in the workflow within an official statistics agency and in the future diagnostics for the comparison between direct and indirect seasonal adjustment will be included.
+
+Note on the package name: Obviously, Persephone [@wiki:persephone] is an offspring of Demetra (Demeter) and Zeus and also a vegetation goddess. Therefore, it is a natural choice
 
 # Installation
 
-The package can be installed from GitHub via 
+As the package is not yet on the comprehensive R archive network (CRAN http://cran.r-project.org), the main R package repository, so it can be installed from GitHub via the following command:
 
 ```{r installation, eval = FALSE}
 devtools::install_github("statistikat/persephone")
 ```
 
-Optionally it can be installed including vignettes (needs prettydoc).
+Optionally and preferably, it can be installed including vignettes (needs prettydoc[@prettydoc]).
 
 ```{r installation2, eval = FALSE}
 devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 ```
 
-Load the package.
+After installation, the package can be loaded into the current R session.
 
 ```{r}
 library(persephone)
@@ -44,15 +50,13 @@ library(persephone)
 
 # Constructing Persephone Objects
 
-An object of class `persephone` can be constructed for only one or for multiple time series objects 
-comprising a hierarchy. 
-Depending on whether seasonal adjustment should performed with X-13 or with TRAMO-SEATS,
+An object of class `persephone` can be constructed from only one or multiple time series. These multiple time series can be connected through a certain hierarchy.
+Depending on whether seasonal adjustment should be performed with X-13-ARIMA-SEATS[@X13] or with TRAMO-SEATS [@Tramo],
 'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
 Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
-Batch objects without a hierarchy at not supported at the moment but will be in the near future.
+Batch objects without a hierarchy can be represented as objects with a flat hierachy at the moment, but this will be improved in the future.
 
-Persephone objects call the functions of **RJDemetra** in the background, so for documentation
-on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
+Persephone objects call the functions of **RJDemetra** in the background, so for a detailed documentation on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
 
 ## Persephone Single Objects
 
@@ -68,16 +72,16 @@ obj_x13 <- per_x13(AirPassengers, "RSA3")
 ```
 
 Now different methods can be called for the persephone object `obj_x13`.
-The `run()` method runs the model and `output` gives access to the original output object from 
-**RJDemetra**. Without a run, most methods for the object will not work since no results are available then. 
+Most prominently, the `run()` method performs call to JDemetra+ through RJDemetra to actual run seasonal adjustment method. The `output` field gives access to the original output object from 
+**RJDemetra**. Before the first run, some methods for the object will not work and some fields will be empty since no results are available yet.
 
 ```{r}
 obj_x13$run()
 obj_x13$output$regarima
 ```
 
-Several plot methods have been implemented. The default S3 generic `plot()` for example 
-shows the time series with the `dygraphs` package. The result is a zoomable representation of the series, 
+Several plot methods have been implemented and the focus was on using interactive tools. The default S3 generic `plot()` for example 
+shows the time series with the `dygraphs` package [@dygraphs]. The result is a zoomable line representation of the series, 
 see Figure \@ref(fig:plotmethod).
 
 ```{r , eval=FALSE}
@@ -89,14 +93,20 @@ knitr::include_graphics("resources/plot.png")
 
 ## Persephone Hierarchical Objects
 
-Hierarchical persephone objects are created with `per_hts()` after combining several 'single' objects in a list.
+Hierarchical persephone objects are created with `per_hts()`. There are two options on how to provide the 'single' objects as input. Firstly, directly as arguments, as shown below, this kind of call is mainly applicable for a quite limited number of time series.
+```{r}
+obj_x13_1 <- per_x13(AirPassengers, "RSA3")
+obj_x13_2 <- per_x13(AirPassengers, "RSA3")
+obj_x13_hts <- per_hts(ts1 = obj_x13_1, ts2 = obj_x13_2)
+
+```
+Secondly, several 'single' objects can be concatenated into a list and provdied to the `list` argument of the `per_hts()` function.
 We shall call these 'single' objects 'components' in this multivariate context.
 
-In the examples below, we use time series of the volume index of production for total industry (except construction) 
+In the more realistic examples below, we use time series of the volume index of production for total industry (except construction) 
 of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through
 June 2019. Some series contain missing values.
-
-Load the package's internal data sets.
+The data sets are downloaded from the Eurostat database [@STS] and provided with the R package to be used in examples and tests. They can be simply loaded with the `data` function.
 
 ```{r}
 data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_ea19)
@@ -113,7 +123,7 @@ pi_caladj_orig <- pi_caladj
 pi_caladj <- pi_caladj[ , -c(1:2)]
 ```
 
-We remove the last time instance because of the missing value.
+We remove the last time point because of the missing value.
 
 ```{r}
 pi_caladj <- window(pi_caladj, end = c(2019, 5))
@@ -121,37 +131,36 @@ pi_caladj <- window(pi_caladj, end = c(2019, 5))
 
 ### Aggregates without Weights
 
-We construct a hierarchical persephone object that does not contain weights and returns aggregate 
-series as the sum of the components.
+The next step is to construct a hierarchical persephone object that does not contain weights and computes aggregate series as the sum of the components.
 
-To get started, we generate persephone objects with x13 as method for all countries’ time series.
+To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R builtin function `lapply` to call the function `per_x13` on the list of time seriees objects  `pi_caladj`.
 
 ```{r}
 ts_28 <- lapply(pi_caladj, per_x13)
 ```
 
 The list argument can be used to create a hierarchical persephone object based on a list of 
-persephone single objects. Here we aggregate the EA-19 countries and set the method to be used 
+persephone single objects. Here we aggregate the Euroarea (EA-19) countries and set the method to be used 
 for the direct adjustment of the aggregate series to x13 as well.
 
 ```{r}
 hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13")
 ```
 
-We now generate our final hierarchical persephone object `hts_EU28`
+We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euroarea countries as a hierarchical object and the 9 countries as single objects.
 
 ```{r}
 non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
 hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]))
 ```
 
-and have a look at it's structure.
+The structure of this object is represented in the `print` output.
 
 ```{r}
 hts_EU28
 ```
 
-We make the first run
+We can initiate a first run with
 
 ```{r}
 hts_EU28$run()
@@ -163,7 +172,7 @@ and have a look at the summary (sollte noch vor Finalisierung dieser Vignette fe
 # summary(hts_EU28)
 ```
 
-The only plot function implemented for hierarchical persephone objects at the moment is the S3 generic `plot()`,
+The only plot function implemented for hierarchical persephone objects at the moment is a general comparison line chart called through the S3 generic `plot()`,
 see Figure \@ref(fig:plotmethodhts).
 
 ```{r , eval=FALSE}
