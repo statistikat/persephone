@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduction
 
 The R-package **persephone** was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. 
-It builds on top of **RJDemetra** (\url{https://github.com/jdemetra/rjdemetra}), an R interface to JDemetra+ (https://github.com/jdemetra), and provides analytical tools such as interactive plots to support the SA expert. 
+It builds on top of **RJDemetra** (\url{https://github.com/jdemetra/rjdemetra}), an R interface to JDemetra+ (https://github.com/jdemetra), and provides analytic tools such as interactive plots to support the SA expert. 
 The package should make it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
 Furthermore it supports hierarchical time series and should enable future incorporation of diagnostics for direct vs indirect adjustment.
 
@@ -46,7 +46,7 @@ library(persephone)
 
 An object of class `persephone` can be constructed for only one or for multiple time series objects 
 comprising a hierarchy. 
-Depending on whether seasonal adjusment should performed with X-13 or with TRAMO-SEATS,
+Depending on whether seasonal adjustment should performed with X-13 or with TRAMO-SEATS,
 'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
 Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
 Batch objects without a hierarchy at not supported at the moment but will be in the near future.
@@ -57,13 +57,13 @@ on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra
 ## Persephone Single Objects
 
 Univariate persephone objects are created with `per_x13()` or `per_tramo()` from univariate time series objects 
-such as the `AirPassengers` dataset.
+such as the `AirPassengers` data set.
 A predefined JDemetra+ model specification has to be provided by the user, in this example we use `"RSA3"` 
 (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
 
 
 ```{r}
-data(AirPassengers, package = "datasets")
+data(AirPassengers, package = "data sets")
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 ```
 
@@ -96,14 +96,14 @@ In the examples below, we use time series of the volume index of production for 
 of the EU-28 countries. They are monthly data published by Eurostat covering January 2000 through
 June 2019. Some series contain missing values.
 
-Load the package's internal datasets.
+Load the package's internal data sets.
 
 ```{r}
 data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_ea19)
 ```
 
 We use the calendar and not seasonally adjusted data `pi_caladj` for illustrative purposes because it
-only contains one missing value. `weights_pi_ea19` and `weights_pi_ea19` are the datasets containing 
+only contains one missing value. `weights_pi_ea19` and `weights_pi_ea19` are the data sets containing 
 the weights per country.
 
 We remove the EU-28 and EA-19 (Euro Area) aggregates.
@@ -173,7 +173,7 @@ plot(hts_EU28)
 knitr::include_graphics("resources/plot_hts.png")
 ```
 
-We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the autocorrelations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$get_component("EA19/BE")` or 
+We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the auto-correlations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$get_component("EA19/BE")` or 
 by ` hts_EU28$components$EA19$components$BE`.
 
 ```{r , fig.cap="\\label{fig:acfresbg} Output of the plotResiduals() method for the Belgian time series", out.width = '100%'}
@@ -204,7 +204,7 @@ weights for all time points.
 ts_28 <- lapply(pi_caladj, per_x13)
 ```
 
-We include the weights from the dataset `weights_pi_eu28` in the hierarchical persephone object
+We include the weights from the data set `weights_pi_eu28` in the hierarchical persephone object
 
 ```{r}
 w_EA19 <- weights_pi_eu28$weight[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
