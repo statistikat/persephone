@@ -63,7 +63,7 @@ A predefined JDemetra+ model specification has to be provided by the user, in th
 
 
 ```{r}
-data(AirPassengers, package = "data sets")
+data(AirPassengers, package = "datasets")
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 ```
 
