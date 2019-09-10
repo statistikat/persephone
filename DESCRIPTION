@@ -19,7 +19,6 @@ Imports:
     plotly,
     ggplot2,
     scales,
-    data.table,
     timeDate,
     magrittr,
     zoo

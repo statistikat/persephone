@@ -21,30 +21,39 @@ genTd(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,
 \item{weight}{vector of individual weights for each holiday with length of hd}
 }
 \value{
-list with tree list elements. 1. matrix of trading day counts for each individual day,
-month and year. Holidays which are delivered through the parameter hd are assigned to the
-number of sundays. 2. multiple time series object with 6 non-centered trading day regressors
-plus 1 non-centered working day regressor (columns 1 to 6 refer to Mondays to Saturdays,
-colunm 7 refers to the one-regressor case of 5 working days). In case of trading day
-adjustment the first 6 columns have to be selected, in case of wording day adjustment
-only column 7 has to be selected. 3. multiple time series object with 6 centered trading
-day regressors plus 1 centered working day regressor
+list with tree list elements. 1. matrix of trading day counts for each
+individual day, month and year. Holidays which are delivered through the
+parameter hd are assigned to the number of sundays. 2. multiple time
+series object with 6 non-centered trading day regressors plus 1
+non-centered working day regressor (columns 1 to 6 refer to Mondays to
+Saturdays, colunm 7 refers to the one-regressor case of 5 working days).
+In case of trading day adjustment the first 6 columns have to be selected,
+in case of wording day adjustment only column 7 has to be selected.
+3. multiple time series object with 6 centered trading day regressors
+plus 1 centered working day regressor
 }
 \description{
-User defined trading day regressors are generated depending on a list of country-specific
-holidays and associated weights. Each holiday can be given a specific weight depending on the
-extent of the work load of that specific holiday.
+User defined trading day regressors are generated depending on a list of
+country-specific holidays and associated weights. Each holiday can be given
+a specific weight depending on the extent of the work load of that specific holiday.
 }
 \examples{
-hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
-                        "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
-                        "ChristmasEve","ChristmasDay","BoxingDay","12-31"))
-hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
-                        "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
-                        "ChristmasEve","ChristmasDay","BoxingDay","12-31"),
+hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay",
+                        "PentecostMonday","Ascension","CorpusChristi",
+                        "AssumptionOfMary","10-26","AllSaints",
+                        "ITImmaculateConception","ChristmasEve","ChristmasDay",
+                        "BoxingDay","12-31"))
+# Representation of object with alternative weights for trading days
+hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay",
+                         "PentecostMonday","Ascension","CorpusChristi",
+                         "AssumptionOfMary","10-26","AllSaints",
+                         "ITImmaculateConception","ChristmasEve","ChristmasDay",
+                         "BoxingDay","12-31"),
                         weight = c(rep(1,11),0.6,rep(1,2),0.6))
-myspec1 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "None",
-                        usrdef.varEnabled = TRUE, usrdef.var = dhAT1[[3]][,1:6])
-myspec1$regarima
+obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
+                        usrdef.varType = "Calendar",
+                        usrdef.varEnabled = TRUE, usrdef.var = hdAT[[4]][,1:6])
+obj_x13$run()
+obj_x13$output$regarima
 
 }

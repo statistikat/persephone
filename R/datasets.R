@@ -1,8 +1,9 @@
 #' Production in industry - Calendar adjusted, not seasonally adjusted
 #'
-#' A multivariate time series object containing the volume index of production (Index, 2015=100)
-#' for mining and quarrying; manufacturing; electricity, gas, steam and air conditioning supply
-#' for the EU-28 countries and EU-28 and EA-19 (Euro Area) aggregates.
+#' A multivariate time series object containing the volume index of production
+#' (Index, 2015=100) for mining and quarrying; manufacturing; electricity, gas,
+#' steam and air conditioning supply for the EU-28 countries and EU-28 and EA-19
+#' (Euro Area) aggregates.
 #'
 #' @docType data
 #' @keywords datasets
@@ -14,9 +15,10 @@ NULL
 
 #' Production in industry - Seasonally and calendar adjusted
 #'
-#' A multivariate time series object containing the volume index of production (Index, 2015=100)
-#' for mining and quarrying; manufacturing; electricity, gas, steam and air conditioning supply
-#' for the EU-28 countries and EU-28 and EA-19 (Euro Area) aggregates.
+#' A multivariate time series object containing the volume index of production
+#' (Index, 2015=100) for mining and quarrying; manufacturing; electricity, gas,
+#' steam and air conditioning supply for the EU-28 countries and EU-28 and EA-19
+#' (Euro Area) aggregates.
 #'
 #' @docType data
 #' @keywords datasets
@@ -26,11 +28,13 @@ NULL
 #' @format A multivariate time series objects with 30 time series of length 234.
 NULL
 
-#' Production in industry - Unadjusted data (i.e. neither seasonally adjusted nor calendar adjusted data)
+#' Production in industry - Unadjusted data (i.e. neither seasonally adjusted
+#' nor calendar adjusted data)
 #'
-#' A multivariate time series object containing the volume index of production (Index, 2015=100)
-#' for mining and quarrying; manufacturing; electricity, gas, steam and air conditioning supply
-#' for the EU-28 countries and EU-28 and EA-19 (Euro Area) aggregates.
+#' A multivariate time series object containing the volume index of production
+#' (Index, 2015=100) for mining and quarrying; manufacturing; electricity, gas,
+#' steam and air conditioning supply for the EU-28 countries and EU-28 and EA-19
+#' (Euro Area) aggregates.
 #'
 #' @docType data
 #' @keywords datasets
@@ -41,7 +45,8 @@ NULL
 NULL
 
 
-#' Production Weightings: Countries' share as a \% of EU-28 for Total Industry (except construction)
+#' Production Weightings: Countries' share as a \% of EU-28 for Total Industry
+#' (except construction)
 #'
 #' A dataset containing the EU-28 countries and the respective weights
 #'
@@ -58,9 +63,11 @@ NULL
 #' @format A data.frame with 28 rows and 2 columns.
 NULL
 
-#' Production Weightings: Countries' share as a \% of EA-19 for Total Industry (except construction)
+#' Production Weightings: Countries' share as a \% of EA-19 for Total Industry
+#' (except construction)
 #'
-#' A dataset containing the EA-19 (Euro Area) countries and the respective weights
+#' A dataset containing the EA-19 (Euro Area) countries and the respective
+#' weights
 #'
 #' \itemize{
 #'   \item country. EU-28 country

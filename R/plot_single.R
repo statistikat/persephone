@@ -216,8 +216,7 @@ plot.persephoneSingle <- function(
     )
   }
 }
-stringfix <- function (x, l, fill = " ")
-{
+stringfix <- function(x, l, fill = " ") {
   x <- sapply(x, function(x) {
     if (is.na(x)) {
       return("")

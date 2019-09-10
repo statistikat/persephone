@@ -51,6 +51,8 @@ run? If \code{FALSE} (the default), the output will be returned invisibly.
 }
 }
 
-\seealso{
-\code{\link[=per_x13]{per_x13()}}, \code{\link[=per_tramo]{per_tramo()}}
+\section{derived classes}{
+
+\code{\link[=per_x13]{per_x13()}}, \code{\link[=per_tramo]{per_tramo()}}, \code{\link[=per_hts]{per_hts()}}
 }
+

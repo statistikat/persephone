@@ -2,16 +2,22 @@
 % Please edit documentation in R/is.persephone.R
 \name{is.persephone}
 \alias{is.persephone}
+\alias{as.persephone}
 \title{is.persephone}
 \usage{
 is.persephone(x)
+
+as.persephone(x)
 }
 \arguments{
-\item{x}{R object to be tested}
+\item{x}{R object to be tested or converted.}
 }
 \description{
-Check if an R object is of or derives from the class \code{persephone}
+Check if an R object is of or derives from the class \code{persephone} or convert
+an object to persephone
 }
 \examples{
 is.persephone(2)
+obj <- as.persephone(AirPassengers)
+obj$run()
 }

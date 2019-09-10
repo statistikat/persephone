@@ -9,9 +9,10 @@
 data(pi_sa)
 }
 \description{
-A multivariate time series object containing the volume index of production (Index, 2015=100)
-for mining and quarrying; manufacturing; electricity, gas, steam and air conditioning supply
-for the EU-28 countries and EU-28 and EA-19 (Euro Area) aggregates.
+A multivariate time series object containing the volume index of production
+(Index, 2015=100) for mining and quarrying; manufacturing; electricity, gas,
+steam and air conditioning supply for the EU-28 countries and EU-28 and EA-19
+(Euro Area) aggregates.
 }
 \references{
 Extracted on	03.09.19 from \url{https://ec.europa.eu/eurostat/web/short-term-business-statistics/data/database}

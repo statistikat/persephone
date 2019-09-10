@@ -85,10 +85,10 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
                  d10Mean, by = "cycleName", sort = FALSE, all.x = TRUE)
     colnames(dat) <- c("cycleName", "year", "SI-Ratio", "Replaced SI-Ratio",
                        "Seasonal Factor", "SF Mean")
-    dat1 <- dat[,c("year","cycleName","SI-Ratio")]
-    dat2 <- dat[,c("year","cycleName","Replaced SI-Ratio")]
-    dat3 <- dat[,c("year","cycleName","Seasonal Factor")]
-    dat4 <- dat[,c("year","cycleName","SF Mean")]
+    dat1 <- dat[, c("year", "cycleName", "SI-Ratio")]
+    dat2 <- dat[, c("year", "cycleName", "Replaced SI-Ratio")]
+    dat3 <- dat[, c("year", "cycleName", "Seasonal Factor")]
+    dat4 <- dat[, c("year", "cycleName", "SF Mean")]
     colnames(dat1)[3] <- colnames(dat2)[3] <-
       colnames(dat3)[3] <- colnames(dat4)[3] <- "value"
     dat1$variable <- "SI-Ratio"
@@ -157,10 +157,10 @@ plotSiRatios <- function(x, main = NULL, interactive = TRUE, ...){
                             cycleName = cycleName(siRatio), siRatio,
                             stringsAsFactors = FALSE),
                  siRatioMean, by = "cycleName", sort = FALSE, all.x = TRUE)
-    colnames(dat) <- c("cycleName","year","SI-Ratio","Mean")
+    colnames(dat) <- c("cycleName", "year", "SI-Ratio", "Mean")
 
-    dat1 <- dat[,c("year", "cycleName", "SI-Ratio")]
-    dat2 <- dat[,c("year", "cycleName", "Mean")]
+    dat1 <- dat[, c("year", "cycleName", "SI-Ratio")]
+    dat2 <- dat[, c("year", "cycleName", "Mean")]
     colnames(dat1)[3] <- colnames(dat2)[3] <-  "value"
     dat1$variable <- "SI-Ratio"
     dat2$variable <- "Mean"

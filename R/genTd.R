@@ -1,8 +1,8 @@
 #' Generation of trading day regressors
 #'
-#' User defined trading day regressors are generated depending on a list of country-specific
-#' holidays and associated weights. Each holiday can be given a specific weight depending on the
-#' extent of the work load of that specific holiday.
+#' User defined trading day regressors are generated depending on a list of
+#' country-specific holidays and associated weights. Each holiday can be given
+#' a specific weight depending on the extent of the work load of that specific holiday.
 #'
 #' @param freq frequency of series
 #' @param fYear first year of calculation of trading day regressor
@@ -11,24 +11,30 @@
 #'           (listHolidays() from timeDate function) and/or
 #'           3. easter relation (e.g. "easter+39", "easter-3")
 #' @param weight vector of individual weights for each holiday with length of hd
-#' @return list with tree list elements. 1. matrix of trading day counts for each individual day,
-#'         month and year. Holidays which are delivered through the parameter hd are assigned to the
-#'         number of sundays. 2. multiple time series object with 6 non-centered trading day regressors
-#'         plus 1 non-centered working day regressor (columns 1 to 6 refer to Mondays to Saturdays,
-#'         colunm 7 refers to the one-regressor case of 5 working days). In case of trading day
-#'         adjustment the first 6 columns have to be selected, in case of wording day adjustment
-#'         only column 7 has to be selected. 3. multiple time series object with 6 centered trading
-#'         day regressors plus 1 centered working day regressor
+#' @return list with tree list elements. 1. matrix of trading day counts for each
+#'        individual day, month and year. Holidays which are delivered through the
+#'        parameter hd are assigned to the number of sundays. 2. multiple time
+#'        series object with 6 non-centered trading day regressors plus 1
+#'        non-centered working day regressor (columns 1 to 6 refer to Mondays to
+#'        Saturdays, colunm 7 refers to the one-regressor case of 5 working days).
+#'        In case of trading day adjustment the first 6 columns have to be selected,
+#'        in case of wording day adjustment only column 7 has to be selected.
+#'        3. multiple time series object with 6 centered trading day regressors
+#'        plus 1 centered working day regressor
 #'
 #'
 #' @examples
-#' hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
-#'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
-#'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"))
+#' hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay",
+#'                         "PentecostMonday","Ascension","CorpusChristi",
+#'                         "AssumptionOfMary","10-26","AllSaints",
+#'                         "ITImmaculateConception","ChristmasEve","ChristmasDay",
+#'                         "BoxingDay","12-31"))
 #' # Representation of object with alternative weights for trading days
-#' hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
-#'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
-#'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"),
+#' hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay",
+#'                          "PentecostMonday","Ascension","CorpusChristi",
+#'                          "AssumptionOfMary","10-26","AllSaints",
+#'                          "ITImmaculateConception","ChristmasEve","ChristmasDay",
+#'                          "BoxingDay","12-31"),
 #'                         weight = c(rep(1,11),0.6,rep(1,2),0.6))
 #' obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
 #'                         usrdef.varType = "Calendar",
@@ -39,9 +45,8 @@
 #' @importFrom stats ts
 # @importFrom timeDate listHolidays Easter
 #' @import timeDate
-#' @importFrom zoo as.yearmon
+#' @importFrom zoo as.yearmon as.Date
 #' @export
-
 genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
@@ -56,7 +61,7 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
       a <- as.Date(Easter(year =start(y)[1]:end(y)[1])) -
                            as.numeric(substr(x,8,nchar(x)))
     } else if(x %in% preDef){
-      a <- as.Date(get(x)(year = start(y)[1]:end(y)[1]))
+      a <- as.Date(getExportedValue("timeDate",x)(year = start(y)[1]:end(y)[1]))
     } else{
       a <- as.Date(paste0(seq(start(y)[1],end(y)[1]),paste0("-",x)))
     }
@@ -100,7 +105,6 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
   }
 
   td1 <- td
-  ii <- 3
   for(ii in 1:12){
     t1 <- colMeans(td[seq(ii, nrow(td), 12), 1:7, drop = FALSE])
     for(jj in seq(ii, nrow(td), 12)){
@@ -108,8 +112,8 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
     }
   }
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1), frequency = freq)
-
-  row.names(dd) <- row.names(dd1) <- row.names(td) <- substr(as.character(as.Date(time(y))),1,7)
-  days <- list(dd0, dd1, td, td1)
+  colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","WorkingDay")
+  row.names(dd) <- row.names(dd0) <- row.names(td) <- substr(as.character(as.Date(time(y))),1,7)
+  days <- list(dd, dd0, td, td1)
   return(days[])
 }

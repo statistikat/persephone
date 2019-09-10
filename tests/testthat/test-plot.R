@@ -91,7 +91,7 @@ test_that("SIRatios", {
 
 test_that("autoplot", {
   obj <- per_x13(AirPassengers, "RSA1")
-  autoplot(obj)
+  expect_true("ggplot" %in% class(autoplot(obj)))
 })
 
 test_that("plotSpectrum", {
