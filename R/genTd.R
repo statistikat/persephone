@@ -25,13 +25,16 @@
 #' hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
 #'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
 #'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"))
+#' # Representation of object with alternative weights for trading days
 #' hdAT1 <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay","PentecostMonday","Ascension",
 #'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
 #'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"),
 #'                         weight = c(rep(1,11),0.6,rep(1,2),0.6))
-# myspec1 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "None",
-#                         usrdef.varEnabled = TRUE, usrdef.var = dhAT1[[3]][,1:6])
-# myspec1$regarima
+#' obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
+#'                         usrdef.varType = "Calendar",
+#'                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[4]][,1:6])
+#' obj_x13$run()
+#' obj_x13$output$regarima
 #'
 #' @importFrom stats ts
 # @importFrom timeDate listHolidays Easter
@@ -97,13 +100,16 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
   }
 
   td1 <- td
+  ii <- 3
   for(ii in 1:12){
-    t1 <- colMeans(td[seq(ii, nrow(td), 12), 1:6, drop = FALSE])
-    td1[seq(ii, nrow(td), 12),] <- td1[seq(ii, nrow(td), 12),] - t1
+    t1 <- colMeans(td[seq(ii, nrow(td), 12), 1:7, drop = FALSE])
+    for(jj in seq(ii, nrow(td), 12)){
+      td1[jj,] <- td[jj,] - t1
+    }
   }
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1), frequency = freq)
 
-  row.names(dd) <- row.names(dd1) <- row.names(td0) <- row.names(td1) <- substr(as.character(as.Date(time(y))),1,7)
-  days <- list(dd0, dd1, td0, td1)
+  row.names(dd) <- row.names(dd1) <- row.names(td) <- substr(as.character(as.Date(time(y))),1,7)
+  days <- list(dd0, dd1, td, td1)
   return(days[])
 }
