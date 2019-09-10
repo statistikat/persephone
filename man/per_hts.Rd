@@ -62,6 +62,7 @@ options for all entries of the dependency tree recursively if
 }
 
 \examples{
+\dontrun{
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 
 ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
@@ -73,39 +74,6 @@ ht2 <- per_hts(a = ht, b = obj_x13)
 ht2$run()
 ht2$adjusted_direct
 ht2$adjusted_indirect
-
-#-------- example with industrial price indices -----------
-
-data(ipi_c_eu, package = "RJDemetra")
-# Reducing the data set to the EU28 countries
-ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
-
-# We want to add an extra layer and split the EU28 countries in two groups
-ht_half_europe_1  <- per_hts(list = ipi_eu[, 1:14], method = "tramoseats")
-
-# Alternative way to use do.call
-ht_half_europe_2 <- do.call(per_hts, as.list(ipi_eu[, 15:28]))
-
-# Now we generate the object for EU28
-ht_europe <- per_hts(
-  halfEU_1 = ht_half_europe_1,
-  halfEU_2 = ht_half_europe_2,
-  spec = "RSA5c",
-  method = "x13"
-)
-
-# start the seasonal adjustment
-ht_europe$run()
-
-# accessing the directly and indirectly adjusted series for EU28
-ht_europe$adjusted_direct
-ht_europe$adjusted_indirect
-
-# accessing the directly and indirectly adjusted series for half of Europe
-ht_europe$components$halfEU_2$adjusted_direct
-ht_europe$components$halfEU_2$adjusted_indirect
-
-# accessing the adjusted series for a country
-ht_europe$components$halfEU_2$components$AT$adjusted_direct
+}
 }
 \keyword{datasets}

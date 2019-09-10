@@ -38,6 +38,7 @@ country-specific holidays and associated weights. Each holiday can be given
 a specific weight depending on the extent of the work load of that specific holiday.
 }
 \examples{
+\dontrun{
 hdAT <- genTd(hd = list("NewYearsDay","Epiphany","EasterMonday","LaborDay",
                         "PentecostMonday","Ascension","CorpusChristi",
                         "AssumptionOfMary","10-26","AllSaints",
@@ -55,5 +56,5 @@ obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserD
                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[4]][,1:6])
 obj_x13$run()
 obj_x13$output$regarima
-
+}
 }
