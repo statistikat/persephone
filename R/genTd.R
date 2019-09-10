@@ -43,8 +43,8 @@
 #' obj_x13$output$regarima
 #'
 #' @importFrom stats ts
-# @importFrom timeDate listHolidays Easter
-#' @import timeDate
+#' @importFrom timeDate listHolidays Advent1st Advent2nd Advent3rd Advent4th AllSaints AllSouls Annunciation Ascension AshWednesday AssumptionOfMary BirthOfVirginMary BoxingDay CACanadaDay CACivicProvincialHoliday CALabourDay CaRemembranceDay CAThanksgivingDay CAVictoriaDay CelebrationOfHolyCross CHAscension CHBerchtoldsDay CHConfederationDay CHKnabenschiessen ChristmasDay ChristmasEve ChristTheKing CHSechselaeuten CorpusChristi DEAscension DEChristmasEve DECorpusChristi DEGermanUnity DENewYearsEve Easter EasterMonday EasterSunday Epiphany FRAllSaints FRArmisticeDay FRAscension FRAssumptionVirginMary FRBastilleDay FRFetDeLaVictoire1945 GBBankHoliday GBMayDay GBMilleniumDay GBSummerBankHoliday GoodFriday ITAllSaints ITAssumptionOfVirginMary ITEpiphany ITImmaculateConception ITLiberationDay ITStAmrose JPAutumnalEquinox JPBankHolidayDec31 JPBankHolidayJan2 JPBankHolidayJan3 JPBunkaNoHi JPChildrensDay JPComingOfAgeDay JPConstitutionDay JPEmperorsBirthday JPGantan JPGreeneryDay JPHealthandSportsDay JPKeirouNOhi JPKenkokuKinenNoHi JPKenpouKinenBi JPKinrouKanshaNoHi JPKodomoNoHi JPKokuminNoKyujitu JPMarineDay JPMidoriNoHi JPNatFoundationDay JPNationalCultureDay JPNationHoliday JPNewYearsDay JPRespectForTheAgedDay JPSeijinNoHi JPShuubunNoHi JPTaiikuNoHi JPTennouTanjyouBi JPThanksgivingDay JPUmiNoHi LaborDay MassOfArchangels NewYearsDay PalmSunday Pentecost PentecostMonday PresentationOfLord Quinquagesima RogationSunday Septuagesima SolemnityOfMary TransfigurationOfLord TrinitySunday USChristmasDay USColumbusDay USCPulaskisBirthday USDecorationMemorialDay USElectionDay USGoodFriday USInaugurationDay USIndependenceDay USLaborDay USLincolnsBirthday USMemorialDay USMLKingsBirthday USNewYearsDay USPresidentsDay USThanksgivingDay USVeteransDay USWashingtonsBirthday
+# @import timeDate
 #' @importFrom zoo as.yearmon as.Date
 #' @export
 genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
