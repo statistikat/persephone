@@ -29,12 +29,13 @@
 #'                         "CorpusChristi","AssumptionOfMary","10-26","AllSaints","ITImmaculateConception",
 #'                         "ChristmasEve","ChristmasDay","BoxingDay","12-31"),
 #'                         weight = c(rep(1,11),0.6,rep(1,2),0.6))
-#' myspec1 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "None",
-#'                         usrdef.varEnabled = TRUE, usrdef.var = dhAT1[[3]][,1:6])
-#' myspec1$regarima
+# myspec1 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "None",
+#                         usrdef.varEnabled = TRUE, usrdef.var = dhAT1[[3]][,1:6])
+# myspec1$regarima
 #'
 #' @importFrom stats ts
-#' @importFrom timeDate listHolidays Easter
+# @importFrom timeDate listHolidays Easter
+#' @import timeDate
 #' @importFrom zoo as.yearmon
 #' @export
 
@@ -57,10 +58,15 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
       a <- as.Date(paste0(seq(start(y)[1],end(y)[1]),paste0("-",x)))
     }
   })
-  names(dat) <- unlist(hd)
+  dat <- do.call("c", dat)
+  dat <- data.frame(dat,rep(weight, each = 1+lYear-fYear))
+  # Elimination of redundant dates (e.g. 1st of May 2008 is both, Labour Day and Ascension )
+  dat <- unique(dat)
+  colnames(dat) <- c("dat", "weight")
 
   dd <- matrix(nrow=length(y),ncol=7,dimnames=c(list(NULL,dNam)))
   td <- matrix(nrow=length(y),ncol=7,dimnames=c(list(NULL,c(dNam[1:6],"wd5"))))
+  dd0 <- matrix(rep(0,7), nrow=length(y),ncol=7,dimnames=c(list(NULL,dNam)))
 
   for (ii in seq_along(y)){
     ti <- time(y)[ii]
@@ -69,36 +75,35 @@ genTd <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,leng
 
     d0 <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=0)
     dN <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=1)
-
     rT <- seq(from=d0,to=dN,by="day")
     days <- weekdays(rT, abbreviate = TRUE)
     dd[ii,] <- as.vector(table(factor(days,levels=dNam)))
-    rB1 <- lapply(dat, function(x){
-      weekdays(rT[which(rT %in% x)],abbreviate=TRUE)
-    })
-    hdWeight <- lapply(seq_along(rB1),function(ii){
-      x <- rB1[[ii]]
-      table(factor(x,levels=dNam))*weight[ii]
-    })
-    a <- rowSums(matrix(unlist(hdWeight),nrow=7))
-    dd[ii,] <- dd[ii,]-a
-    dd[ii,7] <- dd[ii,7]+sum(a[1:7])
 
-    td[ii,1:6] <- c(dd[ii,1]-dd[ii,7],dd[ii,2]-dd[ii,7],dd[ii,3]-dd[ii,7],
-                    dd[ii,4]-dd[ii,7],dd[ii,5]-dd[ii,7],dd[ii,6]-dd[ii,7])
-    td[ii,7] <- sum(dd[ii,1:5])-(5/2)*sum(dd[ii,6:7])
+    moDays <- data.frame(dat=rT, days)
+    moDays0 <- merge(moDays, dat, by = "dat", all.x = TRUE)
+    if(any(!is.na(moDays0$weight))){
+      moDays1 <- aggregate(. ~ days, data = moDays0, FUN = "sum")
+      moDays1$days <- as.numeric(factor(moDays1$days, levels = dNam))
+      dd0[ii, moDays1$days] <- moDays1$weight
+      dd0[ii, 7] <- -sum(dd0[ii, 1:6])
+      dd0[ii, ] <- dd[ii, ] - dd0[ii, ]
+    } else{
+      dd0[ii, ] <- dd[ii, ]
+    }
+
+    td[ii,1:6] <- c(dd0[ii, 1] - dd0[ii, 7], dd0[ii, 2] - dd0[ii, 7], dd0[ii, 3] - dd0[ii, 7],
+                    dd0[ii, 4] - dd0[ii, 7], dd0[ii, 5] - dd0[ii, 7], dd0[ii, 6] - dd0[ii, 7])
+    td[ii,7] <- sum(dd0[ii, 1:5]) - (5/2) * sum(dd0[ii, 6:7])
   }
 
   td1 <- td
-  td0 <- ts(matrix(td, nrow = nrow(td), ncol = ncol(td)), start = c(fYear, 1), frequency = freq)
-
   for(ii in 1:12){
-    t1 <- colMeans(td[seq(ii, nrow(td), 12), 1:7, drop = FALSE])
+    t1 <- colMeans(td[seq(ii, nrow(td), 12), 1:6, drop = FALSE])
     td1[seq(ii, nrow(td), 12),] <- td1[seq(ii, nrow(td), 12),] - t1
   }
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1), frequency = freq)
 
-  row.names(dd) <- substr(as.character(as.Date(time(y))),1,7)
-  days <- list(dd,td0,td1)
+  row.names(dd) <- row.names(dd1) <- row.names(td0) <- row.names(td1) <- substr(as.character(as.Date(time(y))),1,7)
+  days <- list(dd0, dd1, td0, td1)
   return(days[])
 }
