@@ -54,7 +54,7 @@ An object of class `persephone` can be constructed from only one or multiple tim
 Depending on whether seasonal adjustment should be performed with X-13-ARIMA-SEATS[@X13] or with TRAMO-SEATS [@Tramo],
 'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
 Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
-Batch objects without a hierarchy can be represented as objects with a flat hierachy at the moment, but this will be improved in the future.
+Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment, but this will be improved in the future.
 
 Persephone objects call the functions of **RJDemetra** in the background, so for a detailed documentation on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
 
@@ -92,7 +92,7 @@ knitr::include_graphics("resources/plot.png")
 ```
 
 ## Adjusting Parameters
-All predefined JDemetra+ model specifications can be used in the calls to per_x13 or per_tramo (and also in the hierachical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individual. This can of course be done.
+All predefined JDemetra+ model specifications can be used in the calls to per_x13 or per_tramo (and also in the hierarchical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individual. This can of course be done.
 We will reuse the `obj_x13` from before, which is generated with the `RSA3` model specification.
 
 The current parameters are stored in the field `params`.
@@ -109,7 +109,7 @@ obj_x13_2 <- per_x13(AirPassengers, "RSA3")
 obj_x13_hts <- per_hts(ts1 = obj_x13_1, ts2 = obj_x13_2)
 
 ```
-Secondly, several 'single' objects can be concatenated into a list and provdied to the `list` argument of the `per_hts()` function.
+Secondly, several 'single' objects can be concatenated into a list and provided to the `list` argument of the `per_hts()` function.
 We shall call these 'single' objects 'components' in this multivariate context.
 
 In the more realistic examples below, we use time series of the volume index of production for total industry (except construction) 
@@ -142,21 +142,21 @@ pi_caladj <- window(pi_caladj, end = c(2019, 5))
 
 The next step is to construct a hierarchical persephone object that does not contain weights and computes aggregate series as the sum of the components.
 
-To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R builtin function `lapply` to call the function `per_x13` on the list of time seriees objects  `pi_caladj`.
+To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R built-in function `lapply` to call the function `per_x13` on the list of time series objects  `pi_caladj`.
 
 ```{r}
 ts_28 <- lapply(pi_caladj, per_x13)
 ```
 
 The list argument can be used to create a hierarchical persephone object based on a list of 
-persephone single objects. Here we aggregate the Euroarea (EA-19) countries and set the method to be used 
+persephone single objects. Here we aggregate the Euro-area (EA-19) countries and set the method to be used 
 for the direct adjustment of the aggregate series to x13 as well.
 
 ```{r}
 hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13")
 ```
 
-We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euroarea countries as a hierarchical object and the 9 countries as single objects.
+We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euro-area countries as a hierarchical object and the 9 countries as single objects.
 
 ```{r}
 non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
@@ -235,7 +235,7 @@ hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weigh
 # We then combine the hts_EA19 object with the non_EA19 countries.
 hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
-Please note that in the generation step of `hts_EU28` the weights in `w_non_EA19` are only used for the single persephone objects in the `list` input and not for the hierachical persephone object `hts_EA19`.
+Please note that in the generation step of `hts_EU28` the weights in `w_non_EA19` are only used for the single persephone objects in the `list` input and not for the hierarchical persephone object `hts_EA19`.
 
 To perform a run on all components, we just call the `run` method on the `hts_EU28` object.
 ```{r}
