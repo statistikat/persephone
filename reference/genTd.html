@@ -191,7 +191,8 @@ in case of wording day adjustment only column 7 has to be selected.
 plus 1 centered working day regressor</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>hdAT</span> <span class='kw'>&lt;-</span> <span class='fu'>genTd</span>(<span class='kw'>hd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"NewYearsDay"</span>,<span class='st'>"Epiphany"</span>,<span class='st'>"EasterMonday"</span>,<span class='st'>"LaborDay"</span>,
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>hdAT</span> <span class='kw'>&lt;-</span> <span class='fu'>genTd</span>(<span class='kw'>hd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"NewYearsDay"</span>,<span class='st'>"Epiphany"</span>,<span class='st'>"EasterMonday"</span>,<span class='st'>"LaborDay"</span>,
                         <span class='st'>"PentecostMonday"</span>,<span class='st'>"Ascension"</span>,<span class='st'>"CorpusChristi"</span>,
                         <span class='st'>"AssumptionOfMary"</span>,<span class='st'>"10-26"</span>,<span class='st'>"AllSaints"</span>,
                         <span class='st'>"ITImmaculateConception"</span>,<span class='st'>"ChristmasEve"</span>,<span class='st'>"ChristmasDay"</span>,
@@ -207,26 +208,8 @@ plus 1 centered working day regressor</p>
                         <span class='kw'>usrdef.varType</span> <span class='kw'>=</span> <span class='st'>"Calendar"</span>,
                         <span class='kw'>usrdef.varEnabled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>usrdef.var</span> <span class='kw'>=</span> <span class='no'>hdAT</span><span class='kw'>[[</span><span class='fl'>4</span>]][,<span class='fl'>1</span>:<span class='fl'>6</span>])
 <span class='no'>obj_x13</span>$<span class='fu'>run</span>()
-<span class='no'>obj_x13</span>$<span class='no'>output</span>$<span class='no'>regarima</span></div><div class='output co'>#&gt; y = regression model + arima (0, 1, 1, 0, 1, 1)
-#&gt; Log-transformation: yes
-#&gt; Coefficients:
-#&gt;           Estimate Std. Error
-#&gt; Theta(1)   -0.3517      0.085
-#&gt; BTheta(1)  -0.5621      0.076
-#&gt; 
-#&gt;             Estimate Std. Error
-#&gt; Monday     0.0191652      0.015
-#&gt; Tuesday   -0.0202803      0.025
-#&gt; Wednesday -0.0002310      0.016
-#&gt; Thursday  -0.0346900      0.025
-#&gt; Friday     0.0243078      0.019
-#&gt; Saturday  -0.0008063      0.039
-#&gt; 
-#&gt; 
-#&gt; Residual standard error: 0.03514 on 131 degrees of freedom
-#&gt; Log likelihood = 250.4, aic = 987.8 aicc = 989.3, bic(corrected for length) = -6.399
-#&gt; </div><div class='input'>
-</div></pre>
+<span class='no'>obj_x13</span>$<span class='no'>output</span>$<span class='no'>regarima</span>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
