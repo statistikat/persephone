@@ -7,7 +7,8 @@ location: \hspace{-1cm}Boulogne-Billancourt, France
 date: '`r format(Sys.Date(), "%B %Y")`'
 output: 
   slideSTAT::slideSTAT:
-    contact: 7186
+    contact:
+      number: 7186
     language: en 
 ---
 
@@ -143,10 +144,10 @@ data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
 
 ```{r}
 pi_caladj_orig <- pi_caladj
-pi_caladj <- pi_caladj[ , -c(1:2)]
+pi_caladj <- pi_caladj[, -c(1:2)]
 pi_caladj <- window(pi_caladj, end = c(2019, 5))
 ea19 <- weights_pi_ea19$country
-eu28 <- weights_pi_eu28$country 
+eu28 <- weights_pi_eu28$country
 ```
 
 ## Example 2: Persephone Hierarchical Object
@@ -154,7 +155,7 @@ eu28 <- weights_pi_eu28$country
 * We generate a list of persephone single objects with x13 as method for all countries’ time series.
 
 ```{r}
-ts_28 <- lapply(pi_caladj, per_x13, template="RSA3")
+ts_28 <- lapply(pi_caladj, per_x13, template = "RSA3")
 ```
 
 * We aggregate the Euro-area (EA-19) countries and set the method to be used 
@@ -216,7 +217,7 @@ knitr::include_graphics("plot_hts.png")
 * Generate Eurostat Quality Report with the function `generate_qr_table()`.
 
 ```{r, output_size=6}
-head(generate_qr_table(hts_EU28), n=4)
+head(generate_qr_table(hts_EU28), n = 4)
 ```
 
 
