@@ -50,7 +50,7 @@ dealing with multiple (hierarchical) monthly/quarterly time series
 ## Constructing Persephone Objects
 
 * Objects of class `persephone` can be constructed from only one or multiple time series.
-* Multiple time series can be connected through a certain hierarchy.
+* Multiple time series can be connected through a certain hierarchy and weights can be assigned.
 * Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment 
 (this will be improved in the future).
 
@@ -143,11 +143,17 @@ data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
 
 * For this example we use the calendar adjusted data `pi_caladj` after performing some preadjustments.
 
+## Example 2: Persephone Hierarchical Object
+
+Preadjustments because of missing values and for the sake of readability.
+
 ```{r}
 pi_caladj_orig <- pi_caladj
 pi_caladj <- pi_caladj[, -c(1:2)]
 pi_caladj <- window(pi_caladj, end = c(2019, 5))
+# Euro-Area Countries
 ea19 <- weights_pi_ea19$country
+# EU-28 Countries
 eu28 <- weights_pi_eu28$country
 ```
 
@@ -222,7 +228,7 @@ head(generate_qr_table(hts_EU28), n = 4)
 ```
 
 
-## Components of Persephone Hierarchical Object
+## Example 2: Persephone Hierarchical Object
 
 Methods developed for univariate analysis can be used by accessing the components of 
 a hierarchical persephone object.
@@ -234,7 +240,7 @@ for only one of the components, e.g. the persephone 'single' object for Belgium.
 generate_qr_table(hts_EU28$get_component("EA19/BE"))
 ```
 
-## Weighted Aggregates
+## Example 2: Persephone Hierarchical Object
 
 With **persephone** we can also generate weighted aggregates, e.g. for indices.
 
@@ -255,10 +261,11 @@ A couple of time-invariant weights are included in the package as example data s
 
 * Diagnostics for hierarchical time series
 * Benchmark method for direct adjustments
+* Indirect adjustment of chain-linked indices
 * Pure batch objects
 * Summary method
 * Dashboard for large numbers of time series
-* Complete Eurostat-Report
+* Complete Eurostat Quality Report
 
 
 
