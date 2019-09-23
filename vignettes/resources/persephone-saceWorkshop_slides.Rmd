@@ -5,7 +5,8 @@ author: Angelika Meraner
 institute: Statistics Austria
 location: \hspace{-1cm}Boulogne-Billancourt, France
 date: '`r format(Sys.Date(), "%B %Y")`'
-output: 
+output:
+  beamer_presentation:
   slideSTAT::slideSTAT:
     contact:
       number: 7186
