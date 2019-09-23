@@ -1,10 +1,11 @@
 pandoc: '2.2'
-pkgdown: 1.4.0.9000
-pkgdown_sha: b6eec62574f1a0087c70eeb6574d6af0435828ff
+pkgdown: 1.4.1.9000
+pkgdown_sha: d01672efa3baa80fd7ab238b7143080b0daf49a4
 articles:
   persephone-hierarchical: persephone-hierarchical.html
   persephone-hierarchicalEU: persephone-hierarchicalEU.html
   persephone-plotting: persephone-plotting.html
   persephone-saceWorkshop: persephone-saceWorkshop.html
   persephone-useR: persephone-useR.html
+  persephone-saceWorkshop_slides: resources/persephone-saceWorkshop_slides.html
 
