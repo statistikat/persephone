@@ -141,7 +141,7 @@
 <a href="#constructing-persephone-objects" class="anchor"></a>Constructing Persephone Objects</h2>
 <ul>
 <li>Objects of class <code>persephone</code> can be constructed from only one or multiple time series.</li>
-<li>Multiple time series can be connected through a certain hierarchy.</li>
+<li>Multiple time series can be connected through a certain hierarchy and weights can be assigned.</li>
 <li>Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment (this will be improved in the future).</li>
 </ul>
 <ol style="list-style-type: decimal">
@@ -234,15 +234,22 @@ bic(corrected for length) = -6.535</code></pre>
 </li>
 <li>For this example we use the calendar adjusted data <code>pi_caladj</code> after performing some preadjustments.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">pi_caladj_orig &lt;-<span class="st"> </span>pi_caladj</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">pi_caladj &lt;-<span class="st"> </span>pi_caladj[, <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">pi_caladj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(pi_caladj, <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">ea19 &lt;-<span class="st"> </span>weights_pi_ea19<span class="op">$</span>country</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">eu28 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>country</a></code></pre></div>
 </div>
 <div id="example-2-persephone-hierarchical-object-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-2-persephone-hierarchical-object-1" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<p>Preadjustments because of missing values and for the sake of readability.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">pi_caladj_orig &lt;-<span class="st"> </span>pi_caladj</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">pi_caladj &lt;-<span class="st"> </span>pi_caladj[, <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">pi_caladj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(pi_caladj, <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Euro-Area Countries</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">ea19 &lt;-<span class="st"> </span>weights_pi_ea19<span class="op">$</span>country</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co"># EU-28 Countries</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">eu28 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>country</a></code></pre></div>
+</div>
+<div id="example-2-persephone-hierarchical-object-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-2-persephone-hierarchical-object-2" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
 <li>We generate a list of persephone single objects with x13 as method for all countries’ time series.</li>
 </ul>
@@ -252,9 +259,9 @@ bic(corrected for length) = -6.535</code></pre>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[ea19], <span class="dt">method =</span> <span class="st">"x13"</span>)</a></code></pre></div>
 </div>
-<div id="example-2-persephone-hierarchical-object-2" class="section level2">
+<div id="example-2-persephone-hierarchical-object-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-2-persephone-hierarchical-object-2" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-3" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
 <li>We then generate our final hierarchical persephone object <code>hts_EU28</code> which consists of the Euro-area countries as a hierarchical object and the remaining 9 countries as single objects.</li>
 </ul>
@@ -263,9 +270,9 @@ bic(corrected for length) = -6.535</code></pre>
 <pre><code>## [1] "BG" "CZ" "DK" "HR" "HU" "PL" "RO" "SE" "UK"</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">EA19 =</span> hts_EA19, ts_<span class="dv">28</span>[non_ea19]))</a></code></pre></div>
 </div>
-<div id="example-2-persephone-hierarchical-object-3" class="section level2">
+<div id="example-2-persephone-hierarchical-object-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-2-persephone-hierarchical-object-3" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-4" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
 <li>The structure of this object is represented in the <code>print</code> output. The “blank” component is the overall total.</li>
 </ul>
@@ -302,9 +309,9 @@ bic(corrected for length) = -6.535</code></pre>
 ##  SE        FALSE x13Single             
 ##  UK        FALSE x13Single</code></pre>
 </div>
-<div id="example-2-persephone-hierarchical-object-4" class="section level2">
+<div id="example-2-persephone-hierarchical-object-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-2-persephone-hierarchical-object-4" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-5" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>The following methods can be called for the hierarchical persephone object:</p>
 <ul>
 <li>perform a run, i.e. perform SA.</li>
@@ -316,9 +323,9 @@ bic(corrected for length) = -6.535</code></pre>
 </ul>
 <p>More methods directed specifically at multiple (hierarchical) time series still need to be implemented/developed.</p>
 </div>
-<div id="example-2-persephone-hierarchical-object-5" class="section level2">
+<div id="example-2-persephone-hierarchical-object-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-2-persephone-hierarchical-object-5" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-6" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
 <li>General comparison line chart called through the S3 generic <code><a href="../../reference/plot.html">plot()</a></code> (only plot function for hierarchical persephone objects at the moment)</li>
 </ul>
@@ -329,9 +336,9 @@ bic(corrected for length) = -6.535</code></pre>
 </p>
 </div>
 </div>
-<div id="example-2-persephone-hierarchical-object-6" class="section level2">
+<div id="example-2-persephone-hierarchical-object-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-2-persephone-hierarchical-object-6" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-7" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
 <li>Generate Eurostat Quality Report with the function <code><a href="../../reference/generate_qr_table.html">generate_qr_table()</a></code>.</li>
 </ul>
@@ -362,9 +369,9 @@ bic(corrected for length) = -6.535</code></pre>
 ## 3                      H13             3x5     14%
 ## 4                      H13             3x5      9%</code></pre>
 </div>
-<div id="components-of-persephone-hierarchical-object" class="section level2">
+<div id="example-2-persephone-hierarchical-object-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#components-of-persephone-hierarchical-object" class="anchor"></a>Components of Persephone Hierarchical Object</h2>
+<a href="#example-2-persephone-hierarchical-object-8" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>Methods developed for univariate analysis can be used by accessing the components of a hierarchical persephone object.</p>
 <p>Example: Generate Eurostat Quality Report with the function <code><a href="../../reference/generate_qr_table.html">generate_qr_table()</a></code> for only one of the components, e.g. the persephone ‘single’ object for Belgium.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../../reference/generate_qr_table.html">generate_qr_table</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19/BE"</span>))</a></code></pre></div>
@@ -379,9 +386,9 @@ bic(corrected for length) = -6.535</code></pre>
 ##   Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
 ## 1                      H13             3x5     14%</code></pre>
 </div>
-<div id="weighted-aggregates" class="section level2">
+<div id="example-2-persephone-hierarchical-object-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#weighted-aggregates" class="anchor"></a>Weighted Aggregates</h2>
+<a href="#example-2-persephone-hierarchical-object-9" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>With <strong>persephone</strong> we can also generate weighted aggregates, e.g. for indices.</p>
 <p>The <code>weights</code> argument of <code><a href="../../reference/per_hts.html">per_hts()</a></code> is used for this purpose.</p>
 <ul>
@@ -398,10 +405,11 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>Diagnostics for hierarchical time series</li>
 <li>Benchmark method for direct adjustments</li>
+<li>Indirect adjustment of chain-linked indices</li>
 <li>Pure batch objects</li>
 <li>Summary method</li>
 <li>Dashboard for large numbers of time series</li>
-<li>Complete Eurostat-Report</li>
+<li>Complete Eurostat Quality Report</li>
 </ul>
 </div>
   </div>
@@ -427,8 +435,9 @@ bic(corrected for length) = -6.535</code></pre>
       <li><a href="#example-2-persephone-hierarchical-object-4">Example 2: Persephone Hierarchical Object</a></li>
       <li><a href="#example-2-persephone-hierarchical-object-5">Example 2: Persephone Hierarchical Object</a></li>
       <li><a href="#example-2-persephone-hierarchical-object-6">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#components-of-persephone-hierarchical-object">Components of Persephone Hierarchical Object</a></li>
-      <li><a href="#weighted-aggregates">Weighted Aggregates</a></li>
+      <li><a href="#example-2-persephone-hierarchical-object-7">Example 2: Persephone Hierarchical Object</a></li>
+      <li><a href="#example-2-persephone-hierarchical-object-8">Example 2: Persephone Hierarchical Object</a></li>
+      <li><a href="#example-2-persephone-hierarchical-object-9">Example 2: Persephone Hierarchical Object</a></li>
       <li><a href="#future-enhancements">Future Enhancements</a></li>
       </ul>
 </div>
