@@ -213,7 +213,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     adjusted = function() {
       if (is.na(self$indirect)) {
         warning("The decision between direct and indirect adjustment was not ",
-                 "recoreded yet. \nDirect adjustment is returned.")
+                 "recorded yet. \nDirect adjustment is returned.")
       } else if (self$indirect) {
         return(private$adjusted_indirect_one_step())
       }
@@ -222,7 +222,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     forecasts = function() {
       if (is.na(self$indirect)) {
         warning("The decision between direct and indirect adjustment was not ",
-                "recoreded yet. \nDirect forecasts are returned.")
+                "recorded yet. \nDirect forecasts are returned.")
       } else if (self$indirect) {
         return(private$forecasts_indirect_one_step())
       }
