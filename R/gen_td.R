@@ -43,14 +43,19 @@
 library(lubridate)
 library(timeDate)
 rm(list=ls())
-gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd))){
+gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
+                   adjustEaster = 1){
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
+  if(adjustEaster){
+    data(EasterDateExact, envir = environment())
+  } else{
+    data(EasterDateApprox, envir = environment())
+  }
 
   easterRel <- which(substr(hd,1,6)=="easter")
   easterOff <- substr(hd[easterRel],7,10)
-  #easterExpF <- paste("as.Date(\"2285-03-22\")", easterOff)  # Easter on March 23rd
-  #easterExpL <- paste("as.Date(\"2038-04-25\")", easterOff)  # Easter on April 25th
+
   eMeans <- list()
   for(ii in 1:length(easterRel)){
     start <- paste("as.Date(\"2285-03-22\")", easterOff[ii])
@@ -64,7 +69,7 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
     j0 <- 1
     ww <- NULL
     for(jj in 1:length(nD)){
-      ww0 <- sum(z[j0:cumsum(nD)[jj]]) # z ist die Verteilung der Osterdaten (35 Anteile)
+      ww0 <- sum(eaDist[j0:cumsum(nD)[jj]])
       j0 <- cumsum(nD)[jj]+1
       ww <- cbind(ww, ww0)
     }
@@ -94,7 +99,7 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
   aMeans <- aggregate(datNE[, 2], list(datNE$mon), sum)
 
   dd <- matrix(nrow=length(y),ncol=7,dimnames=c(list(NULL,dNam)))
-  td <- matrix(nrow=length(y),ncol=7,dimnames=c(list(NULL,c(dNam[1:6],"wd5"))))
+  td <- matrix(nrow=length(y),ncol=6,dimnames=c(list(NULL,c(dNam[1:6]))))
   dd0 <- matrix(rep(0,7), nrow=length(y),ncol=7,dimnames=c(list(NULL,dNam)))
   for (ii in seq_along(y)){
     ti <- time(y)[ii]
@@ -119,7 +124,6 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
     td[ii,1:6] <- c(dd0[ii, 1] - dd0[ii, 7], dd0[ii, 2] - dd0[ii, 7],
                     dd0[ii, 3] - dd0[ii, 7], dd0[ii, 4] - dd0[ii, 7],
                     dd0[ii, 5] - dd0[ii, 7], dd0[ii, 6] - dd0[ii, 7])
-    td[ii,7] <- sum(dd0[ii, 1:5]) - (5/2) * sum(dd0[ii, 6:7])
   }
 
   ltermM <- matrix(0,nrow=12,ncol=6)
@@ -133,70 +137,16 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
     ltermM[row, -col] <- ltermM[row, -col] + val
   }
   ltermMAll <- do.call(rbind, replicate((lYear-fYear+1), ltermM, simplify=FALSE))
-  td1 <- td[,1:6] + ltermMAll
+  td1 <- td + ltermMAll
 
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1),
             frequency = freq)
   colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
-                     "Saturday","WorkingDay")
+                     "Saturday")
   row.names(dd) <- row.names(dd0) <- row.names(td) <-
                                    substr(as.character(as.Date(time(y))),1,7)
-  days <- list(dd, dd0, td, td1)
+  days <- list(dd, td, td1)
   return(days[])
 }
 
 
-pb <- txtProgressBar(min = 0, max = 57001959, style=3)
-a <- Easter1(year=1960)
-start <- Sys.time()
-for(ii in 1961:5701959){
-  a <- append(a,Easter1(year = ii))
-  cat(ii,"\n")
-}
-end <- Sys.time()
-b <- a
-b0 <- as.Date(paste0("2019-",b))
-save(b0,file="EasterDate.RData")
-summary(b0)
-test <- table(b0)
-b00 <- as.numeric(test/5700000)
-save(b00,file="EasterDateExact.RData")
-barplot(test)
-#c <- as.numeric(paste0(substr(b,2,2),substr(b,4,5)))
-#d <- ifelse(c<401,c+69,c)
-
-Easter1(2000)
-
-Easter1 <- function(year){
-a = year%%19
-b = year%/%100
-c = year%%100
-d = b%/%4
-e = b%%4
-f = (b + 8)%/%25
-g = (b - f + 1)%/%3
-h = (19 * a + b - d - g + 15)%%30
-i = c%/%4
-k = c%%4
-l = (32 + 2 * e + 2 * i - h - k)%%7
-m = (a + 11 * h + 22 * l)%/%451
-easter.month = (h + l - 7 * m + 114)%/%31
-p = (h + l - 7 * m + 114)%%31
-easter.day = p + 1
-mm <- ifelse(easter.month<10,paste0("0",easter.month),as.character(easter.month))
-dd <- ifelse(easter.day<10,paste0("0",easter.day),as.character(easter.day))
-out <- paste0(mm,"-",dd)
-out
-}
-
-b1 <- c((1/7)*1/29.53059, (1/7)*2/29.53059, (1/7)*3/29.53059, (1/7)*4/29.53059,
-        (1/7)*5/29.53059, (1/7)*6/29.53059, 1/29.53059, 1/29.53059, 1/29.53059,
-        1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059,
-        1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059,
-        1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059, 1/29.53059,
-        1/29.53059, (1/7)*(6+1.53059)/29.53059, (1/7)*(5+1.53059)/29.53059,
-        (1/7)*(4+1.53059)/29.53059, (1/7)*(3+1.53059)/29.53059, (1/7)*(2+1.53059)/29.53059,
-        (1/7)*(1+1.53059)/29.53059, (1/7)*(0+1.53059)/29.53059)
-b1
-save(b1, file="EasterDateApprox.RData")
-b0
