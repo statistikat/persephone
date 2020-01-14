@@ -31,18 +31,17 @@
 #'                         weight = c(rep(1,11),0.5,rep(1,2),0.5))
 #' obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
 #'                         usrdef.varType = "Calendar",
-#'                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[4]][,1:6])
+#'                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[3]])
 #' obj_x13$run()
 #' obj_x13$output$regarima
 #'
 #' @importFrom stats ts
 #' @importFrom zoo as.yearmon as.Date
+#' @importFrom timeDate Easter
 #' @export
 #'
 #'
-library(lubridate)
-library(timeDate)
-rm(list=ls())
+
 gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
                    adjustEaster = 1){
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
