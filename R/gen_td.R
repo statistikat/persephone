@@ -11,6 +11,9 @@
 #'           (listHolidays() from timeDate function) and/or
 #'           3. easter relation (e.g. "easter+39", "easter-3")
 #' @param weight vector of individual weights for each holiday with length of hd
+#' @param adjustEaster employ theoretical distribution of easter dates (default) or
+#'               approximative distribution of easter dates for centering of
+#'               trading days
 #' @return list with tree list elements. 1. matrix of trading day counts for each
 #'        individual day, month and year. Holidays which are delivered through the
 #'        parameter hd are assigned to the number of sundays. 2. multiple time
@@ -38,6 +41,8 @@
 #' @importFrom stats ts
 #' @importFrom zoo as.yearmon as.Date
 #' @importFrom timeDate Easter
+#' @importFrom stats aggregate
+#' @importFrom utils data
 #' @export
 #'
 #'
@@ -47,9 +52,11 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
   y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
   if(adjustEaster){
-    data(EasterDateExact, envir = environment())
+    data(eaDist_exact, envir = environment())
+    eaDist <- eaDist_exact
   } else{
-    data(EasterDateApprox, envir = environment())
+    data(eaDist_approx, envir = environment())
+    eaDist <- eaDist_approx
   }
 
   easterRel <- which(substr(hd,1,6)=="easter")

@@ -22,21 +22,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The R-package [@R] **persephone** [@persephone] was developed and is still under development to enable easy processing of multiple time series during the production of seasonally adjusted estimates. It will be used as a successor of the R package **x12** [@x12] which is currently used at Statistics Austria.
 
-**RJDemetra** [@RJDemetra], an R interface to JDemetra+ (https://github.com/jdemetra) is used to perform the seasonal adjustment. Additional,  analytic tools such as interactive plots are developed to support the SA expert. 
-This tool makes it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
-The support of hierarchical time series is of importance in the workflow within an official statistics agency and in the future diagnostics for the comparison between direct and indirect seasonal adjustment will be included.
+**RJDemetra** [@RJDemetra], an R interface to JDemetra+ (https://github.com/jdemetra) is used to perform the seasonal adjustment. Additionally, analytic tools such as interactive plots are developed to support the SA expert. 
+These tools makes it easy to construct personalized dashboards containing selected plots and diagnostics and to produce a Eurostat-Quality-Report.
+The support of hierarchical time series is of importance in the workflow within an official statistics agency and in the future, diagnostics for the comparison between direct and indirect seasonal adjustment will be included.
 
-Note on the package name: Obviously, Persephone [@wiki:persephone] is an offspring of Demetra (Demeter) and Zeus and also a vegetation goddess. Therefore, it is a natural choice
+Note on the package name: Obviously, Persephone [@wiki:persephone] is an offspring of Demetra (Demeter) and Zeus and also a vegetation goddess. Therefore, it is a natural choice.
 
 # Installation
 
-As the package is not yet on the comprehensive R archive network (CRAN http://cran.r-project.org), the main R package repository, so it can be installed from GitHub via the following command:
+As the package is not yet on the comprehensive R archive network (CRAN http://cran.r-project.org), the main R package repository, it can be installed from GitHub via the following command:
 
 ```{r installation, eval = FALSE}
 devtools::install_github("statistikat/persephone")
 ```
 
-Optionally and preferably, it can be installed including vignettes (needs prettydoc[@prettydoc]).
+Optionally and preferably, it can be installed including vignettes (needs prettydoc [@prettydoc]).
 
 ```{r installation2, eval = FALSE}
 devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
@@ -51,10 +51,10 @@ library(persephone)
 # Constructing Persephone Objects
 
 An object of class `persephone` can be constructed from only one or multiple time series. These multiple time series can be connected through a certain hierarchy.
-Depending on whether seasonal adjustment should be performed with X-13-ARIMA-SEATS[@X13] or with TRAMO-SEATS [@Tramo],
+Depending on whether seasonal adjustment should be performed with X-13-ARIMA-SEATS [@X13] or with TRAMO-SEATS [@Tramo],
 'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
 Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
-Batch objects without a hierarchy can be represented as objects with a flat hierachy at the moment, but this will be improved in the future.
+Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment, but this will be improved in the future.
 
 Persephone objects call the functions of **RJDemetra** in the background, so for a detailed documentation on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
 
@@ -65,14 +65,14 @@ such as the `AirPassengers` data set.
 A predefined JDemetra+ model specification has to be provided by the user, in this example we use `"RSA3"` 
 (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
 
-
 ```{r}
 data(AirPassengers, package = "datasets")
 obj_x13 <- per_x13(AirPassengers, "RSA3")
 ```
 
 Now different methods can be called for the persephone object `obj_x13`.
-Most prominently, the `run()` method performs call to JDemetra+ through RJDemetra to actual run seasonal adjustment method. The `output` field gives access to the original output object from 
+Most prominently, the `run()` method performs a call to JDemetra+ through **RJDemetra** to actually run
+the seasonal adjustment method. The `output` field gives access to the original output object from 
 **RJDemetra**. Before the first run, some methods for the object will not work and some fields will be empty since no results are available yet.
 
 ```{r}
@@ -92,24 +92,43 @@ knitr::include_graphics("resources/plot.png")
 ```
 
 ## Adjusting Parameters
-All predefined JDemetra+ model specifications can be used in the calls to per_x13 or per_tramo (and also in the hierachical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individual. This can of course be done.
+
+All predefined JDemetra+ model specifications can be used in the calls to per_x13 or per_tramo (and also in the hierarchical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individually. This can of course be done.
 We will reuse the `obj_x13` from before, which is generated with the `RSA3` model specification.
 
 The current parameters are stored in the field `params`.
+
 ```{r , eval=FALSE}
 obj_x13$params
+```
+
+They can be updated with `updateParams()`, e.g. to include some random outliers.
+
+```{r}
+obj_x13$updateParams(usrdef.outliersEnabled = TRUE,
+                     usrdef.outliersType = c("AO","LS","LS"),
+                     usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+obj_x13$run()
+```
+
+The output shows that the outliers are now included in the model.
+
+```{r}
+obj_x13$output$regarima
 ```
 
 ## Persephone Hierarchical Objects
 
 Hierarchical persephone objects are created with `per_hts()`. There are two options on how to provide the 'single' objects as input. Firstly, directly as arguments, as shown below, this kind of call is mainly applicable for a quite limited number of time series.
+
 ```{r}
 obj_x13_1 <- per_x13(AirPassengers, "RSA3")
 obj_x13_2 <- per_x13(AirPassengers, "RSA3")
 obj_x13_hts <- per_hts(ts1 = obj_x13_1, ts2 = obj_x13_2)
 
 ```
-Secondly, several 'single' objects can be concatenated into a list and provdied to the `list` argument of the `per_hts()` function.
+
+Secondly, several 'single' objects can be concatenated into a list and provided to the `list` argument of the `per_hts()` function.
 We shall call these 'single' objects 'components' in this multivariate context.
 
 In the more realistic examples below, we use time series of the volume index of production for total industry (except construction) 
@@ -118,11 +137,11 @@ June 2019. Some series contain missing values.
 The data sets are downloaded from the Eurostat database [@STS] and provided with the R package to be used in examples and tests. They can be simply loaded with the `data` function.
 
 ```{r}
-data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_ea19)
+data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
 ```
 
-We use the calendar and not seasonally adjusted data `pi_caladj` for illustrative purposes because it
-only contains one missing value. `weights_pi_ea19` and `weights_pi_ea19` are the data sets containing 
+We use the calendar and not seasonally adjusted data `pi_caladj` for illustrative purposes because they
+only contain one missing value. `weights_pi_ea19` and `weights_pi_eu28` are the data sets containing 
 the weights per country.
 
 We remove the EU-28 and EA-19 (Euro Area) aggregates.
@@ -142,21 +161,21 @@ pi_caladj <- window(pi_caladj, end = c(2019, 5))
 
 The next step is to construct a hierarchical persephone object that does not contain weights and computes aggregate series as the sum of the components.
 
-To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R builtin function `lapply` to call the function `per_x13` on the list of time seriees objects  `pi_caladj`.
+To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R built-in function `lapply` to call the function `per_x13` on the multivariate time series object `pi_caladj`.
 
 ```{r}
 ts_28 <- lapply(pi_caladj, per_x13)
 ```
 
-The list argument can be used to create a hierarchical persephone object based on a list of 
-persephone single objects. Here we aggregate the Euroarea (EA-19) countries and set the method to be used 
+The list argument in `per_hts()` can be used to create a hierarchical persephone object based on a list of 
+persephone single objects. Here we aggregate the Euro-area (EA-19) countries and set the method to be used 
 for the direct adjustment of the aggregate series to x13 as well.
 
 ```{r}
 hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13")
 ```
 
-We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euroarea countries as a hierarchical object and the 9 countries as single objects.
+We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euro-area countries as a hierarchical object and the 9 countries as single objects.
 
 ```{r}
 non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
@@ -210,7 +229,7 @@ plot(hts_EU28$get_component("EA19"))
 If the time series are indices, we are not really interested in the sum of the components but in the weighted sum.
 We can use either time-invariant or time-variant weights.
 
-#### Time-invariant weights
+#### Time-invariant Weights
 
 The weights parameter is set as a numeric vector with length equal to the number of components.
 The hierarchical persephone object is constructed in the same way as in the previous section but 
@@ -235,7 +254,8 @@ hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weigh
 # We then combine the hts_EA19 object with the non_EA19 countries.
 hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
-Please note that in the generation step of `hts_EU28` the weights in `w_non_EA19` are only used for the single persephone objects in the `list` input and not for the hierachical persephone object `hts_EA19`.
+
+Please note that in the generation step of `hts_EU28` the weights in `w_non_EA19` are only used for the single persephone objects in the `list` input and not for the hierarchical persephone object `hts_EA19`.
 
 To perform a run on all components, we just call the `run` method on the `hts_EU28` object.
 ```{r}
@@ -268,7 +288,7 @@ window(hts_EU28$ts, start = c(2019,1))
 # Maximum absolute difference
 max(abs(pi_caladj_orig[, "EU28"] - hts_EU28$ts))
 ```
-#### Time-variant weights
+#### Time-variant Weights
 
 We do not have a real-life example for time-variant weights which is why we generate artificial weights
 for our example.
@@ -305,14 +325,28 @@ and perform a run.
 hts_EU28$run()
 ```
 
-# Eurostat Report
+# Eurostat Quality Report
 
-The function `generate_qr_table()` renders a Eurostat quality report in the form of a `data.frame` which can then be exported by the user.
+The function `generate_qr_table()` renders a Eurostat quality report (QR) in the form of a `data.frame` which can then be exported by the user.
 
 ```{r}
 eurostatQR <- generate_qr_table(hts_EU28)
 head(eurostatQR)
 ```
 
-The Eurostat QR corresponds to the JD+ plugin version 1, see \url{https://ec.europa.eu/eurostat/cros/content/61-insee-plugin-eurostat-job-vacancy-survey_en},
-with the exception that no overall index of quality is included since it is not available to us from **RJDemetra** at the moment and is not trivial to recalculate it.
+The Eurostat QR corresponds to the JD+ plugin version 1 [@EurostatQR],
+with the exception that no overall index of quality is included since it is not available to us from **RJDemetra** at the moment and is not trivial to recalculate.
+
+# Future Enhancements
+
+The package is still under heavy development, some of the features we want to include in the future
+are: 
+
+* Diagnostics for hierarchical time series
+* Benchmark method for direct adjustments
+* Pure batch objects
+* Summary method
+* Dashboard for large numbers of time series
+
+
+# References

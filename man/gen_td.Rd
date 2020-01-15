@@ -25,6 +25,10 @@ gen_td(
 3. easter relation (e.g. "easter+39", "easter-3")}
 
 \item{weight}{vector of individual weights for each holiday with length of hd}
+
+\item{adjustEaster}{employ theoretical distribution of easter dates (default) or
+approximative distribution of easter dates for centering of
+trading days}
 }
 \value{
 list with tree list elements. 1. matrix of trading day counts for each
