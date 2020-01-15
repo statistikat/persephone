@@ -143,9 +143,8 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
   colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
                      "Saturday")
   row.names(dd) <- row.names(dd0) <- row.names(td) <-
-                                   substr(as.character(as.Date(time(y))),1,7)
+    substr(as.character(as.Date(time(y))),1,7)
   days <- list(dd, td, td1)
   return(days[])
 }
-
 

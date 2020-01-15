@@ -51,7 +51,7 @@ hdAT <- gen_td(hd = list("01-01","01-06","05-01","easter+1", "easter+39",
                         weight = c(rep(1,11),0.5,rep(1,2),0.5))
 obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
                         usrdef.varType = "Calendar",
-                        usrdef.varEnabled = TRUE, usrdef.var = hdAT[[4]][,1:6])
+                        usrdef.varEnabled = TRUE, usrdef.var = hdAT[[3]])
 obj_x13$run()
 obj_x13$output$regarima
 
