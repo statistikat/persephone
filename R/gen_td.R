@@ -4,7 +4,7 @@
 #' country-specific holidays and associated weights. Each holiday can be given
 #' a specific weight depending on the extent of the work load of that specific holiday.
 #'
-#' @param freq frequency of series
+#' @param ff frequency of series
 #' @param fYear first year of calculation of trading day regressor
 #' @param lYear last year of calculation of trading day regressor
 #' @param hd holidays, list of 1. exact date ("mm-dd") and/or 2. name of day
@@ -47,15 +47,15 @@
 #'
 #'
 
-gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
+gen_td <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
                    adjustEaster = 1){
-  y <- ts(frequency = freq, start = c(fYear, 1), end = c(lYear, freq))
+  y <- ts(frequency = 12, start = c(fYear, 1), end = c(lYear, 12))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
   if(adjustEaster){
-    data(eaDist_exact, envir = environment())
+    #data(eaDist_exact, envir = environment())
     eaDist <- eaDist_exact
   } else{
-    data(eaDist_approx, envir = environment())
+    #data(eaDist_approx, envir = environment())
     eaDist <- eaDist_approx
   }
 
@@ -110,7 +110,7 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
   for (ii in seq_along(y)){
     ti <- time(y)[ii]
     fti <- floor(ti)
-    si <- round(freq * (ti - fti)) + 1
+    si <- round(12 * (ti - fti)) + 1
     d0 <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=0)
     dN <- as.Date(as.yearmon(paste(c(fti, si), collapse="-")), frac=1)
     rT <- seq(from=d0,to=dN,by="day")
@@ -146,11 +146,22 @@ gen_td <- function(freq = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,len
   td1 <- td + ltermMAll
 
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1),
-            frequency = freq)
+            frequency = 12)
   colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
                      "Saturday")
-  row.names(dd) <- row.names(dd0) <- row.names(td) <-
-    substr(as.character(as.Date(time(y))),1,7)
+  td <- ts(matrix(td, nrow = nrow(td), ncol = ncol(td)), start = c(fYear, 1),
+            frequency = 12)
+  colnames(td) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
+                     "Saturday")
+  dd <- ts(matrix(dd, nrow = nrow(dd), ncol = ncol(dd)), start = c(fYear, 1),
+           frequency = 12)
+  colnames(dd) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
+                    "Saturday", "Sunday")
+  if(ff == 4){
+    td1 <- aggregate(td1, nfrequency = 4)
+    td <- aggregate(td, nfrequency = 4)
+    dd <- aggregate(dd, nfrequency = 4)
+  }
   days <- list(dd, td, td1)
   return(days[])
 }
