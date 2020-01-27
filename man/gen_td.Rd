@@ -5,7 +5,7 @@
 \title{Generation of trading day regressors}
 \usage{
 gen_td(
-  freq = 12,
+  ff = 12,
   fYear = 1960,
   lYear = 2099,
   hd,
@@ -14,7 +14,7 @@ gen_td(
 )
 }
 \arguments{
-\item{freq}{frequency of series}
+\item{ff}{frequency of series}
 
 \item{fYear}{first year of calculation of trading day regressor}
 
