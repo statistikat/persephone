@@ -28,3 +28,4 @@
 #' @usage data(eaDist_approx)
 #' @references Extracted on	15.02.20 from \url{https://ec.europa.eu/eurostat/cros/system/files/jd__calendars_0.docx}
 #' @format Distribution of Easter Dates
+NULL

@@ -9,3 +9,4 @@
 #' @usage data(eaDist_exact)
 #' @references Extracted on	15.02.20 from \url{https://ec.europa.eu/eurostat/cros/system/files/jd__calendars_0.docx}
 #' @format Theoretical Distribution of Easter Dates over the span of 5.7 mio years
+NULL
