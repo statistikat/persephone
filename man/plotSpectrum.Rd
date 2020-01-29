@@ -4,17 +4,9 @@
 \alias{plotSpectrum}
 \title{Spectral Plots}
 \usage{
-plotSpectrum(
-  x,
-  tsType = c("original", "sa", "irregular", "residuals"),
-  plotType = c("arSpec", "arSpecBars", "periodogram"),
-  maxobs = NULL,
-  n.freq = NULL,
-  order = 30,
-  main = NULL,
-  interactive = TRUE,
-  ...
-)
+plotSpectrum(x, tsType = c("original", "sa", "irregular", "residuals"),
+  plotType = c("arSpec", "arSpecBars", "periodogram"), maxobs = NULL,
+  n.freq = NULL, order = 30, main = NULL, interactive = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}

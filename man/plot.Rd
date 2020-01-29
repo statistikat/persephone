@@ -6,25 +6,13 @@
 \alias{plot.persephoneSingle}
 \title{Interactive time series plot for a persephone object}
 \usage{
-\method{plot}{hierarchicalTimeSeries}(
-  x,
-  main = NULL,
-  rangeSelector = TRUE,
-  drawPoints = FALSE,
-  annualComparison = NULL,
-  ...
-)
+\method{plot}{hierarchicalTimeSeries}(x, main = NULL,
+  rangeSelector = TRUE, drawPoints = FALSE, annualComparison = NULL,
+  ...)
 
-\method{plot}{persephoneSingle}(
-  x,
-  main = NULL,
-  forecasts = TRUE,
-  showOutliers = TRUE,
-  rangeSelector = TRUE,
-  drawPoints = FALSE,
-  annualComparison = NULL,
-  ...
-)
+\method{plot}{persephoneSingle}(x, main = NULL, forecasts = TRUE,
+  showOutliers = TRUE, rangeSelector = TRUE, drawPoints = FALSE,
+  annualComparison = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}
@@ -59,7 +47,7 @@ In case of \code{persephoneSingle} objects,
 the function generates an interactive time series plot
 of the original series, the seasonally adjusted (SA) series and the trend as
 well as one year forecasts with prediction intervals of the original series.
-For \link{hierarchicalTimeSeries} objects, the function plots the original
+For \code{\link[=per_hts]{per_hts()}} objects, the function plots the original
 aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series.
 }

@@ -4,12 +4,8 @@
 \alias{per_x13}
 \title{x13 class}
 \usage{
-per_x13(
-  ts,
-  template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
-  userdefined = NULL,
-  ...
-)
+per_x13(ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3",
+  "RSA4c", "X11"), userdefined = NULL, ...)
 }
 \arguments{
 \item{ts}{a time series}
