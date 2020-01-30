@@ -1,3 +1,14 @@
+#' tramoseats class
+#'
+#' an R6 class that represents a tramoseats model
+#'
+#' @examples
+#' data(AirPassengers, package = "datasets")
+#'
+#' obj <- per_tramo(AirPassengers, "RSA3")
+#' obj$run()
+#' obj$ts
+#' @export
 tramoseatsSingle <- R6::R6Class(
   "tramoseatsSingle",
   inherit = persephoneSingle,

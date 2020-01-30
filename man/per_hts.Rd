@@ -4,8 +4,14 @@
 \alias{per_hts}
 \title{Define a hierarchical time series}
 \usage{
-per_hts(..., method = c("tramoseats", "x13"), userdefined = NULL,
-  spec = NULL, list = NULL, weights = NULL)
+per_hts(
+  ...,
+  method = c("tramoseats", "x13"),
+  userdefined = NULL,
+  spec = NULL,
+  list = NULL,
+  weights = NULL
+)
 }
 \arguments{
 \item{...}{ne or more objects which are either of class persephone or can be
@@ -32,44 +38,4 @@ components.}
 \description{
 Combine mutliple objects of persephone objects into a new persephone object.
 The resulting time series can perform direct and indirect adjustments.
-}
-\section{Inherits}{
- \link{persephone}
-}
-
-\section{Fields}{
-
-\itemize{
-\item \code{$components}. A list of \code{persephone} objects.
-\item \strong{\code{$adjusted_indirect}}. Results from indirect adjustments which means the
-components are first adjusted and the adjusted series are then aggregated
-}
-}
-
-\section{Methods}{
-
-\itemize{
-\item \code{$iterate(fun, ...)} can be used to iterate over the hierarchy tree. See
-\code{\link[=iterate]{iterate()}}.
-\item \code{$set_options(userdefined, spec, recursive = TRUE, component = "")} sets
-options for all entries of the dependency tree recursively if
-\code{recursive = TRUE} (the default). See
-\code{vignette("persephone-hierarchical")}.
-}
-}
-
-\examples{
-\dontrun{
-obj_x13 <- per_x13(AirPassengers, "RSA3")
-
-ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
-ht$run()
-ht$adjusted_direct
-ht$adjusted_indirect
-
-ht2 <- per_hts(a = ht, b = obj_x13)
-ht2$run()
-ht2$adjusted_direct
-ht2$adjusted_indirect
-}
 }

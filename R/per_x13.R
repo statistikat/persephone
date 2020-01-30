@@ -1,3 +1,14 @@
+#' x13 class
+#'
+#' An R6 class that represents a x13 model.
+#'
+#' @examples
+#' data(AirPassengers, package = "datasets")
+#'
+#' obj <- per_x13(AirPassengers, "RSA3")
+#' obj$run()
+#' obj$ts
+#' @export
 x13Single <- R6::R6Class(
   "x13Single",
   inherit = persephoneSingle,

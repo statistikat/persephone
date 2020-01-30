@@ -56,3 +56,218 @@ run? If \code{FALSE} (the default), the output will be returned invisibly.
 \code{\link[=per_x13]{per_x13()}}, \code{\link[=per_tramo]{per_tramo()}}, \code{\link[=per_hts]{per_hts()}}
 }
 
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{params}}{A parameters object of class \code{SA_spec}. See \code{\link[=x13_spec]{x13_spec()}}
+and \code{\link[=tramoseats_spec]{tramoseats_spec()}}.}
+
+\item{\code{ts}}{the (unajusted) time series}
+
+\item{\code{tsp}}{the \code{\link[=tsp]{tsp()}} of the underlying time series}
+
+\item{\code{output}}{The return value from the underlying functions x13 or
+tramoseats. This slot will be empty (NULL) before run() is called for
+the first time.}
+
+\item{\code{adjusted}}{get the adjusted series}
+
+\item{\code{adjusted_direct}}{see \link{per_hts}}
+
+\item{\code{spec}}{specifications passed to \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}} when the
+\verb{$run()} method is invoked}
+
+\item{\code{forecasts}}{get forecasts from the model}
+
+\item{\code{forecasts_direct}}{get direct forecasts from the model}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{persephone$new()}}
+\item \href{#method-run}{\code{persephone$run()}}
+\item \href{#method-updateParams}{\code{persephone$updateParams()}}
+\item \href{#method-plot}{\code{persephone$plot()}}
+\item \href{#method-plotSeasIrrCal}{\code{persephone$plotSeasIrrCal()}}
+\item \href{#method-plotResiduals}{\code{persephone$plotResiduals()}}
+\item \href{#method-print}{\code{persephone$print()}}
+\item \href{#method-iterate}{\code{persephone$iterate()}}
+\item \href{#method-generate_qr_table}{\code{persephone$generate_qr_table()}}
+\item \href{#method-set_options}{\code{persephone$set_options()}}
+\item \href{#method-clone}{\code{persephone$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\subsection{Method \code{new()}}{
+create a new persephone object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$new()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+this function should not be used directly because this class is
+abstract. Only initialize derived classes.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-run"></a>}}
+\subsection{Method \code{run()}}{
+perform a run of the model
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$run(verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{verbose}}{whether to show outputs}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-updateParams"></a>}}
+\subsection{Method \code{updateParams()}}{
+update parameters for the adjustment
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$updateParams(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{x13_spec()} of \code{tramoseats_spec()}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-plot"></a>}}
+\subsection{Method \code{plot()}}{
+visualize the results of an adjustment
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plot(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Interactive time series plot for a persephone object,
+see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-plotSeasIrrCal"></a>}}
+\subsection{Method \code{plotSeasIrrCal()}}{
+Interactive plot of the seasonal component, irregular
+component and calendar effects for a persephone object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plotSeasIrrCal(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=plotSeasIrrCal]{plotSeasIrrCal()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-plotResiduals"></a>}}
+\subsection{Method \code{plotResiduals()}}{
+visualize residuals
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plotResiduals(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=plotResiduals]{plotResiduals()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-print"></a>}}
+\subsection{Method \code{print()}}{
+display a persephone object in the console
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-iterate"></a>}}
+\subsection{Method \code{iterate()}}{
+see \link{per_hts}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$iterate(fun, as_table = FALSE, unnest = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fun}}{see \link{per_hts}}
+
+\item{\code{as_table}}{see \link{per_hts}}
+
+\item{\code{unnest}}{see \link{per_hts}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-generate_qr_table"></a>}}
+\subsection{Method \code{generate_qr_table()}}{
+create a table for the eurostat quality report
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$generate_qr_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_options"></a>}}
+\subsection{Method \code{set_options()}}{
+update options for the model
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$set_options(userdefined = NA, spec = NA, recursive = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{userdefined}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
+
+\item{\code{spec}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
+
+\item{\code{recursive}}{only applicable to hierarchical series. propagates
+the pudates to sub-series. see \link{per_hts}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

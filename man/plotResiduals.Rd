@@ -5,8 +5,13 @@
 \title{Several interactive plots in connection with residuals for a persephone
 object}
 \usage{
-plotResiduals(x, which = c("res", "acf", "acf2", "pacf", "sreshist",
-  "nqq"), main = NULL, interactive = TRUE, ...)
+plotResiduals(
+  x,
+  which = c("res", "acf", "acf2", "pacf", "sreshist", "nqq"),
+  main = NULL,
+  interactive = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}
