@@ -6,6 +6,7 @@ branches:
   only:
   - master
   - TradingDays
+  - r6_docs
 
 notifications:
   email:
