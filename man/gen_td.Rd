@@ -4,14 +4,8 @@
 \alias{gen_td}
 \title{Generation of trading day regressors}
 \usage{
-gen_td(
-  ff = 12,
-  fYear = 1960,
-  lYear = 2099,
-  hd,
-  weight = rep(1, length(hd)),
-  adjustEaster = 1
-)
+gen_td(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,
+  length(hd)), adjustEaster = 1)
 }
 \arguments{
 \item{ff}{frequency of series}

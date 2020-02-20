@@ -1,64 +1,3 @@
-#' Define a hierarchical time series
-#'
-#' Combine mutliple objects of persephone objects into a new persephone object.
-#' The resulting time series can perform direct and indirect adjustments.
-#'
-#' @section Inherits: [persephone]
-#' @usage NULL
-#' @format NULL
-#' @rdname per_hts
-#' @section Constructor:
-#' \preformatted{
-#' per_hts(..., method = c("tramoseats", "x13"),
-#'         userdefined = NULL, spec = NULL)
-#' }
-#' - `...` should contain one or more objects which are either of class
-#'   `persephone` or can be coerced to `persephone` objects with
-#'   `as_persephone`. If more than one element is supplied, the underlying
-#'   time series must have the same time instances. All elements supplied
-#'   in `...` must be named.
-#' - `list` a list of `persephone` objects as alternative input to `...`. This
-#'   argument can also handle `mts objects`
-#' - `weights` either a vector
-#' if the same weight is used for all time points or a list of ts objects or a
-#' mts object if the weight varies for different time points. They must have
-#' the same length as the number of components.
-#' - `method` specifies the method to be used for the direct adjustment of the
-#'   aggregate series. tramoseats or x13
-#' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
-#'   [x13()]
-#' - `spec` a model specification returned by [x13_spec()] or
-#'   [tramoseats_spec()]
-#'
-#' @section Fields:
-#'
-#' * `$components`. A list of `persephone` objects.
-#' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
-#'   components are first adjusted and the adjusted series are then aggregated
-#'
-#' @section Methods:
-#' * `$iterate(fun, ...)` can be used to iterate over the hierarchy tree. See
-#'   [iterate()].
-#' * `$set_options(userdefined, spec, recursive = TRUE, component = "")` sets
-#'   options for all entries of the dependency tree recursively if
-#'   `recursive = TRUE` (the default). See
-#'   `vignette("persephone-hierarchical")`.
-#'
-#' @examples
-#' \dontrun{
-#' obj_x13 <- per_x13(AirPassengers, "RSA3")
-#'
-#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
-#' ht$run()
-#' ht$adjusted_direct
-#' ht$adjusted_indirect
-#'
-#' ht2 <- per_hts(a = ht, b = obj_x13)
-#' ht2$run()
-#' ht2$adjusted_direct
-#' ht2$adjusted_indirect
-#' }
-#' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
@@ -355,9 +294,64 @@ hierarchicalTimeSeries <- R6::R6Class(
   )
 )
 
-#' @usage NULL
+#' Define a hierarchical time series
+#'
+#' Combine mutliple objects of persephone objects into a new persephone object.
+#' The resulting time series can perform direct and indirect adjustments.
+#'
+#' @param ... ne or more objects which are either of class persephone or can be
+#'   coerced to persephone objects with as_persephone. If more than one element
+#'   is supplied, the underlying time series must have the same time instances.
+#'   All elements supplied in ... must be named.
+#' @param method specifies the method to be used for the direct adjustment of
+#'   the aggregate series. tramoseats or x13
+#' @param userdefined passed as the userdefined argument to tramoseats() or x13()
+#' @param spec  a model specification returned by x13_spec() or
+#'   tramoseats_spec()
+#' @param list a list of persephone objects as alternative input to `...`. This
+#'   argument can also handle mts objects
+#' @param weights  either a vector if the same weight is used for all time
+#'   points or a list of ts objects or a mts object if the weight varies for
+#'   different time points. They must have the same length as the number of
+#'   components.
+#' @section Inherits: [persephone]
+#' @format NULL
+#' @rdname per_hts
+#' @section Fields:
+#'
+#' * `$components`. A list of `persephone` objects.
+#' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
+#'   components are first adjusted and the adjusted series are then aggregated
+#'
+#' @section Methods:
+#' * `$iterate(fun, ...)` can be used to iterate over the hierarchy tree. See
+#'   [iterate()].
+#' * `$set_options(userdefined, spec, recursive = TRUE, component = "")` sets
+#'   options for all entries of the dependency tree recursively if
+#'   `recursive = TRUE` (the default). See
+#'   `vignette("persephone-hierarchical")`.
+#'
+#' @examples
+#' \dontrun{
+#' obj_x13 <- per_x13(AirPassengers, "RSA3")
+#'
+#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
+#' ht$run()
+#' ht$adjusted_direct
+#' ht$adjusted_indirect
+#'
+#' ht2 <- per_hts(a = ht, b = obj_x13)
+#' ht2$run()
+#' ht2$adjusted_direct
+#' ht2$adjusted_indirect
+#' }
 #' @export
-per_hts <- hierarchicalTimeSeries$new
+per_hts <- function(..., method = c("tramoseats", "x13"),
+                    userdefined = NULL, spec = NULL, list = NULL,
+                    weights = NULL) {
+  hierarchicalTimeSeries$new(..., method = method, userdefined = userdefined,
+                             spec = spec, list = list, weights = weights)
+}
 
 
 startEndAsDecimal <- function(x){

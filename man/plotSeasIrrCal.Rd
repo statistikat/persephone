@@ -5,14 +5,8 @@
 \title{Interactive plot of the seasonal component, irregular component and calendar
 effects for a persephone object}
 \usage{
-plotSeasIrrCal(
-  x,
-  main = NULL,
-  forecasts = TRUE,
-  rangeSelector = TRUE,
-  drawPoints = FALSE,
-  annualComparison = NULL
-)
+plotSeasIrrCal(x, main = NULL, forecasts = TRUE,
+  rangeSelector = TRUE, drawPoints = FALSE, annualComparison = NULL)
 }
 \arguments{
 \item{x}{an object of class \link{persephone}.}
