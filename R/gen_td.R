@@ -14,7 +14,7 @@
 #' @param adjustEaster employ theoretical distribution of easter dates (default) or
 #'               approximative distribution of easter dates for centering of
 #'               trading days
-#' @return list with tree list elements. 1. matrix of trading day counts for each
+#' @return list with three list elements. 1. matrix of trading day counts for each
 #'        individual day, month and year. Holidays which are delivered through the
 #'        parameter hd are assigned to the number of sundays. 2. multiple time
 #'        series object with 6 non-centered trading day regressors plus 1
@@ -145,10 +145,15 @@ gen_td <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,lengt
   ltermMAll <- do.call(rbind, replicate((lYear-fYear+1), ltermM, simplify=FALSE))
   td1 <- td + ltermMAll
 
+  lpY <- rowSums(dd)
+  lpYear <- sapply(lpY, function(x){
+    ifelse(x == 28, -0.25, ifelse(x == 29, 0.75, 0))
+  })
+  td1 <- cbind(td1, lpYear)
   td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1),
             frequency = 12)
   colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
-                     "Saturday")
+                     "Saturday", "lpYear")
   td <- ts(matrix(td, nrow = nrow(td), ncol = ncol(td)), start = c(fYear, 1),
             frequency = 12)
   colnames(td) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
@@ -162,6 +167,7 @@ gen_td <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,lengt
     td <- aggregate(td, nfrequency = 4)
     dd <- aggregate(dd, nfrequency = 4)
   }
+
   days <- list(dd, td, td1)
   return(days[])
 }
