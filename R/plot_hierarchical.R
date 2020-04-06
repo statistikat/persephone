@@ -7,7 +7,7 @@
 #' the function generates an interactive time series plot
 #' of the original series, the seasonally adjusted (SA) series and the trend as
 #' well as one year forecasts with prediction intervals of the original series.
-#' For [hierarchicalTimeSeries] objects, the function plots the original
+#' For [per_hts()] objects, the function plots the original
 #' aggregate series
 #' as well as the directly and indirectly seasonally adjusted aggregate series.
 #'

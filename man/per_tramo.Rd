@@ -4,8 +4,12 @@
 \alias{per_tramo}
 \title{tramoseats class}
 \usage{
-per_tramo(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
-  "RSA4", "RSA5"), userdefined = NULL, ...)
+per_tramo(
+  ts,
+  template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3", "RSA4", "RSA5"),
+  userdefined = NULL,
+  ...
+)
 }
 \arguments{
 \item{ts}{a time series}

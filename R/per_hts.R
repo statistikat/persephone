@@ -1,49 +1,8 @@
-#' Define a hierarchical time series
+#' R6 Class for hierarchical time series
 #'
-#' Combine mutliple objects of persephone objects into a new persephone object.
-#' The resulting time series can perform direct and indirect adjustments.
-#'
-#' @section Inherits: [persephone]
-#' @usage NULL
-#' @format NULL
-#' @rdname per_hts
-#' @section Constructor:
-#' \preformatted{
-#' per_hts(..., method = c("tramoseats", "x13"),
-#'         userdefined = NULL, spec = NULL)
-#' }
-#' - `...` should contain one or more objects which are either of class
-#'   `persephone` or can be coerced to `persephone` objects with
-#'   `as_persephone`. If more than one element is supplied, the underlying
-#'   time series must have the same time instances. All elements supplied
-#'   in `...` must be named.
-#' - `list` a list of `persephone` objects as alternative input to `...`. This
-#'   argument can also handle `mts objects`
-#' - `weights` either a vector
-#' if the same weight is used for all time points or a list of ts objects or a
-#' mts object if the weight varies for different time points. They must have
-#' the same length as the number of components.
-#' - `method` specifies the method to be used for the direct adjustment of the
-#'   aggregate series. tramoseats or x13
-#' - `userdefined` is passed as the userdefined argument to [tramoseats()] or
-#'   [x13()]
-#' - `spec` a model specification returned by [x13_spec()] or
-#'   [tramoseats_spec()]
-#'
-#' @section Fields:
-#'
-#' * `$components`. A list of `persephone` objects.
-#' * __`$adjusted_indirect`__. Results from indirect adjustments which means the
-#'   components are first adjusted and the adjusted series are then aggregated
-#'
-#' @section Methods:
-#' * `$iterate(fun, ...)` can be used to iterate over the hierarchy tree. See
-#'   [iterate()].
-#' * `$set_options(userdefined, spec, recursive = TRUE, component = "")` sets
-#'   options for all entries of the dependency tree recursively if
-#'   `recursive = TRUE` (the default). See
-#'   `vignette("persephone-hierarchical")`.
-#'
+#' @description Combine mutliple objects of persephone objects into a new
+#'   persephone object. The resulting time series can perform direct and
+#'   indirect adjustments
 #' @examples
 #' \dontrun{
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
@@ -63,6 +22,23 @@ hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
   inherit = persephone,
   public = list(
+    #' @description create a new hierarchical time series
+    #' @param ... one or more objects which are either of class persephone or
+    #'   can be coerced to persephone objects with as_persephone. If more than
+    #'   one element is supplied, the underlying time series must have the same
+    #'   time instances. All elements supplied in ... must be named.
+    #' @param method specifies the method to be used for the direct adjustment
+    #'   of the aggregate series. tramoseats or x13
+    #' @param userdefined passed as the userdefined argument to tramoseats() or
+    #'   x13()
+    #' @param spec a model specification returned by x13_spec() or
+    #'   tramoseats_spec()
+    #' @param list a list of persephone objects as alternative input to `...`.
+    #'   This argument can also handle mts objects
+    #' @param weights either a vector if the same weight is used for all time
+    #'   points or a list of ts objects or a mts object if the weight varies
+    #'   for different time points. They must have the same length as the
+    #'   number of components.
     initialize = function(..., method = c("tramoseats", "x13"),
                           userdefined = NULL, spec = NULL, list = NULL,
                           weights = NULL) {
@@ -144,23 +120,40 @@ hierarchicalTimeSeries <- R6::R6Class(
       private$ts_internal <- private$aggregate(components, self$weights)
       super$set_options(userdefined = userdefined, spec = spec)
     },
-    run = function(...) {
+    #' @description run the model
+    #' @param verbose if `FALSE` (the default), the results of the run will
+    #'   be returned invisibly
+    #' @examples per_x13(AirPassengers)$run()
+    run = function(verbose = FALSE) {
       ## indirect
       lapply(self$components, function(component) {
-        component$run(...)
+        component$run(verbose = verbose)
       })
       ## direct
       private$run_direct(self$ts)
     },
+    #' @field components the sub series of the hierarchical time series
     components = NULL,
+    #' @field weights the weights used for aggregating components
     weights = NULL,
+    #' @field indirect wether to use direct or indirect adjustement
     indirect = NA,
+    #' @description print a hierarchical timeseries to screen
     print = function() {
       tbl <- private$print_table()
       if (all(!tbl$run))
         tbl <- tbl[, 1:3]
       print(tbl, right = FALSE, row.names = FALSE)
     },
+    #' @description sets options for all entries of the dependency tree
+    #'   recursively (if recursive = TRUE). See
+    #'   vignette("persephone-hierarchical") for more details.
+    #' @param userdefined additional outputs to generate while running. See
+    #'   [x13()] and [tramoseats()].
+    #' @param spec specifications generated by `x13_spec()` or
+    #'   `tramoseats_spec()`
+    #' @param recursive apply this setting to all subseries as well?
+    #' @param component which component to modify.
     set_options = function(userdefined = NA, spec = NA, recursive = TRUE,
                            component = "") {
       if (component != "") {
@@ -174,6 +167,16 @@ hierarchicalTimeSeries <- R6::R6Class(
         })
       invisible(NULL)
     },
+    #' @description iterate over all components
+    #' @details this functin is similar to `lapply()` in the sense that it
+    #'   can be used to apply a function to several persephone objects
+    #'   simultaniusely
+    #' @param fun a function that takes a persephone object as a parameter
+    #' @param as_table if true, the return value of this method will be coerced
+    #'   to a data.frame
+    #' @param component the id of the component
+    #' @param unnest if `as_table = FALSE`, converts the return value from a
+    #'   nested list into a flat list
     iterate = function(fun, as_table = FALSE, component = "", unnest = FALSE) {
       if (component != "") {
         root <- self$get_component(component)
@@ -189,6 +192,8 @@ hierarchicalTimeSeries <- R6::R6Class(
       res <- c(super$iterate(fun), comp)
       private$convert_list(res, as_table, unnest)
     },
+    #' @description extract a component series
+    #' @param component_id the id of a component
     get_component = function(component_id) {
       if (length(component_id) == 0 || component_id == "")
         return(self)
@@ -199,17 +204,22 @@ hierarchicalTimeSeries <- R6::R6Class(
       rest <- paste(component_path[-1], collapse = "/")
       self$components[[direct_child]]$get_component(rest)
     },
+    #' @description Generate a table for the eurostat quality report
+    #' @param component (optional) a sub-component to create the report for
     generate_qr_table = function(component = "") {
       self$iterate(generateQrList, as_table = TRUE, component = component)
     }
   ),
   active = list(
+    #' @field adjusted_indirect results from the indirect adjustment where
+    #'   all components are adjusted and then aggregated
     adjusted_indirect = function() {
       if (is.null(self$output))
         return(NULL)
       private$aggregate(self$components, self$weights,
                         which = "adjusted_indirect")
     },
+    #' @field adjusted results from the seasonal adjustment
     adjusted = function() {
       if (is.na(self$indirect)) {
         warning("The decision between direct and indirect adjustment was not ",
@@ -219,6 +229,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       }
       return(self$adjusted_direct)
     },
+    #' @field forecasts get forecasts
     forecasts = function() {
       if (is.na(self$indirect)) {
         warning("The decision between direct and indirect adjustment was not ",
@@ -228,6 +239,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       }
       return(self$forecasts_direct)
     },
+    #' @field forecasts_indirect get forecasts according to indirect adjustments
     forecasts_indirect = function() {
       if (is.null(self$output))
         return(NULL)
@@ -355,9 +367,33 @@ hierarchicalTimeSeries <- R6::R6Class(
   )
 )
 
-#' @usage NULL
+#' Define a hierarchical time series
+#'
+#' Combine mutliple objects of persephone objects into a new persephone object.
+#' The resulting time series can perform direct and indirect adjustments.
+#'
+#' @param ... ne or more objects which are either of class persephone or can be
+#'   coerced to persephone objects with as_persephone. If more than one element
+#'   is supplied, the underlying time series must have the same time instances.
+#'   All elements supplied in ... must be named.
+#' @param method specifies the method to be used for the direct adjustment of
+#'   the aggregate series. tramoseats or x13
+#' @param userdefined passed as the userdefined argument to tramoseats() or x13()
+#' @param spec  a model specification returned by x13_spec() or
+#'   tramoseats_spec()
+#' @param list a list of persephone objects as alternative input to `...`. This
+#'   argument can also handle mts objects
+#' @param weights  either a vector if the same weight is used for all time
+#'   points or a list of ts objects or a mts object if the weight varies for
+#'   different time points. They must have the same length as the number of
+#'   components.
 #' @export
-per_hts <- hierarchicalTimeSeries$new
+per_hts <- function(..., method = c("tramoseats", "x13"),
+                    userdefined = NULL, spec = NULL, list = NULL,
+                    weights = NULL) {
+  hierarchicalTimeSeries$new(..., method = method, userdefined = userdefined,
+                             spec = spec, list = list, weights = weights)
+}
 
 
 startEndAsDecimal <- function(x){
