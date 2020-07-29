@@ -4,8 +4,14 @@
 \alias{per_hts}
 \title{Define a hierarchical time series}
 \usage{
-per_hts(..., method = c("tramoseats", "x13"), userdefined = NULL,
-  spec = NULL, list = NULL, weights = NULL)
+per_hts(
+  ...,
+  method = c("tramoseats", "x13"),
+  userdefined = NULL,
+  spec = NULL,
+  list = NULL,
+  weights = NULL
+)
 }
 \arguments{
 \item{...}{ne or more objects which are either of class persephone or can be
@@ -40,8 +46,8 @@ The resulting time series can perform direct and indirect adjustments.
 \section{Fields}{
 
 \itemize{
-\item \code{$components}. A list of \code{persephone} objects.
-\item \strong{\code{$adjusted_indirect}}. Results from indirect adjustments which means the
+\item \verb{$components}. A list of \code{persephone} objects.
+\item \strong{\verb{$adjusted_indirect}}. Results from indirect adjustments which means the
 components are first adjusted and the adjusted series are then aggregated
 }
 }
@@ -49,9 +55,9 @@ components are first adjusted and the adjusted series are then aggregated
 \section{Methods}{
 
 \itemize{
-\item \code{$iterate(fun, ...)} can be used to iterate over the hierarchy tree. See
+\item \verb{$iterate(fun, ...)} can be used to iterate over the hierarchy tree. See
 \code{\link[=iterate]{iterate()}}.
-\item \code{$set_options(userdefined, spec, recursive = TRUE, component = "")} sets
+\item \verb{$set_options(userdefined, spec, recursive = TRUE, component = "")} sets
 options for all entries of the dependency tree recursively if
 \code{recursive = TRUE} (the default). See
 \code{vignette("persephone-hierarchical")}.

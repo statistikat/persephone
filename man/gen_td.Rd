@@ -4,8 +4,14 @@
 \alias{gen_td}
 \title{Generation of trading day regressors}
 \usage{
-gen_td(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,
-  length(hd)), adjustEaster = 1)
+gen_td(
+  ff = 12,
+  fYear = 1960,
+  lYear = 2099,
+  hd,
+  weight = rep(1, length(hd)),
+  adjustEaster = 1
+)
 }
 \arguments{
 \item{ff}{frequency of series}
@@ -25,7 +31,7 @@ approximative distribution of easter dates for centering of
 trading days}
 }
 \value{
-list with tree list elements. 1. matrix of trading day counts for each
+list with three list elements. 1. matrix of trading day counts for each
 individual day, month and year. Holidays which are delivered through the
 parameter hd are assigned to the number of sundays. 2. multiple time
 series object with 6 non-centered trading day regressors plus 1

@@ -3,7 +3,7 @@
 \docType{data}
 \name{weights_pi_eu28}
 \alias{weights_pi_eu28}
-\title{Production Weightings: Countries' share as a \% of EU-28 for Total Industry
+\title{Production Weightings: Countries' share as a \\% of EU-28 for Total Industry
 (except construction)}
 \format{A data.frame with 28 rows and 2 columns.}
 \usage{
