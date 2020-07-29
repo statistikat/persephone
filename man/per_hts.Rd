@@ -39,3 +39,43 @@ components.}
 Combine mutliple objects of persephone objects into a new persephone object.
 The resulting time series can perform direct and indirect adjustments.
 }
+\section{Inherits}{
+ \link{persephone}
+}
+
+\section{Fields}{
+
+\itemize{
+\item \verb{$components}. A list of \code{persephone} objects.
+\item \strong{\verb{$adjusted_indirect}}. Results from indirect adjustments which means the
+components are first adjusted and the adjusted series are then aggregated
+}
+}
+
+\section{Methods}{
+
+\itemize{
+\item \verb{$iterate(fun, ...)} can be used to iterate over the hierarchy tree. See
+\code{\link[=iterate]{iterate()}}.
+\item \verb{$set_options(userdefined, spec, recursive = TRUE, component = "")} sets
+options for all entries of the dependency tree recursively if
+\code{recursive = TRUE} (the default). See
+\code{vignette("persephone-hierarchical")}.
+}
+}
+
+\examples{
+\dontrun{
+obj_x13 <- per_x13(AirPassengers, "RSA3")
+
+ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
+ht$run()
+ht$adjusted_direct
+ht$adjusted_indirect
+
+ht2 <- per_hts(a = ht, b = obj_x13)
+ht2$run()
+ht2$adjusted_direct
+ht2$adjusted_indirect
+}
+}
