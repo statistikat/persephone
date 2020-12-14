@@ -95,7 +95,7 @@ plot.persephoneSingle <- function(
 
   gettsout <- function(outliers) {
 
-    names(outliers) <- sapply(outliersType, function(x) x[1])
+    names(outliers) <- sapply(outliers, function(x) x[1])
 
     if (frequency(x$ts) == 12) {
       #Date format für dyevent
@@ -137,19 +137,28 @@ plot.persephoneSingle <- function(
         tsout[[length(tsout)+1]] <- otlTC
         names(tsout)[length(tsout)] <- "otlTC"
       }
+
       tsout <- do.call(cbind, tsout)
     }
+
     return(list(tsout, dateout))
   }
+
   includeOutGraphically <- function (otlType, otlColor = NULL) {
 
     if (any(grepl(otlType, names(otl[[2]])))) {
-      if(is.null(otlColor)) {
+
+      if (is.null(otlColor)) {
         otlColors <- list(AO = "red", LS = "orange", TC = "dodgerblue")
         otlColor <- otlColors[[otlType]]
       }
+      if (is.null(dim(otl[[1]]))) {
+        seriesName <- "otl[[1]]"
+      } else {
+        seriesName <- paste0("otl[[1]].otl",otlType)
+      }
       graphObj <- graphObj %>%
-        dySeries(paste0("otl[[1]].otl",otlType), label = otlType,
+        dySeries(seriesName, label = otlType,
                  drawPoints =TRUE, color = otlColor,
                  pointShape = "dot", pointSize = 2.5)
       dateout <- otl[[2]][grepl(otlType, names(otl[[2]]))]
@@ -160,6 +169,17 @@ plot.persephoneSingle <- function(
       }
     }
     return(graphObj)
+  }
+
+  stringfix <- function(x, l, fill = " ") {
+    x <- sapply(x, function(x) {
+      if (is.na(x)) {
+        return("")
+      }
+      paste0(paste0(rep(fill, l - nchar(x)), collapse = ""),
+             x)
+    })
+    return(x)
   }
 
   postRunPlot <- function(
@@ -189,7 +209,7 @@ plot.persephoneSingle <- function(
       outliers <- gsub("(", "", outliers, fixed = TRUE)
       outliers <- gsub(")", "", outliers, fixed = TRUE)
       outliers <- strsplit(outliers, " ")
-      outliersType <- outliers
+      # outliersType <- outliers
       # # Variante1 : Date format
       # if (frequency(x$ts) == 12) {
       #   outliers <- sapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
@@ -211,6 +231,7 @@ plot.persephoneSingle <- function(
       #
       otl <- gettsout(outliers)
       otlTF <- TRUE
+      # noutType <- ncol(otl[[1]])
     }
 
     # Initialize Graph Object
@@ -218,7 +239,6 @@ plot.persephoneSingle <- function(
     if (forecasts & !is.null(ppm_y_f) & !is.null(ppm_y_ef)) {
       lowerci <- ppm_y_f - 1.96 * ppm_y_ef
       upperci <- ppm_y_f + 1.96 * ppm_y_ef
-
       if (!otlTF) {
         ts <- cbind(y, t, sa, ppm_y_f, lowerci, upperci)
         graphObj <- dygraph(ts, main = main) %>%
@@ -241,7 +261,7 @@ plot.persephoneSingle <- function(
         graphObj <- graphObj %>%
           dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts",
                    strokePattern = "dashed", drawPoints = drawPoints) %>%
-          dyLegend(width = 400)
+          dyLegend(width = 300)#300 bei nouttype=3
       }
     } else {
       if (!otlTF) {
@@ -307,13 +327,3 @@ if (!is.null(x$output$user_defined)) {
   )
 }
 
-stringfix <- function(x, l, fill = " ") {
-  x <- sapply(x, function(x) {
-    if (is.na(x)) {
-      return("")
-    }
-    paste0(paste0(rep(fill, l - nchar(x)), collapse = ""),
-           x)
-  })
-  return(x)
-}
