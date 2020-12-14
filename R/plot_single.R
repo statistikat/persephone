@@ -105,41 +105,50 @@ plot.persephoneSingle <- function(
 
       outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
                          function(y) as.numeric(c( y[[2]],y[[1]])))
-
-      outliersAO <- outliers[names(outliers)%in%"AO"]
-      outliersLS <- outliers[names(outliers)%in%"LS"]
-      outliersTC <- outliers[names(outliers)%in%"TC"]
-
-      tsout <- list()
-      if(length(outliersAO)>0){
-        otlAO <- ts(start = start(y), end = end(y), frequency = frequency(y))
-        for(i in seq_along(outliersAO)) {
-          window(otlAO, start=outliersAO[[i]], end=outliersAO[[i]]) <- window(y, start=outliersAO[[i]], end=outliersAO[[i]])
-        }
-        tsout[[length(tsout)+1]] <- otlAO
-        names(tsout)[length(tsout)] <- "otlAO"
-      }
-
-      if(length(outliersLS)>0){
-        otlLS <- ts(start = start(y), end = end(y), frequency = frequency(y))
-        for(i in seq_along(outliersLS)) {
-          window(otlLS, start=outliersLS[[i]], end=outliersLS[[i]]) <- window(y, start=outliersLS[[i]], end=outliersLS[[i]])
-        }
-        tsout[[length(tsout)+1]] <- otlLS
-        names(tsout)[length(tsout)] <- "otlLS"
-      }
-
-      if(length(outliersTC)>0){
-        otlTC <- ts(start = start(y), end = end(y), frequency = frequency(y))
-        for(i in seq_along(outliersTC)) {
-          window(otlTC, start=outliersTC[[i]], end=outliersTC[[i]]) <- window(y, start=outliersTC[[i]], end=outliersTC[[i]])
-        }
-        tsout[[length(tsout)+1]] <- otlTC
-        names(tsout)[length(tsout)] <- "otlTC"
-      }
-
-      tsout <- do.call(cbind, tsout)
+    } else {
+      dateout <- lapply(
+        sapply(outliers,function(x) strsplit(x[[2]], "-")),
+        function(y) paste0(
+          y[[2]], "-",
+          stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
+                    2, "0"), "-01"))
+      outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
+                         function(y) as.numeric(c( y[[2]], as.numeric(utils::as.roman(y[[1]])))))
     }
+
+    outliersAO <- outliers[names(outliers) %in% "AO"]
+    outliersLS <- outliers[names(outliers) %in% "LS"]
+    outliersTC <- outliers[names(outliers) %in% "TC"]
+
+    tsout <- list()
+    if(length(outliersAO)>0){
+      otlAO <- ts(start = start(y), end = end(y), frequency = frequency(y))
+      for(i in seq_along(outliersAO)) {
+        window(otlAO, start=outliersAO[[i]], end=outliersAO[[i]]) <- window(y, start=outliersAO[[i]], end=outliersAO[[i]])
+      }
+      tsout[[length(tsout)+1]] <- otlAO
+      names(tsout)[length(tsout)] <- "otlAO"
+    }
+
+    if(length(outliersLS)>0){
+      otlLS <- ts(start = start(y), end = end(y), frequency = frequency(y))
+      for(i in seq_along(outliersLS)) {
+        window(otlLS, start=outliersLS[[i]], end=outliersLS[[i]]) <- window(y, start=outliersLS[[i]], end=outliersLS[[i]])
+      }
+      tsout[[length(tsout)+1]] <- otlLS
+      names(tsout)[length(tsout)] <- "otlLS"
+    }
+
+    if(length(outliersTC)>0){
+      otlTC <- ts(start = start(y), end = end(y), frequency = frequency(y))
+      for(i in seq_along(outliersTC)) {
+        window(otlTC, start=outliersTC[[i]], end=outliersTC[[i]]) <- window(y, start=outliersTC[[i]], end=outliersTC[[i]])
+      }
+      tsout[[length(tsout)+1]] <- otlTC
+      names(tsout)[length(tsout)] <- "otlTC"
+    }
+
+    tsout <- do.call(cbind, tsout)
 
     return(list(tsout, dateout))
   }
@@ -231,7 +240,6 @@ plot.persephoneSingle <- function(
       #
       otl <- gettsout(outliers)
       otlTF <- TRUE
-      # noutType <- ncol(otl[[1]])
     }
 
     # Initialize Graph Object
@@ -284,7 +292,6 @@ plot.persephoneSingle <- function(
           dyLegend(width = 290)
       }
     }
-
   }
 
   if (rangeSelector) {
