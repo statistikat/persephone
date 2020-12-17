@@ -29,7 +29,7 @@ First we load the data from the `RJDemetra` and remove the EU aggregate.
 ```{r}
 library(persephone)
 data(ipi_c_eu, package = "RJDemetra")
-ipi_eu <- ipi_c_eu[, -c(1:3, 32:37)]
+ipi_eu <- ipi_c_eu[, -c(28:34)]
 ```
 
 For all countries' time series we now want to generate a persephone object with Tramo as method.
@@ -44,7 +44,7 @@ south_eastern_europe <- c("BG","EL","CY","RO")
 northern_europe <- c("DK","FI","SE")
 central_europe <- c("HR","DE","CZ","SK","HU","AT","SI","LU","EE","LT","LV","PL")
 southern_europe <- c("IT","ES","PT","MT")
-western_europe <- c("FR","BE","NL","IE","UK")
+western_europe <- c("FR","BE","NL","UK") # without IE (missing from the dataset)
 ```
 
 The list argument can be used to create a hierachical persephone object based on a list of persephone objects.
@@ -98,7 +98,7 @@ hts_see <- per_hts(list = ts_28[south_eastern_europe], weights=c(1,2,3,4))
 hts_ne <- per_hts(list = ts_28[northern_europe], weights = c(5,6,7))
 hts_ce <- per_hts(list = ts_28[central_europe], weights = rep(1,12))
 hts_se <- per_hts(list = ts_28[southern_europe], weights = c(8,9,10,10.5))
-hts_we <- per_hts(list = ts_28[western_europe], weights = c(11,12,13,14,15))
+hts_we <- per_hts(list = ts_28[western_europe], weights = c(11,12,13,14)) # without IE
 ```
 
 In additional aggregation steps, the weight is automatically summed up. So e.g. the weight for central europe is 12, the sum of 12 times 1.

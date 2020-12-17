@@ -114,7 +114,7 @@ shows a zoomable line representation of the series.
 plot(obj_x13)
 ```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '65%'}
-knitr::include_graphics("plot.png")
+knitr::include_graphics("plot.PNG")
 ```
 
 ## Example 1: Persephone Single Object
@@ -216,7 +216,7 @@ More methods directed specifically at multiple (hierarchical) time series still 
 plot(hts_EU28)
 ```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane", out.width = '65%'}
-knitr::include_graphics("plot_hts.png")
+knitr::include_graphics("plot_hts.PNG")
 ```
 
 ## Example 2: Persephone Hierarchical Object

@@ -93,27 +93,27 @@ plot.persephoneSingle <- function(
 
   }
 
-  gettsout <- function(outliers) {
+  gettsout <- function(outliers, y) {
 
     names(outliers) <- sapply(outliers, function(x) x[1])
 
     if (frequency(x$ts) == 12) {
       #Date format für dyevent
       dateout <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                        function(y) paste0(
-                          y[[2]], "-", stringfix(y[[1]], 2, "0"), "-01"))
+                        function(z) paste0(
+                          z[[2]], "-", stringfix(z[[1]], 2, "0"), "-01"))
 
       outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                         function(y) as.numeric(c( y[[2]],y[[1]])))
+                         function(z) as.numeric(c( z[[2]],z[[1]])))
     } else {
       dateout <- lapply(
         sapply(outliers,function(x) strsplit(x[[2]], "-")),
-        function(y) paste0(
-          y[[2]], "-",
-          stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
+        function(z) paste0(
+          z[[2]], "-",
+          stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(z[[1]]))],
                     2, "0"), "-01"))
       outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                         function(y) as.numeric(c( y[[2]], as.numeric(utils::as.roman(y[[1]])))))
+                         function(z) as.numeric(c( z[[2]], as.numeric(utils::as.roman(z[[1]])))))
     }
 
     outliersAO <- outliers[names(outliers) %in% "AO"]
@@ -153,7 +153,7 @@ plot.persephoneSingle <- function(
     return(list(tsout, dateout))
   }
 
-  includeOutGraphically <- function (otlType, otlColor = NULL) {
+  includeOutGraphically <- function (otlType, otlColor = NULL, otl, graphObj) {
 
     if (any(grepl(otlType, names(otl[[2]])))) {
 
@@ -180,21 +180,10 @@ plot.persephoneSingle <- function(
     return(graphObj)
   }
 
-  stringfix <- function(x, l, fill = " ") {
-    x <- sapply(x, function(x) {
-      if (is.na(x)) {
-        return("")
-      }
-      paste0(paste0(rep(fill, l - nchar(x)), collapse = ""),
-             x)
-    })
-    return(x)
-  }
-
   postRunPlot <- function(
     main=main, forecasts=forecasts, showOutliers=showOutliers,
     rangeSelector=rangeSelector, drawPoints=drawPoints,
-    annualComparison=annualComparison){
+    annualComparison=annualComparison) {
 
     if (is.null(main)) {
       main <- "Original, SA and Trend Series"
@@ -208,7 +197,7 @@ plot.persephoneSingle <- function(
     # forecasts currently only plotted for original series, maybe allow t and
     # sa forecasts in some other setting??
 
-
+    otlTF <- FALSE
     # Outliers
     if (showOutliers & !is.null(x$output$regarima$regression.coefficients)) {
       outliers <- rownames(x$output$regarima$regression.coefficients)
@@ -238,7 +227,7 @@ plot.persephoneSingle <- function(
       # }
       # Variante2 : ts format und date format
       #
-      otl <- gettsout(outliers)
+      otl <- gettsout(outliers, y)
       otlTF <- TRUE
     }
 
@@ -263,9 +252,9 @@ plot.persephoneSingle <- function(
           dySeries("y", label = "Original", drawPoints = drawPoints) %>%
           dySeries("sa", label = "Seasonally Adjusted") %>%
           dySeries("t", label = "Trend")
-        graphObj <- includeOutGraphically(otlType = "AO")
-        graphObj <- includeOutGraphically(otlType = "LS")
-        graphObj <- includeOutGraphically(otlType = "TC")
+        graphObj <- includeOutGraphically(otlType = "AO", otl=otl, graphObj=graphObj)
+        graphObj <- includeOutGraphically(otlType = "LS", otl=otl, graphObj=graphObj)
+        graphObj <- includeOutGraphically(otlType = "TC", otl=otl, graphObj=graphObj)
         graphObj <- graphObj %>%
           dySeries(c("lowerci", "ppm_y_f", "upperci"), label = "Forecasts",
                    strokePattern = "dashed", drawPoints = drawPoints) %>%
@@ -285,14 +274,13 @@ plot.persephoneSingle <- function(
           dySeries("y", label = "Original", drawPoints = drawPoints) %>%
           dySeries("sa", label = "Seasonally Adjusted") %>%
           dySeries("t", label = "Trend")
-        graphObj <- includeOutGraphically(otlType = "AO")
-        graphObj <- includeOutGraphically(otlType = "LS")
-        graphObj <- includeOutGraphically(otlType = "TC")
+        graphObj <- includeOutGraphically(otlType = "AO", otl=otl, graphObj=graphObj)
+        graphObj <- includeOutGraphically(otlType = "LS", otl=otl, graphObj=graphObj)
+        graphObj <- includeOutGraphically(otlType = "TC", otl=otl, graphObj=graphObj)
         graphObj <- graphObj %>%
           dyLegend(width = 290)
       }
     }
-  }
 
   if (rangeSelector) {
     graphObj <- graphObj %>%
@@ -324,7 +312,7 @@ if (!is.null(x$output$user_defined)) {
   )
   graphObj
 
-}else{
+} else {
   ts <- x$ts
   preRunPlot(
     ts = ts,
@@ -334,3 +322,15 @@ if (!is.null(x$output$user_defined)) {
   )
 }
 
+}
+
+stringfix <- function(x, l, fill = " ") {
+  x <- sapply(x, function(x) {
+    if (is.na(x)) {
+      return("")
+    }
+    paste0(paste0(rep(fill, l - nchar(x)), collapse = ""),
+           x)
+  })
+  return(x)
+}
