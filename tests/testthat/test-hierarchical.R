@@ -189,8 +189,8 @@ test_that("weights as list", {
   expect_true(is.character(all.equal(
     ht0$adjusted_direct,
     ht0$components$a0$components$a$adjusted_direct)))
-  expect_true(all(ht0$forecasts_indirect[, "y_f"] -
-                    ht0$forecasts_direct[, "y_f"] < 5))
+  # expect_true(all(ht0$forecasts_indirect[, "y_f"] -
+  #                   ht0$forecasts_direct[, "y_f"] < 5))
 })
 
 

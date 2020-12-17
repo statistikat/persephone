@@ -88,7 +88,7 @@ see Figure \@ref(fig:plotmethod).
 plot(obj_x13)
 ```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '100%'}
-knitr::include_graphics("resources/plot.png")
+knitr::include_graphics("resources/plot.PNG")
 ```
 
 ## Adjusting Parameters
@@ -207,7 +207,7 @@ see Figure \@ref(fig:plotmethodhts).
 plot(hts_EU28)
 ```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane", out.width = '100%'}
-knitr::include_graphics("resources/plot_hts.png")
+knitr::include_graphics("resources/plot_hts.PNG")
 ```
 
 We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the auto-correlations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$get_component("EA19/BE")` or 
