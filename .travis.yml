@@ -29,6 +29,8 @@ r_packages:
 # "Unable to find GhostScript executable to run checks on size reduction"
 apt_packages:
   - ghostscript
+  - libharfbuzz-dev
+  - libfribidi-dev
 
 # lintr and coveralls
 after_success:
