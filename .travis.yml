@@ -8,6 +8,10 @@ branches:
   - TradingDays
   - r6_docs
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libharfbuzz-dev libfribidi-dev
+
 notifications:
   email:
     - gregor.decillia@statistik.gv.at
