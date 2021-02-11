@@ -1,13 +1,19 @@
 #' R6 Class for hierarchical time series
 #'
 #' @description Combine mutliple objects of persephone objects into a new
-#'   persephone object. The resulting time series can perform direct and
-#'   indirect adjustments
+#'   hierachical persephone object. On the resulting time series the user can perform direct and
+#'   indirect seasonal adjustments.
 #' @examples
 #' \dontrun{
 #' obj_x13 <- per_x13(AirPassengers, "RSA3")
 #'
 #' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
+#'
+#' ht$updateParams(easter.enabled = TRUE)
+#'
+#' ht$updateParams(component = "a", usrdef.outliersEnabled = TRUE,
+#'                      usrdef.outliersType = c("AO","LS","LS"),
+#'                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
 #' ht$run()
 #' ht$adjusted_direct
 #' ht$adjusted_indirect
@@ -20,7 +26,7 @@
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
   "hierarchicalTimeSeries",
-  inherit = persephone,
+  inherit = multipleTimeSeries,
   public = list(
     #' @description create a new hierarchical time series
     #' @param ... one or more objects which are either of class persephone or

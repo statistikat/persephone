@@ -4,7 +4,9 @@
 \name{pi_sa}
 \alias{pi_sa}
 \title{Production in industry - Seasonally and calendar adjusted}
-\format{A multivariate time series objects with 30 time series of length 234.}
+\format{
+A multivariate time series objects with 30 time series of length 234.
+}
 \usage{
 data(pi_sa)
 }

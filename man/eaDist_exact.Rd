@@ -4,7 +4,9 @@
 \name{eaDist_exact}
 \alias{eaDist_exact}
 \title{Distribution of the dates for Easter (Exact)}
-\format{Theoretical Distribution of Easter Dates over the span of 5.7 mio years}
+\format{
+Theoretical Distribution of Easter Dates over the span of 5.7 mio years
+}
 \usage{
 data(eaDist_exact)
 }

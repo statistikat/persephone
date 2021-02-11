@@ -4,7 +4,9 @@
 \name{eaDist_approx}
 \alias{eaDist_approx}
 \title{Distribution of the dates for Easter (Approximation)}
-\format{Distribution of Easter Dates}
+\format{
+Distribution of Easter Dates
+}
 \usage{
 data(eaDist_approx)
 }

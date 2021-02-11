@@ -5,7 +5,9 @@
 \alias{pi_unadj}
 \title{Production in industry - Unadjusted data (i.e. neither seasonally adjusted
 nor calendar adjusted data)}
-\format{A multivariate time series objects with 30 time series of length 234.}
+\format{
+A multivariate time series objects with 30 time series of length 234.
+}
 \usage{
 data(pi_unadj)
 }

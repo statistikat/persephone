@@ -101,6 +101,7 @@ the first time.}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 create a new persephone object
 \subsection{Usage}{
@@ -115,6 +116,7 @@ abstract. Only initialize derived classes.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-run"></a>}}
+\if{latex}{\out{\hypertarget{method-run}{}}}
 \subsection{Method \code{run()}}{
 perform a run of the model
 \subsection{Usage}{
@@ -131,6 +133,7 @@ perform a run of the model
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-updateParams"></a>}}
+\if{latex}{\out{\hypertarget{method-updateParams}{}}}
 \subsection{Method \code{updateParams()}}{
 update parameters for the adjustment
 \subsection{Usage}{
@@ -147,6 +150,7 @@ update parameters for the adjustment
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-plot"></a>}}
+\if{latex}{\out{\hypertarget{method-plot}{}}}
 \subsection{Method \code{plot()}}{
 visualize the results of an adjustment
 \subsection{Usage}{
@@ -164,6 +168,7 @@ see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-plotSeasIrrCal"></a>}}
+\if{latex}{\out{\hypertarget{method-plotSeasIrrCal}{}}}
 \subsection{Method \code{plotSeasIrrCal()}}{
 Interactive plot of the seasonal component, irregular
 component and calendar effects for a persephone object
@@ -181,6 +186,7 @@ component and calendar effects for a persephone object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-plotResiduals"></a>}}
+\if{latex}{\out{\hypertarget{method-plotResiduals}{}}}
 \subsection{Method \code{plotResiduals()}}{
 visualize residuals
 \subsection{Usage}{
@@ -197,6 +203,7 @@ visualize residuals
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 display a persephone object in the console
 \subsection{Usage}{
@@ -206,6 +213,7 @@ display a persephone object in the console
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-iterate"></a>}}
+\if{latex}{\out{\hypertarget{method-iterate}{}}}
 \subsection{Method \code{iterate()}}{
 see \link{per_hts}
 \subsection{Usage}{
@@ -226,6 +234,7 @@ see \link{per_hts}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-generate_qr_table"></a>}}
+\if{latex}{\out{\hypertarget{method-generate_qr_table}{}}}
 \subsection{Method \code{generate_qr_table()}}{
 create a table for the eurostat quality report
 \subsection{Usage}{
@@ -235,6 +244,7 @@ create a table for the eurostat quality report
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_options"></a>}}
+\if{latex}{\out{\hypertarget{method-set_options}{}}}
 \subsection{Method \code{set_options()}}{
 update options for the model
 \subsection{Usage}{
@@ -256,6 +266,7 @@ the pudates to sub-series. see \link{per_hts}}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

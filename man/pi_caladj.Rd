@@ -4,7 +4,9 @@
 \name{pi_caladj}
 \alias{pi_caladj}
 \title{Production in industry - Calendar adjusted, not seasonally adjusted}
-\format{A multivariate time series objects with 30 time series of length 234.}
+\format{
+A multivariate time series objects with 30 time series of length 234.
+}
 \usage{
 data(pi_caladj)
 }

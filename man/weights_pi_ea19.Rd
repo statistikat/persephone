@@ -5,7 +5,9 @@
 \alias{weights_pi_ea19}
 \title{Production Weightings: Countries' share as a \\% of EA-19 for Total Industry
 (except construction)}
-\format{A data.frame with 28 rows and 2 columns.}
+\format{
+A data.frame with 28 rows and 2 columns.
+}
 \usage{
 data(weights_pi_ea19)
 }

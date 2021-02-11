@@ -3,9 +3,9 @@ Type: Package
 Title: Object-Oriented Wrappers for RJDemetra
 Version: 0.1.1
 Authors@R: c(
-  person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut", "cre")),
+  person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
-  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut"), comment=c(ORCID="0000-0001-8598-4130"))
+  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut","cre"), comment=c(ORCID="0000-0001-8598-4130"))
   )
 Description: This package is an object oriented wrapper around the R Package RJDemetra, 
   which performs time series adjustments with the java library JDemetra+.
@@ -26,7 +26,7 @@ Remotes:
     jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/statistikat/persephone
-RoxygenNote: 7.0.2.9000
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
