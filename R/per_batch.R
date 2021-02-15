@@ -53,7 +53,6 @@ multipleTimeSeries <- R6::R6Class(
       } else {
         components <- list(...)
       }
-      print(components)
       components <- lapply(components, as.persephone)
       componentsHts <- sapply(
         components,
