@@ -69,11 +69,10 @@ multipleTimeSeries <- R6::R6Class(
     #'   be returned invisibly
     #' @examples per_x13(AirPassengers)$run()
     run = function(verbose = FALSE) {
-      lapply(self$components, function(component) {
+      invisible(lapply(self$components, function(component) {
         component$run(verbose = verbose)
-      })
-      ## direct
-#      private$run_direct(self$ts)
+      }))
+
     },
     #' @field components the series of the multiple time series
     components = NULL,
@@ -123,8 +122,7 @@ multipleTimeSeries <- R6::R6Class(
         }
       )
 
-      res <- c(super$iterate(fun), comp)
-      private$convert_list(res, as_table, unnest)
+      private$convert_list(comp, as_table, unnest)
     },
 #' @description change all or some parameters of components
 #' @details this functions provides the possibility to update
@@ -153,12 +151,11 @@ updateParams = function(component = NULL, ...) {
     #' @description Generate a table for the eurostat quality report
     #' @param component (optional) a sub-component to create the report for
     #' @param ... additional arguments for the generate qr table function
-    generate_qr_table = function(component = NULL,...) {
-      if(is.null(component)){
-        print("x")
-        sapply(self$components,function(x)x$generate_qr_table(...))
-      }else{
+    generate_qr_table = function(component = "",...) {
+      if(component!=""){
         self$get_component(component)$generate_qr_table(...)
+      }else{
+        self$iterate(generateQrList, as_table = TRUE)
       }
     }
   ),
