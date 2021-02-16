@@ -72,14 +72,14 @@ the first time.}
 
 \item{\code{adjusted}}{get the adjusted series}
 
-\item{\code{adjusted_direct}}{see \link{per_hts}}
+\item{\code{adjustedDirect}}{see \link{per_hts}}
 
 \item{\code{spec}}{specifications passed to \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}} when the
 \verb{$run()} method is invoked}
 
 \item{\code{forecasts}}{get forecasts from the model}
 
-\item{\code{forecasts_direct}}{get direct forecasts from the model}
+\item{\code{forecastsDirect}}{get direct forecasts from the model}
 }
 \if{html}{\out{</div>}}
 }
@@ -217,7 +217,7 @@ display a persephone object in the console
 \subsection{Method \code{iterate()}}{
 see \link{per_hts}
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephone$iterate(fun, as_table = FALSE, unnest = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{persephone$iterate(fun, asTable = FALSE, unnest = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -225,7 +225,7 @@ see \link{per_hts}
 \describe{
 \item{\code{fun}}{see \link{per_hts}}
 
-\item{\code{as_table}}{see \link{per_hts}}
+\item{\code{asTable}}{see \link{per_hts}}
 
 \item{\code{unnest}}{see \link{per_hts}}
 }

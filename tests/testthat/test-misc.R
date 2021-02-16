@@ -1,13 +1,13 @@
 context("misc")
 
 test_that("is.persephone", {
-  obj <- per_x13(AirPassengers)
+  obj <- perX13(AirPassengers)
   expect_true(is.persephone(obj))
   expect_false(is.persephone(1L))
 })
 
 test_that("implement this function", {
-  obj <- per_x13(AirPassengers)
+  obj <- perX13(AirPassengers)
   superClass <- obj$.__enclos_env__$super$.__enclos_env__$super
   expect_error(superClass$initialize(), "implement this function")
   expect_error(superClass$run(), "implement this function")
@@ -16,13 +16,13 @@ test_that("implement this function", {
 })
 
 test_that("generateQrList", {
-  obj <- per_x13(AirPassengers)
+  obj <- perX13(AirPassengers)
   expect_error(persephone:::generateQrList(obj),
                "No results from run available.\n")
   obj$run()
   persephone:::generateQrList(obj)
 
-  obj <- per_tramo(UKgas)
+  obj <- perTramo(UKgas)
   obj$run()
   persephone:::generateQrList(obj)
 })

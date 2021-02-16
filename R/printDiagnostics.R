@@ -2,23 +2,23 @@ printDiagnostics <- function(x) {
   if (is.null(x$output))
     return(data.frame(
       run = !is.null(x$output), class = class(x)[1],
-      seasonality = NA, log_transform = NA, arima_mdl = NA,
-      n_outliers = NA, q_stat = NA
+      seasonality = NA, logTransform = NA, arimaMdl = NA,
+      nOutliers = NA, qStat = NA
     ))
 
   arma <- x$output$regarima$arma
   pdq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")")
   bpbdbq <- paste0("(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
-  q_stat <- x$output$decomposition$mstats["Q", ]
+  qStat <- x$output$decomposition$mstats["Q", ]
 
   data.frame(
     run = !is.null(x$output),
     class = class(x)[1],
     # seasonality: placeholder (test for stable seasonality)
     seasonality = x$output$diagnostics$combined_test$combined_seasonality_test,
-    log_transform = x$output$regarima$model$spec_rslt$`Log transformation`,
-    arima_mdl = paste0(pdq, bpbdbq),
-    n_outliers = x$output$regarima$model$spec_rslt$Outliers,
-    q_stat = ifelse(is.null(q_stat), NA, round(q_stat, digits = 2))
+    logTransform = x$output$regarima$model$spec_rslt$`Log transformation`,
+    arimaMdl = paste0(pdq, bpbdbq),
+    nOutliers = x$output$regarima$model$spec_rslt$Outliers,
+    qStat = ifelse(is.null(qStat), NA, round(qStat, digits = 2))
   )
 }

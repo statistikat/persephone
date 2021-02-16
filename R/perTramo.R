@@ -5,7 +5,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- per_tramo(AirPassengers, "RSA3")
+#' obj <- perTramo(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @export
@@ -38,7 +38,7 @@ tramoseatsSingle <- R6::R6Class(
 #' obj$run()
 #' obj$ts
 #' @export
-per_tramo <- function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2",
+perTramo <- function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2",
                                        "RSA3", "RSA4", "RSA5"),
                       userdefined = NULL, ...) {
   tramoseatsSingle$new(ts, match.arg(template), userdefined, ...)

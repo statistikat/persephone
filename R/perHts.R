@@ -5,9 +5,9 @@
 #'   indirect seasonal adjustments.
 #' @examples
 #' \dontrun{
-#' obj_x13 <- per_x13(AirPassengers, "RSA3")
+#' objX13 <- perX13(AirPassengers, "RSA3")
 #'
-#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
+#' ht <- perHts(a = objX13, b = objX13, method = "x13")
 #'
 #' ht$updateParams(easter.enabled = TRUE)
 #'
@@ -15,13 +15,13 @@
 #'                      usrdef.outliersType = c("AO","LS","LS"),
 #'                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
 #' ht$run()
-#' ht$adjusted_direct
-#' ht$adjusted_indirect
+#' ht$adjustedDirect
+#' ht$adjustedIndirect
 #'
-#' ht2 <- per_hts(a = ht, b = obj_x13)
+#' ht2 <- perHts(a = ht, b = objX13)
 #' ht2$run()
-#' ht2$adjusted_direct
-#' ht2$adjusted_indirect
+#' ht2$adjustedDirect
+#' ht2$adjustedIndirect
 #' }
 #' @export
 hierarchicalTimeSeries <- R6::R6Class(
@@ -30,7 +30,7 @@ hierarchicalTimeSeries <- R6::R6Class(
   public = list(
     #' @description create a new hierarchical time series
     #' @param ... one or more objects which are either of class persephone or
-    #'   can be coerced to persephone objects with as_persephone. If more than
+    #'   can be coerced to persephone objects with asPersephone. If more than
     #'   one element is supplied, the underlying time series must have the same
     #'   time instances. All elements supplied in ... must be named.
     #' @param method specifies the method to be used for the direct adjustment
@@ -136,7 +136,7 @@ hierarchicalTimeSeries <- R6::R6Class(
         component$run(verbose = verbose)
       })
       ## direct
-      private$run_direct(self$ts)
+      private$runDirect(self$ts)
     },
     #' @field components the sub series of the hierarchical time series
     components = NULL,
@@ -160,16 +160,16 @@ hierarchicalTimeSeries <- R6::R6Class(
     #'   `tramoseats_spec()`
     #' @param recursive apply this setting to all subseries as well?
     #' @param component which component to modify.
-    set_options = function(userdefined = NA, spec = NA, recursive = TRUE,
+    setOptions = function(userdefined = NA, spec = NA, recursive = TRUE,
                            component = "") {
       if (component != "") {
-        root <- self$get_component(component)
-        return(root$set_options(userdefined, spec, recursive))
+        root <- self$getComponent(component)
+        return(root$setOptions(userdefined, spec, recursive))
       }
-      super$super2()$set_options(userdefined, spec, recursive)
+      super$super2()$setOptions(userdefined, spec, recursive)
       if (recursive)
         lapply(self$components, function(x) {
-          x$set_options(userdefined, spec, recursive)
+          x$setOptions(userdefined, spec, recursive)
         })
       invisible(NULL)
     },
@@ -178,15 +178,15 @@ hierarchicalTimeSeries <- R6::R6Class(
     #'   can be used to apply a function to several persephone objects
     #'   simultaniusely
     #' @param fun a function that takes a persephone object as a parameter
-    #' @param as_table if true, the return value of this method will be coerced
+    #' @param asTable if true, the return value of this method will be coerced
     #'   to a data.frame
     #' @param component the id of the component
-    #' @param unnest if `as_table = FALSE`, converts the return value from a
+    #' @param unnest if `asTable = FALSE`, converts the return value from a
     #'   nested list into a flat list
-    iterate = function(fun, as_table = FALSE, component = "", unnest = FALSE) {
+    iterate = function(fun, asTable = FALSE, component = "", unnest = FALSE) {
       if (component != "") {
-        root <- self$get_component(component)
-        return(root$iterate(fun, as_table))
+        root <- self$getComponent(component)
+        return(root$iterate(fun, asTable))
       }
       comp <- lapply(
         self$components,
@@ -196,34 +196,34 @@ hierarchicalTimeSeries <- R6::R6Class(
       )
 
       res <- c(super$super2()$iterate(fun), comp)
-      private$convert_list(res, as_table, unnest)
+      private$convert_list(res, asTable, unnest)
     },
     #' @description extract a component series
-    #' @param component_id the id of a component
-    get_component = function(component_id) {
-      if (length(component_id) == 0 || component_id == "")
+    #' @param componentId the id of a component
+    getComponent = function(componentId) {
+      if (length(componentId) == 0 || componentId == "")
         return(self)
-      component_path <- strsplit(component_id, "/")[[1]]
+      component_path <- strsplit(componentId, "/")[[1]]
       direct_child <- component_path[1]
       if (length(component_path) == 1)
         return(self$components[[direct_child]])
       rest <- paste(component_path[-1], collapse = "/")
-      self$components[[direct_child]]$get_component(rest)
+      self$components[[direct_child]]$getComponent(rest)
     },
     #' @description Generate a table for the eurostat quality report
     #' @param component (optional) a sub-component to create the report for
-    generate_qr_table = function(component = "") {
-      self$iterate(generateQrList, as_table = TRUE, component = component)
+    generateQrTable = function(component = "") {
+      self$iterate(generateQrList, asTable = TRUE, component = component)
     }
   ),
   active = list(
-    #' @field adjusted_indirect results from the indirect adjustment where
+    #' @field adjustedIndirect results from the indirect adjustment where
     #'   all components are adjusted and then aggregated
-    adjusted_indirect = function() {
+    adjustedIndirect = function() {
       if (is.null(self$output))
         return(NULL)
       private$aggregate(self$components, self$weights,
-                        which = "adjusted_indirect")
+                        which = "adjustedIndirect")
     },
     #' @field adjusted results from the seasonal adjustment
     adjusted = function() {
@@ -233,7 +233,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       } else if (self$indirect) {
         return(private$adjusted_indirect_one_step())
       }
-      return(self$adjusted_direct)
+      return(self$adjustedDirect)
     },
     #' @field forecasts get forecasts
     forecasts = function() {
@@ -243,14 +243,14 @@ hierarchicalTimeSeries <- R6::R6Class(
       } else if (self$indirect) {
         return(private$forecasts_indirect_one_step())
       }
-      return(self$forecasts_direct)
+      return(self$forecastsDirect)
     },
-    #' @field forecasts_indirect get forecasts according to indirect adjustments
-    forecasts_indirect = function() {
+    #' @field forecastsIndirect get forecasts according to indirect adjustments
+    forecastsIndirect = function() {
       if (is.null(self$output))
         return(NULL)
       private$aggregate(self$components, self$weights,
-                        which = "forecasts_indirect")
+                        which = "forecastsIndirect")
     }
   ),
   private = list(
@@ -270,7 +270,7 @@ hierarchicalTimeSeries <- R6::R6Class(
       })
     },
     print_table = function() {
-      self$iterate(printDiagnostics, as_table = TRUE)
+      self$iterate(printDiagnostics, asTable = TRUE)
     },
     check_time_instances = function(components) {
       tsps <- lapply(components, function(component) {
@@ -282,11 +282,11 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     aggregate = function(components, weights, which = "ts") {
       tss <- lapply(components, function(component) {
-         if (which == "adjusted_indirect" &
+         if (which == "adjustedIndirect" &
              "persephoneSingle" %in% class(component)) {
            return(component[["adjusted"]])
          }
-         if (which == "forecasts_indirect" &
+         if (which == "forecastsIndirect" &
              "persephoneSingle" %in% class(component)) {
            return(component[["forecasts"]])
          }
@@ -356,7 +356,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     method = NULL,
     spec = NULL,
-    run_direct = function(ts) {
+    runDirect = function(ts) {
       methodFunction <- switch(private$method, tramoseats = tramoseats,
                                x13 = x13)
       if (is.null(self$spec))
@@ -393,8 +393,28 @@ hierarchicalTimeSeries <- R6::R6Class(
 #'   points or a list of ts objects or a mts object if the weight varies for
 #'   different time points. They must have the same length as the number of
 #'   components.
+#' @examples
+#' \dontrun{
+#' objX13 <- perX13(AirPassengers, "RSA3")
+#'
+#' ht <- perHts(a = objX13, b = objX13, method = "x13")
+#'
+#' ht$updateParams(easter.enabled = TRUE)
+#'
+#' ht$updateParams(component = "a", usrdef.outliersEnabled = TRUE,
+#'                      usrdef.outliersType = c("AO","LS","LS"),
+#'                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+#' ht$run()
+#' ht$adjustedDirect
+#' ht$adjustedIndirect
+#'
+#' ht2 <- perHts(a = ht, b = objX13)
+#' ht2$run()
+#' ht2$adjustedDirect
+#' ht2$adjustedIndirect
+#' }
 #' @export
-per_hts <- function(..., method = c("tramoseats", "x13"),
+perHts <- function(..., method = c("tramoseats", "x13"),
                     userdefined = NULL, spec = NULL, list = NULL,
                     weights = NULL) {
   hierarchicalTimeSeries$new(..., method = method, userdefined = userdefined,

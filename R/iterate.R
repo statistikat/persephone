@@ -1,11 +1,11 @@
-as_table_nested_list <- function(x, prefix = "") {
+asTable_nested_list <- function(x, prefix = "") {
   . <- NULL
   seq_along(x) %>%
     lapply(
       function(i) {
         name <- names(x)[i]
         if (name != "value") {
-          as_table_nested_list(
+          asTable_nested_list(
             x[[i]],
             prefix = paste0(prefix, "/", name)
           )
@@ -48,7 +48,7 @@ unnest_nested_list <- function(x, prefix = "") {
 #'
 #' @param x a hierarchical persephone object
 #' @param fun a function with one argument
-#' @param as_table should the return value be coerced to a `data.frame`?
+#' @param asTable should the return value be coerced to a `data.frame`?
 #' @param component a component id from which the iteration should start
 #' @param unnest should the return value be unnested, so that every component
 #'   is an entry of the resulting list?
@@ -61,6 +61,6 @@ unnest_nested_list <- function(x, prefix = "") {
 #' ht2$iterate(function(x) {list(class = class(x)[1])}, as_table = TRUE)
 #' ht2$iterate(function(x) {list(class = class(x)[1])}, unnest = TRUE)
 #' @export
-iterate <- function(x, fun, as_table = FALSE, component = "", unnest = FALSE) {
- x$iterate(fun, as_table = as_table, component = component, unnest = unnest)
+iterate <- function(x, fun, asTable = FALSE, component = "", unnest = FALSE) {
+ x$iterate(fun, asTable = asTable, component = component, unnest = unnest)
 }

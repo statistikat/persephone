@@ -27,12 +27,12 @@
 #'
 #'
 #' @examples
-#' hdAT <- gen_td(hd = list("01-01","01-06","05-01","easter+1", "easter+39",
+#' hdAT <- genTd(hd = list("01-01","01-06","05-01","easter+1", "easter+39",
 #'                         "easter+50","easter+60",
 #'                          "08-15","10-26","11-01","12-08","12-24","12-25",
 #'                          "12-26","12-31"),
 #'                         weight = c(rep(1,11),0.5,rep(1,2),0.5))
-#' obj_x13 <- per_x13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
+#' obj_x13 <- perX13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
 #'                         usrdef.varType = "Calendar",
 #'                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[3]])
 #' obj_x13$run()
@@ -47,7 +47,7 @@
 #'
 #'
 
-gen_td <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
+genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
                    adjustEaster = 1){
   y <- ts(frequency = 12, start = c(fYear, 1), end = c(lYear, 12))
   dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")

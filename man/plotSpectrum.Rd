@@ -78,7 +78,7 @@ this case.
 # Monthly Data Example
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- per_x13(AirPassengers, "RSA5c")
+obj <- perX13(AirPassengers, "RSA5c")
 obj$run()
 
 # Plot the AR-Spectrum after run
@@ -100,7 +100,7 @@ plotSpectrum(obj, plotType=3)
 # Quarterly Data Example
 data(UKgas, package = "datasets")
 # Generate a persephone object, in this case a tramoseats object
-obj2 <- per_tramo(UKgas, "RSAfull")
+obj2 <- perTramo(UKgas, "RSAfull")
 obj2$run()
 plotSpectrum(obj2, tsType="original")
 plotSpectrum(obj2, tsType="sa")

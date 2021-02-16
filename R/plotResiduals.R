@@ -31,7 +31,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
-#' obj <- per_x13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "RSA1")
 #'
 #' obj$run()
 #' # Plot the residuals after run

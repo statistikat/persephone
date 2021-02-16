@@ -18,7 +18,7 @@ as.persephone <- function(x) {
   if (is.persephone(x))
     return(x$clone(deep = TRUE))
   if (stats::is.ts(x))
-    return(per_tramo(x))
+    return(perTramo(x))
   else
     stop("cannot coerce object of type ", class(x)[1], " to persephone")
 }

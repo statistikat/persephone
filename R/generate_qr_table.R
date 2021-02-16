@@ -38,7 +38,7 @@
 #' generate_qr_table(ht)
 #'
 #' @export
-generate_qr_table <- function(x) {
+generateQrTable <- function(x) {
   stopifnot(is.persephone(x))
   x$generate_qr_table()
 }

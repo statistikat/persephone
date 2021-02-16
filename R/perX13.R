@@ -34,11 +34,11 @@ x13Single <- R6::R6Class(
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- per_x13(AirPassengers, "RSA3")
+#' obj <- perX13(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @export
-per_x13 <- function(ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3",
+perX13 <- function(ts, template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3",
                                      "RSA4c", "X11"),
                     userdefined = NULL, ...) {
   x13Single$new(ts, match.arg(template), userdefined, ...)

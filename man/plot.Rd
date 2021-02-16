@@ -59,7 +59,7 @@ In case of \code{persephoneSingle} objects,
 the function generates an interactive time series plot
 of the original series, the seasonally adjusted (SA) series and the trend as
 well as one year forecasts with prediction intervals of the original series.
-For \code{\link[=per_hts]{per_hts()}} objects, the function plots the original
+For \code{\link[=perHts]{perHts()}} objects, the function plots the original
 aggregate series
 as well as the directly and indirectly seasonally adjusted aggregate series.
 }
@@ -74,10 +74,10 @@ only the original (aggregate) time series is plotted.
 data(AirPassengers, package = "datasets")
 # Generate two persephoneSingle objects, in this case two tramoseatsSingle
 # objects
-tsAir1 <- per_tramo(AirPassengers, "RSA1")
-tsAir2 <- per_tramo(AirPassengers, "RSA1")
+tsAir1 <- perTramo(AirPassengers, "RSA1")
+tsAir2 <- perTramo(AirPassengers, "RSA1")
 # Generate a hierarchicalTimeSeries object
-htAir <- per_hts(tsAir1=tsAir1, tsAir1=tsAir1)
+htAir <- perHts(tsAir1=tsAir1, tsAir1=tsAir1)
 # Plot before run of persephone object
 plot(htAir, drawPoints = TRUE)
 htAir$run()
@@ -86,9 +86,9 @@ plot(htAir, drawPoints=TRUE)
 
 # Quarterly data
 data(UKgas, package = "datasets")
-tsUKgas1 <- per_tramo(UKgas, "RSA3")
-tsUKgas2 <- per_tramo(UKgas, "RSA3")
-htUKgas <- per_hts(tsUKgas1=tsUKgas1, tsUKgas2=tsUKgas2)
+tsUKgas1 <- perTramo(UKgas, "RSA3")
+tsUKgas2 <- perTramo(UKgas, "RSA3")
+htUKgas <- perHts(tsUKgas1=tsUKgas1, tsUKgas2=tsUKgas2)
 plot(htUKgas)
 htUKgas$run()
 plot(htUKgas)
@@ -98,7 +98,7 @@ plot(htUKgas)
 # Monthly data
 data(AirPassengers, package = "datasets")
 # Generate a persephoneSingle object, in this case an x13Single object
-obj <- per_x13(AirPassengers, "RSA1")
+obj <- perX13(AirPassengers, "RSA1")
 # Plot before run of persephoneSingle object
 plot(obj, drawPoints = TRUE)
 obj$run()
@@ -116,13 +116,13 @@ plot(obj)
 
 # Quarterly data
 data(UKgas, package = "datasets")
-obj2 <- per_x13(UKgas, "RSA3")
+obj2 <- perX13(UKgas, "RSA3")
 plot(obj2)
 obj2$run()
 plot(obj2)
 
 # Generate a persephoneSingle object, in this case a tramoseatsSingle object
-obj3 <- per_tramo(UKgas, "RSA3")
+obj3 <- perTramo(UKgas, "RSA3")
 plot(obj3)
 obj3$run()
 plot(obj3)

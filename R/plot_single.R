@@ -5,7 +5,7 @@
 #' # Monthly data
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephoneSingle object, in this case an x13Single object
-#' obj <- per_x13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "RSA1")
 #' # Plot before run of persephoneSingle object
 #' plot(obj, drawPoints = TRUE)
 #' obj$run()
@@ -23,13 +23,13 @@
 #'
 #' # Quarterly data
 #' data(UKgas, package = "datasets")
-#' obj2 <- per_x13(UKgas, "RSA3")
+#' obj2 <- perX13(UKgas, "RSA3")
 #' plot(obj2)
 #' obj2$run()
 #' plot(obj2)
 #'
 #' # Generate a persephoneSingle object, in this case a tramoseatsSingle object
-#' obj3 <- per_tramo(UKgas, "RSA3")
+#' obj3 <- perTramo(UKgas, "RSA3")
 #' plot(obj3)
 #' obj3$run()
 #' plot(obj3)

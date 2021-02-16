@@ -4,14 +4,14 @@
 \alias{iterate}
 \title{Iterate over a hierarchical persephone object}
 \usage{
-iterate(x, fun, as_table = FALSE, component = "", unnest = FALSE)
+iterate(x, fun, asTable = FALSE, component = "", unnest = FALSE)
 }
 \arguments{
 \item{x}{a hierarchical persephone object}
 
 \item{fun}{a function with one argument}
 
-\item{as_table}{should the return value be coerced to a \code{data.frame}?}
+\item{asTable}{should the return value be coerced to a \code{data.frame}?}
 
 \item{component}{a component id from which the iteration should start}
 

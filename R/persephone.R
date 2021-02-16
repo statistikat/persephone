@@ -78,7 +78,7 @@ persephone <- R6::R6Class(
       message("A persephone object")
       if (!is.null(self$output)) {
         message("Output:")
-        tbl <- private$print_table("")
+        tbl <- private$printTable("")
         tbl <- tbl[, -1]
         print(tbl, right = FALSE, row.names = FALSE)
       } else {
@@ -87,15 +87,15 @@ persephone <- R6::R6Class(
     },
     #' @description see [per_hts]
     #' @param fun see [per_hts]
-    #' @param as_table see [per_hts]
+    #' @param asTable see [per_hts]
     #' @param unnest see [per_hts]
-    iterate = function(fun, as_table = FALSE, unnest = FALSE) {
+    iterate = function(fun, asTable = FALSE, unnest = FALSE) {
       res <- list(value = fun(self))
-      private$convert_list(res, as_table, unnest)
+      private$convert_list(res, asTable, unnest)
     },
     #' @description create a table for the eurostat quality report
     generate_qr_table = function() {
-      self$iterate(generateQrList, as_table = TRUE)
+      self$iterate(generateQrList, asTable = TRUE)
     },
     #' @description update options for the model
     #' @param userdefined see [x13()] and [tramoseats()]
@@ -133,10 +133,10 @@ persephone <- R6::R6Class(
     },
     #' @field adjusted get the adjusted series
     adjusted = function() {
-      self$adjusted_direct
+      self$adjustedDirect
     },
-    #' @field adjusted_direct see [per_hts]
-    adjusted_direct = function() {
+    #' @field adjustedDirect see [per_hts]
+    adjustedDirect = function() {
       self$output$user_defined$sa
     },
     #' @field spec specifications passed to [x13()] and [tramoseats()] when the
@@ -148,15 +148,15 @@ persephone <- R6::R6Class(
     forecasts = function(){
       self$output$final$forecasts
     },
-    #' @field forecasts_direct get direct forecasts from the model
-    forecasts_direct = function(){
+    #' @field forecastsDirect get direct forecasts from the model
+    forecastsDirect = function(){
       self$output$final$forecasts
     }
   ),
   private = list(
-    convert_list = function(res, as_table = FALSE, unnest = FALSE) {
-      if (as_table)
-        return(as_table_nested_list(res))
+    convert_list = function(res, asTable = FALSE, unnest = FALSE) {
+      if (asTable)
+        return(asTable_nested_list(res))
       else if (unnest)
         return(unnest_nested_list(res))
       else
@@ -168,7 +168,7 @@ persephone <- R6::R6Class(
     output_internal = NULL,
     userdefined = NULL,
     spec_internal = NULL,
-    print_table = function(prefix) {
+    printTable = function(prefix) {
       cbind(
         data.frame(
           component = sub("/", "", prefix),

@@ -1,9 +1,9 @@
 context("batch")
 
 test_that("adjusted", {
-  obj_x13 <- per_x13(AirPassengers, "RSA3")
+  objX13 <- perX13(AirPassengers, "RSA3")
 
-  bt <- per_batch(a = obj_x13, b = obj_x13)
+  bt <- perBatch(a = objX13, b = objX13)
   expect_true(is.null(bt$components$a$adjusted))
   expect_true(is.null(bt$components$b$adjusted))
   bt$run()
@@ -18,11 +18,12 @@ test_that("adjusted", {
 
 
 test_that("change parameters", {
-  obj_x13 <- per_x13(AirPassengers, "RSA3")
+  objX13 <- perX13(AirPassengers, "RSA3")
 
-  bt <- per_batch(a = obj_x13, b = obj_x13)
+  bt <- perBatch(a = objX13, b = objX13)
   bt$updateParams(easter.enabled = FALSE)
-  bt$updateParams(component = "a", usrdef.outliersEnabled = TRUE,
+  bt$updateParams(component = "a",
+                  usrdef.outliersEnabled = TRUE,
                     usrdef.outliersType = c("AO","LS","LS"),
                       usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
   bt$run()

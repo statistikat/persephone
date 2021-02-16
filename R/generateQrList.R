@@ -93,7 +93,7 @@ generateQrList <- function(x){
 
 
   # Indicator of the "size" of the seasonal and calendar adjustment
-  max_adj <- 100 * max(abs((x$ts - x$adjusted_direct) / x$ts))
+  max_adj <- 100 * max(abs((x$ts - x$adjustedDirect) / x$ts))
 
   QrEntries <- list(
     Method = method,
