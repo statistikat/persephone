@@ -124,7 +124,7 @@ hierarchicalTimeSeries <- R6::R6Class(
 
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)
-      super$set_options(userdefined = userdefined, spec = spec)
+      super$super2()$set_options(userdefined = userdefined, spec = spec)
     },
     #' @description run the model
     #' @param verbose if `FALSE` (the default), the results of the run will
@@ -166,7 +166,7 @@ hierarchicalTimeSeries <- R6::R6Class(
         root <- self$get_component(component)
         return(root$set_options(userdefined, spec, recursive))
       }
-      super$set_options(userdefined, spec, recursive)
+      super$super2()$set_options(userdefined, spec, recursive)
       if (recursive)
         lapply(self$components, function(x) {
           x$set_options(userdefined, spec, recursive)
@@ -195,7 +195,7 @@ hierarchicalTimeSeries <- R6::R6Class(
         }
       )
 
-      res <- c(super$iterate(fun), comp)
+      res <- c(super$super2()$iterate(fun), comp)
       private$convert_list(res, as_table, unnest)
     },
     #' @description extract a component series
