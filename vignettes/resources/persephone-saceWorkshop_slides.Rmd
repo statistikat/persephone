@@ -54,9 +54,9 @@ dealing with multiple (hierarchical) monthly/quarterly time series
 * Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment 
 (this will be improved in the future).
 
-1. _'Single'_ persephone objects are constructed with the functions `per_x13()` or `per_tramo()` 
+1. _'Single'_ persephone objects are constructed with the functions `perX13()` or `perTramo()` 
 depending on the choice of SA method (X-13-ARIMA-SEATS or TRAMO-SEATS).
-2. Multiple 'single' objects can then be combined with `per_hts()` to build a _hierarchical_ persephone object.
+2. Multiple 'single' objects can then be combined with `perHts()` to build a _hierarchical_ persephone object.
 
 ## Examples
 
@@ -76,7 +76,7 @@ require(persephone)
 ```
 ```{r}
 data(AirPassengers, package = "datasets")
-obj_x13 <- per_x13(AirPassengers, "RSA3")
+obj_x13 <- perX13(AirPassengers, "RSA3")
 ```
 * Now different methods can be called for the persephone object `obj_x13`, most importantly the `run()` method
 which performs the SA.
@@ -162,14 +162,14 @@ eu28 <- weights_pi_eu28$country
 * We generate a list of persephone single objects with x13 as method for all countries’ time series.
 
 ```{r}
-ts_28 <- lapply(pi_caladj, per_x13, template = "RSA3")
+ts_28 <- lapply(pi_caladj, perX13, template = "RSA3")
 ```
 
 * We aggregate the Euro-area (EA-19) countries and set the method to be used 
 for the direct adjustment of the aggregate series to x13 as well.
 
 ```{r}
-hts_EA19 <- per_hts(list = ts_28[ea19], method = "x13")
+hts_EA19 <- perHts(list = ts_28[ea19], method = "x13")
 ```
 
 ## Example 2: Persephone Hierarchical Object
@@ -180,7 +180,7 @@ Euro-area countries as a hierarchical object and the remaining 9 countries as si
 ```{r}
 non_ea19 <- eu28[which(!eu28 %in% ea19)]
 non_ea19
-hts_EU28 <- per_hts(list = c(EA19 = hts_EA19, ts_28[non_ea19]))
+hts_EU28 <- perHts(list = c(EA19 = hts_EA19, ts_28[non_ea19]))
 ```
 
 ## Example 2: Persephone Hierarchical Object
@@ -221,10 +221,10 @@ knitr::include_graphics("plot_hts.PNG")
 
 ## Example 2: Persephone Hierarchical Object
 
-* Generate Eurostat Quality Report with the function `generate_qr_table()`.
+* Generate Eurostat Quality Report with the function `generateQrTable()`.
 
 ```{r, output_size=6}
-head(generate_qr_table(hts_EU28), n = 4)
+head(generateQrTable(hts_EU28), n = 4)
 ```
 
 
@@ -233,18 +233,18 @@ head(generate_qr_table(hts_EU28), n = 4)
 Methods developed for univariate analysis can be used by accessing the components of 
 a hierarchical persephone object.
 
-Example: Generate Eurostat Quality Report with the function `generate_qr_table()`
+Example: Generate Eurostat Quality Report with the function `generateQrTable()`
 for only one of the components, e.g. the persephone 'single' object for Belgium.
 
 ```{r}
-generate_qr_table(hts_EU28$get_component("EA19/BE"))
+generateQrTable(hts_EU28$getComponent("EA19/BE"))
 ```
 
 ## Example 2: Persephone Hierarchical Object
 
 With **persephone** we can also generate weighted aggregates, e.g. for indices.
 
-The `weights` argument of `per_hts()` is used for this purpose.
+The `weights` argument of `perHts()` is used for this purpose.
 
 * Time-invariant weights -> vector (mts object with same weight for each time point created internally)
 * Time-variant weights -> mts object (or named list of ts objects)

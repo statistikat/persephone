@@ -7,8 +7,10 @@ output:
     df_print: kable
 vignette: >
   %\VignetteIndexEntry{Hierarchical time series}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -25,9 +27,9 @@ following example creates a series with two subseries `a` and `b`
 
 ```{r}
 library(persephone)
-hts <- per_hts(
-  a = per_x13(AirPassengers),
-  b = per_tramo(AirPassengers)
+hts <- perHts(
+  a = perX13(AirPassengers),
+  b = perTramo(AirPassengers)
 )
 hts
 ```
@@ -49,7 +51,7 @@ display_result <- function(ts) {
 hts$run()
 display_result(hts$adjusted)
 display_result(hts$components$a$adjusted)
-display_result(hts$adjusted_indirect)
+display_result(hts$adjustedIndirect)
 ```
 
 The last line displays the results of an indirect adjustment which amounts to
@@ -57,16 +59,16 @@ The last line displays the results of an indirect adjustment which amounts to
 
 ## Several levels of hierarchies
 
-In case more hierarchy levels are introduced, the calls to `per_hts` can be
+In case more hierarchy levels are introduced, the calls to `perHts` can be
 nested.
 
 ```{r}
-hts_nested <- per_hts(
+hts_nested <- perHts(
   hts = hts,
-  hts_child = per_hts(
-    a = per_x13(AirPassengers)
+  hts_child = perHts(
+    a = perX13(AirPassengers)
   ),
-  b = per_tramo(AirPassengers)
+  b = perTramo(AirPassengers)
 )
 hts_nested
 ```
@@ -75,36 +77,36 @@ As we can see, the runs of `hts` are available to this object.
 
 ## Iterating over the hierarchy tree
 
-To iterate over all components of a `per_hts` object, the `iterate` method
+To iterate over all components of a `perHts` object, the `iterate` method
 can be used. It baehaves similar to `lapply`.
 
 ```{r, warning=FALSE}
 hts_nested$run()
-hts_nested$iterate(as_table = TRUE, function(obj) {
+hts_nested$iterate(asTable = TRUE, function(obj) {
   list(mean = mean(obj$adjusted),
        var = sd(obj$adjusted))
 })
 ```
 
 ```{r}
-hts_nested$iterate(as_table = TRUE, persephone:::generateQrList)[, 1:9]
+hts_nested$iterate(asTable = TRUE, persephone:::generateQrList)[, 1:9]
 ```
 
 ## setting options recursively
 
 ```{r}
-hts_nested$set_options(spec = "RSA1", recursive = TRUE)
+hts_nested$setOptions(spec = "RSA1", recursive = TRUE)
 
 get_spec <- function(x) {
   list(spec = x$spec)
 }
 
 ## check if options where applied correctly
-hts_nested$iterate(as_table = TRUE, get_spec)
+hts_nested$iterate(asTable = TRUE, get_spec)
 
 ## modify options beginning from hts
-hts$set_options(spec = "RSA0", recursive = TRUE)
-hts_nested$iterate(as_table = TRUE, get_spec)
+hts$setOptions(spec = "RSA0", recursive = TRUE)
+hts_nested$iterate(asTable = TRUE, get_spec)
 
 ```
 

@@ -7,11 +7,13 @@ output:
   fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 bibliography: ["persephone.bib"]
 biblio-style: "natbib"
 link-citations: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -52,22 +54,22 @@ library(persephone)
 
 An object of class `persephone` can be constructed from only one or multiple time series. These multiple time series can be connected through a certain hierarchy.
 Depending on whether seasonal adjustment should be performed with X-13-ARIMA-SEATS [@X13] or with TRAMO-SEATS [@Tramo],
-'single' persephone objects are constructed with the functions  `per_x13()` or `per_tramo()`.
-Multiple 'single' objects can then be combined with `per_hts()` to build a hierarchical persephone object.
+'single' persephone objects are constructed with the functions  `perX13()` or `perTramo()`.
+Multiple 'single' objects can then be combined with `perHts()` to build a hierarchical persephone object.
 Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment, but this will be improved in the future.
 
 Persephone objects call the functions of **RJDemetra** in the background, so for a detailed documentation on the respective X-13 or TRAMO-SEATS methods refer to the R-help of **RJDemetra**.
 
 ## Persephone Single Objects
 
-Univariate persephone objects are created with `per_x13()` or `per_tramo()` from univariate time series objects 
+Univariate persephone objects are created with `perX13()` or `perTramo()` from univariate time series objects 
 such as the `AirPassengers` data set.
 A predefined JDemetra+ model specification has to be provided by the user, in this example we use `"RSA3"` 
 (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
 
 ```{r}
 data(AirPassengers, package = "datasets")
-obj_x13 <- per_x13(AirPassengers, "RSA3")
+obj_x13 <- perX13(AirPassengers, "RSA3")
 ```
 
 Now different methods can be called for the persephone object `obj_x13`.
@@ -93,7 +95,7 @@ knitr::include_graphics("resources/plot.PNG")
 
 ## Adjusting Parameters
 
-All predefined JDemetra+ model specifications can be used in the calls to per_x13 or per_tramo (and also in the hierarchical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individually. This can of course be done.
+All predefined JDemetra+ model specifications can be used in the calls to perX13 or perTramo (and also in the hierarchical functions), but most of the times it is still necessary to adjust parameters of seasonal adjustment steps more individually. This can of course be done.
 We will reuse the `obj_x13` from before, which is generated with the `RSA3` model specification.
 
 The current parameters are stored in the field `params`.
@@ -119,16 +121,16 @@ obj_x13$output$regarima
 
 ## Persephone Hierarchical Objects
 
-Hierarchical persephone objects are created with `per_hts()`. There are two options on how to provide the 'single' objects as input. Firstly, directly as arguments, as shown below, this kind of call is mainly applicable for a quite limited number of time series.
+Hierarchical persephone objects are created with `perHts()`. There are two options on how to provide the 'single' objects as input. Firstly, directly as arguments, as shown below, this kind of call is mainly applicable for a quite limited number of time series.
 
 ```{r}
-obj_x13_1 <- per_x13(AirPassengers, "RSA3")
-obj_x13_2 <- per_x13(AirPassengers, "RSA3")
-obj_x13_hts <- per_hts(ts1 = obj_x13_1, ts2 = obj_x13_2)
+obj_x13_1 <- perX13(AirPassengers, "RSA3")
+obj_x13_2 <- perX13(AirPassengers, "RSA3")
+obj_x13_hts <- perHts(ts1 = obj_x13_1, ts2 = obj_x13_2)
 
 ```
 
-Secondly, several 'single' objects can be concatenated into a list and provided to the `list` argument of the `per_hts()` function.
+Secondly, several 'single' objects can be concatenated into a list and provided to the `list` argument of the `perHts()` function.
 We shall call these 'single' objects 'components' in this multivariate context.
 
 In the more realistic examples below, we use time series of the volume index of production for total industry (except construction) 
@@ -161,25 +163,25 @@ pi_caladj <- window(pi_caladj, end = c(2019, 5))
 
 The next step is to construct a hierarchical persephone object that does not contain weights and computes aggregate series as the sum of the components.
 
-To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R built-in function `lapply` to call the function `per_x13` on the multivariate time series object `pi_caladj`.
+To get started, we generate persephone objects with X13-ARIMA-SEATS as method for all countries’ time series. This is done by simply calling the R built-in function `lapply` to call the function `perX13` on the multivariate time series object `pi_caladj`.
 
 ```{r}
-ts_28 <- lapply(pi_caladj, per_x13)
+ts_28 <- lapply(pi_caladj, perX13)
 ```
 
-The list argument in `per_hts()` can be used to create a hierarchical persephone object based on a list of 
+The list argument in `perHts()` can be used to create a hierarchical persephone object based on a list of 
 persephone single objects. Here we aggregate the Euro-area (EA-19) countries and set the method to be used 
 for the direct adjustment of the aggregate series to x13 as well.
 
 ```{r}
-hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13")
+hts_EA19 <- perHts(list = ts_28[weights_pi_ea19$country], method = "x13")
 ```
 
 We now generate our final hierarchical persephone object `hts_EU28` which consists of the Euro-area countries as a hierarchical object and the 9 countries as single objects.
 
 ```{r}
 non_EA19 <- weights_pi_eu28$country[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
-hts_EU28 <- per_hts(list = c(EA19=hts_EA19,ts_28[non_EA19]))
+hts_EU28 <- perHts(list = c(EA19=hts_EA19,ts_28[non_EA19]))
 ```
 
 The structure of this object is represented in the `print` output. The "blank" component is the overall total.
@@ -210,18 +212,18 @@ plot(hts_EU28)
 knitr::include_graphics("resources/plot_hts.PNG")
 ```
 
-We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the auto-correlations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$get_component("EA19/BE")` or 
+We can however access the components of a hierarchical persephone object and use the methods developed for univariate analysis, e.g. we can plot the auto-correlations of the residuals for the Belgian time series, see Figure \@ref(fig:acfresbg), where the component `"BE"` can either be addressed by `hts_EU28$getComponent("EA19/BE")` or 
 by ` hts_EU28$components$EA19$components$BE`.
 
 ```{r , fig.cap="\\label{fig:acfresbg} Output of the plotResiduals() method for the Belgian time series", out.width = '100%'}
-plotResiduals(hts_EU28$get_component("EA19/BE"), which = "acf", interactive = FALSE)
+plotResiduals(hts_EU28$getComponent("EA19/BE"), which = "acf", interactive = FALSE)
 ```
 
 Also the results of lower level aggregate series are accessed via the components. 
 The EA19 aggregate for example would be plotted by using the following command:
 
 ```{r , eval=FALSE}
-plot(hts_EU28$get_component("EA19"))
+plot(hts_EU28$getComponent("EA19"))
 ```
 
 ### Weighted Aggregates
@@ -238,7 +240,7 @@ weights for all time points.
 
 ```{r, echo=FALSE}
 # right now bug in package, this object is overwritten after run of hts object
-ts_28 <- lapply(pi_caladj, per_x13)
+ts_28 <- lapply(pi_caladj, perX13)
 ```
 
 We include the weights from the data set `weights_pi_eu28` in the hierarchical persephone object:
@@ -249,10 +251,10 @@ w_EA19 <- weights_pi_eu28$weight[
    which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
 w_non_EA19 <- weights_pi_eu28$weight[
    which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
-# The first per_hts call is for the EA19 countries
-hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights = w_EA19)
+# The first perHts call is for the EA19 countries
+hts_EA19 <- perHts(list = ts_28[weights_pi_ea19$country], method = "x13", weights = w_EA19)
 # We then combine the hts_EA19 object with the non_EA19 countries.
-hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
+hts_EU28 <- perHts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
 
 Please note that in the generation step of `hts_EU28` the weights in `w_non_EA19` are only used for the single persephone objects in the `list` input and not for the hierarchical persephone object `hts_EA19`.
@@ -295,7 +297,7 @@ for our example.
 
 ```{r, echo=FALSE}
 # We generate the persephone single objects again
-ts_28 <- lapply(pi_caladj, per_x13)
+ts_28 <- lapply(pi_caladj, perX13)
 ```
 
 This R code can be ignored as it is used to make the weights randomly time-variant. The result is a list of time series, one for each country.
@@ -315,8 +317,8 @@ We can then create a hierarchical persephone object as in the previous section
 w_EA19 <- weights_pi_eu28_time[which(weights_pi_eu28$country %in% weights_pi_ea19$country)]
 w_non_EA19 <- weights_pi_eu28_time[which(!weights_pi_eu28$country %in% weights_pi_ea19$country)]
 
-hts_EA19 <- per_hts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
-hts_EU28 <- per_hts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
+hts_EA19 <- perHts(list = ts_28[weights_pi_ea19$country], method = "x13", weights=w_EA19)
+hts_EU28 <- perHts(list = c(list(EA19 = hts_EA19),ts_28[non_EA19]), weights = w_non_EA19)
 ```
 
 and perform a run.
@@ -327,10 +329,10 @@ hts_EU28$run()
 
 # Eurostat Quality Report
 
-The function `generate_qr_table()` renders a Eurostat quality report (QR) in the form of a `data.frame` which can then be exported by the user.
+The function `generateQrTable()` renders a Eurostat quality report (QR) in the form of a `data.frame` which can then be exported by the user.
 
 ```{r}
-eurostatQR <- generate_qr_table(hts_EU28)
+eurostatQR <- generateQrTable(hts_EU28)
 head(eurostatQR)
 ```
 

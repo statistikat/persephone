@@ -34,7 +34,7 @@ package. The result is a zoomable representation of the series.
 ```{r}
 library(persephone)
 
-obj <- per_x13(AirPassengers, "RSA1")
+obj <- perX13(AirPassengers, "RSA1")
 plot(obj, drawPoints = TRUE)
 ```
 
