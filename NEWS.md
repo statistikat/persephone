@@ -1,3 +1,7 @@
+# persephone 0.2.0
+* refactoring to camelCase for user exposed functions
+* perBatch to generate an object with mutliple non hierachical single objects
+
 # persephone 0.1.1
 
 ## Implement utilities for hierarchical time series
