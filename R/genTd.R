@@ -11,9 +11,8 @@
 #'           (listHolidays() from timeDate function) and/or
 #'           3. easter relation (e.g. "easter+39", "easter-3")
 #' @param weight vector of individual weights for each holiday with length of hd
-#' @param adjustEaster employ theoretical distribution of easter dates (default) or
-#'               approximative distribution of easter dates for centering of
-#'               trading days
+#' @param adjustEaster "exact" or "approximate" to employ theoretical distribution of easter dates
+#' (default) or approximate distribution of easter dates for centering of trading days
 #' @return list with three list elements. 1. matrix of trading day counts for each
 #'        individual day, month and year. Holidays which are delivered through the
 #'        parameter hd are assigned to the number of sundays. 2. multiple time
@@ -48,22 +47,22 @@
 #'
 
 genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
-                   adjustEaster = 1){
+                   adjustEaster = "exact"){
   y <- ts(frequency = 12, start = c(fYear, 1), end = c(lYear, 12))
-  dNam <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
-  if(adjustEaster){
-    #data(eaDist_exact, envir = environment())
+  dNam <- weekdays(as.Date("2020-02-16")+0:6, abbreviate = TRUE)
+  stopifnot(adjustEaster %in% c("exact","approximate"))
+  if(adjustEaster == "exact"){
     eaDist <- eaDist_exact
   } else{
-    #data(eaDist_approx, envir = environment())
     eaDist <- eaDist_approx
   }
 
   easterRel <- which(substr(hd,1,6)=="easter")
+  noneasterRel <- which(substr(hd,1,6)!="easter")
   easterOff <- substr(hd[easterRel],7,10)
 
   eMeans <- list()
-  for(ii in 1:length(easterRel)){
+  for(ii in seq_along(easterRel)){
     start <- paste("as.Date(\"2285-03-22\")", easterOff[ii])
     start <- eval(parse(text = start))
     end <-  paste("as.Date(\"2038-04-25\")", easterOff[ii])
@@ -80,7 +79,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
       ww <- cbind(ww, ww0)
     }
     eMeans[[ii]] <- data.frame(rel = as.numeric(ww), mon = names(nD),
-                               dd = weekdays(start))
+                               dd = weekdays(start), stringsAsFactors = TRUE)
   }
   dat <- lapply(hd, function(x){
     if(substr(x, 1, 6) == "easter"){
@@ -91,18 +90,25 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
       a <- as.Date(paste0(seq(start(y)[1],end(y)[1]),paste0("-",x)))
     }
   })
-  datNE <- dat[-easterRel]
-  dat <- do.call("c", dat)
-  datNE <- do.call("c", datNE)
-  dat <- data.frame(dat, rep(weight, each = 1+lYear-fYear))
-  datNE <- data.frame(datNE, rep(weight[-easterRel], each = 1+lYear-fYear))
+  if(length(noneasterRel)>0){
+    datNE <- dat[noneasterRel]
+    datNE <- do.call("c", datNE)
+    datNE <- data.frame(datNE, rep(weight[noneasterRel], each = 1+lYear-fYear),
+                        stringsAsFactors = TRUE)
+    datNE <- unique(datNE)
+    colnames(datNE) <- c("dat", "weight")
+    datNE$mon <- as.numeric(substr(datNE$dat,6,7))
+    aMeans <- aggregate(datNE[, 2], list(datNE$mon), sum)
+  }
+
   # Elimination of redundant dates (e.g. 1st of May 2008 is both, Labour Day and Ascension )
+  dat <- do.call("c", dat)
+  dat <- data.frame(dat, rep(weight, each = 1+lYear-fYear), stringsAsFactors = TRUE)
   dat <- unique(dat)
-  datNE <- unique(datNE)
   colnames(dat) <- c("dat", "weight")
-  colnames(datNE) <- c("dat", "weight")
-  datNE$mon <- as.numeric(substr(datNE$dat,6,7))
-  aMeans <- aggregate(datNE[, 2], list(datNE$mon), sum)
+
+
+
 
   dd <- matrix(nrow=length(y),ncol=7,dimnames=c(list(NULL,dNam)))
   td <- matrix(nrow=length(y),ncol=6,dimnames=c(list(NULL,c(dNam[1:6]))))
@@ -116,7 +122,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
     rT <- seq(from=d0,to=dN,by="day")
     days <- weekdays(rT, abbreviate = TRUE)
     dd[ii,] <- as.vector(table(factor(days,levels=dNam)))
-    moDays <- data.frame(dat=rT, days)
+    moDays <- data.frame(dat=rT, days, stringsAsFactors = TRUE)
     moDays0 <- merge(moDays, dat, by = "dat", all.x = TRUE)
     if(any(!is.na(moDays0$weight))){
       moDays1 <- aggregate(. ~ days, data = moDays0, FUN = "sum")
@@ -135,7 +141,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
   ltermM <- matrix(0,nrow=12,ncol=6)
   colnames(ltermM) <- dNam[1:6]
   ltermM[aMeans[,1],1:6] <- aMeans[,2]/(lYear-fYear+1)
-  for(ii in 1:length(eMeans)){
+  for(ii in seq_along(eMeans)){
     row <- as.numeric(levels(eMeans[[ii]][,2]))
     col <- rep(which(dNam %in% substr(eMeans[[ii]][,3],1,3)),nrow(eMeans[[ii]]))
     val <- eMeans[[ii]][,1]
@@ -168,7 +174,6 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
     dd <- aggregate(dd, nfrequency = 4)
   }
 
-  days <- list(dd, td, td1)
-  return(days[])
+  return(list(dd, td, td1))
 }
 
