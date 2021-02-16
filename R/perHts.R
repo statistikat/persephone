@@ -124,7 +124,7 @@ hierarchicalTimeSeries <- R6::R6Class(
 
       self$weights <- weights_ts
       private$ts_internal <- private$aggregate(components, self$weights)
-      super$super2()$set_options(userdefined = userdefined, spec = spec)
+      super$super2()$setOptions(userdefined = userdefined, spec = spec)
     },
     #' @description run the model
     #' @param verbose if `FALSE` (the default), the results of the run will

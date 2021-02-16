@@ -102,7 +102,7 @@ persephone <- R6::R6Class(
     #' @param spec see [x13()] and [tramoseats()]
     #' @param recursive only applicable to hierarchical series. propagates
     #'   the pudates to sub-series. see [per_hts]
-    set_options = function(userdefined = NA,
+    setOptions = function(userdefined = NA,
                            spec = NA, recursive = TRUE) {
       if (is.null(userdefined) || !is.na(userdefined))
         private$userdefined <- union(userdefined, userdefined_default)
