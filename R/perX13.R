@@ -5,7 +5,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- per_x13(AirPassengers, "RSA3")
+#' obj <- perX13(AirPassengers, "RSA3")
 #' obj$run()
 #' obj$ts
 #' @export

@@ -129,7 +129,7 @@ hierarchicalTimeSeries <- R6::R6Class(
     #' @description run the model
     #' @param verbose if `FALSE` (the default), the results of the run will
     #'   be returned invisibly
-    #' @examples per_x13(AirPassengers)$run()
+    #' @examples perX13(AirPassengers)$run()
     run = function(verbose = FALSE) {
       ## indirect
       lapply(self$components, function(component) {

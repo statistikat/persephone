@@ -34,7 +34,7 @@
 #'   displayed after the
 #'   run? If `FALSE` (the default), the output will be returned invisibly.
 #' @section derived classes:
-#' [per_x13()], [per_tramo()], [per_hts()]
+#' [perX13()], [perTramo()], [perHts()]
 #' @import RJDemetra
 #' @export
 persephone <- R6::R6Class(
@@ -85,10 +85,10 @@ persephone <- R6::R6Class(
         message("Not yet run.")
       }
     },
-    #' @description see [per_hts]
-    #' @param fun see [per_hts]
-    #' @param asTable see [per_hts]
-    #' @param unnest see [per_hts]
+    #' @description see [perHts]
+    #' @param fun see [perHts]
+    #' @param asTable see [perHts]
+    #' @param unnest see [perHts]
     iterate = function(fun, asTable = FALSE, unnest = FALSE) {
       res <- list(value = fun(self))
       private$convert_list(res, asTable, unnest)
@@ -101,7 +101,7 @@ persephone <- R6::R6Class(
     #' @param userdefined see [x13()] and [tramoseats()]
     #' @param spec see [x13()] and [tramoseats()]
     #' @param recursive only applicable to hierarchical series. propagates
-    #'   the pudates to sub-series. see [per_hts]
+    #'   the pudates to sub-series. see [perHts]
     setOptions = function(userdefined = NA,
                            spec = NA, recursive = TRUE) {
       if (is.null(userdefined) || !is.na(userdefined))
@@ -135,7 +135,7 @@ persephone <- R6::R6Class(
     adjusted = function() {
       self$adjustedDirect
     },
-    #' @field adjustedDirect see [per_hts]
+    #' @field adjustedDirect see [perHts]
     adjustedDirect = function() {
       self$output$user_defined$sa
     },
