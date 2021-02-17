@@ -20,10 +20,10 @@ is an entry of the resulting list?}
 }
 \description{
 This funtion is an alias to the method \code{iterate} and can be used to iterate
-over all children of a hierarchical time series produced with \code{per_hts()}.
+over all children of a hierarchical time series produced with \code{perHts()}.
 }
 \examples{
-obj_x13 <- per_x13(AirPassengers, "RSA3")
+obj_x13 <- perX13(AirPassengers, "RSA3")
 ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
 ht2 <- per_hts(a = ht, b = obj_x13)
 ht2$iterate(function(x) {class(x)[1]})

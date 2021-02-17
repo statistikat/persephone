@@ -53,7 +53,7 @@ run? If \code{FALSE} (the default), the output will be returned invisibly.
 
 \section{derived classes}{
 
-\code{\link[=per_x13]{per_x13()}}, \code{\link[=per_tramo]{per_tramo()}}, \code{\link[=per_hts]{per_hts()}}
+\code{\link[=perX13]{perX13()}}, \code{\link[=perTramo]{perTramo()}}, \code{\link[=perHts]{perHts()}}
 }
 
 \section{Active bindings}{
@@ -72,7 +72,7 @@ the first time.}
 
 \item{\code{adjusted}}{get the adjusted series}
 
-\item{\code{adjustedDirect}}{see \link{per_hts}}
+\item{\code{adjustedDirect}}{see \link{perHts}}
 
 \item{\code{spec}}{specifications passed to \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}} when the
 \verb{$run()} method is invoked}
@@ -95,7 +95,7 @@ the first time.}
 \item \href{#method-print}{\code{persephone$print()}}
 \item \href{#method-iterate}{\code{persephone$iterate()}}
 \item \href{#method-generate_qr_table}{\code{persephone$generate_qr_table()}}
-\item \href{#method-set_options}{\code{persephone$set_options()}}
+\item \href{#method-setOptions}{\code{persephone$setOptions()}}
 \item \href{#method-clone}{\code{persephone$clone()}}
 }
 }
@@ -215,7 +215,7 @@ display a persephone object in the console
 \if{html}{\out{<a id="method-iterate"></a>}}
 \if{latex}{\out{\hypertarget{method-iterate}{}}}
 \subsection{Method \code{iterate()}}{
-see \link{per_hts}
+see \link{perHts}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{persephone$iterate(fun, asTable = FALSE, unnest = FALSE)}\if{html}{\out{</div>}}
 }
@@ -223,11 +223,11 @@ see \link{per_hts}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fun}}{see \link{per_hts}}
+\item{\code{fun}}{see \link{perHts}}
 
-\item{\code{asTable}}{see \link{per_hts}}
+\item{\code{asTable}}{see \link{perHts}}
 
-\item{\code{unnest}}{see \link{per_hts}}
+\item{\code{unnest}}{see \link{perHts}}
 }
 \if{html}{\out{</div>}}
 }
@@ -243,12 +243,12 @@ create a table for the eurostat quality report
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_options"></a>}}
-\if{latex}{\out{\hypertarget{method-set_options}{}}}
-\subsection{Method \code{set_options()}}{
+\if{html}{\out{<a id="method-setOptions"></a>}}
+\if{latex}{\out{\hypertarget{method-setOptions}{}}}
+\subsection{Method \code{setOptions()}}{
 update options for the model
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephone$set_options(userdefined = NA, spec = NA, recursive = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{persephone$setOptions(userdefined = NA, spec = NA, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -259,7 +259,7 @@ update options for the model
 \item{\code{spec}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
 
 \item{\code{recursive}}{only applicable to hierarchical series. propagates
-the pudates to sub-series. see \link{per_hts}}
+the pudates to sub-series. see \link{perHts}}
 }
 \if{html}{\out{</div>}}
 }

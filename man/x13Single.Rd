@@ -9,7 +9,7 @@ An R6 class that represents a x13 model.
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- per_x13(AirPassengers, "RSA3")
+obj <- perX13(AirPassengers, "RSA3")
 obj$run()
 obj$ts
 }
@@ -31,7 +31,7 @@ obj$ts
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="print">}\href{../../persephone/html/persephone.html#method-print}{\code{persephone::persephone$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="set_options">}\href{../../persephone/html/persephone.html#method-set_options}{\code{persephone::persephone$set_options()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="setOptions">}\href{../../persephone/html/persephone.html#method-setOptions}{\code{persephone::persephone$setOptions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="updateParams">}\href{../../persephone/html/persephone.html#method-updateParams}{\code{persephone::persephone$updateParams()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="fixArima">}\href{../../persephone/html/persephoneSingle.html#method-fixArima}{\code{persephone::persephoneSingle$fixArima()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="fixOutlier">}\href{../../persephone/html/persephoneSingle.html#method-fixOutlier}{\code{persephone::persephoneSingle$fixOutlier()}}\out{</span>}

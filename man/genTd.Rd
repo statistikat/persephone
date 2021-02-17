@@ -10,7 +10,7 @@ genTd(
   lYear = 2099,
   hd,
   weight = rep(1, length(hd)),
-  adjustEaster = 1
+  adjustEaster = "exact"
 )
 }
 \arguments{
@@ -26,9 +26,8 @@ genTd(
 
 \item{weight}{vector of individual weights for each holiday with length of hd}
 
-\item{adjustEaster}{employ theoretical distribution of easter dates (default) or
-approximative distribution of easter dates for centering of
-trading days}
+\item{adjustEaster}{"exact" or "approximate" to employ theoretical distribution of easter dates
+(default) or approximate distribution of easter dates for centering of trading days}
 }
 \value{
 list with three list elements. 1. matrix of trading day counts for each

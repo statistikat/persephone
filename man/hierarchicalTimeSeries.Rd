@@ -33,7 +33,7 @@ ht2$adjustedIndirect
 ## Method `hierarchicalTimeSeries$run`
 ## ------------------------------------------------
 
-per_x13(AirPassengers)$run()
+perX13(AirPassengers)$run()
 }
 \section{Super classes}{
 \code{\link[persephone:persephone]{persephone::persephone}} -> \code{\link[persephone:multipleTimeSeries]{persephone::multipleTimeSeries}} -> \code{hierarchicalTimeSeries}
@@ -77,13 +77,12 @@ all components are adjusted and then aggregated}
 }
 }
 \if{html}{
-\out{<details ><summary>Inherited methods</summary>}
+\out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generate_qr_table">}\href{../../persephone/html/persephone.html#method-generate_qr_table}{\code{persephone::persephone$generate_qr_table()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="set_options">}\href{../../persephone/html/persephone.html#method-set_options}{\code{persephone::persephone$set_options()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="multipleTimeSeries" data-id="updateParams">}\href{../../persephone/html/multipleTimeSeries.html#method-updateParams}{\code{persephone::multipleTimeSeries$updateParams()}}\out{</span>}
 }
 \out{</details>}
@@ -151,7 +150,7 @@ be returned invisibly}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{per_x13(AirPassengers)$run()
+\preformatted{perX13(AirPassengers)$run()
 }
 \if{html}{\out{</div>}}
 
