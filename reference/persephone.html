@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 
 <meta property="og:title" content="persephone class — persephone" />
 <meta property="og:description" content="Common interface for x13 and tramoseats" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -79,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,6 +103,9 @@
       <a href="../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
     </li>
     <li>
+      <a href="../articles/persephone-ntts2021.pdf">persephone ntts2021 (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -107,6 +113,9 @@
     </li>
     <li>
       <a href="../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
+    </li>
+    <li>
+      <a href="../articles/resources/persephone-ntts2021_slides.html">Persephone</a>
     </li>
     <li>
       <a href="../articles/resources/persephone-saceWorkshop_slides.html">Persephone</a>
@@ -119,8 +128,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/statistikat/persephone">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/statistikat/persephone/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -201,19 +210,194 @@ run? If <code>FALSE</code> (the default), the output will be returned invisibly.
 
     
 
-<p><code><a href='per_x13.html'>per_x13()</a></code>, <code><a href='per_tramo.html'>per_tramo()</a></code>, <code><a href='per_hts.html'>per_hts()</a></code></p>
+<p><code><a href='perX13.html'>perX13()</a></code>, <code><a href='perTramo.html'>perTramo()</a></code>, <code><a href='perHts.html'>perHts()</a></code></p>
+    <h2 class="hasAnchor" id="active-bindings"><a class="anchor" href="#active-bindings"></a>Active bindings</h2>
+
+    <p><div class="r6-active-bindings"></p><dl>
+<dt><code>params</code></dt><dd><p>A parameters object of class <code>SA_spec</code>. See <code>x13_spec()</code>
+and <code>tramoseats_spec()</code>.</p></dd>
+
+<dt><code>ts</code></dt><dd><p>the (unajusted) time series</p></dd>
+
+<dt><code>tsp</code></dt><dd><p>the <code><a href='https://rdrr.io/r/stats/tsp.html'>tsp()</a></code> of the underlying time series</p></dd>
+
+<dt><code>output</code></dt><dd><p>The return value from the underlying functions x13 or
+tramoseats. This slot will be empty (NULL) before run() is called for
+the first time.</p></dd>
+
+<dt><code>adjusted</code></dt><dd><p>get the adjusted series</p></dd>
+
+<dt><code>adjustedDirect</code></dt><dd><p>see <a href='perHts.html'>perHts</a></p></dd>
+
+<dt><code>spec</code></dt><dd><p>specifications passed to <code>x13()</code> and <code>tramoseats()</code> when the
+<code>$run()</code> method is invoked</p></dd>
+
+<dt><code>forecasts</code></dt><dd><p>get forecasts from the model</p></dd>
+
+<dt><code>forecastsDirect</code></dt><dd><p>get direct forecasts from the model</p></dd>
+
+</dl><p></div></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>persephone$new()</code></a></p></li>
+<li><p><a href='#method-run'><code>persephone$run()</code></a></p></li>
+<li><p><a href='#method-updateParams'><code>persephone$updateParams()</code></a></p></li>
+<li><p><a href='#method-plot'><code>persephone$plot()</code></a></p></li>
+<li><p><a href='#method-plotSeasIrrCal'><code>persephone$plotSeasIrrCal()</code></a></p></li>
+<li><p><a href='#method-plotResiduals'><code>persephone$plotResiduals()</code></a></p></li>
+<li><p><a href='#method-print'><code>persephone$print()</code></a></p></li>
+<li><p><a href='#method-iterate'><code>persephone$iterate()</code></a></p></li>
+<li><p><a href='#method-generateQrTable'><code>persephone$generateQrTable()</code></a></p></li>
+<li><p><a href='#method-setOptions'><code>persephone$setOptions()</code></a></p></li>
+<li><p><a href='#method-fixModel'><code>persephone$fixModel()</code></a></p></li>
+<li><p><a href='#method-fixOutlier'><code>persephone$fixOutlier()</code></a></p></li>
+<li><p><a href='#method-clone'><code>persephone$clone()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
+<p>create a new persephone object</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>this function should not be used directly because this class is
+abstract. Only initialize derived classes.</p>
+
+<p><hr>
+<a id="method-run"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>run()</code></h3>
+<p>perform a run of the model</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>verbose</code></dt><dd><p>whether to show outputs</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-updateParams"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>updateParams()</code></h3>
+<p>update parameters for the adjustment</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>updateParams</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>...</code></dt><dd><p>passed to <code>x13_spec()</code> of <code>tramoseats_spec()</code></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-plot"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='plot.html'>plot()</a></code></h3>
+<p>visualize the results of an adjustment</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>plot</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>...</code></dt><dd><p>Interactive time series plot for a persephone object,
+see <code><a href='plot.html'>plot.persephoneSingle()</a></code> or <code><a href='plot.html'>plot.hierarchicalTimeSeries()</a></code></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-plotSeasIrrCal"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='plotSeasIrrCal.html'>plotSeasIrrCal()</a></code></h3>
+<p>Interactive plot of the seasonal component, irregular
+component and calendar effects for a persephone object</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>plotSeasIrrCal</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>...</code></dt><dd><p>passed to <code><a href='plotSeasIrrCal.html'>plotSeasIrrCal()</a></code></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-plotResiduals"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='plotResiduals.html'>plotResiduals()</a></code></h3>
+<p>visualize residuals</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>plotResiduals</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>...</code></dt><dd><p>passed to <code><a href='plotResiduals.html'>plotResiduals()</a></code></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+<p>display a persephone object in the console</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-iterate"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='iterate.html'>iterate()</a></code></h3>
+<p>see <a href='perHts.html'>perHts</a></p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>iterate</span><span class='op'>(</span><span class='va'>fun</span>, asTable <span class='op'>=</span> <span class='cn'>FALSE</span>, unnest <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>fun</code></dt><dd><p>see <a href='perHts.html'>perHts</a></p></dd>
+
+<dt><code>asTable</code></dt><dd><p>see <a href='perHts.html'>perHts</a></p></dd>
+
+<dt><code>unnest</code></dt><dd><p>see <a href='perHts.html'>perHts</a></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-generateQrTable"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='generateQrTable.html'>generateQrTable()</a></code></h3>
+<p>create a table for the eurostat quality report</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>generateQrTable</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-setOptions"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>setOptions()</code></h3>
+<p>update options for the model</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>setOptions</span><span class='op'>(</span>userdefined <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>userdefined</code></dt><dd><p>see <code>x13()</code> and <code>tramoseats()</code></p></dd>
+
+<dt><code>spec</code></dt><dd><p>see <code>x13()</code> and <code>tramoseats()</code></p></dd>
+
+<dt><code>recursive</code></dt><dd><p>only applicable to hierarchical series. propagates
+the updates to sub-series. see <a href='perHts.html'>perHts</a></p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-fixModel"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fixModel()</code></h3>
+<p>fix the arima model</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>fixModel</span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>verbose</code></dt><dd><p>if TRUE the changed parameters will be reported</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-fixOutlier"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fixOutlier()</code></h3>
+<p>create a new single object</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>fixOutlier</span><span class='op'>(</span>timespan <span class='op'>=</span> <span class='fl'>12</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>timespan</code></dt><dd><p>number of months from the end of the time series
+where outliers are not fixed</p></dd>
+
+<dt><code>verbose</code></dt><dd><p>if TRUE the changed parameters will be reported</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>persephone</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#constructor">Constructor</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#read-only-fields">Read-Only fields</a></li>
-      <li><a href="#parameters">Parameters</a></li>
-      <li><a href="#derived-classes">derived classes</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -224,7 +408,7 @@ run? If <code>FALSE</code> (the default), the output will be returned invisibly.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

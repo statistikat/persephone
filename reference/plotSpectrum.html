@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -40,7 +44,6 @@
 <meta property="og:title" content="Spectral Plots — plotSpectrum" />
 <meta property="og:description" content="Interactive plot of the periodogram or the autogregressive spectrum.
 Produces a ggplot/plotly object for objects of class persephone." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,7 +61,7 @@ Produces a ggplot/plotly object for objects of class persephone." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +75,7 @@ Produces a ggplot/plotly object for objects of class persephone." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -80,7 +83,7 @@ Produces a ggplot/plotly object for objects of class persephone." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -101,6 +104,9 @@ Produces a ggplot/plotly object for objects of class persephone." />
       <a href="../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
     </li>
     <li>
+      <a href="../articles/persephone-ntts2021.pdf">persephone ntts2021 (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -108,6 +114,9 @@ Produces a ggplot/plotly object for objects of class persephone." />
     </li>
     <li>
       <a href="../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
+    </li>
+    <li>
+      <a href="../articles/resources/persephone-ntts2021_slides.html">Persephone</a>
     </li>
     <li>
       <a href="../articles/resources/persephone-saceWorkshop_slides.html">Persephone</a>
@@ -120,8 +129,8 @@ Produces a ggplot/plotly object for objects of class persephone." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/statistikat/persephone">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/statistikat/persephone/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -148,9 +157,17 @@ Produces a ggplot/plotly object for objects of class persephone." />
 Produces a <code>ggplot</code>/<code>plotly</code> object for objects of class <a href='persephone.html'>persephone</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotSpectrum</span>(<span class='no'>x</span>, <span class='kw'>tsType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"original"</span>, <span class='st'>"sa"</span>, <span class='st'>"irregular"</span>, <span class='st'>"residuals"</span>),
-  <span class='kw'>plotType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"arSpec"</span>, <span class='st'>"arSpecBars"</span>, <span class='st'>"periodogram"</span>), <span class='kw'>maxobs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n.freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotSpectrum</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  tsType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"original"</span>, <span class='st'>"sa"</span>, <span class='st'>"irregular"</span>, <span class='st'>"residuals"</span><span class='op'>)</span>,
+  plotType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"arSpec"</span>, <span class='st'>"arSpecBars"</span>, <span class='st'>"periodogram"</span><span class='op'>)</span>,
+  maxobs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.freq <span class='op'>=</span> <span class='cn'>NULL</span>,
+  order <span class='op'>=</span> <span class='fl'>30</span>,
+  main <span class='op'>=</span> <span class='cn'>NULL</span>,
+  interactive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,7 +211,7 @@ and <code>n.freq=61</code> for plotType <code>"arSpecBars"</code>.</p></td>
     <tr>
       <th>interactive</th>
       <td><p>If the return value would be a <code>ggplot</code> object, wrap it
-in <a href='https://rdrr.io/pkg/plotly/man/ggplotly.html'>plotly::ggplotly</a> before returning.</p></td>
+in <a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>plotly::ggplotly</a> before returning.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -231,46 +248,43 @@ this case.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Monthly Data Example</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, package <span class='op'>=</span> <span class='st'>"datasets"</span><span class='op'>)</span>
 <span class='co'># Generate a persephone object, in this case an x13Single object</span>
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA5c"</span>)
-<span class='no'>obj</span>$<span class='fu'>run</span>()
+<span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perX13.html'>perX13</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='st'>"RSA5c"</span><span class='op'>)</span>
+<span class='va'>obj</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Plot the AR-Spectrum after run</span>
 <span class='co'># Autoregressive Spectrum of the original series</span>
 <span class='co'># (similar to JD+ plots)</span>
 <span class='co'># where n.freq = 301 and order = 30</span>
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj</span>)
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span>
 
 <span class='co'># Autoregressive Spectrum of the original series</span>
 <span class='co'># (similar to X-13ARIMA-SEATS plots)</span>
 <span class='co'># where n.freq = 61 and order = 30</span>
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj</span>, <span class='kw'>plotType</span><span class='kw'>=</span><span class='st'>"arSpecBars"</span>)
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj</span>, plotType<span class='op'>=</span><span class='st'>"arSpecBars"</span><span class='op'>)</span>
 
 <span class='co'># Periodogram</span>
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj</span>, <span class='kw'>plotType</span><span class='kw'>=</span><span class='st'>"periodogram"</span>)
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj</span>, plotType<span class='op'>=</span><span class='st'>"periodogram"</span><span class='op'>)</span>
 <span class='co'># same as</span>
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj</span>, <span class='kw'>plotType</span><span class='kw'>=</span><span class='fl'>3</span>)
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj</span>, plotType<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'># Quarterly Data Example</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>UKgas</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>UKgas</span>, package <span class='op'>=</span> <span class='st'>"datasets"</span><span class='op'>)</span>
 <span class='co'># Generate a persephone object, in this case a tramoseats object</span>
-<span class='no'>obj2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_tramo.html'>per_tramo</a></span>(<span class='no'>UKgas</span>, <span class='st'>"RSAfull"</span>)
-<span class='no'>obj2</span>$<span class='fu'>run</span>()
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"original"</span>)
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"sa"</span>)
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"irregular"</span>)
-<span class='fu'>plotSpectrum</span>(<span class='no'>obj2</span>, <span class='kw'>tsType</span><span class='kw'>=</span><span class='st'>"residuals"</span>)</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+<span class='va'>obj2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perTramo.html'>perTramo</a></span><span class='op'>(</span><span class='va'>UKgas</span>, <span class='st'>"RSAfull"</span><span class='op'>)</span>
+<span class='va'>obj2</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj2</span>, tsType<span class='op'>=</span><span class='st'>"original"</span><span class='op'>)</span>
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj2</span>, tsType<span class='op'>=</span><span class='st'>"sa"</span><span class='op'>)</span>
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj2</span>, tsType<span class='op'>=</span><span class='st'>"irregular"</span><span class='op'>)</span>
+<span class='fu'>plotSpectrum</span><span class='op'>(</span><span class='va'>obj2</span>, tsType<span class='op'>=</span><span class='st'>"residuals"</span><span class='op'>)</span>
 
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -281,7 +295,7 @@ this case.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

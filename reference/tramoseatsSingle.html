@@ -8,23 +8,29 @@
 
 <title>tramoseats class — tramoseatsSingle • persephone</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -34,10 +40,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="tramoseats class — tramoseatsSingle" />
 
+<meta property="og:title" content="tramoseats class — tramoseatsSingle" />
 <meta property="og:description" content="an R6 class that represents a tramoseats model" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,7 +60,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -76,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,19 +97,39 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/persephone-hierarchical.html">Hierarchical time series</a>
+    </li>
+    <li>
+      <a href="../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
+    </li>
+    <li>
+      <a href="../articles/persephone-ntts2021.pdf">persephone ntts2021 (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
+    </li>
+    <li>
+      <a href="../articles/persephone-saceWorkshop.html">Persephone, Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra</a>
     </li>
     <li>
       <a href="../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
     </li>
+    <li>
+      <a href="../articles/resources/persephone-ntts2021_slides.html">Persephone</a>
+    </li>
+    <li>
+      <a href="../articles/resources/persephone-saceWorkshop_slides.html">Persephone</a>
+    </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/statistikat/persephone">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/statistikat/persephone/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,47 +147,64 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tramoseats class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/tramoseatsSingle.R'><code>R/tramoseatsSingle.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/perTramo.R'><code>R/perTramo.R</code></a></small>
     <div class="hidden name"><code>tramoseatsSingle.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>an R6 class that represents a tramoseats model</p>
-    
     </div>
 
-        
-    <h2 class="hasAnchor" id="inherits"><a class="anchor" href="#inherits"></a>Inherits</h2>
 
-    <p><a href='persephone.html'>persephone</a></p>
+
+    <h2 class="hasAnchor" id="super-classes"><a class="anchor" href="#super-classes"></a>Super classes</h2>
+
+    <p><code><a href='persephone.html'>persephone::persephone</a></code> -&gt; <code><a href='persephoneSingle.html'>persephone::persephoneSingle</a></code> -&gt; <code>tramoseatsSingle</code></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
     
-    <h2 class="hasAnchor" id="contructor"><a class="anchor" href="#contructor"></a>Contructor</h2>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
-    
-
-<pre>
-per_tramo(
-  ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3",
-                   "RSA4", "RSA5"),
-  userdefined=NULL, ...
-)
-</pre>
 <ul>
-<li><p><code>ts</code> denotes a time series</p></li>
-<li><p><code>template</code> is passed as the <code>spec</code> argument to tramoseats_spec</p></li>
-<li><p><code>userdefined</code> is passed as the <code>userdefined</code> argument to tramoseats</p></li>
-<li><p><code>...</code> passed to tramoseats_spec</p></li>
+<li><p><a href='#method-clone'><code>tramoseatsSingle$clone()</code></a></p></li>
 </ul>
+<p><details ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixModel"><a href='../../persephone/html/persephone.html#method-fixModel'><code>persephone::persephone$fixModel()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixOutlier"><a href='../../persephone/html/persephone.html#method-fixOutlier'><code>persephone::persephone$fixOutlier()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generateQrTable"><a href='../../persephone/html/persephone.html#method-generateQrTable'><code>persephone::persephone$generateQrTable()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="iterate"><a href='../../persephone/html/persephone.html#method-iterate'><code>persephone::persephone$iterate()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot"><a href='../../persephone/html/persephone.html#method-plot'><code>persephone::persephone$plot()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals"><a href='../../persephone/html/persephone.html#method-plotResiduals'><code>persephone::persephone$plotResiduals()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal"><a href='../../persephone/html/persephone.html#method-plotSeasIrrCal'><code>persephone::persephone$plotSeasIrrCal()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="print"><a href='../../persephone/html/persephone.html#method-print'><code>persephone::persephone$print()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="setOptions"><a href='../../persephone/html/persephone.html#method-setOptions'><code>persephone::persephone$setOptions()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="updateParams"><a href='../../persephone/html/persephone.html#method-updateParams'><code>persephone::persephone$updateParams()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="initialize"><a href='../../persephone/html/persephoneSingle.html#method-initialize'><code>persephone::persephoneSingle$initialize()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="run"><a href='../../persephone/html/persephoneSingle.html#method-run'><code>persephone::persephoneSingle$run()</code></a></span></p></li>
+</ul>
+</details>
 
-    
+<hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>tramoseatsSingle</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>AirPassengers</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"datasets"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, package <span class='op'>=</span> <span class='st'>"datasets"</span><span class='op'>)</span>
 
-<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>per_tramo</span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
-<span class='no'>obj</span>$<span class='fu'>run</span>()
-<span class='no'>obj</span>$<span class='no'>ts</span></div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+<span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perTramo.html'>perTramo</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='st'>"RSA3"</span><span class='op'>)</span>
+<span class='va'>obj</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>obj</span><span class='op'>$</span><span class='va'>ts</span>
+</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
 #&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
 #&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
@@ -175,28 +218,21 @@ per_tramo(
 #&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
 #&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#inherits">Inherits</a></li>
-
-      <li><a href="#contructor">Contructor</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

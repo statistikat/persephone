@@ -6,20 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Persephone • persephone</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Persephone">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="persephone">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -61,6 +61,9 @@
       <a href="../../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
     </li>
     <li>
+      <a href="../../articles/persephone-ntts2021.pdf">persephone ntts2021 (PDF)</a>
+    </li>
+    <li>
       <a href="../../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -68,6 +71,9 @@
     </li>
     <li>
       <a href="../../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
+    </li>
+    <li>
+      <a href="../../articles/resources/persephone-ntts2021_slides.html">Persephone</a>
     </li>
     <li>
       <a href="../../articles/resources/persephone-saceWorkshop_slides.html">Persephone</a>
@@ -80,8 +86,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statistikat/persephone">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/statistikat/persephone/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -95,14 +101,14 @@
 
       
 
-      </header><div class="row">
+      </header><script src="persephone-saceWorkshop_slides_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Persephone</h1>
+      <h1 data-toc-skip>Persephone</h1>
             <h3 class="subtitle">Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra</h3>
                         <h4 class="author">Angelika Meraner</h4>
             
-            <h4 class="date">September 2019</h4>
+            <h4 class="date">Februar 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statistikat/persephone/blob/master/vignettes/resources/persephone-saceWorkshop_slides.Rmd"><code>vignettes/resources/persephone-saceWorkshop_slides.Rmd</code></a></small>
       <div class="hidden name"><code>persephone-saceWorkshop_slides.Rmd</code></div>
@@ -131,7 +137,7 @@
 <p>R-package <strong>persephone</strong> builds on top of <strong>RJDemetra</strong>.</p>
 <ul>
 <li>
-<strong>persephone</strong> provides SA-infrastructure for official statistics, i.e. dealing with multiple (hierarchical) monthly/quarterly time series</li>
+<strong>persephone</strong> provides SA-infrastructure for official statistics, i.e. dealing with multiple (hierarchical) monthly/quarterly time series</li>
 <li>Functions of <strong>RJDemetra</strong> performing SA are called in the background.</li>
 <li>Available on <a href="https://github.com/statistikat/persephone" class="uri">https://github.com/statistikat/persephone</a> (still under development)</li>
 </ul>
@@ -146,8 +152,8 @@
 </ul>
 <ol style="list-style-type: decimal">
 <li>
-<em>‘Single’</em> persephone objects are constructed with the functions <code><a href="../../reference/per_x13.html">per_x13()</a></code> or <code><a href="../../reference/per_tramo.html">per_tramo()</a></code> depending on the choice of SA method (X-13-ARIMA-SEATS or TRAMO-SEATS).</li>
-<li>Multiple ‘single’ objects can then be combined with <code><a href="../../reference/per_hts.html">per_hts()</a></code> to build a <em>hierarchical</em> persephone object.</li>
+<em>‘Single’</em> persephone objects are constructed with the functions <code><a href="../../reference/perX13.html">perX13()</a></code> or <code><a href="../../reference/perTramo.html">perTramo()</a></code> depending on the choice of SA method (X-13-ARIMA-SEATS or TRAMO-SEATS).</li>
+<li>Multiple ‘single’ objects can then be combined with <code><a href="../../reference/perHts.html">perHts()</a></code> to build a <em>hierarchical</em> persephone object.</li>
 </ol>
 </div>
 <div id="examples" class="section level2">
@@ -164,14 +170,16 @@
 <a href="#example-1-persephone-single-object" class="anchor"></a>Example 1: Persephone Single Object</h2>
 <p>Create a persephone ‘single’ object from a univariate time series object.</p>
 <ul>
-<li>A predefined JDemetra+ model specification has to be provided by the user, e.g. <code>"RSA3"</code> (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).</li>
+<li>A predefined JDemetra+ model specification has to be provided by the user, e.g. <code>"RSA3"</code> (Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(AirPassengers, <span class="dt">package =</span> <span class="st">"datasets"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">obj_x13 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/per_x13.html">per_x13</a></span>(AirPassengers, <span class="st">"RSA3"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">AirPassengers</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span>
+<span class="va">obj_x13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/perX13.html">perX13</a></span><span class="op">(</span><span class="va">AirPassengers</span>, <span class="st">"RSA3"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Now different methods can be called for the persephone object <code>obj_x13</code>, most importantly the <code>run()</code> method which performs the SA.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">obj_x13<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">obj_x13</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example-1-persephone-single-object-1" class="section level2">
 <h2 class="hasAnchor">
@@ -179,7 +187,8 @@
 <ul>
 <li>The <code>output</code> field gives access to the original output object from <strong>RJDemetra</strong>.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obj_x13<span class="op">$</span>output<span class="op">$</span>regarima</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">obj_x13</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">regarima</span></code></pre></div>
 <pre><code>## y = regression model + arima (0, 1, 1, 0, 1, 1)
 ## Log-transformation: yes
 ## Coefficients:
@@ -188,7 +197,7 @@
 ## BTheta(1) -0.5569 0.078
 ##
 ##
-## Residual standard error: 0.03672 on 131 degrees of freedom
+## Residual standard error: 0.03672 on 128 degrees of freedom
 ## Log likelihood = 244.7, aic = 987.2 aicc = 987.4,
 bic(corrected for length) = -6.535</code></pre>
 </div>
@@ -198,9 +207,10 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>Several plot methods have been implemented with the focus on using interacive tools, e.g. the default S3 generic <code><a href="../../reference/plot.html">plot()</a></code> shows a zoomable line representation of the series.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/plot.html">plot</a></span>(obj_x13)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">obj_x13</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="plot.png" alt="\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane" width="65%"><p class="caption">
+<img src="plot.PNG" alt="\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane" width="65%"><p class="caption">
  Output of the plot() method in the R-Studio viewer pane
 </p>
 </div>
@@ -239,13 +249,14 @@ bic(corrected for length) = -6.535</code></pre>
 <h2 class="hasAnchor">
 <a href="#example-2-persephone-hierarchical-object-1" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>Preadjustments because of missing values and for the sake of readability.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">pi_caladj_orig &lt;-<span class="st"> </span>pi_caladj</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">pi_caladj &lt;-<span class="st"> </span>pi_caladj[, <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">pi_caladj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/window.html">window</a></span>(pi_caladj, <span class="dt">end =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2019</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Euro-Area Countries</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">ea19 &lt;-<span class="st"> </span>weights_pi_ea19<span class="op">$</span>country</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co"># EU-28 Countries</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">eu28 &lt;-<span class="st"> </span>weights_pi_eu28<span class="op">$</span>country</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pi_caladj_orig</span> <span class="op">&lt;-</span> <span class="va">pi_caladj</span>
+<span class="va">pi_caladj</span> <span class="op">&lt;-</span> <span class="va">pi_caladj</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span>
+<span class="va">pi_caladj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">pi_caladj</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2019</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># Euro-Area Countries</span>
+<span class="va">ea19</span> <span class="op">&lt;-</span> <span class="va">weights_pi_ea19</span><span class="op">$</span><span class="va">country</span>
+<span class="co"># EU-28 Countries</span>
+<span class="va">eu28</span> <span class="op">&lt;-</span> <span class="va">weights_pi_eu28</span><span class="op">$</span><span class="va">country</span></code></pre></div>
 </div>
 <div id="example-2-persephone-hierarchical-object-2" class="section level2">
 <h2 class="hasAnchor">
@@ -253,11 +264,13 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>We generate a list of persephone single objects with x13 as method for all countries’ time series.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ts_<span class="dv">28</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(pi_caladj, per_x13, <span class="dt">template =</span> <span class="st">"RSA3"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_28</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">pi_caladj</span>, <span class="va">perX13</span>, template <span class="op">=</span> <span class="st">"RSA3"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>We aggregate the Euro-area (EA-19) countries and set the method to be used for the direct adjustment of the aggregate series to x13 as well.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">hts_EA19 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> ts_<span class="dv">28</span>[ea19], <span class="dt">method =</span> <span class="st">"x13"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hts_EA19</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/perHts.html">perHts</a></span><span class="op">(</span>list <span class="op">=</span> <span class="va">ts_28</span><span class="op">[</span><span class="va">ea19</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"x13"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example-2-persephone-hierarchical-object-3" class="section level2">
 <h2 class="hasAnchor">
@@ -265,10 +278,12 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>We then generate our final hierarchical persephone object <code>hts_EU28</code> which consists of the Euro-area countries as a hierarchical object and the remaining 9 countries as single objects.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">non_ea19 &lt;-<span class="st"> </span>eu28[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>eu28 <span class="op">%in%</span><span class="st"> </span>ea19)]</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">non_ea19</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">non_ea19</span> <span class="op">&lt;-</span> <span class="va">eu28</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="op">!</span><span class="va">eu28</span> <span class="op">%in%</span> <span class="va">ea19</span><span class="op">)</span><span class="op">]</span>
+<span class="va">non_ea19</span></code></pre></div>
 <pre><code>## [1] "BG" "CZ" "DK" "HR" "HU" "PL" "RO" "SE" "UK"</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">hts_EU28 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/per_hts.html">per_hts</a></span>(<span class="dt">list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">EA19 =</span> hts_EA19, ts_<span class="dv">28</span>[non_ea19]))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hts_EU28</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/perHts.html">perHts</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>EA19 <span class="op">=</span> <span class="va">hts_EA19</span>, <span class="va">ts_28</span><span class="op">[</span><span class="va">non_ea19</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example-2-persephone-hierarchical-object-4" class="section level2">
 <h2 class="hasAnchor">
@@ -276,7 +291,8 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>The structure of this object is represented in the <code>print</code> output. The “blank” component is the overall total.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">hts_EU28</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hts_EU28</span></code></pre></div>
 <pre><code>##  component run   class                 
 ##            FALSE hierarchicalTimeSeries
 ##  EA19      FALSE hierarchicalTimeSeries
@@ -316,7 +332,8 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>perform a run, i.e. perform SA.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">hts_EU28<span class="op">$</span><span class="kw">run</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hts_EU28</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <ul>
 <li><p>generate a plot comparing original, directly and indirectly adjusted series.</p></li>
 <li><p>generate a Eurostat Quality Report.</p></li>
@@ -329,9 +346,10 @@ bic(corrected for length) = -6.535</code></pre>
 <ul>
 <li>General comparison line chart called through the S3 generic <code><a href="../../reference/plot.html">plot()</a></code> (only plot function for hierarchical persephone objects at the moment)</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../../reference/plot.html">plot</a></span>(hts_EU28)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">hts_EU28</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="plot_hts.png" alt="\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane" width="65%"><p class="caption">
+<img src="plot_hts.PNG" alt="\label{fig:plotmethodhts} Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane" width="65%"><p class="caption">
  Output of the plot() method for a hierarchical persephone object in the R-Studio viewer pane
 </p>
 </div>
@@ -340,63 +358,59 @@ bic(corrected for length) = -6.535</code></pre>
 <h2 class="hasAnchor">
 <a href="#example-2-persephone-hierarchical-object-7" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <ul>
-<li>Generate Eurostat Quality Report with the function <code><a href="../../reference/generate_qr_table.html">generate_qr_table()</a></code>.</li>
+<li>Generate Eurostat Quality Report with the function <code><a href="../../reference/generateQrTable.html">generateQrTable()</a></code>.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="../../reference/generate_qr_table.html">generate_qr_table</a></span>(hts_EU28), <span class="dt">n =</span> <span class="dv">4</span>)</a></code></pre></div>
-<pre><code>##   component Method Period Nobs  Start    End Log.Transformation
-## 1               TS     12  233 1-2000 5-2019               TRUE
-## 2      EA19    x13     12  233 1-2000 5-2019              FALSE
-## 3   EA19/BE    x13     12  233 1-2000 5-2019              FALSE
-## 4   EA19/DE    x13     12  233 1-2000 5-2019               TRUE
-##      ARIMA.Model LeapYear MovingHoliday NbTD Noutliers     Outlier1
-## 1 (0 1 1)(0 1 1)    FALSE          TRUE    6         4 LS (11-2008)
-## 2 (1 1 0)(0 1 1)     TRUE          TRUE    7         2 LS (11-2008)
-## 3 (0 1 1)(0 1 1)    FALSE         FALSE    0         2 LS (11-2008)
-## 4 (1 1 2)(0 1 1)    FALSE         FALSE    0         2  LS (1-2009)
-##       Outlier2    Outlier3 CombinedTest_SI Residual.Seasonality
-## 1 LS (12-2008) LS (1-2009)         Present                   No
-## 2 TC (11-2008)        &lt;NA&gt;         Present                   No
-## 3  AO (5-2009)        &lt;NA&gt;         Present                   No
-## 4 LS (11-2008)        &lt;NA&gt;         Present                   No
-##   Residual.TD.Effect Q.Stat Final.Henderson.Filter
-## 1                 No     NA                   &lt;NA&gt;
-## 2                 No   0.16                    H13
-## 3                Yes   0.35                    H13
-## 4                Yes   0.22                    H13
-##   Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
-## 1                     &lt;NA&gt;            &lt;NA&gt;     14%
-## 2                      H13             3x5     19%
-## 3                      H13             3x5     14%
-## 4                      H13             3x5      9%</code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../../reference/generateQrTable.html">generateQrTable</a></span><span class="op">(</span><span class="va">hts_EU28</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<pre><code>##   component Method Period Nobs  Start    End Log.Transformation    ARIMA.Model
+## 1               TS     12  233 1-2000 5-2019               TRUE (0 1 1)(0 1 1)
+## 2      EA19    x13     12  233 1-2000 5-2019              FALSE (1 1 0)(0 1 1)
+## 3   EA19/BE    x13     12  233 1-2000 5-2019              FALSE (0 1 1)(0 1 1)
+## 4   EA19/DE    x13     12  233 1-2000 5-2019               TRUE (1 1 2)(0 1 1)
+##   LeapYear MovingHoliday NbTD Noutliers     Outlier1     Outlier2    Outlier3
+## 1    FALSE          TRUE    6         4 LS (11-2008) LS (12-2008) LS (1-2009)
+## 2     TRUE          TRUE    7         2 LS (11-2008) TC (11-2008)        &lt;NA&gt;
+## 3    FALSE         FALSE    0         2 LS (11-2008)  AO (5-2009)        &lt;NA&gt;
+## 4    FALSE         FALSE    0         2  LS (1-2009) LS (11-2008)        &lt;NA&gt;
+##   CombinedTest_SI Residual.Seasonality Residual.TD.Effect Q.Stat
+## 1         Present                   No                 No     NA
+## 2         Present                   No                 No   0.16
+## 3         Present                   No                Yes   0.35
+## 4         Present                   No                Yes   0.22
+##   Final.Henderson.Filter Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
+## 1                   &lt;NA&gt;                     &lt;NA&gt;            &lt;NA&gt;     14%
+## 2                    H13                      H13             3x5     19%
+## 3                    H13                      H13             3x5     14%
+## 4                    H13                      H13             3x5      9%</code></pre>
 </div>
 <div id="example-2-persephone-hierarchical-object-8" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-2-persephone-hierarchical-object-8" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>Methods developed for univariate analysis can be used by accessing the components of a hierarchical persephone object.</p>
-<p>Example: Generate Eurostat Quality Report with the function <code><a href="../../reference/generate_qr_table.html">generate_qr_table()</a></code> for only one of the components, e.g. the persephone ‘single’ object for Belgium.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../../reference/generate_qr_table.html">generate_qr_table</a></span>(hts_EU28<span class="op">$</span><span class="kw">get_component</span>(<span class="st">"EA19/BE"</span>))</a></code></pre></div>
-<pre><code>##   component Method Period Nobs  Start    End Log.Transformation
-## 1              x13     12  233 1-2000 5-2019              FALSE
-##      ARIMA.Model LeapYear MovingHoliday NbTD Noutliers     Outlier1
-## 1 (0 1 1)(0 1 1)    FALSE         FALSE    0         2 LS (11-2008)
-##      Outlier2 Outlier3 CombinedTest_SI Residual.Seasonality
-## 1 AO (5-2009)     &lt;NA&gt;         Present                   No
-##   Residual.TD.Effect Q.Stat Final.Henderson.Filter
-## 1                Yes   0.35                    H13
-##   Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
-## 1                      H13             3x5     14%</code></pre>
+<p>Example: Generate Eurostat Quality Report with the function <code><a href="../../reference/generateQrTable.html">generateQrTable()</a></code> for only one of the components, e.g. the persephone ‘single’ object for Belgium.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/generateQrTable.html">generateQrTable</a></span><span class="op">(</span><span class="va">hts_EU28</span><span class="op">$</span><span class="fu">getComponent</span><span class="op">(</span><span class="st">"EA19/BE"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##   component Method Period Nobs  Start    End Log.Transformation    ARIMA.Model
+## 1              x13     12  233 1-2000 5-2019              FALSE (0 1 1)(0 1 1)
+##   LeapYear MovingHoliday NbTD Noutliers     Outlier1    Outlier2 Outlier3
+## 1    FALSE         FALSE    0         2 LS (11-2008) AO (5-2009)     &lt;NA&gt;
+##   CombinedTest_SI Residual.Seasonality Residual.TD.Effect Q.Stat
+## 1         Present                   No                Yes   0.35
+##   Final.Henderson.Filter Stage.2.Henderson.Filter Seasonal.Filter Max.Adj
+## 1                    H13                      H13             3x5     14%</code></pre>
 </div>
 <div id="example-2-persephone-hierarchical-object-9" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-2-persephone-hierarchical-object-9" class="anchor"></a>Example 2: Persephone Hierarchical Object</h2>
 <p>With <strong>persephone</strong> we can also generate weighted aggregates, e.g. for indices.</p>
-<p>The <code>weights</code> argument of <code><a href="../../reference/per_hts.html">per_hts()</a></code> is used for this purpose.</p>
+<p>The <code>weights</code> argument of <code><a href="../../reference/perHts.html">perHts()</a></code> is used for this purpose.</p>
 <ul>
 <li>Time-invariant weights -&gt; vector (mts object with same weight for each time point created internally)</li>
 <li>Time-variant weights -&gt; mts object (or named list of ts objects)</li>
 </ul>
 <p>We can have a look at the weights of an object by accessing the <code>weights</code> field.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">hts_EU28<span class="op">$</span>weights</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hts_EU28</span><span class="op">$</span><span class="va">weights</span></code></pre></div>
 <p>A couple of time-invariant weights are included in the package as example data sets: <code>weights_pi_ea19, weights_pi_eu28</code>.</p>
 </div>
 <div id="future-enhancements" class="section level2">
@@ -414,34 +428,11 @@ bic(corrected for length) = -6.535</code></pre>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#objective">Objective</a></li>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#constructing-persephone-objects">Constructing Persephone Objects</a></li>
-      <li><a href="#examples">Examples</a></li>
-      <li><a href="#example-1-persephone-single-object">Example 1: Persephone Single Object</a></li>
-      <li><a href="#example-1-persephone-single-object-1">Example 1: Persephone Single Object</a></li>
-      <li><a href="#example-1-persephone-single-object-2">Example 1: Persephone Single Object</a></li>
-      <li><a href="#example-1-persephone-single-object-3">Example 1: Persephone Single Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-1">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-2">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-3">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-4">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-5">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-6">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-7">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-8">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#example-2-persephone-hierarchical-object-9">Example 2: Persephone Hierarchical Object</a></li>
-      <li><a href="#future-enhancements">Future Enhancements</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -452,7 +443,7 @@ bic(corrected for length) = -6.535</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

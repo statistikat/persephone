@@ -6,27 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Define a hierarchical time series — hierarchicalTimeSeries • persephone</title>
+<title>R6 Class for hierarchical time series — hierarchicalTimeSeries • persephone</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,10 +41,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Define a hierarchical time series — hierarchicalTimeSeries" />
-<meta property="og:description" content="Combine mutliple objects of persephone objects into a new persephone object.
-The resulting time series can perform direct and indirect adjustments." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="R6 Class for hierarchical time series — hierarchicalTimeSeries" />
+<meta property="og:description" content="Combine mutliple objects of persephone objects into a new
+hierachical persephone object. On the resulting time series the user can perform direct and
+indirect seasonal adjustments." />
 
 
 
@@ -58,7 +62,7 @@ The resulting time series can perform direct and indirect adjustments." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +76,7 @@ The resulting time series can perform direct and indirect adjustments." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">persephone</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -80,7 +84,7 @@ The resulting time series can perform direct and indirect adjustments." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -101,6 +105,9 @@ The resulting time series can perform direct and indirect adjustments." />
       <a href="../articles/persephone-hierarchicalEU.html">Hierarchical time series - construction and weights</a>
     </li>
     <li>
+      <a href="../articles/persephone-ntts2021.pdf">persephone ntts2021 (PDF)</a>
+    </li>
+    <li>
       <a href="../articles/persephone-plotting.html">Plotting with persephone</a>
     </li>
     <li>
@@ -108,6 +115,12 @@ The resulting time series can perform direct and indirect adjustments." />
     </li>
     <li>
       <a href="../articles/persephone-useR.pdf">persephone useR!2019 (PDF)</a>
+    </li>
+    <li>
+      <a href="../articles/resources/persephone-ntts2021_slides.html">Persephone</a>
+    </li>
+    <li>
+      <a href="../articles/resources/persephone-saceWorkshop_slides.html">Persephone</a>
     </li>
   </ul>
 </li>
@@ -117,8 +130,8 @@ The resulting time series can perform direct and indirect adjustments." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/statistikat/persephone">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/statistikat/persephone/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,392 +148,315 @@ The resulting time series can perform direct and indirect adjustments." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Define a hierarchical time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/hierarchicalTimeSeries.R'><code>R/hierarchicalTimeSeries.R</code></a></small>
+    <h1>R6 Class for hierarchical time series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statistikat/persephone/blob/master/R/perHts.R'><code>R/perHts.R</code></a></small>
     <div class="hidden name"><code>hierarchicalTimeSeries.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Combine mutliple objects of persephone objects into a new persephone object.
-The resulting time series can perform direct and indirect adjustments.</p>
+    <p>Combine mutliple objects of persephone objects into a new
+hierachical persephone object. On the resulting time series the user can perform direct and
+indirect seasonal adjustments.</p>
     </div>
 
 
 
-    <h2 class="hasAnchor" id="inherits"><a class="anchor" href="#inherits"></a>Inherits</h2>
+    <h2 class="hasAnchor" id="super-classes"><a class="anchor" href="#super-classes"></a>Super classes</h2>
 
-    <p><a href='persephone.html'>persephone</a></p>
-    <h2 class="hasAnchor" id="constructor"><a class="anchor" href="#constructor"></a>Constructor</h2>
+    <p><code><a href='persephone.html'>persephone::persephone</a></code> -&gt; <code><a href='multipleTimeSeries.html'>persephone::multipleTimeSeries</a></code> -&gt; <code>hierarchicalTimeSeries</code></p>
+    <h2 class="hasAnchor" id="public-fields"><a class="anchor" href="#public-fields"></a>Public fields</h2>
 
-    
+    <p><div class="r6-fields"></p><dl>
+<dt><code>components</code></dt><dd><p>the sub series of the hierarchical time series</p></dd>
 
-<pre>
-per_hts(..., method = c("tramoseats", "x13"),
-        userdefined = NULL, spec = NULL)
-</pre>
-<ul>
-<li><p><code>...</code> should contain one or more <code>persephone</code> objects that use the same
-time instances. All elements supplied here must be named.</p></li>
-<li><p><code>list</code> a list of <code>persephone</code> objects as alternative input to <code>...</code>.</p></li>
-<li><p><code>weights</code> either a vector
-if the same weight is used for all time points or a list of ts objects or a
-mts object if the weight varies for different time points. They must have
-the same length as the number of components.</p></li>
-<li><p><code>method</code> specifies the method to be used. tramoseats or x13</p></li>
-<li><p><code>userdefined</code> is passed as the userdefined argument to <code>tramoseats()</code> or
-<code>x13()</code></p></li>
-<li><p><code>spec</code> a model specification returned by <code>x13_spec()</code> or
-<code>tramoseats_spec()</code></p></li>
-</ul>
+<dt><code>weights</code></dt><dd><p>the weights used for aggregating components</p></dd>
 
-    <h2 class="hasAnchor" id="fields"><a class="anchor" href="#fields"></a>Fields</h2>
+<dt><code>indirect</code></dt><dd><p>wether to use direct or indirect adjustement</p></dd>
 
-    
+</dl><p></div></p>
+    <h2 class="hasAnchor" id="active-bindings"><a class="anchor" href="#active-bindings"></a>Active bindings</h2>
 
-<ul>
-<li><p><code>$components</code>. A list of <code>persephone</code> objects.</p></li>
-<li><p><strong><code>$adjusted_indirect</code></strong>. Results from indirect adjustments which means the
-components are first adjusted and the adjusted series are then aggregated</p></li>
-</ul>
+    <p><div class="r6-active-bindings"></p><dl>
+<dt><code>params</code></dt><dd><p>of all components and the aggregated series</p></dd>
 
+<dt><code>paramsDirect</code></dt><dd><p>params of the aggregated series</p></dd>
+
+<dt><code>adjustedIndirect</code></dt><dd><p>results from the indirect adjustment where
+all components are adjusted and then aggregated</p></dd>
+
+<dt><code>adjusted</code></dt><dd><p>results from the seasonal adjustment</p></dd>
+
+<dt><code>forecasts</code></dt><dd><p>get forecasts</p></dd>
+
+<dt><code>forecastsIndirect</code></dt><dd><p>get forecasts according to indirect adjustments</p></dd>
+
+</dl><p></div></p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
-<li><p><code>$iterate(fun, ...)</code> can be used to iterate over the hierarchy tree. See
-<code><a href='iterate.html'>iterate()</a></code>.</p></li>
-<li><p><code>$set_options(userdefined, spec, recursive = TRUE, component = "")</code> sets
-options for all entries of the dependency tree recursively if
-<code>recursive = TRUE</code> (the default). See
-<code><a href='../articles/persephone-hierarchical.html'>vignette("persephone-hierarchical")</a></code>.</p></li>
+<li><p><a href='#method-new'><code>hierarchicalTimeSeries$new()</code></a></p></li>
+<li><p><a href='#method-run'><code>hierarchicalTimeSeries$run()</code></a></p></li>
+<li><p><a href='#method-print'><code>hierarchicalTimeSeries$print()</code></a></p></li>
+<li><p><a href='#method-setOptions'><code>hierarchicalTimeSeries$setOptions()</code></a></p></li>
+<li><p><a href='#method-iterate'><code>hierarchicalTimeSeries$iterate()</code></a></p></li>
+<li><p><a href='#method-getComponent'><code>hierarchicalTimeSeries$getComponent()</code></a></p></li>
+<li><p><a href='#method-updateParams'><code>hierarchicalTimeSeries$updateParams()</code></a></p></li>
+<li><p><a href='#method-fixModel'><code>hierarchicalTimeSeries$fixModel()</code></a></p></li>
+<li><p><a href='#method-fixOutlier'><code>hierarchicalTimeSeries$fixOutlier()</code></a></p></li>
+<li><p><a href='#method-generateQrTable'><code>hierarchicalTimeSeries$generateQrTable()</code></a></p></li>
+<li><p><a href='#method-clone'><code>hierarchicalTimeSeries$clone()</code></a></p></li>
 </ul>
+<p><details open ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot"><a href='../../persephone/html/persephone.html#method-plot'><code>persephone::persephone$plot()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals"><a href='../../persephone/html/persephone.html#method-plotResiduals'><code>persephone::persephone$plotResiduals()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal"><a href='../../persephone/html/persephone.html#method-plotSeasIrrCal'><code>persephone::persephone$plotSeasIrrCal()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
+<p>create a new hierarchical time series</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tramoseats"</span>, <span class='st'>"x13"</span><span class='op'>)</span>,
+  userdefined <span class='op'>=</span> <span class='cn'>NULL</span>,
+  spec <span class='op'>=</span> <span class='cn'>NULL</span>,
+  list <span class='op'>=</span> <span class='cn'>NULL</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>...</code></dt><dd><p>one or more objects which are either of class persephone or
+can be coerced to persephone objects with asPersephone. If more than
+one element is supplied, the underlying time series must have the same
+time instances. All elements supplied in ... must be named.</p></dd>
+
+<dt><code>method</code></dt><dd><p>specifies the method to be used for the direct adjustment
+of the aggregate series. tramoseats or x13</p></dd>
+
+<dt><code>userdefined</code></dt><dd><p>passed as the userdefined argument to tramoseats() or
+x13()</p></dd>
+
+<dt><code>spec</code></dt><dd><p>a model specification returned by x13_spec() or
+tramoseats_spec()</p></dd>
+
+<dt><code>list</code></dt><dd><p>a list of persephone objects as alternative input to <code>...</code>.
+This argument can also handle mts objects</p></dd>
+
+<dt><code>weights</code></dt><dd><p>either a vector if the same weight is used for all time
+points or a list of ts objects or a mts object if the weight varies
+for different time points. They must have the same length as the
+number of components.</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-run"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>run()</code></h3>
+<p>run the model</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>verbose</code></dt><dd><p>if <code>FALSE</code> (the default), the results of the run will
+be returned invisibly</p></dd>
+
+</dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Examples</h4>
+<p><div class="r example copy"></p><pre><span class='fu'><a href='perX13.html'>perX13</a></span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p>
+
+<p><hr>
+<a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+<p>print a hierarchical timeseries to screen</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-setOptions"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>setOptions()</code></h3>
+<p>sets options for all entries of the dependency tree
+recursively (if recursive = TRUE). See
+vignette("persephone-hierarchical") for more details.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>setOptions</span><span class='op'>(</span>
+  userdefined <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='cn'>NA</span>,
+  recursive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  component <span class='op'>=</span> <span class='st'>""</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>userdefined</code></dt><dd><p>additional outputs to generate while running. See
+<code>x13()</code> and <code>tramoseats()</code>.</p></dd>
+
+<dt><code>spec</code></dt><dd><p>specifications generated by <code>x13_spec()</code> or
+<code>tramoseats_spec()</code></p></dd>
+
+<dt><code>recursive</code></dt><dd><p>apply this setting to all subseries as well?</p></dd>
+
+<dt><code>component</code></dt><dd><p>which component to modify.</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-iterate"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='iterate.html'>iterate()</a></code></h3>
+<p>iterate over all components</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>iterate</span><span class='op'>(</span>
+  <span class='va'>fun</span>,
+  asTable <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  component <span class='op'>=</span> <span class='st'>""</span>,
+  unnest <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>fun</code></dt><dd><p>a function that takes a persephone object as a parameter</p></dd>
+
+<dt><code>asTable</code></dt><dd><p>if true, the return value of this method will be coerced
+to a data.frame</p></dd>
+
+<dt><code>component</code></dt><dd><p>the id of the component</p></dd>
+
+<dt><code>unnest</code></dt><dd><p>if <code>asTable = FALSE</code>, converts the return value from a
+nested list into a flat list</p></dd>
+
+</dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>this functin is similar to <code><a href='https://rdrr.io/r/base/lapply.html'>lapply()</a></code> in the sense that it
+can be used to apply a function to several persephone objects
+simultaniusely</p>
+
+<p><hr>
+<a id="method-getComponent"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>getComponent()</code></h3>
+<p>extract a component series</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>getComponent</span><span class='op'>(</span><span class='va'>componentId</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>componentId</code></dt><dd><p>the id of a component</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-updateParams"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>updateParams()</code></h3>
+<p>change all or some parameters of components</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>updateParams</span><span class='op'>(</span>component <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>component</code></dt><dd><p>character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed</p></dd>
+
+<dt><code>...</code></dt><dd><p>named arguments to be changed</p></dd>
+
+</dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Details</h4>
+<p>this functions provides the possibility to update
+parameters of one or more persephone single objects</p>
+
+<p><hr>
+<a id="method-fixModel"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fixModel()</code></h3>
+<p>fix the arima model(s)</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>fixModel</span><span class='op'>(</span>component <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>component</code></dt><dd><p>character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed</p></dd>
+
+<dt><code>verbose</code></dt><dd><p>if TRUE the changed parameters will be reported</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-fixOutlier"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>fixOutlier()</code></h3>
+<p>fix the automatically detected outliers and the
+span to find new automatically detected outliers</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>fixOutlier</span><span class='op'>(</span>
+  component <span class='op'>=</span> <span class='cn'>NULL</span>,
+  timespan <span class='op'>=</span> <span class='fl'>12</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>component</code></dt><dd><p>character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed</p></dd>
+
+<dt><code>timespan</code></dt><dd><p>number of months from the end of the time series
+where outliers are not fixed</p></dd>
+
+<dt><code>verbose</code></dt><dd><p>if TRUE the changed parameters will be reported</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-generateQrTable"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='generateQrTable.html'>generateQrTable()</a></code></h3>
+<p>Generate a table for the eurostat quality report</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>generateQrTable</span><span class='op'>(</span>component <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>component</code></dt><dd><p>(optional) a sub-component to create the report for</p></dd>
+
+</dl><p></div></p>
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>hierarchicalTimeSeries</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>obj_x13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='per_x13.html'>per_x13</a></span>(<span class='no'>AirPassengers</span>, <span class='st'>"RSA3"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>objX13</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perX13.html'>perX13</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='st'>"RSA3"</span><span class='op'>)</span>
 
-<span class='no'>ht</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>)
-<span class='no'>ht</span>$<span class='fu'>run</span>()
-<span class='no'>ht</span>$<span class='no'>adjusted_direct</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
-#&gt; 1949 123.7166 125.2532 125.9332 128.1540 129.0103 126.8570 123.9033 125.7702
-#&gt; 1950 128.1056 133.9933 133.2078 134.0477 134.2078 138.9436 142.6304 145.0065
-#&gt; 1951 162.4280 160.9589 165.2782 166.2835 183.7533 164.2182 167.5568 167.6323
-#&gt; 1952 192.1058 188.3997 182.9023 185.4811 189.9245 199.8144 194.1213 199.6670
-#&gt; 1953 216.5298 218.2319 228.3158 241.3946 231.6989 224.3458 217.1114 225.1180
-#&gt; 1954 222.1570 213.3986 233.0265 232.6967 236.9545 240.5382 243.9069 243.5202
-#&gt; 1955 263.7542 268.6782 270.1603 273.8634 276.2433 283.5130 286.9578 288.6754
-#&gt; 1956 311.6233 312.0771 315.4756 325.4302 330.3967 329.1337 328.7323 330.1251
-#&gt; 1957 350.0657 353.5397 360.0513 361.7944 365.3746 369.2274 371.4122 374.3681
-#&gt; 1958 375.1890 376.0451 371.4859 361.9702 372.6889 382.1405 391.5462 394.9916
-#&gt; 1959 397.8300 406.7112 415.6171 418.4468 424.3632 422.0799 430.0918 436.5055
-#&gt; 1960 456.8036 451.9596 444.3041 471.1268 483.4245 477.3474 478.7732 480.9095
-#&gt;           Sep      Oct      Nov      Dec
-#&gt; 1949 127.0349 128.3796 128.5895 129.3838
-#&gt; 1950 146.9006 144.5718 140.6555 151.4765
-#&gt; 1951 171.4253 176.5238 179.4328 180.5518
-#&gt; 1952 199.4361 205.9629 209.6171 215.2868
-#&gt; 1953 225.8856 226.8643 221.4478 224.3697
-#&gt; 1954 245.7292 244.4848 254.4324 254.1443
-#&gt; 1955 293.6397 294.6183 298.1085 308.8240
-#&gt; 1956 330.2832 334.5207 338.7172 340.1050
-#&gt; 1957 377.2650 378.9952 378.7283 379.1679
-#&gt; 1958 383.6110 385.9774 383.3738 386.0389
-#&gt; 1959 439.9266 435.6568 448.9264 466.2508
-#&gt; 1960 480.0550 489.4115 490.3756 489.6313</div><div class='input'><span class='no'>ht</span>$<span class='no'>adjusted_indirect</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
-#&gt; 1949 124.5467 124.6262 124.8914 129.0707 125.1287 126.7552 125.2527 126.4112
-#&gt; 1950 127.1689 133.8236 133.1812 135.8947 128.8239 139.8446 143.8764 144.5668
-#&gt; 1951 159.1140 161.5837 167.9787 165.4655 176.0581 166.8171 168.3463 167.8979
-#&gt; 1952 186.7283 197.3193 183.4364 185.0361 186.1208 203.1238 193.3051 201.9591
-#&gt; 1953 213.9007 218.8461 227.1529 240.7043 231.8409 224.1764 219.2346 225.8838
-#&gt; 1954 222.9643 212.4836 230.5509 232.7385 237.4651 239.8731 246.5854 242.6171
-#&gt; 1955 264.6736 266.0897 266.2081 276.3464 275.4763 281.8164 293.8196 286.0888
-#&gt; 1956 311.2879 319.2821 320.0269 323.4425 326.7428 330.3304 330.1025 330.6096
-#&gt; 1957 346.3692 350.8007 361.5506 362.0805 365.1056 371.1299 369.1221 376.4086
-#&gt; 1958 375.2171 373.9834 369.6868 364.0847 371.8412 383.3995 385.7438 403.2322
-#&gt; 1959 397.6527 404.3680 416.8584 414.8935 426.5795 418.6230 427.8827 443.5441
-#&gt; 1960 460.5234 462.7476 433.0160 482.1257 476.7678 476.2945 483.5166 480.1154
-#&gt;           Sep      Oct      Nov      Dec
-#&gt; 1949 127.0008 130.0312 128.0464 129.1530
-#&gt; 1950 148.0352 145.1584 140.0070 153.3072
-#&gt; 1951 173.4157 175.6984 178.9985 182.0072
-#&gt; 1952 198.3095 205.9825 210.9025 213.5240
-#&gt; 1953 224.9893 226.5165 221.8737 222.1763
-#&gt; 1954 244.9466 246.6987 251.4606 254.2007
-#&gt; 1955 293.1228 296.5197 294.6121 309.0702
-#&gt; 1956 332.9669 332.1221 337.0933 341.1541
-#&gt; 1957 379.4386 376.5721 379.4536 375.7527
-#&gt; 1958 381.5307 388.5105 386.3482 378.8000
-#&gt; 1959 439.0499 439.7800 451.7336 456.8912
-#&gt; 1960 483.2518 496.7729 487.5755 488.9303</div><div class='input'>
-<span class='no'>ht2</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='no'>ht</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='no'>obj_x13</span>)
-<span class='no'>ht2</span>$<span class='fu'>run</span>()
-<span class='no'>ht2</span>$<span class='no'>adjusted_direct</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
-#&gt; 1949 123.8518 125.0990 125.1874 127.7088 126.0309 125.8308 125.5388 126.2584
-#&gt; 1950 127.0703 134.0969 133.9452 134.3099 129.7067 138.6449 143.8754 144.6144
-#&gt; 1951 159.3635 160.6613 165.9676 166.3423 176.5739 164.7478 168.4093 168.7976
-#&gt; 1952 187.3704 195.5653 185.4112 181.6124 186.8313 200.2409 193.6626 203.6740
-#&gt; 1953 215.1983 217.8824 227.5629 235.9788 231.9827 221.0826 219.1794 226.8538
-#&gt; 1954 224.4166 213.7155 230.8592 228.6231 237.0009 237.9566 245.9494 242.5181
-#&gt; 1955 265.5074 266.8542 265.9957 272.8090 274.3752 281.3694 292.3786 285.0189
-#&gt; 1956 311.7973 318.9484 313.7671 325.1303 323.6082 331.2514 328.9177 328.6281
-#&gt; 1957 346.9756 349.6010 362.6755 358.0967 361.5431 371.9955 367.4025 372.7142
-#&gt; 1958 374.9240 371.9673 373.4849 360.2536 369.2932 383.7874 385.2064 398.1143
-#&gt; 1959 397.1294 401.3079 414.8482 417.1546 424.6681 417.5221 427.8306 439.1384
-#&gt; 1960 459.4626 459.5616 442.6346 473.6311 475.4957 473.7930 483.9166 476.5885
-#&gt;           Sep      Oct      Nov      Dec
-#&gt; 1949 128.2402 130.1484 131.3412 130.0335
-#&gt; 1950 149.2641 145.7459 144.1145 154.4091
-#&gt; 1951 174.9135 177.2516 183.4692 183.3201
-#&gt; 1952 199.5335 208.3325 215.3145 215.2130
-#&gt; 1953 225.8805 229.5571 225.5431 224.2225
-#&gt; 1954 245.9539 249.1304 254.7388 255.8821
-#&gt; 1955 295.4456 298.5002 297.8340 311.2747
-#&gt; 1956 335.3112 333.2956 340.1959 344.1750
-#&gt; 1957 380.7094 376.2854 381.4121 379.5384
-#&gt; 1958 381.5992 388.3835 387.7363 382.5331
-#&gt; 1959 438.3688 438.7567 452.3845 459.5748
-#&gt; 1960 481.5528 495.2548 487.7393 490.5885</div><div class='input'><span class='no'>ht2</span>$<span class='no'>adjusted_indirect</span></div><div class='output co'>#&gt;           Jan      Feb      Mar      Apr      May      Jun      Jul      Aug
-#&gt; 1949 124.5467 124.6262 124.8914 129.0707 125.1287 126.7552 125.2527 126.4112
-#&gt; 1950 127.1689 133.8236 133.1812 135.8947 128.8239 139.8446 143.8764 144.5668
-#&gt; 1951 159.1140 161.5837 167.9787 165.4655 176.0581 166.8171 168.3463 167.8979
-#&gt; 1952 186.7283 197.3193 183.4364 185.0361 186.1208 203.1238 193.3051 201.9591
-#&gt; 1953 213.9007 218.8461 227.1529 240.7043 231.8409 224.1764 219.2346 225.8838
-#&gt; 1954 222.9643 212.4836 230.5509 232.7385 237.4651 239.8731 246.5854 242.6171
-#&gt; 1955 264.6736 266.0897 266.2081 276.3464 275.4763 281.8164 293.8196 286.0888
-#&gt; 1956 311.2879 319.2821 320.0269 323.4425 326.7428 330.3304 330.1025 330.6096
-#&gt; 1957 346.3692 350.8007 361.5506 362.0805 365.1056 371.1299 369.1221 376.4086
-#&gt; 1958 375.2171 373.9834 369.6868 364.0847 371.8412 383.3995 385.7438 403.2322
-#&gt; 1959 397.6527 404.3680 416.8584 414.8935 426.5795 418.6230 427.8827 443.5441
-#&gt; 1960 460.5234 462.7476 433.0160 482.1257 476.7678 476.2945 483.5166 480.1154
-#&gt;           Sep      Oct      Nov      Dec
-#&gt; 1949 127.0008 130.0312 128.0464 129.1530
-#&gt; 1950 148.0352 145.1584 140.0070 153.3072
-#&gt; 1951 173.4157 175.6984 178.9985 182.0072
-#&gt; 1952 198.3095 205.9825 210.9025 213.5240
-#&gt; 1953 224.9893 226.5165 221.8737 222.1763
-#&gt; 1954 244.9466 246.6987 251.4606 254.2007
-#&gt; 1955 293.1228 296.5197 294.6121 309.0702
-#&gt; 1956 332.9669 332.1221 337.0933 341.1541
-#&gt; 1957 379.4386 376.5721 379.4536 375.7527
-#&gt; 1958 381.5307 388.5105 386.3482 378.8000
-#&gt; 1959 439.0499 439.7800 451.7336 456.8912
-#&gt; 1960 483.2518 496.7729 487.5755 488.9303</div><div class='input'>
-<span class='co'>#-------- example with industrial price indices -----------</span>
+<span class='va'>ht</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perHts.html'>perHts</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='va'>objX13</span>, b <span class='op'>=</span> <span class='va'>objX13</span>, method <span class='op'>=</span> <span class='st'>"x13"</span>, spec <span class='op'>=</span> <span class='st'>"RSA1"</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ipi_c_eu</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJDemetra"</span>)
-<span class='co'># Reducing the data set to the EU28 countries</span>
-<span class='no'>ipi_eu</span> <span class='kw'>&lt;-</span> <span class='no'>ipi_c_eu</span>[, -<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>32</span>:<span class='fl'>37</span>)]
-<span class='co'># We now build persephone objects for the countries</span>
-<span class='co'># (the lowest level in the hierachy)</span>
-<span class='no'>ts_28</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>ipi_eu</span>, <span class='no'>per_tramo</span>)
+<span class='va'>ht</span><span class='op'>$</span><span class='fu'>updateParams</span><span class='op'>(</span>easter.enabled <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># We want to add an extra layer and split the EU28 countries in two groups</span>
-<span class='no'>ht_half_europe_1</span>  <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='no'>ts_28</span>[<span class='fl'>1</span>:<span class='fl'>14</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"tramoseats"</span>)
+<span class='va'>ht</span><span class='op'>$</span><span class='fu'>updateParams</span><span class='op'>(</span>component <span class='op'>=</span> <span class='st'>"a"</span>, usrdef.outliersEnabled <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                     usrdef.outliersType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AO"</span>,<span class='st'>"LS"</span>,<span class='st'>"LS"</span><span class='op'>)</span>,
+                     usrdef.outliersDate<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1950-01-01"</span>,<span class='st'>"1955-04-01"</span>,<span class='st'>"1959-10-01"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ht</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>ht</span><span class='op'>$</span><span class='va'>adjustedDirect</span>
+<span class='va'>ht</span><span class='op'>$</span><span class='va'>adjustedIndirect</span>
 
-<span class='co'># Alternative way to use do.call</span>
-<span class='no'>ht_half_europe_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>per_hts</span>, <span class='no'>ts_28</span>[<span class='fl'>15</span>:<span class='fl'>28</span>])
+<span class='va'>ht2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='perHts.html'>perHts</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='va'>ht</span>, b <span class='op'>=</span> <span class='va'>objX13</span><span class='op'>)</span>
+<span class='va'>ht2</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>ht2</span><span class='op'>$</span><span class='va'>adjustedDirect</span>
+<span class='va'>ht2</span><span class='op'>$</span><span class='va'>adjustedIndirect</span>
+<span class='op'>}</span>
 
-<span class='co'># Now we generate the object for EU28</span>
-<span class='no'>ht_europe</span> <span class='kw'>&lt;-</span> <span class='fu'>per_hts</span>(
-  <span class='kw'>halfEU_1</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_1</span>,
-  <span class='kw'>halfEU_2</span> <span class='kw'>=</span> <span class='no'>ht_half_europe_2</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='st'>"RSA5c"</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"x13"</span>
-)
+<span class='co'>## ------------------------------------------------</span>
+<span class='co'>## Method `hierarchicalTimeSeries$run`</span>
+<span class='co'>## ------------------------------------------------</span>
 
-<span class='co'># start the seasonal adjustment</span>
-<span class='no'>ht_europe</span>$<span class='fu'>run</span>()
-
-<span class='co'># accessing the directly and indirectly adjusted series for EU28</span>
-<span class='no'>ht_europe</span>$<span class='no'>adjusted_direct</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
-#&gt; 2000  79.52189  80.58179  81.21447  81.66856  82.68491  83.20806  82.74897
-#&gt; 2001  85.68243  85.08831  85.09321  83.08332  84.81018  84.72508  83.77335
-#&gt; 2002  83.18151  84.29686  86.04250  85.01903  85.48868  85.34667  86.01162
-#&gt; 2003  86.78043  86.80479  86.33862  87.18109  86.66757  86.82840  87.92297
-#&gt; 2004  88.76456  90.09429  90.75764  91.91424  90.72287  91.05597  91.09431
-#&gt; 2005  91.85449  91.34740  92.02846  92.62423  92.65791  93.08981  93.25186
-#&gt; 2006  95.58466  95.93418  96.53665  96.78972  99.15400  98.52853  98.31261
-#&gt; 2007 102.43382 103.46250 104.22558 102.39147 103.98856 103.71557 103.42796
-#&gt; 2008 107.12420 108.18932 106.55182 106.65844 104.79124 104.14313 103.41947
-#&gt; 2009  87.82267  87.62616  86.60705  86.47809  86.76502  86.42555  86.90991
-#&gt;            Aug       Sep       Oct       Nov       Dec
-#&gt; 2000  83.10845  83.82322  83.66975  84.53834  86.64902
-#&gt; 2001  84.69289  84.00208  83.92640  83.29681  83.45147
-#&gt; 2002  85.93917  86.09566  86.36898  86.89341  86.16564
-#&gt; 2003  87.94645  87.80005  88.95712  89.19675  89.69111
-#&gt; 2004  90.43671  91.39599  91.39690  91.01521  91.37382
-#&gt; 2005  93.25441  94.51973  94.44119  95.77692  95.99383
-#&gt; 2006  99.54046  99.59532  99.79241 100.14822 102.97454
-#&gt; 2007 103.45869 102.45741 103.26088 103.93785 105.04126
-#&gt; 2008 102.27807 100.71599  98.93502  94.86413  91.28636
-#&gt; 2009  86.72621  87.06633  87.73974  88.41548  87.72365</div><div class='input'><span class='no'>ht_europe</span>$<span class='no'>adjusted_indirect</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
-#&gt; 2000  79.51682  80.79957  80.92437  81.78334  82.35548  82.86220  82.64379
-#&gt; 2001  85.61931  85.16414  84.83742  83.37346  84.51669  84.36495  83.66164
-#&gt; 2002  83.30236  84.36826  85.38619  85.39703  85.12103  85.21240  85.74819
-#&gt; 2003  86.86422  86.81548  86.31636  86.94911  86.48045  86.84750  87.72838
-#&gt; 2004  88.99783  90.21311  90.60068  91.67848  90.61859  90.74158  90.98219
-#&gt; 2005  92.15912  91.26532  91.69246  92.56744  92.48664  92.93955  93.21753
-#&gt; 2006  95.82223  95.73918  96.25479  96.70953  98.69677  98.45045  98.72969
-#&gt; 2007 102.27030 102.89758 103.75982 102.23532 103.47848 103.61960 103.94780
-#&gt; 2008 106.78446 107.39318 105.73969 106.04799 104.31850 104.30490 103.77779
-#&gt; 2009  87.70681  87.17411  85.99672  85.89534  86.14530  86.43410  86.95488
-#&gt;            Aug       Sep       Oct       Nov       Dec
-#&gt; 2000  83.60627  83.58746  83.94560  84.71504  86.32538
-#&gt; 2001  84.92362  83.89155  84.06584  83.51079  83.59121
-#&gt; 2002  86.13500  86.13356  86.47756  86.85720  86.38180
-#&gt; 2003  87.85883  87.94941  88.89303  89.30179  89.82119
-#&gt; 2004  90.48976  91.47055  91.29967  91.20735  91.48199
-#&gt; 2005  93.20434  94.73865  94.66314  95.73893  96.07188
-#&gt; 2006  99.48595 100.02031 100.18182 100.45893 102.77654
-#&gt; 2007 103.39072 103.50374 103.68630 104.46164 105.10783
-#&gt; 2008 102.29698 101.83208  99.32050  95.40434  91.21293
-#&gt; 2009  87.18394  87.88119  88.34431  88.98111  87.98338</div><div class='input'>
-<span class='co'># accessing the directly and indirectly adjusted series for half of Europe</span>
-<span class='no'>ht_europe</span>$<span class='no'>components</span>$<span class='no'>halfEU_2</span>$<span class='no'>adjusted_direct</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
-#&gt; 2000  74.98499  75.68627  75.81974  77.40640  77.64187  77.79023  77.91830
-#&gt; 2001  80.25079  79.62327  79.57351  78.25714  79.71521  78.28551  78.08876
-#&gt; 2002  77.69548  78.91007  80.27457  79.88190  80.03393  80.15865  80.46829
-#&gt; 2003  81.11002  81.94156  81.06696  81.79350  81.25271  81.54939  82.73839
-#&gt; 2004  84.09428  84.59727  85.04791  87.03209  85.44585  85.91715  85.50686
-#&gt; 2005  87.54610  85.94434  86.63383  86.52723  86.97139  88.02973  88.42175
-#&gt; 2006  91.42207  91.04329  91.33111  92.01377  93.72174  93.69988  95.16486
-#&gt; 2007  97.84883  98.26682  99.03575  98.38663  99.13811  99.87648  99.84589
-#&gt; 2008 103.06933 104.18981 102.05176 102.14077 101.02637 101.06189 100.54657
-#&gt; 2009  84.12680  83.44088  83.05423  82.98233  82.88110  83.54714  84.86983
-#&gt; 2010  86.09806  86.94972  88.70515  89.44569  91.37787  92.16355  91.86046
-#&gt; 2011  96.27807  95.70123  94.66742  94.57912  95.33599  94.43491  93.85485
-#&gt; 2012  95.54445  93.65732  95.60821  95.25873  94.76406  94.27967  95.62490
-#&gt; 2013  94.25785  93.39888  94.21560  94.09647  93.67127  94.07263  94.34576
-#&gt; 2014  95.51478  96.98378  96.43147  96.79936  96.20253  97.62150  97.70568
-#&gt; 2015  98.22984  98.34925  99.28195  99.79561  99.70565 100.81628 101.17757
-#&gt; 2016 100.59914 102.35274 101.41520 102.45508 102.13591 102.52925 101.87927
-#&gt; 2017 104.20803 106.16774 106.71544 105.88497 107.79588 107.22369 106.79778
-#&gt;            Aug       Sep       Oct       Nov       Dec
-#&gt; 2000  78.71250  79.44998  79.41333  80.52836  81.49496
-#&gt; 2001  78.73948  78.06021  78.94850  78.13010  78.27149
-#&gt; 2002  80.16526  80.47602  81.11707  80.98925  80.58312
-#&gt; 2003  83.29383  82.55006  83.96949  84.86990  84.48605
-#&gt; 2004  86.40010  86.58309  86.83174  85.72923  86.70959
-#&gt; 2005  87.30505  89.44807  90.10681  90.29845  90.87180
-#&gt; 2006  94.30010  95.72122  95.74971  96.85025  97.76834
-#&gt; 2007  99.16347  99.79829  99.11886 100.35616 101.26460
-#&gt; 2008  99.68317  98.78119  96.72518  91.69149  85.63901
-#&gt; 2009  85.20537  86.77645  87.14181  87.41206  86.47161
-#&gt; 2010  92.72870  92.96079  93.75178  94.11496  93.35097
-#&gt; 2011  94.98550  94.55829  94.88297  94.18400  94.01839
-#&gt; 2012  96.49951  95.18189  94.93205  93.52004  94.14928
-#&gt; 2013  96.08659  96.41657  95.29561  95.65420  96.05276
-#&gt; 2014  95.91019  96.42678  96.99488  97.16468  96.80377
-#&gt; 2015 100.12767  99.80977 101.44201 101.42891 100.27391
-#&gt; 2016 102.43852 102.88262 103.05308 103.32369 104.87911
-#&gt; 2017 109.06529 108.85118 108.92603 110.97509 111.81720</div><div class='input'><span class='no'>ht_europe</span>$<span class='no'>components</span>$<span class='no'>halfEU_2</span>$<span class='no'>adjusted_indirect</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
-#&gt; 2000  74.82895  76.07625  75.98160  76.97970  77.32054  77.63989  77.92924
-#&gt; 2001  80.64619  79.87811  79.63520  77.75120  79.34188  78.39672  78.16644
-#&gt; 2002  77.96946  79.17202  80.14148  79.96426  79.87119  79.78729  80.56049
-#&gt; 2003  81.45252  82.16237  80.98917  81.62580  81.15485  81.06231  82.59806
-#&gt; 2004  84.34907  84.72848  85.47808  86.80032  85.11503  85.90480  85.39144
-#&gt; 2005  87.16873  86.13424  86.65468  87.10914  87.08646  87.45379  88.47584
-#&gt; 2006  91.18513  91.08910  91.77629  91.86690  93.96422  93.55457  94.61701
-#&gt; 2007  97.75525  98.11031  99.35885  98.13289  99.16122 100.11881  99.68226
-#&gt; 2008 102.89032 104.32893 101.64805 102.75895 101.10498 100.73759 100.44093
-#&gt; 2009  84.30205  83.52473  83.27636  82.80914  83.00363  83.71354  84.70154
-#&gt; 2010  86.39023  87.11628  88.86063  89.64368  90.95321  92.50431  91.85440
-#&gt; 2011  95.95258  95.83708  94.70739  94.94991  95.06119  94.26185  94.07547
-#&gt; 2012  95.57354  93.83521  95.75333  94.90316  94.37129  94.75328  95.49299
-#&gt; 2013  94.36210  93.57993  94.26607  94.43584  93.45058  94.00395  94.39667
-#&gt; 2014  95.82247  97.03112  96.21260  96.91038  96.08018  97.31635  97.46829
-#&gt; 2015  98.58502  98.35666  99.28171  99.21329  99.75134 100.89198 100.99450
-#&gt; 2016 101.15246 102.12135 101.12893 102.81438 101.87889 102.14153 102.10876
-#&gt; 2017 104.41414 106.06410 106.69804 105.45530 107.58581 107.29847 106.56601
-#&gt;            Aug       Sep       Oct       Nov       Dec
-#&gt; 2000  78.69761  79.61386  79.08893  80.21437  81.75651
-#&gt; 2001  78.79878  77.82580  78.79635  78.10034  78.22455
-#&gt; 2002  80.22268  80.20548  80.78484  81.14397  80.83012
-#&gt; 2003  83.37374  82.69960  83.78295  84.58145  84.81178
-#&gt; 2004  86.21937  86.26311  86.70021  85.74109  86.86640
-#&gt; 2005  87.56115  89.46580  89.53647  90.53661  90.99710
-#&gt; 2006  94.52594  96.02561  95.56810  96.59495  98.07912
-#&gt; 2007  99.36020  99.54290  99.05687 100.58977 101.03015
-#&gt; 2008  99.85381  98.77033  96.46629  91.73386  85.79259
-#&gt; 2009  84.72171  86.85124  86.88855  87.30281  86.70791
-#&gt; 2010  92.32288  92.53860  93.76339  94.36110  93.65444
-#&gt; 2011  94.67412  94.59000  94.52578  94.57232  94.21438
-#&gt; 2012  96.07486  95.02977  95.12637  93.81453  93.94411
-#&gt; 2013  95.77682  96.07323  95.34803  96.18944  96.14127
-#&gt; 2014  95.91148  96.56660  97.19051  97.20721  97.08986
-#&gt; 2015  99.69658 100.04043 101.77153 101.29161 100.44133
-#&gt; 2016 102.42274 102.96808 103.04020 103.79313 105.02390
-#&gt; 2017 108.87750 109.35623 109.28499 110.83548 111.89159</div><div class='input'>
-<span class='co'># accessing the adjusted series for a country</span>
-<span class='no'>ht_europe</span>$<span class='no'>components</span>$<span class='no'>halfEU_2</span>$<span class='no'>components</span>$<span class='no'>AT</span>$<span class='no'>adjusted_direct</span></div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
-#&gt; 1996  50.90527  50.99849  51.13906  50.66368  52.16428  52.07320  52.27379
-#&gt; 1997  54.50998  54.23184  54.30778  55.51295  53.78102  55.16677  55.17382
-#&gt; 1998  59.69304  59.63744  60.47518  60.36968  61.35332  60.81851  61.01227
-#&gt; 1999  61.73333  60.95660  62.48621  62.87883  63.63905  63.98078  63.09919
-#&gt; 2000  65.56486  69.20320  68.89192  69.87918  71.61112  70.61045  71.49127
-#&gt; 2001  73.43845  74.33814  73.80445  72.27462  72.53916  72.40257  73.15068
-#&gt; 2002  71.64123  72.35970  70.83076  73.73797  73.26171  74.17063  73.24248
-#&gt; 2003  75.04438  73.40707  74.07646  74.49631  72.19770  73.34224  74.28415
-#&gt; 2004  77.06476  77.52449  77.51524  78.66189  78.30949  79.33491  80.27697
-#&gt; 2005  80.65267  80.90459  81.51590  82.20442  82.03923  82.93792  83.97000
-#&gt; 2006  85.70745  86.74100  86.09953  86.75332  88.34653  89.35229  90.60076
-#&gt; 2007  93.16508  94.76947  95.66806  93.65402  95.55214  94.13598  95.54666
-#&gt; 2008  98.44697  98.91550  99.44631  98.29152  97.94857  96.71776  95.21946
-#&gt; 2009  87.04012  84.39347  85.83160  81.46892  80.63934  81.34303  82.88747
-#&gt; 2010  83.33845  85.79002  86.88423  86.06906  89.36215  90.08095  89.99874
-#&gt; 2011  94.97893  95.05121  95.07963  95.09799  95.87142  95.74158  95.62540
-#&gt; 2012  94.82877  93.92358  95.14463  95.25511  96.90298  96.32696  96.19039
-#&gt; 2013  95.77368  94.71082  95.79402  97.20021  97.22068  95.77958  96.78709
-#&gt; 2014  99.11870  98.96343  97.02483  98.07117  96.14360 100.23076  97.36935
-#&gt; 2015  99.45647  99.69369 100.47635  99.38009  99.64374 100.59384 100.89810
-#&gt; 2016 103.51234 102.35885 102.22526 102.72949 102.40862 101.04149 101.17837
-#&gt; 2017 102.11349 105.21858 105.54065 105.83351 105.89366 106.41612 108.82152
-#&gt;            Aug       Sep       Oct       Nov       Dec
-#&gt; 1996  52.01782  53.18459  52.01599  52.84601  53.79968
-#&gt; 1997  57.17670  56.66752  56.48737  57.42491  60.04996
-#&gt; 1998  60.37360  62.80242  62.25209  61.38214  60.09554
-#&gt; 1999  64.69921  65.87669  67.20416  71.38379  66.66382
-#&gt; 2000  71.51024  71.68373  72.32664  75.12323  75.44150
-#&gt; 2001  73.12610  71.89317  73.89103  70.81196  71.01283
-#&gt; 2002  70.34707  72.69169  72.83138  72.61662  72.31464
-#&gt; 2003  74.52439  74.09413  74.38812  75.00771  75.90654
-#&gt; 2004  80.87877  80.96985  81.55298  81.91639  80.77093
-#&gt; 2005  83.06571  83.28079  85.08087  86.46712  83.40576
-#&gt; 2006  90.51434  90.62735  92.23168  92.82092  92.50081
-#&gt; 2007  96.12551  95.06855  96.78959  93.79644  97.02555
-#&gt; 2008  97.69185  97.12401  93.64032  89.30679  90.36033
-#&gt; 2009  82.18010  83.77792  85.48212  85.41021  86.12168
-#&gt; 2010  91.76224  92.44533  92.29060  94.01707  93.29584
-#&gt; 2011  96.34722  96.30318  95.48553  96.58621  96.26748
-#&gt; 2012  97.90311  95.56871  96.60165  95.47490  95.60104
-#&gt; 2013  97.39493  98.01015  96.40354  97.24113  97.01471
-#&gt; 2014  96.48647  97.52702  96.23488  95.94769  99.96150
-#&gt; 2015 100.59576  99.68759 100.84928 100.86443  98.46271
-#&gt; 2016 102.46745 102.24906 103.33371 104.21622 104.62973
-#&gt; 2017 108.65660 108.38206 109.24789 110.60799 111.67769</div></pre>
+<span class='fu'><a href='perX13.html'>perX13</a></span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>run</span><span class='op'>(</span><span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#inherits">Inherits</a></li>
-      <li><a href="#constructor">Constructor</a></li>
-      <li><a href="#fields">Fields</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Angelika Meraner, Gregor de Cillia.</p>
+  <p>Developed by Angelika Meraner, Gregor de Cillia, Alexander Kowarik.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.9900.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
