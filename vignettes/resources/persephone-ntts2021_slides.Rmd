@@ -1,7 +1,7 @@
 ---
 title: Persephone
-subtitle: Seasonal Adjustment with an Object-oriented Wrapper for RJDemetra
-author: Alexander Kowarik, Angelika Meraner, Markus Fröhlih, Gregor de Cillia
+subtitle: Persephone, Production-Ready Seasonal Adjustment in R with RJDemetra
+author: Alexander Kowarik, Angelika Meraner, Markus Fröhlich, Gregor de Cillia
 institute: Statistics Austria
 location: \hspace{-1cm}Boulogne-Billancourt, France
 date: '`r format(Sys.Date(), "%B %Y")`'
@@ -11,6 +11,8 @@ output:
     contact:
       number: 7513
     language: en 
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -19,6 +21,14 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
+```
+
+## Disclaimer
+
+still under development...
+
+```{r , echo=FALSE, fig.cap="https://xkcd.com/1319/", out.width = '65%'}
+knitr::include_graphics("automation_2x.png")
 ```
 
 ## Objective
@@ -58,14 +68,6 @@ dealing with multiple (hierarchical) monthly/quarterly time series
 depending on the choice of SA method (X-13-ARIMA-SEATS or TRAMO-SEATS).
 2. Multiple 'single' objects can then be combined with `perHts()` to build a _hierarchical_ persephone object.
 
-## Examples
-
-Examples in the following slides:
-
-* Example 1: Persephone Single Object
-
-* Example 2: Persephone Hierarchical Object
-
 ## Example 1: Persephone Single Object
 Create a persephone 'single' object from a univariate time series object.
 
@@ -76,78 +78,30 @@ require(persephone)
 ```
 ```{r}
 data(AirPassengers, package = "datasets")
-obj_x13 <- perX13(AirPassengers, "RSA3")
+objX13 <- perX13(AirPassengers, "RSA3")
 ```
-* Now different methods can be called for the persephone object `obj_x13`, most importantly the `run()` method
+* Now different methods can be called for the persephone object `objX13`, most importantly the `run()` method
 which performs the SA.
 ```{r}
-obj_x13$run()
-```
-
-## Example 1: Persephone Single Object
-
-* The `output` field gives access to the original output object from 
-**RJDemetra**.
-```{r, include=FALSE}
-library(knitr)
-hook_output = knit_hooks$get('output')
-knit_hooks$set(output = function(x, options) {
-  # this hook is used only when the linewidth option is not NULL
-  if (!is.null(n <- options$linewidth)) {
-    x = knitr:::split_lines(x)
-    # any lines wider than n should be wrapped
-    if (any(nchar(x) > n)) x = strwrap(x, width = n)
-    x = paste(x, collapse = '\n')
-  }
-  hook_output(x, options)
-})
-```
-```{r, linewidth=65}
-obj_x13$output$regarima
+objX13$run()
 ```
 
 ## Example 1: Persephone Single Object
 
 * Several plot methods have been implemented with the focus on using interacive tools, e.g. the default S3 generic `plot()` 
 shows a zoomable line representation of the series.
-```{r , eval=FALSE}
-plot(obj_x13)
+```{r , eval=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '65%'}
+plot(objX13)
 ```
 ```{r , echo=FALSE, fig.cap="\\label{fig:plotmethod} Output of the plot() method in the R-Studio viewer pane", out.width = '65%'}
 knitr::include_graphics("plot.PNG")
 ```
 
-## Example 1: Persephone Single Object
-
-Other plot functions:
-
-* `plotResiduals()`: Several interactive plots in connection with residuals for a persephone object
-* `plotSeasIrrCal()`: Interactive plot of the seasonal component, irregular component and calendar effects for a persephone object
-* `plotSiRatios()`: Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by period
-* `plotSpectrum()`: Spectral Plots
-
-## Example 2: Persephone Hierarchical Object
-
-Create a hierarchical persephone object e.g. from a list of persephone 'single' objects.
-
-* Data included in the package to be used for examples and tests: 
-  * `pi_caladj, pi_sa, pi_unadj`.
-They are multiple time series objects of the volume index of production for 
-total industry (except construction) of the EU-28 countries from Jan 2000 to June 2019 
-(monthly data published by Eurostat).
-  * The corresponding weights `weights_pi_ea19, weights_pi_eu28`.
- 
 ```{r, include = FALSE}
 data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
 ```
 
-* For this example we use the calendar adjusted data `pi_caladj` after performing some preadjustments.
-
-## Example 2: Persephone Hierarchical Object
-
-Preadjustments because of missing values and for the sake of readability.
-
-```{r}
+```{r, include = FALSE}
 pi_caladj_orig <- pi_caladj
 pi_caladj <- pi_caladj[, -c(1:2)]
 pi_caladj <- window(pi_caladj, end = c(2019, 5))
@@ -186,30 +140,16 @@ hts_EU28 <- perHts(list = c(EA19 = hts_EA19, ts_28[non_ea19]))
 ## Example 2: Persephone Hierarchical Object
 
 * The structure of this object is represented in the `print` output. The "blank" component is the overall total.
-
+* With a simple call to the `run()` method all subseries will be adjusted
 ```{r, echo_size=8, output_size=6}
 hts_EU28
-```
-
-## Example 2: Persephone Hierarchical Object
-
-The following methods can be called for the hierarchical persephone object:
-
-* perform a run, i.e. perform SA.
-
-```{r}
 hts_EU28$run()
 ```
 
-* generate a plot comparing original, directly and indirectly adjusted series.
-
-* generate a Eurostat Quality Report.
-
-More methods directed specifically at multiple (hierarchical) time series still need to be implemented/developed.
-
 ## Example 2: Persephone Hierarchical Object
 
-*  General comparison line chart called through the S3 generic `plot()` 
+
+ * General comparison line chart called through the S3 generic `plot()` 
 (only plot function for hierarchical persephone objects at the moment)
 
 ```{r , eval=FALSE, echo_size=8}
@@ -221,52 +161,44 @@ knitr::include_graphics("plot_hts.PNG")
 
 ## Example 2: Persephone Hierarchical Object
 
-* Generate Eurostat Quality Report with the function `generate_qr_table()`.
+* Generate Eurostat quality report with the function `generateQrTable()`.
 
 ```{r, output_size=6}
-head(generate_qr_table(hts_EU28), n = 4)
+head(generateQrTable(hts_EU28), n = 4)
 ```
 
 
-## Example 2: Persephone Hierarchical Object
-
-Methods developed for univariate analysis can be used by accessing the components of 
-a hierarchical persephone object.
-
-Example: Generate Eurostat Quality Report with the function `generate_qr_table()`
-for only one of the components, e.g. the persephone 'single' object for Belgium.
-
-```{r}
-generate_qr_table(hts_EU28$getComponent("EA19/BE"))
-```
-
-## Example 2: Persephone Hierarchical Object
+## Persephone Hierarchical Object - Weights
 
 With **persephone** we can also generate weighted aggregates, e.g. for indices.
 
 The `weights` argument of `perHts()` is used for this purpose.
 
 * Time-invariant weights -> vector (mts object with same weight for each time point created internally)
+
 * Time-variant weights -> mts object (or named list of ts objects)
 
-We can have a look at the weights of an object by accessing the `weights` field.
+## New Features I - Processing
 
-```{r, eval=FALSE}
-hts_EU28$weights
+* Persephone Batch Object `perBatch()`
+* `fixModel()`  or `fixOutlier()`s (except for a timespan at the end of the series)
+```{r, output_size=6}
+objX13$fixModel(verbose=TRUE)
+objX13$fixOutlier(verbose=TRUE)
 ```
 
-A couple of time-invariant weights are included in the package as example data sets: `weights_pi_ea19, weights_pi_eu28`.
+## New Features II - Generate calendar regressor
 
-## Future Enhancements
+```{r, eval = FALSE}
+td7 <- genTd(freq = 4, hd = list("01-01", "01-06", 
+             "easter+1", "easter+39"),
+              weight = c(rep(1,11), 0.5, rep(1,2), 0.5))
 
-* Diagnostics for hierarchical time series
+```
+
+## More to come
+
 * Benchmark method for direct adjustments
 * Indirect adjustment of chain-linked indices
-* Pure batch objects
 * Summary method
 * Dashboard for large numbers of time series
-* Complete Eurostat Quality Report
-
-
-
-
