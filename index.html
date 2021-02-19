@@ -122,10 +122,10 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Objects can be constructed with <code>per_x13</code> or <code>per_tramo</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
+<p>Objects can be constructed with <code>perX13</code> or <code>perTramo</code>. Subseqentually, the <code>run</code> method runs the model and <code>output</code> gives access to the output object from <code>RJDemetra</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/statistikat/persephone">persephone</a></span><span class="op">)</span>
-<span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">per_x13</span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span>
+<span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/perX13.html">perX13</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="90%"></p>
 <p>The original output from <a href="https://github.com/nbbrd/rjdemetra">RJDemetra</a> can be inspected via the <code>output</code> field.</p>
