@@ -55,10 +55,10 @@ unnest_nested_list <- function(x, prefix = "") {
 #'
 #' @examples
 #' obj_x13 <- perX13(AirPassengers, "RSA3")
-#' ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
-#' ht2 <- per_hts(a = ht, b = obj_x13)
+#' ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
+#' ht2 <- perHts(a = ht, b = obj_x13)
 #' ht2$iterate(function(x) {class(x)[1]})
-#' ht2$iterate(function(x) {list(class = class(x)[1])}, as_table = TRUE)
+#' ht2$iterate(function(x) {list(class = class(x)[1])}, asTable = TRUE)
 #' ht2$iterate(function(x) {list(class = class(x)[1])}, unnest = TRUE)
 #' @export
 iterate <- function(x, fun, asTable = FALSE, component = "", unnest = FALSE) {
