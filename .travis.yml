@@ -7,10 +7,13 @@ branches:
   - master
   - TradingDays
   - r6_docs
-
+apt_packages:
+  - libharfbuzz-dev
+  - libfribidi-dev
+  - openjdk-7-jre
+  - r-cran-rjava
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y install libharfbuzz-dev libfribidi-dev
+  - sudo R CMD javareconf
 
 notifications:
   email:
