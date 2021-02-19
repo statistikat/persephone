@@ -12,73 +12,56 @@ output:
       mail: alexander.kowarik@statistik.gv.at
 ---
 
-```{r, include = FALSE}
-def.chunk.hook  <- knitr::knit_hooks$get("chunk")
-knitr::knit_hooks$set(chunk = function(x, options) {
-  x <- def.chunk.hook(x, options)
-  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
-})
-```
-
 ## Disclaimer
 
 still under development...
 
-```{r , echo=FALSE, fig.cap="https://xkcd.com/1319/", out.width = '65%'}
+```{r , echo=FALSE, fig.cap="https://xkcd.com/1319/", out.width = '55%'}
 knitr::include_graphics("automation_2x.png")
 ```
 
 ## Objective
 
-Improve or replace R-package x12 currently used at Statistics Austria for seasonal adjustment.
+Replace R-package *x12* in production @ Statistics Austria for seasonal adjustment.
 
 Requirements:
 
-* Easy processing of multiple time series during the production of seasonally adjusted estimates
-in an offical statistics setting
+* Easy processing of multiple time series
 * Support of hierarchical time series
 * Weighted aggregate series
 * R environment
-
-Release of **RJDemetra**, an R interface to JDemetra+
-&rarr; Availability of Eurostat-recommended JDemetra+ seasonal adjustment (SA) software for R users.
 
 &rarr; Build wrapper around **RJDemetra** to fit our needs
 
 ## Overview
 
-R-package **persephone** builds on top of **RJDemetra**.
-
 * **persephone** provides SA-infrastructure for official statistics, i.e.
 dealing with multiple (hierarchical) monthly/quarterly time series
 * Functions of **RJDemetra** performing SA are called in the background.
-* Available on https://github.com/statistikat/persephone (still under development)
+* Available on https://github.com/statistikat/persephone
 
 ## Constructing Persephone Objects
 
-* Objects of class `persephone` can be constructed from only one or multiple time series.
-* Multiple time series can be connected through a certain hierarchy and weights can be assigned.
-* Batch objects without a hierarchy can be represented as objects with a flat hierarchy at the moment 
-(this will be improved in the future).
-
 1. _'Single'_ persephone objects are constructed with the functions `perX13()` or `perTramo()` 
 depending on the choice of SA method (X-13-ARIMA-SEATS or TRAMO-SEATS).
-2. Multiple 'single' objects can then be combined with `perHts()` to build a _hierarchical_ persephone object.
+1. _'Batch'_ persephone objects are constructed with the functions `perBatch()` as combination of single objects.
+2. Multiple 'single' objects can be combined hierachically with `perHts()` to build a _hierarchical_ persephone object.
 
 ## Example 1: Persephone Single Object
-Create a persephone 'single' object from a univariate time series object.
 
-* A predefined JDemetra+ model specification has to be provided by the user, e.g. `"RSA3"` 
-(Log/level detection = automatic, Outliers detection = automatic, Calendar effects = NA, ARIMA = automatic).
+* Starting from a predefined JDemetra+ model specification has to be provided by the user, e.g. `"RSA3"` 
+* Updating parameters as needed
 ```{r, include=FALSE}
 require(persephone)
 ```
 ```{r}
 data(AirPassengers, package = "datasets")
 objX13 <- perX13(AirPassengers, "RSA3")
+objX13$updateParams(transform.function = "Log")
 ```
-* Now different methods can be called for the persephone object `objX13`, most importantly the `run()` method
-which performs the SA.
+
+* Different methods can be called on the persephone objects
+
 ```{r}
 objX13$run()
 ```
