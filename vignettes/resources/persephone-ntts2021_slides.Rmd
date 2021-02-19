@@ -1,18 +1,15 @@
 ---
-title: Persephone
+title: Persephone 
 subtitle: Persephone, Production-Ready Seasonal Adjustment in R with RJDemetra
 author: Alexander Kowarik, Angelika Meraner, Markus Fröhlich, Gregor de Cillia
 institute: Statistics Austria
-location: \hspace{-1cm}Boulogne-Billancourt, France
-date: '`r format(Sys.Date(), "%B %Y")`'
-output:
-  beamer_presentation:
+date: Februrary 2021
+output: 
   slideSTAT::slideSTAT:
     contact:
       number: 7513
-    language: en 
-editor_options: 
-  chunk_output_type: console
+      address: Guglgasse 13, 1110 Wien
+      mail: alexander.kowarik@statistik.gv.at
 ---
 
 ```{r, include = FALSE}
@@ -167,16 +164,6 @@ knitr::include_graphics("plot_hts.PNG")
 head(generateQrTable(hts_EU28), n = 4)
 ```
 
-
-## Persephone Hierarchical Object - Weights
-
-With **persephone** we can also generate weighted aggregates, e.g. for indices.
-
-The `weights` argument of `perHts()` is used for this purpose.
-
-* Time-invariant weights -> vector (mts object with same weight for each time point created internally)
-
-* Time-variant weights -> mts object (or named list of ts objects)
 
 ## New Features I - Processing
 
