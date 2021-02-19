@@ -140,7 +140,9 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
 
   ltermM <- matrix(0,nrow=12,ncol=6)
   colnames(ltermM) <- dNam[1:6]
-  ltermM[aMeans[,1],1:6] <- aMeans[,2]/(lYear-fYear+1)
+  if(exists("aMeans")){
+    ltermM[aMeans[,1],1:6] <- aMeans[,2]/(lYear-fYear+1)
+  }
   for(ii in seq_along(eMeans)){
     row <- as.numeric(levels(eMeans[[ii]][,2]))
     col <- rep(which(dNam %in% substr(eMeans[[ii]][,3],1,3)),nrow(eMeans[[ii]]))
