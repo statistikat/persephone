@@ -28,13 +28,13 @@ devtools::install_github("statistikat/persephone", build_vignettes = TRUE)
 
 ## Usage
 
-Objects can be constructed with `per_x13` or `per_tramo`.
+Objects can be constructed with `perX13` or `perTramo`.
 Subseqentually, the `run` method runs the model and `output` gives
 access to the output object from `RJDemetra`.
 
 ``` r
 library(persephone)
-obj <- per_x13(AirPassengers)
+obj <- perX13(AirPassengers)
 plot(obj)
 ```
 
