@@ -9,6 +9,8 @@ branches:
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install libharfbuzz-dev libfribidi-dev openjdk-8-jdk r-cran-rjava
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+  - sudo R CMD javareconf -e
 
 notifications:
   email:
