@@ -125,6 +125,7 @@ multipleTimeSeries <- R6::R6Class(
 #' parameters of all components will be changed
 #' @param ... named arguments to be changed
 updateParams = function(component = NULL, ...) {
+  cat("+++\n")
   if(is.null(component)){
     invisible(lapply(self$components,function(x)x$updateParams(...)))
   }else{

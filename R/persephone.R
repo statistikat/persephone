@@ -54,6 +54,7 @@ persephone <- R6::R6Class(
     #' @description update parameters for the adjustment
     #' @param ... passed to `x13_spec()` of `tramoseats_spec()`
     updateParams = function(...) {
+      cat("--------\n")
       private$params_internal <- private$updateFun(self$params, ...)
     },
     #' @description visualize the results of an adjustment
@@ -140,13 +141,14 @@ persephone <- R6::R6Class(
     #' where outliers are not fixed
     #' @param verbose if TRUE the changed parameters will be reported
     fixOutlier = function(timespan = 12, verbose = FALSE) {
+      xxx <<- self
       if(is.null(self$output)){
         warning("not run yet.")
         return(invisible(NULL))
       }
       from <- time(self$ts)[length(self$ts)-timespan+1]
       y <- floor(from)
-      m <- as.character(round((from-floor(from))*frequency(self$ts)+1))
+      m <- as.character(round((from-floor(from))*self$tsp[3]+1))
       if(frequency(self$ts)==4){
         m <- c("01","04","07","10")[as.numeric(m)]
       }
@@ -158,14 +160,21 @@ persephone <- R6::R6Class(
         possibleOutliers <- row.names(self$output$regarima$regression.coefficients)
         possibleOutliers <- possibleOutliers[substring(possibleOutliers,1,2)%in%
                                                c("AO","LS","TC")]
-
+        if(self$tsp[3]==12){
+          outliers <- lapply(possibleOutliers, function(x){
+            x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
+            x2[1] <- ifelse(nchar(x2[1])==1,paste0("0",x2[1]),x2[1])
+            data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
+          })
+        }else if(self$tsp[3]==4){
+          outliers <- lapply(possibleOutliers, function(x){
+            x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
+            x2[1] <- c(I="01",II="04",III="07",IV="10")[x2[1]]
+            data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
+          })
+        }
         if(!is.na(self$output$regarima$specification$regression$userdef$outliers[1])){
-          if(frequency(self$ts)==12){
-            outliers <- lapply(possibleOutliers, function(x){
-              x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
-              x2[1] <- ifelse(nchar(x2[1])==1,paste0("0",x2[1]),x2[1])
-              data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
-            })
+          if(self$tsp[3]==12){
             outliers <- outliers[sapply(outliers,
                 userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
                 function(x,userdefOut){
@@ -173,21 +182,19 @@ persephone <- R6::R6Class(
                   return(nrow(m)==0)
             })]
 
-          }else if(frequency(self$ts)==4){
-            outliers <- lapply(possibleOutliers, function(x){
-              x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
-              x2[1] <- c(I="01",II="04",III="07",IV="10")[x2[1]]
-              data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
-            })
+          }else if(self$tsp[3]==4){
             outliers <- outliers[sapply(outliers,
                                         userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
                                         function(x,userdefOut){
                                           m <- merge(x, userdefOut, by = c("type","date"))
                                           return(nrow(m)==0)
                                         })]
-          }else{
-            stop("not implemented yet for non quarterly or monthly series.")
           }
+          oldType <- self$output$regarima$specification$regression$userdef$outliers$type
+          oldDate <- self$output$regarima$specification$regression$userdef$outliers$date
+        }else{
+          oldType <- NULL
+          oldDate <- NULL
         }
         if(length(outliers)>0){
           if(verbose){
@@ -195,14 +202,20 @@ persephone <- R6::R6Class(
               message(outliers[[i]]$type," outlier saved at ",outliers[[i]]$date,".")
             }
           }
-          df <- data.frame(type=c(self$output$regarima$specification$regression$userdef$outliers$type,
+          df <- data.frame(type=c(oldType,
                                   sapply(outliers, function(x)x$type)),
-                           date=c(self$output$regarima$specification$regression$userdef$outliers$date,
+                           date=c(oldDate,
                                   sapply(outliers, function(x)x$date)))
           df <- unique(df)
-          self$updateParams(usrdef.outliersEnabled = TRUE,
+          if(class(self)[1]=="hierarchicalTimeSeries"){
+            private$updateParamsDirect(usrdef.outliersEnabled = TRUE,
                               usrdef.outliersType = df$type,
                               usrdef.outliersDate = df$date)
+          }else{
+            self$updateParams(usrdef.outliersEnabled = TRUE,
+                              usrdef.outliersType = df$type,
+                              usrdef.outliersDate = df$date)
+          }
 
         }else{
           if(verbose){
@@ -212,7 +225,12 @@ persephone <- R6::R6Class(
         if(verbose){
           message("Updating parameter outlier.from to '",from,"'")
         }
-        self$updateParams(outlier.from = from)
+        if(class(self)[1]=="hierarchicalTimeSeries"){
+          private$updateParamsDirect(outlier.from = from)
+        }else{
+          self$updateParams(outlier.from = from)
+        }
+
       }else if(verbose){
         message("Automatic outliers not enabled.")
       }

@@ -97,21 +97,16 @@ test_that("fix outlier hts", {
   objX13 <- perX13(AirPassengers, "RSA3")
   objX13out <- perX13(AirPassengersOut, "RSA3")
   ht <- perHts(noout = objX13,
-                 out = objX13out)
+                 out = objX13out, method ="x13", spec=x13_spec("RSA3"))
   expect_warning(ht$fixOutlier())
+  ht$run()
   ht$updateParams(usrdef.outliersEnabled = TRUE,
                   usrdef.outliersType = c("AO"),
                   usrdef.outliersDate = c("1949-03-01"))
-  rbind(ht$ts[9:11],
-        ht$components$out$ts[9:11],
-        ht$components$noout$ts[9:11])
-  rbind(ht$output$final$series[9:11],
-        ht$components$out$output$final$series[9:11],
-        ht$components$noout$output$final$series[9:11])
   ht$run()
   expect_message(ht$fixOutlier(verbose= TRUE))
   ht$run()
   expect_equal(nrow(ht$components$noout$output$regarima$specification$regression$userdef$outliers),1L)
   expect_equal(nrow(ht$components$out$output$regarima$specification$regression$userdef$outliers),4L)
-  ht$output$regarima$specification$regression$userdef$outliers
+  expect_equal(nrow(ht$output$regarima$specification$regression$userdef$outliers),4L)
 })
