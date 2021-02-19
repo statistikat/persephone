@@ -54,7 +54,6 @@ persephone <- R6::R6Class(
     #' @description update parameters for the adjustment
     #' @param ... passed to `x13_spec()` of `tramoseats_spec()`
     updateParams = function(...) {
-      cat("--------\n")
       private$params_internal <- private$updateFun(self$params, ...)
     },
     #' @description visualize the results of an adjustment
