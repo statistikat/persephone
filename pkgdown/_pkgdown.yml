@@ -9,14 +9,14 @@ reference:
 - title: classes
   contents:
   - persephone
-  - per_hts
-  - per_tramo
-  - per_x13
+  - perHts
+  - perTramo
+  - perX13
 - title: plotting functions
   contents: matches('plot')
 - title: other
   contents:
-  - generate_qr_table
+  - generateQrTable
   - genTd
   - iterate
   - is.persephone
