@@ -22,8 +22,6 @@ Imports:
     timeDate,
     magrittr,
     zoo
-Remotes: 
-    jdemetra/rjdemetra
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/statistikat/persephone
 RoxygenNote: 7.1.1
