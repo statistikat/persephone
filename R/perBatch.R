@@ -17,6 +17,8 @@
 #' bt$updateParams(component = "a", usrdef.outliersEnabled = TRUE,
 #'                      usrdef.outliersType = c("AO","LS","LS"),
 #'                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+#'
+#' bt$fixModel()
 #' }
 #'
 #' @export
@@ -147,7 +149,37 @@ updateParams = function(component = NULL, ...) {
       }else{
         self$iterate(generateQrList, asTable = TRUE)
       }
-    }
+    },
+#' @description fix the arima model(s)
+#' @param component character vector with names of the components
+#' for which the parameters should be changed. If NULL (default) the
+#' parameters of all components will be changed
+#' @param verbose if TRUE the changed parameters will be reported
+fixModel = function(component = NULL, verbose = FALSE) {
+  if(!is.null(component)){
+    lapply(self$components[component],function(x)x$fixModel(verbose = verbose))
+  }else{
+    lapply(self$components,function(x)x$fixModel(verbose = verbose))
+  }
+  return(invisible(NULL))
+},
+#' @description fix the automatically detected outliers
+#' @param component character vector with names of the components
+#' for which the parameters should be changed. If NULL (default) the
+#' parameters of all components will be changed
+#' @param timespan number of months from the end of the time series
+#' where outliers are not fixed
+#' @param verbose if TRUE the changed parameters will be reported
+fixOutlier = function(component = NULL, timespan = 12, verbose = FALSE) {
+  if(!is.null(component)){
+    lapply(self$components[component],function(x)x$fixOutlier(timespan = timespan,
+                                                              verbose = verbose))
+  }else{
+    lapply(self$components,function(x)x$fixOutlier(timespan = timespan,
+                                                   verbose = verbose))
+  }
+  return(invisible(NULL))
+}
   ),
   active = list(
     #' @field adjusted results from the seasonal adjustment

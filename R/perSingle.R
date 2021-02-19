@@ -30,21 +30,6 @@ persephoneSingle <- R6::R6Class(
         invisible(output)
       else
         output
-    },
-    #' @description create a new single object
-    #' @param verbose if TRUE the changed parameters will be reported
-    fixArima = function(verbose = FALSE) {
-      if(self$params$regarima$arima$specification$enabled[3]){
-        cat("fix it")
-        #self$params$regarima$arima$specification$enabled
-      }
-    },
-    #' @description create a new single object
-    #' @param timespan number of months from the end of the time series
-    #' where outliers are not fixed
-    #' @param verbose if TRUE the changed parameters will be reported
-    fixOutlier = function(timespan = 12, verbose = FALSE) {
-
     }
   )
 )

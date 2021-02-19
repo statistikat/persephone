@@ -94,20 +94,128 @@ persephone <- R6::R6Class(
       private$convert_list(res, asTable, unnest)
     },
     #' @description create a table for the eurostat quality report
-    generate_qr_table = function() {
+    generateQrTable = function() {
       self$iterate(generateQrList, asTable = TRUE)
     },
     #' @description update options for the model
     #' @param userdefined see [x13()] and [tramoseats()]
     #' @param spec see [x13()] and [tramoseats()]
     #' @param recursive only applicable to hierarchical series. propagates
-    #'   the pudates to sub-series. see [perHts]
+    #'   the updates to sub-series. see [perHts]
     setOptions = function(userdefined = NA,
                            spec = NA, recursive = TRUE) {
       if (is.null(userdefined) || !is.na(userdefined))
         private$userdefined <- union(userdefined, userdefined_default)
       if (is.null(spec) || !is.na(spec))
         private$spec_internal <- spec
+    },
+    #' @description fix the arima model
+    #' @param verbose if TRUE the changed parameters will be reported
+    fixModel = function(verbose = FALSE) {
+      if(is.null(self$output)){
+        warning("not run yet.")
+        return(invisible(NULL))
+      }
+      p <- self$output$regarima$specification$arima$specification$arima.p
+      d <- self$output$regarima$specification$arima$specification$arima.d
+      q <- self$output$regarima$specification$arima$specification$arima.q
+      bp <- self$output$regarima$specification$arima$specification$arima.bp
+      bd <- self$output$regarima$specification$arima$specification$arima.bd
+      bq <- self$output$regarima$specification$arima$specification$arima.bq
+      if(self$output$regarima$specification$arima$specification$enabled){
+        if(verbose){
+          message("The model", paste("(",p,d,q,") (",bp,bd,bq,") is now fixed."))
+        }
+        self$updateParams(arima.p=p,arima.d=d,arima.q=q,
+                          arima.bp=bp,arima.bd=bd,arima.bq=bq,
+                          automdl.enabled = FALSE
+        )
+
+      }else if(verbose){
+        message("The model", paste("(",p,d,q,") (",bp,bd,bq,") was already fixed."))
+      }
+    },
+    #' @description create a new single object
+    #' @param timespan number of months from the end of the time series
+    #' where outliers are not fixed
+    #' @param verbose if TRUE the changed parameters will be reported
+    fixOutlier = function(timespan = 12, verbose = FALSE) {
+      if(is.null(self$output)){
+        warning("not run yet.")
+        return(invisible(NULL))
+      }
+      from <- time(self$ts)[length(self$ts)-timespan+1]
+      y <- floor(from)
+      m <- as.character(round((from-floor(from))*frequency(self$ts)+1))
+      if(frequency(self$ts)==4){
+        m <- c("01","04","07","10")[as.numeric(m)]
+      }
+      if(nchar(m)==1){
+        m <- paste0("0",m)
+      }
+      from <- paste0(y,"-",m,"-01")
+      if(self$output$regarima$specification$outliers$enabled){
+        possibleOutliers <- row.names(self$output$regarima$regression.coefficients)
+        possibleOutliers <- possibleOutliers[substring(possibleOutliers,1,2)%in%
+                                               c("AO","LS","TC")]
+
+        if(!is.na(self$output$regarima$specification$regression$userdef$outliers[1])){
+          if(frequency(self$ts)==12){
+            outliers <- lapply(possibleOutliers, function(x){
+              x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
+              x2[1] <- ifelse(nchar(x2[1])==1,paste0("0",x2[1]),x2[1])
+              data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
+            })
+            outliers <- outliers[sapply(outliers,
+                userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
+                function(x,userdefOut){
+                  m <- merge(x, userdefOut, by = c("type","date"))
+                  return(nrow(m)==0)
+            })]
+
+          }else if(frequency(self$ts)==4){
+            outliers <- lapply(possibleOutliers, function(x){
+              x2 <- strsplit(x = substring(x,5,nchar(x)-1), split ="-")[[1]]
+              x2[1] <- c(I="01",II="04",III="07",IV="10")[x2[1]]
+              data.frame(type=substr(x,1,2),date=paste0(x2[2],"-",x2[1],"-01"))
+            })
+            outliers <- outliers[sapply(outliers,
+                                        userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
+                                        function(x,userdefOut){
+                                          m <- merge(x, userdefOut, by = c("type","date"))
+                                          return(nrow(m)==0)
+                                        })]
+          }else{
+            stop("not implemented yet for non quarterly or monthly series.")
+          }
+        }
+        if(length(outliers)>0){
+          if(verbose){
+            for(i in seq_along(outliers)){
+              message(outliers[[i]]$type," outlier saved at ",outliers[[i]]$date,".")
+            }
+          }
+          df <- data.frame(type=c(self$output$regarima$specification$regression$userdef$outliers$type,
+                                  sapply(outliers, function(x)x$type)),
+                           date=c(self$output$regarima$specification$regression$userdef$outliers$date,
+                                  sapply(outliers, function(x)x$date)))
+          df <- unique(df)
+          self$updateParams(usrdef.outliersEnabled = TRUE,
+                              usrdef.outliersType = df$type,
+                              usrdef.outliersDate = df$date)
+
+        }else{
+          if(verbose){
+            message("No automatic outliers found.")
+          }
+        }
+        if(verbose){
+          message("Updating parameter outlier.from to '",from,"'")
+        }
+        self$updateParams(outlier.from = from)
+      }else if(verbose){
+        message("Automatic outliers not enabled.")
+      }
     }
   ),
   ## read-only access to params, ts, and output
@@ -179,6 +287,8 @@ persephone <- R6::R6Class(
       )
     },
     updateFun = function(params, ...) {
+      #print(class(params))
+      #print(str(params))
       stop("implement this method")
     }
   )

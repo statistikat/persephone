@@ -7,7 +7,7 @@
 #' \dontrun{
 #' objX13 <- perX13(AirPassengers, "RSA3")
 #'
-#' ht <- perHts(a = objX13, b = objX13, method = "x13")
+#' ht <- perHts(a = objX13, b = objX13, method = "x13", spec = "RSA1")
 #'
 #' ht$updateParams(easter.enabled = TRUE)
 #'
@@ -194,7 +194,6 @@ hierarchicalTimeSeries <- R6::R6Class(
           component$iterate(fun)
         }
       )
-
       res <- c(super$super2()$iterate(fun), comp)
       private$convert_list(res, asTable, unnest)
     },
@@ -210,6 +209,59 @@ hierarchicalTimeSeries <- R6::R6Class(
       rest <- paste(component_path[-1], collapse = "/")
       self$components[[direct_child]]$getComponent(rest)
     },
+    #' @description change all or some parameters of components
+    #' @details this functions provides the possibility to update
+    #' parameters of one or more persephone single objects
+    #'
+    #' @param component character vector with names of the components
+    #' for which the parameters should be changed. If NULL (default) the
+    #' parameters of all components will be changed
+    #' @param ... named arguments to be changed
+    updateParams = function(component = NULL, ...) {
+      if(is.null(component) || component ==""){
+        private$updateParamsDirect(...)
+      }
+      super$updateParams(component,...)
+    },
+
+    #' @description fix the arima model(s)
+    #' @param component character vector with names of the components
+    #' for which the parameters should be changed. If NULL (default) the
+    #' parameters of all components will be changed
+    #' @param verbose if TRUE the changed parameters will be reported
+    fixModel = function(component = NULL, verbose = FALSE) {
+      if(is.null(component) || component ==""){
+        super$super2()$fixModel(verbose = verbose)
+      }
+      if(!is.null(component)){
+        lapply(self$components[component],function(x)x$fixModel(verbose = verbose))
+      }else{
+        lapply(self$components,function(x)x$fixModel(verbose = verbose))
+      }
+      return(invisible(NULL))
+    },
+    #' @description fix the automatically detected outliers and the
+    #' span to find new automatically detected outliers
+    #' @param component character vector with names of the components
+    #' for which the parameters should be changed. If NULL (default) the
+    #' parameters of all components will be changed
+    #' @param timespan number of months from the end of the time series
+    #' where outliers are not fixed
+    #' @param verbose if TRUE the changed parameters will be reported
+    fixOutlier = function(component = NULL, timespan =12, verbose = FALSE) {
+      if(is.null(component) || component ==""){
+        super$super2()$fixOutlier(timespan = timespan,
+                                  verbose = verbose)
+      }
+      if(!is.null(component)){
+        lapply(self$components[component],function(x)x$fixOutlier(timespan = timespan,
+                                                                  verbose = verbose))
+      }else{
+        lapply(self$components,function(x)x$fixOutlier(timespan = timespan,
+                                                       verbose = verbose))
+      }
+      return(invisible(NULL))
+    },
     #' @description Generate a table for the eurostat quality report
     #' @param component (optional) a sub-component to create the report for
     generateQrTable = function(component = "") {
@@ -217,6 +269,14 @@ hierarchicalTimeSeries <- R6::R6Class(
     }
   ),
   active = list(
+    #' @field params of all components and the aggregated series
+    params = function() {
+      c(self$private$params_internal,super$params)
+    },
+    #' @field paramsDirect params of the aggregated series
+    paramsDirect = function() {
+      super$super2()$private$params_internal
+    },
     #' @field adjustedIndirect results from the indirect adjustment where
     #'   all components are adjusted and then aggregated
     adjustedIndirect = function() {
@@ -356,6 +416,24 @@ hierarchicalTimeSeries <- R6::R6Class(
     },
     method = NULL,
     spec = NULL,
+    updateParamsDirect = function(...) {
+
+      methodFunction <- switch(private$method, tramoseats = tramoseats,
+                               x13 = x13)
+      if (is.null(self$spec)){
+        spec <- switch(private$method, tramoseats = tramoseats_spec(...),
+                       x13 = x13_spec( ...))
+      }else{
+        if("X13"%in%class(self$spec)){
+          spec <- x13_spec(self$spec,...)
+        }else{
+          spec <- tramoseats_spec(self$spec,...)
+        }
+
+      }
+     super$super2()$setOptions(spec=spec)
+     private$params_internal <- spec
+    },
     runDirect = function(ts) {
       methodFunction <- switch(private$method, tramoseats = tramoseats,
                                x13 = x13)
@@ -364,6 +442,8 @@ hierarchicalTimeSeries <- R6::R6Class(
                        x13 = x13_spec())
       else
         spec <- self$spec
+      super$super2()$setOptions(spec=spec)
+
       private$output_internal <- methodFunction(
         ts,
         spec = spec,

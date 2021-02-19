@@ -1,3 +1,22 @@
+context("update parameter hts")
+
+test_that("change parameters 1", {
+  objX13 <- perX13(AirPassengers, "RSA3")
+  ht <- perHts(a = objX13, b = objX13, method="x13")
+  ht$updateParams(component="a",easter.enabled = TRUE)
+  expect_true(ht$params$a$regarima$regression$easter$enabled[3])
+  expect_false(ht$params$b$regarima$regression$easter$enabled[3])
+  ht$updateParams(usrdef.outliersEnabled = TRUE,
+                      usrdef.outliersType = c("AO","LS","LS"),
+                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+  expect_true(ht$params$a$regarima$outliers$enabled[3])
+  expect_true(ht$params$b$regarima$outliers$enabled[3])
+  expect_true(ht$params$a$regarima$regression$easter$enabled[3])
+  expect_false(ht$params$b$regarima$regression$easter$enabled[3])
+})
+
+
+
 context("adjusted")
 
 test_that("adjusted", {
