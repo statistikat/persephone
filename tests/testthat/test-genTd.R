@@ -47,11 +47,11 @@ test_that("genTd only easter 1", {
 
 test_that("genTd approx", {
   hdAT1 <- genTd(hd = list("01-01","easter+1"),
-                 weight = c(5,4), fYear=1999, lYear=2100, adjustEaster = "approximate")
+                 weight = c(5,4), firstYear=1999, lastYear=2100, adjustEaster = "approximate")
   expect_true(length(hdAT1) == 3)
 })
 test_that("genTd Markus quarter",{
-  td7 <- genTd(ff = 4, hd = list("01-01", "01-06", "05-01", "easter+1", "easter+39",
+  td7 <- genTd(freq = 4, hd = list("01-01", "01-06", "05-01", "easter+1", "easter+39",
                                  "easter+50", "easter+60", "08-15", "10-26", "11-01",
                                  "12-08", "12-24", "12-25", "12-26", "12-31"),
                weight = c(rep(1,11), 0.5, rep(1,2), 0.5))

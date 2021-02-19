@@ -4,9 +4,9 @@
 #' country-specific holidays and associated weights. Each holiday can be given
 #' a specific weight depending on the extent of the work load of that specific holiday.
 #'
-#' @param ff frequency of series
-#' @param fYear first year of calculation of trading day regressor
-#' @param lYear last year of calculation of trading day regressor
+#' @param freq frequency of series
+#' @param firstYear first year of calculation of trading day regressor
+#' @param lastYear last year of calculation of trading day regressor
 #' @param hd holidays, list of 1. exact date ("mm-dd") and/or 2. name of day
 #'           (listHolidays() from timeDate function) and/or
 #'           3. easter relation (e.g. "easter+39", "easter-3")
@@ -46,9 +46,9 @@
 #'
 #'
 
-genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length(hd)),
+genTd <- function(freq = 12, firstYear = 1960, lastYear = 2099, hd, weight = rep(1,length(hd)),
                    adjustEaster = "exact"){
-  y <- ts(frequency = 12, start = c(fYear, 1), end = c(lYear, 12))
+  y <- ts(frequency = 12, start = c(firstYear, 1), end = c(lastYear, 12))
   dNam <- weekdays(as.Date("2020-02-16")+0:6, abbreviate = TRUE)
   stopifnot(adjustEaster %in% c("exact","approximate"))
   eaDist_exact <- eaDist_approx <- NULL
@@ -96,7 +96,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
   if(length(noneasterRel)>0){
     datNE <- dat[noneasterRel]
     datNE <- do.call("c", datNE)
-    datNE <- data.frame(datNE, rep(weight[noneasterRel], each = 1+lYear-fYear),
+    datNE <- data.frame(datNE, rep(weight[noneasterRel], each = 1+lastYear-firstYear),
                         stringsAsFactors = TRUE)
     datNE <- unique(datNE)
     colnames(datNE) <- c("dat", "weight")
@@ -106,7 +106,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
 
   # Elimination of redundant dates (e.g. 1st of May 2008 is both, Labour Day and Ascension )
   dat <- do.call("c", dat)
-  dat <- data.frame(dat, rep(weight, each = 1+lYear-fYear), stringsAsFactors = TRUE)
+  dat <- data.frame(dat, rep(weight, each = 1+lastYear-firstYear), stringsAsFactors = TRUE)
   dat <- unique(dat)
   colnames(dat) <- c("dat", "weight")
 
@@ -144,7 +144,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
   ltermM <- matrix(0,nrow=12,ncol=6)
   colnames(ltermM) <- dNam[1:6]
   if(exists("aMeans")){
-    ltermM[aMeans[,1],1:6] <- aMeans[,2]/(lYear-fYear+1)
+    ltermM[aMeans[,1],1:6] <- aMeans[,2]/(lastYear-firstYear+1)
   }
   for(ii in seq_along(eMeans)){
     row <- as.numeric(levels(eMeans[[ii]][,2]))
@@ -153,7 +153,7 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
     ltermM[row, col] <- ltermM[row, col] + 2*val
     ltermM[row, -col] <- ltermM[row, -col] + val
   }
-  ltermMAll <- do.call(rbind, replicate((lYear-fYear+1), ltermM, simplify=FALSE))
+  ltermMAll <- do.call(rbind, replicate((lastYear-firstYear+1), ltermM, simplify=FALSE))
   td1 <- td + ltermMAll
 
   lpY <- rowSums(dd)
@@ -161,19 +161,19 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
     ifelse(x == 28, -0.25, ifelse(x == 29, 0.75, 0))
   })
   td1 <- cbind(td1, lpYear)
-  td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(fYear, 1),
+  td1 <- ts(matrix(td1, nrow = nrow(td1), ncol = ncol(td1)), start = c(firstYear, 1),
             frequency = 12)
   colnames(td1) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
                      "Saturday", "lpYear")
-  td <- ts(matrix(td, nrow = nrow(td), ncol = ncol(td)), start = c(fYear, 1),
+  td <- ts(matrix(td, nrow = nrow(td), ncol = ncol(td)), start = c(firstYear, 1),
             frequency = 12)
   colnames(td) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
                      "Saturday")
-  dd <- ts(matrix(dd, nrow = nrow(dd), ncol = ncol(dd)), start = c(fYear, 1),
+  dd <- ts(matrix(dd, nrow = nrow(dd), ncol = ncol(dd)), start = c(firstYear, 1),
            frequency = 12)
   colnames(dd) <- c("Monday","Tuesday","Wednesday","Thursday","Friday",
                     "Saturday", "Sunday")
-  if(ff == 4){
+  if(freq == 4){
     td1 <- aggregate(td1, nfrequency = 4)
     td <- aggregate(td, nfrequency = 4)
     dd <- aggregate(dd, nfrequency = 4)

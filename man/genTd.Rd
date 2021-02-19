@@ -5,20 +5,20 @@
 \title{Generation of trading day regressors}
 \usage{
 genTd(
-  ff = 12,
-  fYear = 1960,
-  lYear = 2099,
+  freq = 12,
+  firstYear = 1960,
+  lastYear = 2099,
   hd,
   weight = rep(1, length(hd)),
   adjustEaster = "exact"
 )
 }
 \arguments{
-\item{ff}{frequency of series}
+\item{freq}{frequency of series}
 
-\item{fYear}{first year of calculation of trading day regressor}
+\item{firstYear}{first year of calculation of trading day regressor}
 
-\item{lYear}{last year of calculation of trading day regressor}
+\item{lastYear}{last year of calculation of trading day regressor}
 
 \item{hd}{holidays, list of 1. exact date ("mm-dd") and/or 2. name of day
 (listHolidays() from timeDate function) and/or
