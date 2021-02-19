@@ -24,9 +24,9 @@ over all children of a hierarchical time series produced with \code{perHts()}.
 }
 \examples{
 obj_x13 <- perX13(AirPassengers, "RSA3")
-ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
-ht2 <- per_hts(a = ht, b = obj_x13)
+ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
+ht2 <- perHts(a = ht, b = obj_x13)
 ht2$iterate(function(x) {class(x)[1]})
-ht2$iterate(function(x) {list(class = class(x)[1])}, as_table = TRUE)
+ht2$iterate(function(x) {list(class = class(x)[1])}, asTable = TRUE)
 ht2$iterate(function(x) {list(class = class(x)[1])}, unnest = TRUE)
 }

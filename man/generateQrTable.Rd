@@ -44,9 +44,9 @@ measurements
 }
 
 \examples{
-obj_x13 <- per_x13(AirPassengers, "RSA3")
-ht <- per_hts(a = obj_x13, b = obj_x13, method = "x13")
+obj_x13 <- perX13(AirPassengers, "RSA3")
+ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
 ht$run()
-generate_qr_table(ht)
+generateQrTable(ht)
 
 }

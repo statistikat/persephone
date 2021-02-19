@@ -94,8 +94,10 @@ the first time.}
 \item \href{#method-plotResiduals}{\code{persephone$plotResiduals()}}
 \item \href{#method-print}{\code{persephone$print()}}
 \item \href{#method-iterate}{\code{persephone$iterate()}}
-\item \href{#method-generate_qr_table}{\code{persephone$generate_qr_table()}}
+\item \href{#method-generateQrTable}{\code{persephone$generateQrTable()}}
 \item \href{#method-setOptions}{\code{persephone$setOptions()}}
+\item \href{#method-fixModel}{\code{persephone$fixModel()}}
+\item \href{#method-fixOutlier}{\code{persephone$fixOutlier()}}
 \item \href{#method-clone}{\code{persephone$clone()}}
 }
 }
@@ -233,12 +235,12 @@ see \link{perHts}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-generate_qr_table"></a>}}
-\if{latex}{\out{\hypertarget{method-generate_qr_table}{}}}
-\subsection{Method \code{generate_qr_table()}}{
+\if{html}{\out{<a id="method-generateQrTable"></a>}}
+\if{latex}{\out{\hypertarget{method-generateQrTable}{}}}
+\subsection{Method \code{generateQrTable()}}{
 create a table for the eurostat quality report
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephone$generate_qr_table()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{persephone$generateQrTable()}\if{html}{\out{</div>}}
 }
 
 }
@@ -259,7 +261,44 @@ update options for the model
 \item{\code{spec}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
 
 \item{\code{recursive}}{only applicable to hierarchical series. propagates
-the pudates to sub-series. see \link{perHts}}
+the updates to sub-series. see \link{perHts}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\subsection{Method \code{fixModel()}}{
+fix the arima model
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$fixModel(verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\subsection{Method \code{fixOutlier()}}{
+create a new single object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$fixOutlier(timespan = 12, verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{timespan}}{number of months from the end of the time series
+where outliers are not fixed}
+
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
 }
 \if{html}{\out{</div>}}
 }

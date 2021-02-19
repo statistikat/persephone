@@ -38,6 +38,7 @@
 #' @importFrom dygraphs dyCSS dyLegend dyRangeSelector dySeries dygraph
 #'   dyHighlight dyAnnotation dyPlotter dyEvent
 #' @import ggplot2
+#' @importFrom stats window<-
 #' @export
 plot.persephoneSingle <- function(
   x, main = NULL, forecasts = TRUE, showOutliers = TRUE, rangeSelector = TRUE,

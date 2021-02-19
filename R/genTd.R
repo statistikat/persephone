@@ -51,9 +51,12 @@ genTd <- function(ff = 12, fYear = 1960, lYear = 2099, hd, weight = rep(1,length
   y <- ts(frequency = 12, start = c(fYear, 1), end = c(lYear, 12))
   dNam <- weekdays(as.Date("2020-02-16")+0:6, abbreviate = TRUE)
   stopifnot(adjustEaster %in% c("exact","approximate"))
+  eaDist_exact <- eaDist_approx <- NULL
   if(adjustEaster == "exact"){
+    data("eaDist_exact", envir = as.environment(-1))
     eaDist <- eaDist_exact
   } else{
+    data("eaDist_approx", envir = as.environment(-1))
     eaDist <- eaDist_approx
   }
 

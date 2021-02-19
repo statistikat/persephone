@@ -12,7 +12,7 @@ indirect seasonal adjustments.
 \dontrun{
 objX13 <- perX13(AirPassengers, "RSA3")
 
-ht <- perHts(a = objX13, b = objX13, method = "x13")
+ht <- perHts(a = objX13, b = objX13, method = "x13", spec = "RSA1")
 
 ht$updateParams(easter.enabled = TRUE)
 
@@ -52,6 +52,10 @@ perX13(AirPassengers)$run()
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
+\item{\code{params}}{of all components and the aggregated series}
+
+\item{\code{paramsDirect}}{params of the aggregated series}
+
 \item{\code{adjustedIndirect}}{results from the indirect adjustment where
 all components are adjusted and then aggregated}
 
@@ -72,6 +76,9 @@ all components are adjusted and then aggregated}
 \item \href{#method-setOptions}{\code{hierarchicalTimeSeries$setOptions()}}
 \item \href{#method-iterate}{\code{hierarchicalTimeSeries$iterate()}}
 \item \href{#method-getComponent}{\code{hierarchicalTimeSeries$getComponent()}}
+\item \href{#method-updateParams}{\code{hierarchicalTimeSeries$updateParams()}}
+\item \href{#method-fixModel}{\code{hierarchicalTimeSeries$fixModel()}}
+\item \href{#method-fixOutlier}{\code{hierarchicalTimeSeries$fixOutlier()}}
 \item \href{#method-generateQrTable}{\code{hierarchicalTimeSeries$generateQrTable()}}
 \item \href{#method-clone}{\code{hierarchicalTimeSeries$clone()}}
 }
@@ -79,11 +86,9 @@ all components are adjusted and then aggregated}
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generate_qr_table">}\href{../../persephone/html/persephone.html#method-generate_qr_table}{\code{persephone::persephone$generate_qr_table()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="multipleTimeSeries" data-id="updateParams">}\href{../../persephone/html/multipleTimeSeries.html#method-updateParams}{\code{persephone::multipleTimeSeries$updateParams()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -248,6 +253,82 @@ extract a component series
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{componentId}}{the id of a component}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-updateParams"></a>}}
+\if{latex}{\out{\hypertarget{method-updateParams}{}}}
+\subsection{Method \code{updateParams()}}{
+change all or some parameters of components
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{hierarchicalTimeSeries$updateParams(component = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{component}}{character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed}
+
+\item{\code{...}}{named arguments to be changed}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+this functions provides the possibility to update
+parameters of one or more persephone single objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\subsection{Method \code{fixModel()}}{
+fix the arima model(s)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{hierarchicalTimeSeries$fixModel(component = NULL, verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{component}}{character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed}
+
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\subsection{Method \code{fixOutlier()}}{
+fix the automatically detected outliers and the
+span to find new automatically detected outliers
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{hierarchicalTimeSeries$fixOutlier(
+  component = NULL,
+  timespan = 12,
+  verbose = FALSE
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{component}}{character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed}
+
+\item{\code{timespan}}{number of months from the end of the time series
+where outliers are not fixed}
+
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
 }
 \if{html}{\out{</div>}}
 }

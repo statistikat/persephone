@@ -25,7 +25,9 @@ obj$ts
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generate_qr_table">}\href{../../persephone/html/persephone.html#method-generate_qr_table}{\code{persephone::persephone$generate_qr_table()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixModel">}\href{../../persephone/html/persephone.html#method-fixModel}{\code{persephone::persephone$fixModel()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixOutlier">}\href{../../persephone/html/persephone.html#method-fixOutlier}{\code{persephone::persephone$fixOutlier()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generateQrTable">}\href{../../persephone/html/persephone.html#method-generateQrTable}{\code{persephone::persephone$generateQrTable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="iterate">}\href{../../persephone/html/persephone.html#method-iterate}{\code{persephone::persephone$iterate()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
@@ -33,8 +35,6 @@ obj$ts
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="print">}\href{../../persephone/html/persephone.html#method-print}{\code{persephone::persephone$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="setOptions">}\href{../../persephone/html/persephone.html#method-setOptions}{\code{persephone::persephone$setOptions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="updateParams">}\href{../../persephone/html/persephone.html#method-updateParams}{\code{persephone::persephone$updateParams()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="fixArima">}\href{../../persephone/html/persephoneSingle.html#method-fixArima}{\code{persephone::persephoneSingle$fixArima()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="fixOutlier">}\href{../../persephone/html/persephoneSingle.html#method-fixOutlier}{\code{persephone::persephoneSingle$fixOutlier()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="initialize">}\href{../../persephone/html/persephoneSingle.html#method-initialize}{\code{persephone::persephoneSingle$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="run">}\href{../../persephone/html/persephoneSingle.html#method-run}{\code{persephone::persephoneSingle$run()}}\out{</span>}
 }

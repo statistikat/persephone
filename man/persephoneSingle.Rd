@@ -19,15 +19,15 @@ A common class for the wrapper classes \link{x13Single} and \link{tramoseatsSing
 \itemize{
 \item \href{#method-new}{\code{persephoneSingle$new()}}
 \item \href{#method-run}{\code{persephoneSingle$run()}}
-\item \href{#method-fixArima}{\code{persephoneSingle$fixArima()}}
-\item \href{#method-fixOutlier}{\code{persephoneSingle$fixOutlier()}}
 \item \href{#method-clone}{\code{persephoneSingle$clone()}}
 }
 }
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generate_qr_table">}\href{../../persephone/html/persephone.html#method-generate_qr_table}{\code{persephone::persephone$generate_qr_table()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixModel">}\href{../../persephone/html/persephone.html#method-fixModel}{\code{persephone::persephone$fixModel()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixOutlier">}\href{../../persephone/html/persephone.html#method-fixOutlier}{\code{persephone::persephone$fixOutlier()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generateQrTable">}\href{../../persephone/html/persephone.html#method-generateQrTable}{\code{persephone::persephone$generateQrTable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="iterate">}\href{../../persephone/html/persephone.html#method-iterate}{\code{persephone::persephone$iterate()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
@@ -76,43 +76,6 @@ run the model
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{verbose}}{wether to display outputs after the run}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixArima"></a>}}
-\if{latex}{\out{\hypertarget{method-fixArima}{}}}
-\subsection{Method \code{fixArima()}}{
-create a new single object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephoneSingle$fixArima(verbose = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{verbose}}{if TRUE the changed parameters will be reported}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixOutlier"></a>}}
-\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
-\subsection{Method \code{fixOutlier()}}{
-create a new single object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephoneSingle$fixOutlier(timespan = 12, verbose = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{timespan}}{number of months from the end of the time series
-where outliers are not fixed}
-
-\item{\code{verbose}}{if TRUE the changed parameters will be reported}
 }
 \if{html}{\out{</div>}}
 }

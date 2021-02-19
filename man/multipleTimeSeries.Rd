@@ -22,6 +22,8 @@ bt$updateParams(easter.enabled = FALSE)
 bt$updateParams(component = "a", usrdef.outliersEnabled = TRUE,
                      usrdef.outliersType = c("AO","LS","LS"),
                      usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
+
+bt$fixModel()
 }
 
 
@@ -63,13 +65,14 @@ perX13(AirPassengers)$run()
 \item \href{#method-updateParams}{\code{multipleTimeSeries$updateParams()}}
 \item \href{#method-getComponent}{\code{multipleTimeSeries$getComponent()}}
 \item \href{#method-generateQrTable}{\code{multipleTimeSeries$generateQrTable()}}
+\item \href{#method-fixModel}{\code{multipleTimeSeries$fixModel()}}
+\item \href{#method-fixOutlier}{\code{multipleTimeSeries$fixOutlier()}}
 \item \href{#method-clone}{\code{multipleTimeSeries$clone()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generate_qr_table">}\href{../../persephone/html/persephone.html#method-generate_qr_table}{\code{persephone::persephone$generate_qr_table()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
@@ -254,6 +257,51 @@ Generate a table for the eurostat quality report
 \item{\code{component}}{(optional) a sub-component to create the report for}
 
 \item{\code{...}}{additional arguments for the generate qr table function}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\subsection{Method \code{fixModel()}}{
+fix the arima model(s)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{multipleTimeSeries$fixModel(component = NULL, verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{component}}{character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed}
+
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\subsection{Method \code{fixOutlier()}}{
+fix the automatically detected outliers
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{multipleTimeSeries$fixOutlier(component = NULL, timespan = 12, verbose = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{component}}{character vector with names of the components
+for which the parameters should be changed. If NULL (default) the
+parameters of all components will be changed}
+
+\item{\code{timespan}}{number of months from the end of the time series
+where outliers are not fixed}
+
+\item{\code{verbose}}{if TRUE the changed parameters will be reported}
 }
 \if{html}{\out{</div>}}
 }
