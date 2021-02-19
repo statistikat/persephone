@@ -1,6 +1,6 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: R
-sudo: false
+sudo: true
 cache: packages
 branches:
   only:
@@ -9,7 +9,7 @@ branches:
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install libharfbuzz-dev libfribidi-dev openjdk-8-jdk r-cran-rjava
-  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   - sudo R CMD javareconf -e
 
 notifications:
