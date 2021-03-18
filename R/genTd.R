@@ -53,10 +53,10 @@ genTd <- function(freq = 12, firstYear = 1960, lastYear = 2099, hd, weight = rep
   stopifnot(adjustEaster %in% c("exact","approximate"))
   eaDist_exact <- eaDist_approx <- NULL
   if(adjustEaster == "exact"){
-    data("eaDist_exact", envir = as.environment(-1))
+    data("eaDist_exact", envir = as.environment(-1), package = "persephone")
     eaDist <- eaDist_exact
   } else{
-    data("eaDist_approx", envir = as.environment(-1))
+    data("eaDist_approx", envir = as.environment(-1), package = "persephone")
     eaDist <- eaDist_approx
   }
 
