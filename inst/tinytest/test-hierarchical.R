@@ -1,6 +1,6 @@
-context("update parameter hts")
+message("update parameter hts")
 
-test_that("change parameters 1", {
+# change parameters 1", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a = objX13, b = objX13, method="x13", spec = x13_spec(spec="RSA3"))
   ht$run()
@@ -20,13 +20,13 @@ test_that("change parameters 1", {
   expect_true(ht$params$a$regarima$regression$easter$enabled[3])
   expect_false(ht$params$b$regarima$regression$easter$enabled[3])
   expect_false(ht$spec$regarima$regression$easter$enabled[3])
-})
+#
 
 
 
-context("adjusted")
+message("adjusted")
 
-test_that("adjusted", {
+# adjusted", {
   objX13 <- perX13(AirPassengers, "RSA3")
 
   ht <- perHts(a = objX13, b = objX13)
@@ -36,11 +36,11 @@ test_that("adjusted", {
   expect_s3_class(ht$adjustedDirect, "ts")
   expect_s3_class(ht$adjustedIndirect, "ts")
   expect_identical(tsp(ht$adjustedDirect), tsp(ht$adjustedIndirect))
-})
+#
 
-context("nested hierarchies")
+message("nested hierarchies")
 
-test_that("nested hierarchies", {
+# nested hierarchies", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a = objX13, b = objX13)
   ht2 <- perHts(a = ht, b = objX13)
@@ -48,21 +48,21 @@ test_that("nested hierarchies", {
   expect_s3_class(ht2$adjustedDirect, "ts")
   expect_s3_class(ht2$adjustedIndirect, "ts")
   expect_identical(tsp(ht2$adjustedDirect), tsp(ht2$adjustedIndirect))
-})
+#
 
-context("incompatible time instances")
+message("incompatible time instances")
 
-test_that("incompatible time instances", {
+# incompatible time instances", {
   obj1 <- perX13(AirPassengers, "RSA3")
   obj2 <- perX13(JohnsonJohnson, "RSA3")
   expect_error(
     perHts(a = obj1, b = obj2)
   )
-})
+#
 
-context("hierarchical misc")
+message("hierarchical misc")
 
-test_that("hierarchical generics", {
+# hierarchical generics", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a = objX13)
   capture_output(print(ht))
@@ -74,19 +74,19 @@ test_that("hierarchical generics", {
   ht2 <- perHts(a = objX132)
 
   expect_true("dygraphs" %in% class(plot(ht2, annualComparison = 1)))
-})
+#
 
-context("hierarchical misc")
+message("hierarchical misc")
 
-test_that("components must be named", {
+# components must be named", {
   objX13 <- perX13(AirPassengers, "RSA3")
   expect_error(perHts(objX13), "must be named")
-})
+#
 
 
-context("hierachical weights")
+message("hierachical weights")
 
-test_that("weights as scalars", {
+# weights as scalars", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a = objX13,
                 b = objX13,
@@ -124,10 +124,10 @@ test_that("weights as scalars", {
   expect_true(is.character(all.equal(
     ht0$adjustedDirect,
     ht0$getComponent("a0/a")$adjustedDirect)))
-})
+#
 
 
-test_that("weights as mts", {
+# weights as mts", {
   objX13 <- perX13(AirPassengers, "RSA3")
   w2 <- ts(2, start = start(AirPassengers),
            end = end(AirPassengers),
@@ -171,10 +171,10 @@ test_that("weights as mts", {
   expect_true(is.character(all.equal(
     ht0$adjustedDirect,
     ht0$components$a0$components$a$adjustedDirect)))
-})
+#
 
 
-test_that("weights as list", {
+# weights as list", {
   objX13 <- perX13(AirPassengers, "RSA3")
   w2 <- ts(2, start = start(AirPassengers),
            end = end(AirPassengers),
@@ -217,11 +217,11 @@ test_that("weights as list", {
     ht0$components$a0$components$a$adjustedDirect)))
   # expect_true(all(ht0$forecastsIndirect[, "y_f"] -
   #                   ht0$forecastsDirect[, "y_f"] < 5))
-})
+#
 
 
 
-test_that("weights as scalars - unequal", {
+# weights as scalars - unequal", {
   ht1 <- perHts(a = perX13(AirPassengers * 0 + 1, "RSA3"),
                 b = perX13(AirPassengers * 0 + 1, "RSA3"),
                 c = perX13(AirPassengers * 0 + 1, "RSA3"),
@@ -242,11 +242,11 @@ test_that("weights as scalars - unequal", {
                  b0 = ht2)
 
   expect_true(all.equal(ht0$ts, AirPassengers * 0 + 162))
-})
+#
 
 
 
-test_that("hierachical input checks", {
+# hierachical input checks", {
   ht1 <- perHts(list = list(perX13(AirPassengers * 0 + 1, "RSA3"),
                  perX13(AirPassengers * 0 + 1, "RSA3"),
                  perX13(AirPassengers * 0 + 1, "RSA3"))
@@ -271,9 +271,9 @@ test_that("hierachical input checks", {
 
   expect_error(perHts(a0 = ht1,
                  b0 = ht2))
-})
+#
 
-test_that("output of indirect and direct and option in indirect", {
+# output of indirect and direct and option in indirect", {
   n1 <- length(AirPassengers)
   ht1 <- perHts(list = list(perX13(AirPassengers + 10 * rlnorm(n1),
                                      "RSA3"),
@@ -365,9 +365,9 @@ test_that("output of indirect and direct and option in indirect", {
                           ht4$components$t1$forecastsDirect,
                         check.attributes = FALSE))
 
-})
+#
 
-test_that("PI time-invariant weights", {
+# PI time-invariant weights", {
 ## ------------------------------------------------------------------------
   data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
   pi_caladj <- pi_caladj[, -c(1:2)]
@@ -392,11 +392,11 @@ test_that("PI time-invariant weights", {
                        weights = w_non_EA19)
   expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
 
-})
+#
 
 
 
-test_that("PI time-variant weights", {
+# PI time-variant weights", {
   data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
   pi_caladj <- pi_caladj[, -c(1:2)]
   ts_28 <- lapply(pi_caladj, perX13)
@@ -407,7 +407,7 @@ test_that("PI time-variant weights", {
                   frequency = frequency(pi_caladj)))
     names(l) <- x[1]
     return(l)
-  }))
+  # )
   non_EA19 <- weights_pi_eu28$country[which(
     !weights_pi_eu28$country %in% weights_pi_ea19$country)]
   w_EA19 <- weights_pi_eu28_time[which(
@@ -425,9 +425,9 @@ test_that("PI time-variant weights", {
   hts_EU28b <- perHts(list = c(list(EA19 = hts_EA19), ts_28[non_EA19]),
                        weights = w_non_EA19)
   expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
-})
+#
 
-test_that("PI time-variant weights mts", {
+# PI time-variant weights mts", {
   data(pi_caladj, pi_sa, pi_unadj, weights_pi_ea19, weights_pi_eu28)
   pi_caladj <- pi_caladj[, -c(1:2)]
   ts_28 <- lapply(pi_caladj, perX13)
@@ -438,7 +438,7 @@ test_that("PI time-variant weights mts", {
                   frequency = frequency(pi_caladj)))
     names(l) <- x[1]
     return(l)
-  }))
+  # )
   weights_pi_eu28_time <- do.call("cbind", weights_pi_eu28_time)
   non_EA19 <- weights_pi_eu28$country[which(
     !weights_pi_eu28$country %in% weights_pi_ea19$country)]
@@ -457,4 +457,4 @@ test_that("PI time-variant weights mts", {
   hts_EU28b <- perHts(list = c(list(EA19 = hts_EA19), ts_28[non_EA19]),
                        weights = w_non_EA19)
   expect_true(all.equal(hts_EU28$ts, hts_EU28b$ts))
-})
+#

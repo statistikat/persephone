@@ -1,16 +1,16 @@
-context("Fix Arima")
+message("Fix Arima")
 
-test_that("fix model single", {
+# fix model single", {
   objX13 <- perX13(AirPassengers, "RSA3")
   expect_warning(objX13$fixModel())
   objX13$run()
   expect_message(objX13$fixModel(verbose= TRUE))
   objX13$run()
   expect_false(objX13$output$regarima$specification$arima$specification$enabled)
-})
+#
 
 
-test_that("fix model batch", {
+# fix model batch", {
   objX13 <- perX13(AirPassengers, "RSA3")
   bt <- perBatch(a=objX13,b=objX13)
   expect_warning(bt$fixModel())
@@ -19,9 +19,9 @@ test_that("fix model batch", {
   bt$run()
   expect_false(bt$components[[1]]$output$regarima$specification$arima$specification$enabled)
   expect_false(bt$components[[2]]$output$regarima$specification$arima$specification$enabled)
-})
+#
 
-test_that("fix model hts", {
+# fix model hts", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a=objX13,b=objX13, method = "x13")
   expect_warning(ht$fixModel())
@@ -31,11 +31,11 @@ test_that("fix model hts", {
   expect_false(ht$components[[1]]$output$regarima$specification$arima$specification$enabled)
   expect_false(ht$components[[2]]$output$regarima$specification$arima$specification$enabled)
   expect_false(ht$output$regarima$specification$arima$specification$enabled)
-})
+#
 
 context("Fix Outlier")
 
-test_that("fix outlier single", {
+# fix outlier single", {
   AirPassengersOut <- AirPassengers
   AirPassengersOut[10] <- AirPassengersOut[10] * 10
   AirPassengersOut[20:26] <- AirPassengersOut[20:26] * 3
@@ -48,9 +48,9 @@ test_that("fix outlier single", {
   expect_message(objX13$fixOutlier(verbose= TRUE))
   objX13$run()
   expect_equal(nrow(objX13$output$regarima$specification$regression$userdef$outliers),4L)
-})
+#
 
-test_that("fix outlier single quarterly", {
+# fix outlier single quarterly", {
   df <- data.frame(value=as.vector(AirPassengers), time=time(AirPassengers))
   df$year <- floor(df$time)
   df$quarter <- rep(rep(1:4,each=3),12)
@@ -69,9 +69,9 @@ test_that("fix outlier single quarterly", {
   expect_message(objX13$fixOutlier(verbose= TRUE))
   objX13$run()
   expect_equal(nrow(objX13$output$regarima$specification$regression$userdef$outliers),6L)
-})
+#
 
-test_that("fix outlier batch", {
+# fix outlier batch", {
   AirPassengersOut <- AirPassengers
   AirPassengersOut[10] <- AirPassengersOut[10] * 10
   AirPassengersOut[20:26] <- AirPassengersOut[20:26] * 3
@@ -88,9 +88,9 @@ test_that("fix outlier batch", {
   bt$run()
   expect_equal(nrow(bt$components$noout$output$regarima$specification$regression$userdef$outliers),1L)
   expect_equal(nrow(bt$components$out$output$regarima$specification$regression$userdef$outliers),4L)
-})
+#
 
-test_that("fix outlier hts", {
+# fix outlier hts", {
   AirPassengersOut <- AirPassengers
   AirPassengersOut[10] <- AirPassengersOut[10] * 10
   AirPassengersOut[20:26] <- AirPassengersOut[20:26] * 3
@@ -109,4 +109,4 @@ test_that("fix outlier hts", {
   expect_equal(nrow(ht$components$noout$output$regarima$specification$regression$userdef$outliers),1L)
   expect_equal(nrow(ht$components$out$output$regarima$specification$regression$userdef$outliers),4L)
   expect_equal(nrow(ht$output$regarima$specification$regression$userdef$outliers),4L)
-})
+#

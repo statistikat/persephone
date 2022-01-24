@@ -1,6 +1,6 @@
-context("batch")
+message("batch")
 
-test_that("adjusted", {
+#adjusted", {
   objX13 <- perX13(AirPassengers, "RSA3")
 
   bt <- perBatch(a = objX13, b = objX13)
@@ -14,10 +14,10 @@ test_that("adjusted", {
 
   expect_true(is.list(bt$adjusted))
   expect_true(length(bt$adjusted)==2)
-})
+#
 
 
-test_that("change parameters", {
+#change parameters", {
   objX13 <- perX13(AirPassengers, "RSA3")
 
   bt <- perBatch(a = objX13, b = objX13)
@@ -28,4 +28,4 @@ test_that("change parameters", {
                       usrdef.outliersDate=c("1950-01-01","1955-04-01","1959-10-01"))
   bt$run()
   expect_false(identical(bt$components$a$adjusted,bt$components$b$adjusted))
-})
+#

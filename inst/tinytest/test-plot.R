@@ -1,6 +1,6 @@
-context("plot.persephoneSingle")
+message("plot.persephoneSingle")
 
-test_that("plotting works", {
+# plotting works", {
   data(AirPassengers, package = "datasets")
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(plot(obj, drawPoints = TRUE), NA)
@@ -27,36 +27,36 @@ test_that("plotting works", {
   obj$run()
   expect_error(plot(obj, drawPoints = TRUE), NA)
   obj$run(verbose = TRUE)
-})
+#
 
-test_that("plotting quarterly works", {
+# plotting quarterly works", {
   jj <- JohnsonJohnson
   jj[7] <- 100
   obj <- perX13(jj, "RSA1")
   obj$run()
   expect_error(plot(obj, annualComparison = 1, showOutliers = TRUE), NA)
-})
+#
 
-context("plotSeasIrrCal")
+message("plotSeasIrrCal")
 
-test_that("plotSeasIrrCal", {
+# plotSeasIrrCal", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(obj$plotSeasIrrCal(), "No results from run available.\n")
   obj$run()
   expect_error(obj$plotSeasIrrCal(), NA)
   expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
   expect_error(plotSeasIrrCal(obj, forecasts = FALSE), NA)
-})
+#
 
-test_that("plotSeasIrrCal quarterly", {
+# plotSeasIrrCal quarterly", {
   obj <- perTramo(UKgas, "RSA3")
   obj$run()
   expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
-})
+#
 
-context("plotResiduals")
+message("plotResiduals")
 
-test_that("plotResiduals", {
+# plotResiduals", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(obj$plotResiduals(), "No results from run available.\n")
   obj$run(verbose = TRUE)
@@ -66,11 +66,11 @@ test_that("plotResiduals", {
   expect_identical(class(plotResiduals(obj, which = 4))[1], "plotly")
   expect_warning(plotResiduals(obj, which = 5))
   expect_identical(class(plotResiduals(obj, which = 6))[1], "plotly")
-})
+#
 
-context("other plots")
+message("other plots")
 
-test_that("plotSIC", {
+# plotSIC", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(obj$plotSeasIrrCal(), "No results from run available.\n")
   obj$run()
@@ -78,9 +78,9 @@ test_that("plotSIC", {
   expect_error(plotSeasIrrCal(obj, annualComparison = 1), NA)
   expect_error(plotSeasIrrCal(obj, forecasts = FALSE), NA)
 
-})
+#
 
-test_that("SIRatios", {
+# SIRatios", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(plotSiRatios(obj), "No results from run available.\n")
   obj$run()
@@ -89,14 +89,14 @@ test_that("SIRatios", {
   obj2 <- perTramo(UKgas, "RSA3")
   obj2$run()
   expect_error(plotSiRatios(obj2), NA)
-})
+#
 
-test_that("autoplot", {
+# autoplot", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_true("ggplot" %in% class(autoplot(obj)))
-})
+#
 
-test_that("plotSpectrum", {
+# plotSpectrum", {
   obj <- perX13(AirPassengers, "RSA1")
   expect_error(plotSpectrum(obj), "No results from run available.\n")
 
@@ -116,4 +116,4 @@ test_that("plotSpectrum", {
     plotSpectrum(obj3, tsType = 1),
     "The minimum number of observations needed to compute the spectrum"
   )
-})
+#
