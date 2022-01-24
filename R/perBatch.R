@@ -1,4 +1,4 @@
-#' R6 Class for hierarchical time series
+#' R6 Class for a batch of time series
 #'
 #' @description Combine mutliple objects of persephone objects into a new
 #'   persephone object. On the resulting objects seasonal adjustment can
