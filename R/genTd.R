@@ -49,7 +49,8 @@
 genTd <- function(freq = 12, firstYear = 1960, lastYear = 2099, hd, weight = rep(1,length(hd)),
                    adjustEaster = "exact"){
   y <- ts(frequency = 12, start = c(firstYear, 1), end = c(lastYear, 12))
-  dNam <- weekdays(as.Date("2020-02-16")+0:6, abbreviate = TRUE)
+  #dNam <- weekdays(as.Date("2020-02-16")+0:6, abbreviate = TRUE)
+  dNam <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
   stopifnot(adjustEaster %in% c("exact","approximate"))
   eaDist_exact <- eaDist_approx <- NULL
   if(adjustEaster == "exact"){
