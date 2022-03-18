@@ -12,6 +12,12 @@ reference:
   - perHts
   - perTramo
   - perX13
+  - perBatch
+  - tramoseatsSingle
+  - hierarchicalTimeSeries
+  - x13Single
+  - persephoneSingle
+  - multipleTimeSeries
 - title: plotting functions
   contents: matches('plot')
 - title: other
@@ -20,5 +26,7 @@ reference:
   - genTd
   - iterate
   - is.persephone
+  - eaDist_exact
+  - eaDist_approx
 - title: datasets
   contents: matches('pi_')
