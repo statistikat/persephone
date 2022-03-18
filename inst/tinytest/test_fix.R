@@ -33,7 +33,7 @@ message("Fix Arima")
   expect_false(ht$output$regarima$specification$arima$specification$enabled)
 #
 
-testthat::context("Fix Outlier")
+message("Fix Outlier")
 
 # fix outlier single", {
   AirPassengersOut <- AirPassengers
