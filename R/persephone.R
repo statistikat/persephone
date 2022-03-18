@@ -104,9 +104,9 @@ persephone <- R6::R6Class(
     #'   the updates to sub-series. see [perHts]
     setOptions = function(userdefined = NA,
                            spec = NA, recursive = TRUE) {
-      if (is.null(userdefined) || !is.na(userdefined))
+      if (is.null(userdefined) || !identical(userdefined, NA))
         private$userdefined <- union(userdefined, userdefined_default)
-      if (is.null(spec) || !is.na(spec))
+      if (is.null(spec) || !identical(spec, NA))
         private$spec_internal <- spec
     },
     #' @description fix the arima model
