@@ -33,7 +33,7 @@ message("Fix Arima")
   expect_false(ht$output$regarima$specification$arima$specification$enabled)
 #
 
-testtthat::context("Fix Outlier")
+testthat::context("Fix Outlier")
 
 # fix outlier single", {
   AirPassengersOut <- AirPassengers
@@ -97,7 +97,7 @@ testtthat::context("Fix Outlier")
   objX13 <- perX13(AirPassengers, "RSA3")
   objX13out <- perX13(AirPassengersOut, "RSA3")
   ht <- perHts(noout = objX13,
-                 out = objX13out, method ="x13", spec=x13_spec("RSA3"))
+                 out = objX13out, method ="x13", spec=RJDemetra::x13_spec("RSA3"))
   expect_warning(ht$fixOutlier())
   ht$run()
   ht$updateParams(usrdef.outliersEnabled = TRUE,

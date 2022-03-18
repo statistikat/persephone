@@ -2,7 +2,7 @@ message("update parameter hts")
 
 # change parameters 1", {
   objX13 <- perX13(AirPassengers, "RSA3")
-  ht <- perHts(a = objX13, b = objX13, method="x13", spec = x13_spec(spec="RSA3"))
+  ht <- perHts(a = objX13, b = objX13, method="x13", spec = RJDemetra::x13_spec(spec="RSA3"))
   ht$run()
   expect_false(ht$params$b$regarima$regression$easter$enabled[3])
   expect_false(ht$params$a$regarima$regression$easter$enabled[3])
@@ -33,8 +33,8 @@ message("adjusted")
   expect_true(is.null(ht$adjustedDirect))
   expect_true(is.null(ht$adjustedIndirect))
   ht$run()
-  expect_s3_class(ht$adjustedDirect, "ts")
-  expect_s3_class(ht$adjustedIndirect, "ts")
+  expect_inherits(ht$adjustedDirect, "ts")
+  expect_inherits(ht$adjustedIndirect, "ts")
   expect_identical(tsp(ht$adjustedDirect), tsp(ht$adjustedIndirect))
 #
 
@@ -45,8 +45,8 @@ message("nested hierarchies")
   ht <- perHts(a = objX13, b = objX13)
   ht2 <- perHts(a = ht, b = objX13)
   ht2$run()
-  expect_s3_class(ht2$adjustedDirect, "ts")
-  expect_s3_class(ht2$adjustedIndirect, "ts")
+  expect_inherits(ht2$adjustedDirect, "ts")
+  expect_inherits(ht2$adjustedIndirect, "ts")
   expect_identical(tsp(ht2$adjustedDirect), tsp(ht2$adjustedIndirect))
 #
 
@@ -65,10 +65,10 @@ message("hierarchical misc")
 # hierarchical generics", {
   objX13 <- perX13(AirPassengers, "RSA3")
   ht <- perHts(a = objX13)
-  capture_output(print(ht))
+  testthat::capture_output(print(ht))
   expect_true("dygraphs" %in% class(plot(ht, annualComparison = 1)))
   ht$run()
-  capture_output(print(ht))
+  testthat::capture_output(print(ht))
   expect_true("dygraphs" %in% class(plot(ht, annualComparison = 1)))
   objX132 <- perX13(JohnsonJohnson)
   ht2 <- perHts(a = objX132)
@@ -407,7 +407,7 @@ message("hierachical weights")
                   frequency = frequency(pi_caladj)))
     names(l) <- x[1]
     return(l)
-  # )
+  }))
   non_EA19 <- weights_pi_eu28$country[which(
     !weights_pi_eu28$country %in% weights_pi_ea19$country)]
   w_EA19 <- weights_pi_eu28_time[which(
@@ -438,7 +438,7 @@ message("hierachical weights")
                   frequency = frequency(pi_caladj)))
     names(l) <- x[1]
     return(l)
-  # )
+  }))
   weights_pi_eu28_time <- do.call("cbind", weights_pi_eu28_time)
   non_EA19 <- weights_pi_eu28$country[which(
     !weights_pi_eu28$country %in% weights_pi_ea19$country)]
