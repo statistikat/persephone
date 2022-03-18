@@ -1,14 +1,11 @@
-pandoc: 2.11.2
-pkgdown: 1.6.1
+pandoc: 2.7.3
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   persephone-hierarchical: persephone-hierarchical.html
   persephone-hierarchicalEU: persephone-hierarchicalEU.html
   persephone-ntts2021: persephone-ntts2021.pdf
   persephone-plotting: persephone-plotting.html
-  persephone-saceWorkshop: persephone-saceWorkshop.html
   persephone-useR: persephone-useR.pdf
-  resources/persephone-ntts2021_slides: persephone-ntts2021_slides.html
-  resources/persephone-saceWorkshop_slides: persephone-saceWorkshop_slides.html
-last_built: 2021-02-19T13:54Z
+last_built: 2022-03-18T18:10Z
 
