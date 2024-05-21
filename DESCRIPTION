@@ -1,21 +1,22 @@
 Package: persephone
 Type: Package
-Title: Object-Oriented Wrappers for RJDemetra
-Version: 0.2.1
+Title: Object-Oriented Wrappers for the Seasonal Adjustment Functionality of the JDemetra+ R Ecosystem
+Version: 3.0.0
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
   person("Markus", "Fröhlich", email = "markus.foehlich@statistik.gv.at", role = "aut"),
   person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut","cre"), comment=c(ORCID="0000-0001-8598-4130"))
   )
-Description: This package is an object oriented wrapper around the R Package RJDemetra, 
+Description: This package is an object oriented wrapper around the R Packages rjd3x13 and rjd3tramoseats, 
   which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
 Imports: 
-    RJDemetra (>= 0.1.1),
+    rjd3x13 (>= 3.2.2),
+    rjd3tramoseats (>= 3.2.2),
     dygraphs,
     plotly,
     ggplot2,

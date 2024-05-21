@@ -30,12 +30,13 @@
 #'   be empty (`NULL`) before `run()` is called for the first time.
 #'
 #' @section Parameters:
-#' - `verbose`: should the output from the underlying RJDemetra function be
-#'   displayed after the
+#' - `verbose`: should the output from the underlying rjd3x13/rjd3tramoseats
+#'   function be displayed after the
 #'   run? If `FALSE` (the default), the output will be returned invisibly.
 #' @section derived classes:
 #' [perX13()], [perTramo()], [perHts()]
-#' @import RJDemetra
+#' @import rjd3x13
+#' @import rjd3tramoseats
 #' @export
 persephone <- R6::R6Class(
   "persephone",
@@ -52,7 +53,7 @@ persephone <- R6::R6Class(
       stop("implement this function")
     },
     #' @description update parameters for the adjustment
-    #' @param ... passed to `x13_spec()` of `tramoseats_spec()`
+    #' @param ... passed to `x13_spec()` or `tramoseats_spec()`
     updateParams = function(...) {
       private$params_internal <- private$updateFun(self$params, ...)
     },
@@ -60,7 +61,7 @@ persephone <- R6::R6Class(
     #' @param ...  Interactive time series plot for a persephone object,
     #'   see [plot.persephoneSingle()] or [plot.hierarchicalTimeSeries()]
     plot = function(...) {
-     plot(self, ...)
+      plot(self, ...)
     },
     #' @description  Interactive plot of the seasonal component, irregular
     #'   component and calendar effects for a persephone object
@@ -98,12 +99,12 @@ persephone <- R6::R6Class(
       self$iterate(generateQrList, asTable = TRUE)
     },
     #' @description update options for the model
-    #' @param userdefined see [x13()] and [tramoseats()]
-    #' @param spec see [x13()] and [tramoseats()]
+    #' @param userdefined see [x13_fast()] and [tramoseats_fast()]
+    #' @param spec see [x13_fast()] and [tramoseats_fast()]
     #' @param recursive only applicable to hierarchical series. propagates
     #'   the updates to sub-series. see [perHts]
     setOptions = function(userdefined = NA,
-                           spec = NA, recursive = TRUE) {
+                          spec = NA, recursive = TRUE) {
       if (is.null(userdefined) || !identical(userdefined, NA))
         private$userdefined <- union(userdefined, userdefined_default)
       if (is.null(spec) || !identical(spec, NA))
@@ -175,11 +176,11 @@ persephone <- R6::R6Class(
         if(!is.na(self$output$regarima$specification$regression$userdef$outliers[1])){
           if(self$tsp[3]==12){
             outliers <- outliers[sapply(outliers,
-                userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
-                function(x,userdefOut){
-                  m <- merge(x, userdefOut, by = c("type","date"))
-                  return(nrow(m)==0)
-            })]
+                                        userdefOut = self$output$regarima$specification$regression$userdef$outliers[,1:2],
+                                        function(x,userdefOut){
+                                          m <- merge(x, userdefOut, by = c("type","date"))
+                                          return(nrow(m)==0)
+                                        })]
 
           }else if(self$tsp[3]==4){
             outliers <- outliers[sapply(outliers,
@@ -208,8 +209,8 @@ persephone <- R6::R6Class(
           df <- unique(df)
           if(class(self)[1]=="hierarchicalTimeSeries"){
             private$updateParamsDirect(usrdef.outliersEnabled = TRUE,
-                              usrdef.outliersType = df$type,
-                              usrdef.outliersDate = df$date)
+                                       usrdef.outliersType = df$type,
+                                       usrdef.outliersDate = df$date)
           }else{
             self$updateParams(usrdef.outliersEnabled = TRUE,
                               usrdef.outliersType = df$type,
@@ -264,7 +265,7 @@ persephone <- R6::R6Class(
     adjustedDirect = function() {
       self$output$user_defined$sa
     },
-    #' @field spec specifications passed to [x13()] and [tramoseats()] when the
+    #' @field spec specifications passed to [x13_fast()] and [tramoseats_fast()] when the
     #'   `$run()` method is invoked
     spec = function() {
       private$spec_internal
@@ -311,9 +312,18 @@ persephone <- R6::R6Class(
   )
 )
 
+# userdefined_default <- c(
+#   "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f", "i_f",
+#   "cal_f", "preprocessing.model.y_f", "preprocessing.model.y_ef",
+#   "decomposition.d6", "decomposition.d7", "decomposition.d9",
+#   "mode"
+# )
+#userdefined_default_neu nur helper beim Umschreiben.
 userdefined_default <- c(
-  "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f", "i_f",
-  "cal_f", "preprocessing.model.y_f", "preprocessing.model.y_ef",
-  "decomposition.d6", "decomposition.d7", "decomposition.d9",
-  "mode"
+  "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f",
+  "cal_f", "y_ef",
+  "decomposition.d6", "decomposition.d7", "decomposition.d9","decomposition.d13",
+  "decomposition.mode", "arima.p","arima.d", "arima.q" ,"arima.bp" , "arima.bd","arima.bq",
+  "regression.easter","regression.lp","regression.td(*)","regression.leaster","regression.ntd",
+  "diagnostics.seas-si-combined","diagnostics.seas-si-combined3"
 )

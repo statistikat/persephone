@@ -14,10 +14,10 @@ tramoseatsSingle <- R6::R6Class(
   inherit = persephoneSingle,
   private = list(
     updateFun = function(...) {
-      tramoseats_spec(...)
+      rjd3tramoseats::tramoseats_spec(...)
     },
     runFun = function(...) {
-      tramoseats(...)
+      rjd3tramoseats::tramoseats_fast(...)
     }
   )
 )
@@ -38,8 +38,7 @@ tramoseatsSingle <- R6::R6Class(
 #' obj$run()
 #' obj$ts
 #' @export
-perTramo <- function(ts, template = c("RSAfull", "RSA0", "RSA1", "RSA2",
-                                       "RSA3", "RSA4", "RSA5"),
+perTramo <- function(ts, template = c("rsafull", "rsa0", "rsa1", "rsa2", "rsa3", "rsa4", "rsa5"),
                       userdefined = NULL, ...) {
   tramoseatsSingle$new(ts, match.arg(template), userdefined, ...)
 }

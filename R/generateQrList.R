@@ -1,11 +1,21 @@
 #' @importFrom stats start end
 generateQrList <- function(x){
 
-  if (is.null(x$output$user_defined)) {
+  # TO DO wenn persephone obj neu, das funktioniert jetzt anders.
+  # if (is.null(x$output$user_defined)) {
+  #   stop("No results from run available.\n")
+  # }
+  if(is.null(x$output)) {
     stop("No results from run available.\n")
   }
+  # tramoseats/x13 distinction
+  if (any(class(x$output) %in% c("JD3_X13_RSLTS"))) {
+    # x13() and tramoseats() generate output of class "JD3_X13_OUTPUT" and "JD3_TRAMOSEATS_OUTPUT"
+    # x13_fast() and tramoseats_fast() generate output of class "JD3_X13_RSLTS" and "JD3_TRAMOSEATS_RSLTS"
 
-  if (inherits(x$output$decomposition, "decomposition_X11")) {
+    # if(class(x$output) %in% c("JD3_X13_OUTPUT","JD3_TRAMOSEATS_OUTPUT")) {
+    #   x$output <- x$output$result
+    # }
 
     # Method
     method <- "x13"
@@ -15,15 +25,15 @@ generateQrList <- function(x){
     # p. 72
     # D6: preliminary seasonally adjusted series, D iteration
     # D7: preliminary trend-cycle, D iteration
-    prelim_sa <- x$output$user_defined$decomposition.d6
-    prelim_c <- x$output$user_defined$decomposition.d7
-    if (x$output$user_defined$mode == "Additive") {
+    prelim_sa <- x$output$decomposition$d6
+    prelim_c <- x$output$decomposition$d7
+    if (x$output$user_defined$decomposition.mode == "Additive") {
       prelim_i <- prelim_sa - prelim_c
       c_bar <- 1 / (length(prelim_c) - 1) *
         sum(abs(diff(prelim_c) - mean(diff(prelim_c))))
       i_bar <- 1 / (length(prelim_i) - 1) *
         sum(abs(diff(prelim_i) - mean(diff(prelim_i))))
-    } else if (x$output$user_defined$mode == "Multiplicative") {
+    } else if (x$output$user_defined$decomposition.mode == "Multiplicative") {
       prelim_i <- prelim_sa / prelim_c
       c_bar <- 1 / (length(prelim_c) - 1) *
         sum(abs(prelim_c / lag(prelim_c) - mean(prelim_c / lag(prelim_c))))
@@ -39,16 +49,12 @@ generateQrList <- function(x){
       stage2_henderson <- "H23"
     }
 
-    if (grepl("-", x$output$decomposition$t_filter)) {
-      final_henderson <- paste0("H", unlist(strsplit(
-        x$output$decomposition$t_filter, "-", fixed = TRUE))[1])
-    } else {
-      final_henderson <- paste0("H", unlist(strsplit(
-        x$output$decomposition$t_filter, " ", fixed = TRUE))[1])
-    }
-    seasonal_filter <- x$output$decomposition$s_filter
-    q_stat <- round(x$output$decomposition$mstats["Q", ], digits = 2)
-  } else {
+
+    final_henderson <- paste0("H", x$output$decomposition$final_henderson)
+
+    seasonal_filter <- x$output$decomposition$final_seasonal
+    q_stat <- round(x$output$mstats$q, digits = 2)
+  } else if (any(class(x$output) %in% c("JD3_TRAMOSEATS_RSLTS"))){
     method <- "TS"
     stage2_henderson <- NA
     final_henderson <- NA
@@ -63,34 +69,50 @@ generateQrList <- function(x){
     start_ts <- paste0(start(x$ts)[2], "-", start(x$ts)[1])
     end_ts <- paste0(end(x$ts)[2], "-", end(x$ts)[1])
   }
+
+
+
+  variables <- x$output$preprocessing$description$variables
+  vartype <- sapply(variables, function(v) v$type )
+
   # Select 3 main (most significant) outliers
   outliers3 <- rep(NA, 3)
-  if (!is.null(x$output$regarima$regression.coefficients)) {
-    regcoeff <- as.data.frame(x$output$regarima$regression.coefficients,
-                              stringsAsFactors = FALSE)
-    regcoeff$regcoeff <- row.names(regcoeff)
-    outliers <- regcoeff[substr(regcoeff$regcoeff, 1, 2) %in%
-                           c("AO", "LS", "TC"), ]
+
+  nout <- length(which(vartype %in% c("AO","TC","LS")))
+  if (nout > 0) {
+    outliers <- variables[which(vartype %in% c("AO","TC","LS"))]
+    outliers <- as.data.frame(do.call(rbind, lapply(outliers, function(x) unlist(x))))
     if (nrow(outliers) > 0) {
-      outliers <- outliers[order(abs(outliers[, "T-stat"]),
+      outliers <- outliers[order(abs(as.numeric(outliers[, "coef.value"])),
                                  decreasing = TRUE), ]
-      outliers3[1:length(outliers$regcoeff)] <- outliers$regcoeff
-      outliers3 <- outliers3[1:3]
+      outliers3[1:nout] <- outliers$name
     }
   }
 
   # Residual Seasonality and TD Effects
-  res_seas <- x$output$diagnostics$residuals_test[
-    "f-test on sa (seasonal dummies)", ]
-  res_seas <- ifelse(res_seas$P.value < 0.05, "Yes", "No")
-  res_td <- x$output$diagnostics$residuals_test["f-test on sa (td)", ]
-  res_td <- ifelse(res_td$P.value < 0.05, "Yes", "No")
+  # res_seas <- x$output$diagnostics$residuals_test[
+  #   "f-test on sa (seasonal dummies)", ]
+  # res_seas <- ifelse(res_seas$P.value < 0.05, "Yes", "No")
+  # res_td <- x$output$diagnostics$residuals_test["f-test on sa (td)", ]
+  # res_td <- ifelse(res_td$P.value < 0.05, "Yes", "No")
+
+  # bekomme hier auch anderes Ergebnis als bei RJDemetra
+  res_seas <- ifelse(x$output$diagnostics$seas.ftest.sa$pvalue < 0.05, "Yes", "No")
+  res_td <- ifelse(x$output$diagnostics$td.ftest.sa$pvalue < 0.05, "Yes", "No")
 
   # Arima Model
-  arma <- x$output$regarima$arma
-  bpbdbq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")",
-                   "(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
+  # arma <- x$output$regarima$arma
+  # bpbdbq <- paste0("(", arma[["p"]], " ", arma[["d"]], " ", arma[["q"]], ")",
+  #                  "(", arma[["bp"]], " ", arma[["bd"]], " ", arma[["bq"]], ")")
 
+  # x$output$preprocessing$description$arima nicht vollständig, arbeiten also lieber mit
+  # user_defined output als hier im print output herumzustochern
+  bpbdbq <- paste0("(", x$output$user_defined$arima.p, " ",
+                   x$output$user_defined$arima.d, " ",
+                   x$output$user_defined$arima.q, ")",
+                   "(", x$output$user_defined$arima.bp, " ",
+                   x$output$user_defined$arima.bd, " ",
+                   x$output$user_defined$arima.bq, ")")
 
   # Indicator of the "size" of the seasonal and calendar adjustment
   max_adj <- 100 * max(abs((x$ts - x$adjustedDirect) / x$ts))
@@ -102,20 +124,21 @@ generateQrList <- function(x){
     Start = start_ts,
     End = end_ts,
     `Log-Transformation` =
-      x$output$regarima$model$spec_rslt$`Log transformation`, #Yes/No/empty
+      x$output$preprocessing$description$log, #TF
     `ARIMA Model` = bpbdbq,
     # Calendar effects
-    LeapYear = x$output$regarima$model$spec_rslt$`Leap year`,
-    MovingHoliday = x$output$regarima$model$spec_rslt$Easter,
-    NbTD = x$output$regarima$model$spec_rslt$`Trading days`,
+    # Achtung, LeapYear und MovingHoliday noch testen
+    LeapYear = ifelse(is.null(x$output$user_defined$regression.lp),FALSE, TRUE), # muss ich hier noch auf Signifikanz checken oder werden die eh nur inkludiert wenn signifikant?
+    MovingHoliday = ifelse(is.null(x$output$user_defined$regression.easter),FALSE,TRUE),# oder "regression.leaster"?
+    NbTD = x$output$user_defined$regression.ntd ,# oder `regression.td(*)`?
     # including lpyear -> kontrollieren
-    Noutliers = x$output$regarima$model$spec_rslt$Outliers,
+    Noutliers = nout,
     # 3 main (most significant) outliers
     Outlier1 = outliers3[1],
     Outlier2	= outliers3[2],
     Outlier3 = outliers3[3],
     CombinedTest_SI =
-      x$output$diagnostics$combined_test$combined_seasonality_test,
+      x$output$user_defined$`diagnostics.seas-si-combined`, # oder `diagnostics.seas-si-combined3`?
     `Residual Seasonality` = res_seas,
     `Residual TD Effect` = res_td,
     `Q-Stat` = q_stat,
@@ -130,3 +153,5 @@ generateQrList <- function(x){
 
   return(QrEntries)
 }
+
+
