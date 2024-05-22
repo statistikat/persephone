@@ -58,21 +58,32 @@ persephone <- R6::R6Class(
       private$params_internal <- private$updateFun(self$params, ...)
     },
     #' @description visualize the results of an adjustment
-    #' @param ...  Interactive time series plot for a persephone object,
+    #' @param ...  passed to [plot()]
     #'   see [plot.persephoneSingle()] or [plot.hierarchicalTimeSeries()]
     plot = function(...) {
       plot(self, ...)
-    },
-    #' @description  Interactive plot of the seasonal component, irregular
-    #'   component and calendar effects for a persephone object
-    #' @param ... passed to [plotSeasIrrCal()]
-    plotSeasIrrCal = function(...) {
-      plotSeasIrrCal(self, ...)
     },
     #' @description visualize residuals
     #' @param ... passed to [plotResiduals()]
     plotResiduals = function(...) {
       plotResiduals(self, ...)
+    },
+    #' @description  visualize the seasonal component, irregular
+    #'   component and calendar effects for a persephone object
+    #' @param ... passed to [plotSeasIrrCal()]
+    plotSeasIrrCal = function(...) {
+      plotSeasIrrCal(self, ...)
+    },
+    #' @description  visualize SI-ratios (and, in case of x11, of seasonal factors) by
+    #' period
+    #' @param ... passed to [plotSiRatios()]
+    plotSiRatios = function(...) {
+      plotSiRatios(self, ...)
+    },
+    #' @description visualize the periodogram or the autogregressive spectrum.
+    #' @param ... passed to [plotSpectrum()]
+    plotSpectrum = function(...) {
+      plotSpectrum(self, ...)
     },
     #' @description display a persephone object in the console
     print = function() {

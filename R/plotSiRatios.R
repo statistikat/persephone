@@ -9,7 +9,7 @@
 #' plotSiRatios(x)
 #' @export
 plotSiRatios <- function(x) {
-  decomp <- x$output$result$decomposition
+  decomp <- x$output$decomposition
   d8 <- decomp$d8
   d9 <- decomp$d9
   d10 <- decomp$d10

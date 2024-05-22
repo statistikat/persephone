@@ -1,46 +1,145 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway|Ubuntu+Mono');
-
-h1, h2, h3, h4, h5{
-  color: #293c55;
+.logo {
+  visibility: hidden;
+  height: 0
 }
 
-p>a, a{
+.page-header {
+  min-height: 0 !important;
+}
+
+a {
+  color:#ab0813;
+}
+
+code a:any-link {
   color: #ab0813;
 }
 
-body{
-  font-family: 'Raleway', sans-serif;
+.bg-light {
+  background-color: #373a3c !important;
 }
 
-code{
-  font-family: 'Ubuntu Mono', monospace;
+.nav-link {
+  color: white;
 }
 
-pre {
-  font-size: 13px;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0 2px 3px 1px,
-    rgba(0, 0, 0, 0.1) 0 1px 3px 1px,
-    rgba(0, 0, 0, 0.2) 0 1px 1px -1px;
+.navbar-brand,.navbar-brand:hover {
+  color: white!important;
 }
 
-.navbar-default .navbar-nav>.active>a{
-  background-color: #B03A5B;
+.nav-text {
+  color: white !important;
 }
 
-.nav-pills>li.active>a{
-    background-color: #1e3a54;
+.bg-primary .navbar-nav .nav-link:hover,
+.bg-primary .navbar-nav .nav-link:focus {
+  color: white !important;
 }
 
-.navbar-default {
-    border-color: #B03A5B;
-    background-color: #293c55;
+a:hover {
+  color: #ab0813 !important;
 }
 
-.navbar {
-    border-width: 0 1px 4px 1px;
+.nav-pills .nav-link {
+  color: black;
 }
 
-.st {
-    color: #B03A5B;
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: hsl(210deg 29% 24%);
+}
+
+.tabset-pills .tab-content {
+  border: none;
+  padding: 0;
+  padding-top: 0.5rem;
+}
+
+.dropdown-item:hover, .dropdown-item:focus  {
+  background-color: #ceacc5;
+    color: hsl(358deg 7% 13%) !important;
+}
+
+.dropdown-item,.dropdown-header {
+  color: hsl(184deg 6% 30%);
+}
+
+.dropdown-header {
+  font-weight: bold;
+}
+
+/* https://github.com/r-lib/pkgdown/issues/1940 */
+  @media (max-width: 775px) {
+    pre, pre code {
+      white-space: pre;
+      padding-right: 1rem;
+    }
+  }
+
+/* https://stackoverflow.com/questions/59975400 */
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+.navbar-brand {
+  font-size: 2rem;
+  margin: -1rem 0;
+  transform: translateY(0.4rem);
+}
+
+.navbar-brand + small {
+  transform: translateY(.4rem);
+}
+
+.tippy_header {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.tippy_body {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.tippy_body code {
+  color: #ab0813;
+}
+
+.tippy_body li {
+  margin: -10px;
+}
+
+mark, .mark {
+  background: #F0B4B9;
+}
+
+.navbar .navbar-nav .nav-item,
+.navbar-brand {
+  position: relative;
+}
+
+.navbar .navbar-nav .nav-item::after,
+.navbar-brand::after {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  background-color: rgba(255, 255, 255, .75);
+
+  color: transparent;
+  width: 0%;
+  content: '';
+  height: 3px;
+  transition: width 200ms;
+}
+
+.navbar .navbar-nav .nav-item:hover::after,
+.navbar-brand:hover::after {
+  width: 100%;
+}
+
+.navbar-nav .show>.nav-link, .navbar-nav .active>.nav-link, .navbar-nav .nav-link.active {
+  color: white;
+  font-weight: bold;
 }

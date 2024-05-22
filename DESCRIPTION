@@ -1,4 +1,4 @@
-Package: persephone
+Package: persephone3
 Type: Package
 Title: Object-Oriented Wrappers for the Seasonal Adjustment Functionality of the JDemetra+ R Ecosystem
 Version: 3.0.0
