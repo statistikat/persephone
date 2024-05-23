@@ -6,7 +6,7 @@ add_ts <- function(hc, x, name, ..., type = "spline") {
 hchart.persephoneSingle <- function(object, ...) {
   output <- object$output
   stopifnot(!is.null(output))
-  decomp <- rjd3toolkit::sa_decomposition(output$result)
+  decomp <- output$decomposition
   outliers <- object$outliers
   highcharter::highchart(type = "stock") %>%
     highcharter::hc_yAxis_multiples(

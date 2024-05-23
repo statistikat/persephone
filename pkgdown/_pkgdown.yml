@@ -1,32 +1,48 @@
-development:
-  mode: unreleased
-
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bootswatch: flatly
 
-reference:
-- title: classes
-  contents:
-  - persephone
-  - perHts
-  - perTramo
-  - perX13
-  - perBatch
-  - tramoseatsSingle
-  - hierarchicalTimeSeries
-  - x13Single
-  - persephoneSingle
-  - multipleTimeSeries
-- title: plotting functions
-  contents: matches('plot')
-- title: other
-  contents:
-  - generateQrTable
-  - genTd
-  - iterate
-  - is.persephone
-  - eaDist_exact
-  - eaDist_approx
-- title: datasets
-  contents: matches('pi_')
+code:
+  width: 70
+
+development:
+  mode: release
+
+url: https://persephone3.netlify.app
+
+authors:
+  sidebar:
+    roles: [aut, ctb]
+  Angelika Meraner:
+    href: https://github.com/merangelik
+  Alexander Kowarik:
+    href: https://github.com/alexkowa
+  Markus Fröhlich:
+    href: https://github.com/froehmar
+  Gregor de Cillia:
+    href: https://github.com/GregorDeCillia
+
+navbar:
+  type: default
+  left:
+  - text: Manual
+    icon: fas fa-book
+    href: reference/
+  - text: Quickstart
+    icon: fas fa-bolt
+    href: articles/persephone.html
+  - text: Charts
+    icon: fas fa-chart-line
+    href: articles/charts.html
+  - text: Hierarchies
+    icon: fas fa-layer-group
+    href: articles/hierarchies.html
+  - text: News
+    icon: fas fa-newspaper
+    href: news/
+  right:
+  - icon: fas fa-github fa-lg
+    href: https://github.com/GregorDeCillia/persephone3
+    aria-label: github
+  - icon: fab fa-java fa-lg
+    href: https://jdemetra-new-documentation.netlify.app

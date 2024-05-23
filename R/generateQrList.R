@@ -9,7 +9,7 @@ generateQrList <- function(x){
     stop("No results from run available.\n")
   }
   # tramoseats/x13 distinction
-  if (any(class(x$output) %in% c("JD3_X13_RSLTS"))) {
+  if (inherits(x$output,"JD3_X13_RSLTS")) {
     # x13() and tramoseats() generate output of class "JD3_X13_OUTPUT" and "JD3_TRAMOSEATS_OUTPUT"
     # x13_fast() and tramoseats_fast() generate output of class "JD3_X13_RSLTS" and "JD3_TRAMOSEATS_RSLTS"
 
@@ -54,7 +54,7 @@ generateQrList <- function(x){
 
     seasonal_filter <- x$output$decomposition$final_seasonal
     q_stat <- round(x$output$mstats$q, digits = 2)
-  } else if (any(class(x$output) %in% c("JD3_TRAMOSEATS_RSLTS"))){
+  } else if (inherits(x$output,"JD3_TRAMOSEATS_RSLTS")){
     method <- "TS"
     stage2_henderson <- NA
     final_henderson <- NA

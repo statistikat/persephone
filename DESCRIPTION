@@ -1,22 +1,27 @@
 Package: persephone3
 Type: Package
 Title: Object-Oriented Wrappers for the Seasonal Adjustment Functionality of the JDemetra+ R Ecosystem
-Version: 3.0.0
+Version: 0.1.0
 Authors@R: c(
   person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
-  person("Markus", "Fröhlich", email = "markus.foehlich@statistik.gv.at", role = "aut"),
-  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("aut","cre"), comment=c(ORCID="0000-0001-8598-4130"))
+  person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("ctb")),
+  person("Markus", "Fröhlich", email = "markus.foehlich@statistik.gv.at", role = "ctb")
   )
 Description: This package is an object oriented wrapper around the R Packages rjd3x13 and rjd3tramoseats, 
   which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
+URL: https://persephone3.netlify.app/persephone3,
+    https://github.com/statistikat/persephone3
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Depends: R (>= 2.10)
 Imports: 
     rjd3x13 (>= 3.2.2),
     rjd3tramoseats (>= 3.2.2),
+    cli,
+    highcharter,
     dygraphs,
     plotly,
     ggplot2,
@@ -24,9 +29,6 @@ Imports:
     timeDate,
     magrittr,
     zoo
-Roxygen: list(markdown = TRUE)
-URL: https://github.com/statistikat/persephone
-RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
@@ -34,4 +36,10 @@ Suggests:
     tinytest,
     forecast,
     bookdown
+Remotes: 
+    rjdverse/rjd3toolkit@cd544a8,
+    rjdverse/rjd3tramoseats@b80f56a,
+    rjdverse/rjd3x13@c275301
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
