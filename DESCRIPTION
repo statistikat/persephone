@@ -11,15 +11,14 @@ Authors@R: c(
 Description: This package is an object oriented wrapper around the R Packages rjd3x13 and rjd3tramoseats, 
   which performs time series adjustments with the java library JDemetra+.
 License: MIT + file LICENSE
-URL: https://persephone3.netlify.app/persephone3,
-    https://github.com/statistikat/persephone3
+URL: https://github.com/statistikat/persephone3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-Depends: R (>= 2.10)
+Depends: R (>= 4.1.0)
 Imports: 
-    rjd3x13 (>= 3.2.2),
-    rjd3tramoseats (>= 3.2.2),
+    rjd3x13 (>= 3.3.1),
+    rjd3tramoseats (>= 3.3.1),
     cli,
     highcharter,
     dygraphs,
@@ -41,5 +40,6 @@ Remotes:
     rjdverse/rjd3tramoseats@b80f56a,
     rjdverse/rjd3x13@c275301
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
+BugReports: https://github.com/statistikat/persephone3/issues
 VignetteBuilder: knitr
