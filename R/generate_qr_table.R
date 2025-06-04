@@ -8,7 +8,7 @@
 #' @section Columns:
 #' * __component__ is a column added by `iterate()` and informs where in the
 #'   hierarchy a certain component is.
-#' * __Method__ is `TS` for [tramoseats()] and `x13` for [x13()]
+#' * __Method__ is `TS` for [tramoseats_fast()] and `x13` for [x13_fast()]
 #' * __Period__ is `12` for yearly measurements and `4` for quarterly
 #'   measurements
 #' * __Start__ denotes the start of the time series
@@ -32,7 +32,7 @@
 #' * __Max.Adj__
 #'
 #' @examples
-#' obj_x13 <- perX13(AirPassengers, "RSA3")
+#' obj_x13 <- perX13(AirPassengers, "rsa3")
 #' ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
 #' ht$run()
 #' generateQrTable(ht)

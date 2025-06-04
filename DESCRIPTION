@@ -3,7 +3,7 @@ Type: Package
 Title: Object-Oriented Wrappers for the Seasonal Adjustment Functionality of the JDemetra+ R Ecosystem
 Version: 0.1.0
 Authors@R: c(
-  person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut")),
+  person("Angelika", "Meraner", email = "angelika.meraner@statistik.gv.at", role = c("aut","cre")),
   person("Gregor", "de Cillia", email = "gregor.decillia@statistik.gv.at", role = "aut"),
   person("Alexander", "Kowarik", email = "alexander.kowarik@statistik.gv.at", role = c("ctb")),
   person("Markus", "Fröhlich", email = "markus.foehlich@statistik.gv.at", role = "ctb")
@@ -17,8 +17,8 @@ Language: en-US
 LazyData: true
 Depends: R (>= 4.1.0)
 Imports: 
-    rjd3x13 (>= 3.3.1),
-    rjd3tramoseats (>= 3.3.1),
+    rjd3x13 (>= 3.5.0),
+    rjd3tramoseats (>= 3.5.0),
     cli,
     highcharter,
     dygraphs,

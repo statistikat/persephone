@@ -20,14 +20,14 @@
 #'
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
-#' obj <- perX13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "rsa1")
 #' obj$run()
 #' # Plot the SI-ratios after run
 #' plotSiRatios(obj)
 #'
 #' data(UKgas, package = "datasets")
 #' # Generate a persephone object, in this case a tramoseatsSingle object
-#' obj2 <- perTramo(UKgas, "RSA3")
+#' obj2 <- perTramo(UKgas, "rsa3")
 #' obj2$run()
 #' plotSiRatios(obj2)
 #'
@@ -58,7 +58,7 @@ plotSiRatios_old <- function(x, main = NULL, interactive = TRUE, ...){
     return(res)
   }
 
-  if (inherits(x$output$decomposition, "decomposition_X11")) {
+  if (inherits(x$output$decomposition, "JD3X11")) {
     # evt auch implementieren nachdem das anscheinend in JDemetra gewuenscht
     #   ist:
     # first_date, last_date parameters
@@ -72,10 +72,10 @@ plotSiRatios_old <- function(x, main = NULL, interactive = TRUE, ...){
     # case  x11.excludeFcasts=TRUE abdecken??
     # v <- as.vector(x@d10)[1:length(x@d8)] # Seasonal Factors without forecast
 
-
-    d8 <- x$output$decomposition$si_ratio[, "d8"] # Final unmodified SI Ratios
-    d9 <- x$output$user_defined$decomposition.d9 # Final replacement for SI
-    d10 <- x$output$decomposition$si_ratio[, "d10"] # Seasonal Factors
+    decomp <- x$output$decomposition
+    d8 <- decomp$d8 # Final unmodified SI Ratios
+    d9 <- decomp$d9 # Final replacement for SI
+    d10 <- decomp$d10 # Seasonal Factors
 
     d10By <- by(d10, list(cycleName(d10)), mean)
     d10Mean <- data.frame(cycleName = names(d10By),
@@ -127,7 +127,7 @@ plotSiRatios_old <- function(x, main = NULL, interactive = TRUE, ...){
           shape = c(16, 16, NA, NA))))
   }
 
-  if (inherits(x$output$decomposition, "decomposition_SEATS")) {
+  if (inherits(x$output$decomposition, "JD3_SEATS")) {
 
     # evt auch implementieren nachdem das anscheinend in JDemetra gewuenscht
     #   ist:
@@ -138,10 +138,9 @@ plotSiRatios_old <- function(x, main = NULL, interactive = TRUE, ...){
     #   x$components <- window(x$components, end = last_date)
     # }
 
-
-    sln  <- x$output$decomposition$components[, "s_cmp"]
-    iln <- x$output$decomposition$components[, "i_cmp"]
-    mode <- x$output$decomposition$mode
+    sln  <-  x$output$user_defined$decomposition.s_cmp
+    iln <- x$output$user_defined$decomposition.i_cmp
+    mode <- x$output$user_defined$mode
 
     siRatio <- if (mode == "Additive") {
       sln + iln

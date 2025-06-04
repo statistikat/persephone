@@ -5,7 +5,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- perTramo(AirPassengers, "RSA3")
+#' obj <- perTramo(AirPassengers, "rsa3")
 #' obj$run()
 #' obj$ts
 #' @export
@@ -29,12 +29,12 @@ tramoseatsSingle <- R6::R6Class(
 #' @section Inherits: [persephone]
 #' @param ts a time series
 #' @param template passed as the `spec` argument to [tramoseats_spec()]
-#' @param userdefined passed as the `userdefined` argument to [tramoseats()]
+#' @param userdefined passed as the `userdefined` argument to [tramoseats_fast()]
 #' @param ... passed to [tramoseats_spec()]
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #'
-#' obj <- perTramo(AirPassengers, "RSA3")
+#' obj <- perTramo(AirPassengers, "rsa3")
 #' obj$run()
 #' obj$ts
 #' @export

@@ -22,7 +22,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
-#' obj <- perX13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "rsa1")
 #'
 #' obj$run()
 #' # Plot after run
@@ -61,7 +61,7 @@ plotSeasIrrCal_old <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
   s <- x$output$user_defined$s
   s_f <- x$output$user_defined$s_f
   i <- x$output$user_defined$i
-  i_f <- x$output$user_defined$i_f
+  i_f <- window(x$output$decomposition$d13, start = start(x$output$final$d11a)) #i_f is not correctly implemented in userdefined output
   cal <- x$output$user_defined$cal
   cal_f <- x$output$user_defined$cal_f
 
@@ -72,7 +72,7 @@ plotSeasIrrCal_old <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
     ts <- cbind(s, i, s_f, i_f, cal, cal_f)
 
     graphObj <- dygraph(ts, main = main) %>%
-      dySeries("s", label = "Seasonal Componenet", drawPoints = drawPoints,
+      dySeries("s", label = "Seasonal Component", drawPoints = drawPoints,
                color = "rgb(0,128,0)") %>%
       dySeries("i",
                label = "Irregular Component",

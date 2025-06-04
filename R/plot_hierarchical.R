@@ -38,8 +38,8 @@
 #' data(AirPassengers, package = "datasets")
 #' # Generate two persephoneSingle objects, in this case two tramoseatsSingle
 #' # objects
-#' tsAir1 <- perTramo(AirPassengers, "RSA1")
-#' tsAir2 <- perTramo(AirPassengers, "RSA1")
+#' tsAir1 <- perTramo(AirPassengers, "rsa1")
+#' tsAir2 <- perTramo(AirPassengers, "rsa1")
 #' # Generate a hierarchicalTimeSeries object
 #' htAir <- perHts(tsAir1=tsAir1, tsAir1=tsAir1)
 #' # Plot before run of persephone object
@@ -50,8 +50,8 @@
 #'
 #' # Quarterly data
 #' data(UKgas, package = "datasets")
-#' tsUKgas1 <- perTramo(UKgas, "RSA3")
-#' tsUKgas2 <- perTramo(UKgas, "RSA3")
+#' tsUKgas1 <- perTramo(UKgas, "rsa3")
+#' tsUKgas2 <- perTramo(UKgas, "rsa3")
 #' htUKgas <- perHts(tsUKgas1=tsUKgas1, tsUKgas2=tsUKgas2)
 #' plot(htUKgas)
 #' htUKgas$run()

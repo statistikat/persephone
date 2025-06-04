@@ -31,7 +31,7 @@
 #'                          "08-15","10-26","11-01","12-08","12-24","12-25",
 #'                          "12-26","12-31"),
 #'                         weight = c(rep(1,11),0.5,rep(1,2),0.5))
-#' obj_x13 <- perX13(AirPassengers, template = "RSA3", tradingdays.option = "UserDefined",
+#' obj_x13 <- perX13(AirPassengers, template = "rsa3", tradingdays.option = "UserDefined",
 #'                         usrdef.varType = "Calendar",
 #'                         usrdef.varEnabled = TRUE, usrdef.var = hdAT[[3]])
 #' obj_x13$run()

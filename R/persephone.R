@@ -25,8 +25,8 @@
 #' - `params`: A parameters object of class `SA_spec`. See [x13_spec] and
 #'   [tramoseats_spec].
 #' - `ts`: The time series.
-#' - `output`: The return value from the underlying functions `x13` or
-#'   `tramoseats`. This slot will
+#' - `output`: The return value from the underlying functions `x13_fast` or
+#'   `tramoseats_fast`. This slot will
 #'   be empty (`NULL`) before `run()` is called for the first time.
 #'
 #' @section Parameters:
@@ -63,6 +63,12 @@ persephone <- R6::R6Class(
     plot = function(...) {
       plot(self, ...)
     },
+    #' #' @description visualize the results of an adjustment
+    #' #' @param ...  passed to [plot()]
+    #' #'   see [plot.persephoneSingle()] or [plot.hierarchicalTimeSeries()]
+    #' plot = function(...) {
+    #'   plot(self, ...)
+    #' },
     #' @description visualize residuals
     #' @param ... passed to [plotResiduals()]
     plotResiduals = function(...) {
@@ -91,7 +97,7 @@ persephone <- R6::R6Class(
       if (!is.null(self$output)) {
         message("Output:")
         tbl <- private$printTable("")
-        tbl <- tbl[, -1]
+        tbl <- tbl[, -(1:3)]
         print(tbl, right = FALSE, row.names = FALSE)
       } else {
         message("Not yet run.")
@@ -262,8 +268,8 @@ persephone <- R6::R6Class(
     tsp = function() {
       private$tsp_internal
     },
-    #' @field output The return value from the underlying functions x13 or
-    #'   tramoseats. This slot will be empty (NULL) before run() is called for
+    #' @field output The return value from the underlying functions x13_fast() or
+    #'   tramoseats_fast(). This slot will be empty (NULL) before run() is called for
     #'   the first time.
     output = function() {
       private$output_internal
@@ -305,7 +311,7 @@ persephone <- R6::R6Class(
     output_internal = NULL,
     userdefined = NULL,
     spec_internal = NULL,
-    printTable = function(prefix) {
+    printTable = function(prefix) {#führt zu komischem Output für single-Objekte
       cbind(
         data.frame(
           component = sub("/", "", prefix),
@@ -334,7 +340,10 @@ userdefined_default <- c(
   "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f",
   "cal_f", "y_ef",
   "decomposition.d6", "decomposition.d7", "decomposition.d9","decomposition.d13",
+  "decomposition.s_cmp","decomposition.i_cmp","mode",
   "decomposition.mode", "arima.p","arima.d", "arima.q" ,"arima.bp" , "arima.bd","arima.bq",
   "regression.easter","regression.lp","regression.td(*)","regression.leaster","regression.ntd",
-  "diagnostics.seas-si-combined","diagnostics.seas-si-combined3"
+  "regression.outlier(*)","regression.nout",
+  "diagnostics.seas-si-combined","diagnostics.seas-si-combined3",
+  "regression.nout","regression.outlier(*)","residuals.tsres","residuals.ser"
 )

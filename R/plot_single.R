@@ -5,7 +5,7 @@
 #' # Monthly data
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephoneSingle object, in this case an x13Single object
-#' obj <- perX13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "rsa1")
 #' # Plot before run of persephoneSingle object
 #' plot(obj, drawPoints = TRUE)
 #' obj$run()
@@ -23,13 +23,13 @@
 #'
 #' # Quarterly data
 #' data(UKgas, package = "datasets")
-#' obj2 <- perX13(UKgas, "RSA3")
+#' obj2 <- perX13(UKgas, "rsa3")
 #' plot(obj2)
 #' obj2$run()
 #' plot(obj2)
 #'
 #' # Generate a persephoneSingle object, in this case a tramoseatsSingle object
-#' obj3 <- perTramo(UKgas, "RSA3")
+#' obj3 <- perTramo(UKgas, "rsa3")
 #' plot(obj3)
 #' obj3$run()
 #' plot(obj3)
@@ -193,15 +193,15 @@ plot.persephoneSingle <- function(
     y <- x$output$user_defined$y
     t <- x$output$user_defined$t
     sa <- x$output$user_defined$sa
-    ppm_y_f <- x$output$user_defined$preprocessing.model.y_f # nolint
-    ppm_y_ef <- x$output$user_defined$preprocessing.model.y_ef # nolint
+    ppm_y_f <- x$output$user_defined$y_f # nolint
+    ppm_y_ef <- x$output$user_defined$y_ef # nolint
     # forecasts currently only plotted for original series, maybe allow t and
     # sa forecasts in some other setting??
 
     otlTF <- FALSE
     # Outliers
-    if (showOutliers & !is.null(x$output$regarima$regression.coefficients)) {
-      outliers <- rownames(x$output$regarima$regression.coefficients)
+    if (showOutliers & !is.null(x$output$user_defined$`regression.outlier(*)`)) {
+      outliers <- rownames(x$output$user_defined$`regression.outlier(*)`)
       outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
       #if (length(outliers) > 0) {
       outliersName <- outliers
@@ -335,3 +335,4 @@ stringfix <- function(x, l, fill = " ") {
   })
   return(x)
 }
+

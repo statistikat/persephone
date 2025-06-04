@@ -51,7 +51,7 @@
 #' # Monthly Data Example
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
-#' obj <- perX13(AirPassengers, "RSA5c")
+#' obj <- perX13(AirPassengers, "rsa5c")
 #' obj$run()
 #'
 #' # Plot the AR-Spectrum after run
@@ -73,7 +73,7 @@
 #' # Quarterly Data Example
 #' data(UKgas, package = "datasets")
 #' # Generate a persephone object, in this case a tramoseats object
-#' obj2 <- perTramo(UKgas, "RSAfull")
+#' obj2 <- perTramo(UKgas, "rsafull")
 #' obj2$run()
 #' plotSpectrum(obj2, tsType="original")
 #' plotSpectrum(obj2, tsType="sa")
@@ -125,7 +125,7 @@ plotSpectrum_old <- function(x,
     tsobj <- x$output$user_defined$i
     d1 <- tsobj
   } else if (tsType == "residuals") {
-    tsobj <- x$output$regarima$residuals
+    tsobj <- x$output$user_defined$residuals.tsres
     d1 <- tsobj
   }
 

@@ -1,10 +1,14 @@
 getOutliers <- function(x) {
+
   if(is.null(x$output)) {
     stop("No results from run available.\n")
   }
   stopifnot(inherits(x$output, c("JD3_X13_RSLTS","JD3_TRAMOSEATS_RSLTS")))
 
+  variables <- x$output$preprocessing$description$variables
+  vartype <- sapply(variables, function(v) v$type )
   outliers <- variables[which(vartype %in% c("AO","TC","LS"))]
+
   if (length(outliers) > 0) {
     outliers <- as.data.frame(do.call(rbind, lapply(outliers, function(x) unlist(x))))
     outliers$origname <- outliers$name
@@ -25,3 +29,4 @@ getOutliers <- function(x) {
   outliers
 }
 
+# we now have a userdefined output available for outliers

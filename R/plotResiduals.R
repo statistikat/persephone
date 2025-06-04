@@ -31,7 +31,7 @@
 #' @examples
 #' data(AirPassengers, package = "datasets")
 #' # Generate a persephone object, in this case an x13Single object
-#' obj <- perX13(AirPassengers, "RSA1")
+#' obj <- perX13(AirPassengers, "rsa1")
 #'
 #' obj$run()
 #' # Plot the residuals after run
@@ -51,13 +51,11 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                                          "sreshist", "nqq"),
                             main = NULL, interactive = TRUE, ...) {
 
-  ..density.. <- y <- NULL # nolint
+  y <- NULL # nolint
 
-  if (is.null(x$output$regarima)) {
+  if (is.null(x$output$user_defined)) {
     stop("No results from run available.\n")
   }
-
-  regarima <- x$output$regarima
 
   if (is.numeric(which)) {
     which <- c("res", "acf", "acf2", "pacf", "sreshist", "nqq")[which]
@@ -76,7 +74,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
                 path = system.file("plotters/barchart.js",
                                    package = "dygraphs"))
     }
-    p <- dygraph(x$output$regarima$residuals, main = main) %>%
+    p <- dygraph(x$output$user_defined$residuals.tsres, main = main) %>%
       dySeries("V1", label = "Residual value") %>%
       dyBarChart()
 
@@ -92,7 +90,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       main <- "Histogram of Standardized Residuals and Normal Curve"
     }
 
-    result <- regarima$residuals / regarima$residuals.stat$st.error
+    result <- x$output$user_defined$residuals.tsres / x$output$user_defined$residuals.ser
 
     result <- data.frame(
       date = paste0(c(floor(time(result) + .01)), "-",
@@ -101,11 +99,11 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
     p <- ggplot(result,  aes(x = x)) + ## ,stat(density)
       geom_histogram(binwidth = 0.5, center = 0,
-                     aes(y = ..density..) # nolint
+                     aes(y = after_stat(density)) # nolint
       ) +
       # ,fill=..count..
       stat_function(fun = dnorm, color = "red", args = list(mean = 0, sd = 1)) +
-      # geom_freqpoly(binwidth = 0.5, center=0, aes(y = ..density..)) +
+      # geom_freqpoly(binwidth = 0.5, center=0, aes(y = after_stat(density))) +
       xlab("Standardized Residuals") +
       ylab("Density") +
       ggtitle(main) +
@@ -117,7 +115,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       main <- "Normal Q-Q Plot"
     }
 
-    result <- regarima$residuals / regarima$residuals.stat$st.error
+    result <- x$output$user_defined$residuals.tsres / x$output$user_defined$residuals.ser
     result <- data.frame(date = paste0(
       c(floor(time(result) + .01)), "-",
       stringfix(c(cycle(result)), 2, "0"), "-01"),
@@ -138,7 +136,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       main <- "Autocorrelations of the Residuals"
     }
 
-    result <- acf(regarima$residuals, plot = FALSE)
+    result <- acf(x$output$user_defined$residuals.tsres, plot = FALSE)
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
@@ -151,7 +149,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
 
 
     # require(forecast)
-    # ggAcf(regarima$residuals, lag.max = NULL,
+    # ggAcf(x$output$user_defined$residuals.tsres, lag.max = NULL,
     #       type = c("correlation", "covariance", "partial"),
     #       plot = TRUE, na.action = na.contiguous, demean=TRUE)
     #
@@ -173,7 +171,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       main <- "Autocorrelations of the Squared Residuals"
     }
 
-    result <- acf(regarima$residuals ^ 2, plot = FALSE)
+    result <- acf(x$output$user_defined$residuals.tsres ^ 2, plot = FALSE)
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
@@ -199,7 +197,7 @@ plotResiduals <-   function(x, which = c("res", "acf", "acf2", "pacf",
       main <- "Partial Autocorrelations of the Residuals"
     }
 
-    result <- pacf(regarima$residuals, plot = FALSE)
+    result <- pacf(x$output$user_defined$residuals.tsres, plot = FALSE)
 
     # confidence interval as in R package forecast
     ci <- 0.95 #coverage probability for confidence interval
