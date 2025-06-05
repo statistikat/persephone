@@ -7,7 +7,7 @@
 #' @export
 plotSeasIrrCal <- function(x) {
   ud <- x$output$user_defined
-  i_f <- window(x$output$decomposition$d13, start = start(x$output$final$d11a)) #i_f is not correctly implemented in userdefined output
+  # i_f <- window(x$output$decomposition$d13, start = start(x$output$final$d11a)) #i_f is not correctly implemented in userdefined output
   stopifnot(!is.null(ud))
   #i_f <- x$output$user_defined$i_f
   highcharter::highchart(type = "stock") %>%
@@ -17,7 +17,7 @@ plotSeasIrrCal <- function(x) {
     add_ts(ud$cal, name = "Calendar Effects", id = "cal") %>%
     add_ts(ud$s_f, name = "Forecasts Seasonal Comp.", linkedTo = "s",
            dashStyle = "shortdash") %>%
-    add_ts(i_f, name = "Forecasts Irregular Comp.", linkedTo = "i",
+    add_ts(ud$i_f, name = "Forecasts Irregular Comp.", linkedTo = "i",
            dashStyle = "shortdash") %>%
     add_ts(ud$cal_f, name = "Forecasts Calendar Eff.", linkedTo = "cal",
            dashStyle = "shortdash") %>%

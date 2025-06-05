@@ -61,7 +61,7 @@ plotSeasIrrCal_old <- function(x, main=NULL, forecasts=TRUE, rangeSelector=TRUE,
   s <- x$output$user_defined$s
   s_f <- x$output$user_defined$s_f
   i <- x$output$user_defined$i
-  i_f <- window(x$output$decomposition$d13, start = start(x$output$final$d11a)) #i_f is not correctly implemented in userdefined output
+  i_f <- x$output$user_defined$i_f
   cal <- x$output$user_defined$cal
   cal_f <- x$output$user_defined$cal_f
 
