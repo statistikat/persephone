@@ -2,7 +2,7 @@
 % Please edit documentation in R/perBatch.R
 \name{multipleTimeSeries}
 \alias{multipleTimeSeries}
-\title{R6 Class for hierarchical time series}
+\title{R6 Class for a batch of time series}
 \description{
 Combine mutliple objects of persephone objects into a new
 persephone object. On the resulting objects seasonal adjustment can
@@ -10,7 +10,7 @@ be performed to all elements at once
 }
 \examples{
 \dontrun{
-objX13 <- perX13(AirPassengers, "RSA3")
+objX13 <- perX13(AirPassengers, "rsa3")
 
 bt <- perBatch(a = objX13, b = objX13)
 bt$run()
@@ -34,7 +34,7 @@ bt$fixModel()
 perX13(AirPassengers)$run()
 }
 \section{Super class}{
-\code{\link[persephone:persephone]{persephone::persephone}} -> \code{multipleTimeSeries}
+\code{\link[persephone3:persephone]{persephone3::persephone}} -> \code{multipleTimeSeries}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -57,31 +57,33 @@ perX13(AirPassengers)$run()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{multipleTimeSeries$new()}}
-\item \href{#method-run}{\code{multipleTimeSeries$run()}}
-\item \href{#method-print}{\code{multipleTimeSeries$print()}}
-\item \href{#method-setOptions}{\code{multipleTimeSeries$setOptions()}}
-\item \href{#method-iterate}{\code{multipleTimeSeries$iterate()}}
-\item \href{#method-updateParams}{\code{multipleTimeSeries$updateParams()}}
-\item \href{#method-getComponent}{\code{multipleTimeSeries$getComponent()}}
-\item \href{#method-generateQrTable}{\code{multipleTimeSeries$generateQrTable()}}
-\item \href{#method-fixModel}{\code{multipleTimeSeries$fixModel()}}
-\item \href{#method-fixOutlier}{\code{multipleTimeSeries$fixOutlier()}}
-\item \href{#method-clone}{\code{multipleTimeSeries$clone()}}
+\item \href{#method-multipleTimeSeries-new}{\code{multipleTimeSeries$new()}}
+\item \href{#method-multipleTimeSeries-run}{\code{multipleTimeSeries$run()}}
+\item \href{#method-multipleTimeSeries-print}{\code{multipleTimeSeries$print()}}
+\item \href{#method-multipleTimeSeries-setOptions}{\code{multipleTimeSeries$setOptions()}}
+\item \href{#method-multipleTimeSeries-iterate}{\code{multipleTimeSeries$iterate()}}
+\item \href{#method-multipleTimeSeries-updateParams}{\code{multipleTimeSeries$updateParams()}}
+\item \href{#method-multipleTimeSeries-getComponent}{\code{multipleTimeSeries$getComponent()}}
+\item \href{#method-multipleTimeSeries-generateQrTable}{\code{multipleTimeSeries$generateQrTable()}}
+\item \href{#method-multipleTimeSeries-fixModel}{\code{multipleTimeSeries$fixModel()}}
+\item \href{#method-multipleTimeSeries-fixOutlier}{\code{multipleTimeSeries$fixOutlier()}}
+\item \href{#method-multipleTimeSeries-clone}{\code{multipleTimeSeries$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plot"><a href='../../persephone3/html/persephone.html#method-persephone-plot'><code>persephone3::persephone$plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotResiduals"><a href='../../persephone3/html/persephone.html#method-persephone-plotResiduals'><code>persephone3::persephone$plotResiduals()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSeasIrrCal"><a href='../../persephone3/html/persephone.html#method-persephone-plotSeasIrrCal'><code>persephone3::persephone$plotSeasIrrCal()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSiRatios"><a href='../../persephone3/html/persephone.html#method-persephone-plotSiRatios'><code>persephone3::persephone$plotSiRatios()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSpectrum"><a href='../../persephone3/html/persephone.html#method-persephone-plotSpectrum'><code>persephone3::persephone$plotSpectrum()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-new"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-new}{}}}
 \subsection{Method \code{new()}}{
 create a new multiple time series object
 \subsection{Usage}{
@@ -103,8 +105,8 @@ This argument can also handle mts objects}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-run"></a>}}
-\if{latex}{\out{\hypertarget{method-run}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-run"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-run}{}}}
 \subsection{Method \code{run()}}{
 run the model
 \subsection{Usage}{
@@ -129,8 +131,8 @@ be returned invisibly}
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-print"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-print}{}}}
 \subsection{Method \code{print()}}{
 print mutliple timeseries to screen
 \subsection{Usage}{
@@ -139,8 +141,8 @@ print mutliple timeseries to screen
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setOptions"></a>}}
-\if{latex}{\out{\hypertarget{method-setOptions}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-setOptions"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-setOptions}{}}}
 \subsection{Method \code{setOptions()}}{
 sets options for all entries of the dependency tree
 recursively (if recursive = TRUE). See
@@ -153,7 +155,7 @@ vignette("persephone-hierarchical") for more details.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{userdefined}}{additional outputs to generate while running. See
-\code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}.}
+\code{\link[=x13_fast]{x13_fast()}} and \code{\link[=tramoseats_fast]{tramoseats_fast()}}.}
 
 \item{\code{spec}}{specifications generated by \code{x13_spec()} or
 \code{tramoseats_spec()}}
@@ -164,8 +166,8 @@ vignette("persephone-hierarchical") for more details.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-iterate"></a>}}
-\if{latex}{\out{\hypertarget{method-iterate}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-iterate"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-iterate}{}}}
 \subsection{Method \code{iterate()}}{
 iterate over all components
 \subsection{Usage}{
@@ -200,8 +202,8 @@ simultaniusely
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateParams"></a>}}
-\if{latex}{\out{\hypertarget{method-updateParams}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-updateParams"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-updateParams}{}}}
 \subsection{Method \code{updateParams()}}{
 change all or some parameters of components
 \subsection{Usage}{
@@ -226,8 +228,8 @@ parameters of one or more persephone single objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getComponent"></a>}}
-\if{latex}{\out{\hypertarget{method-getComponent}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-getComponent"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-getComponent}{}}}
 \subsection{Method \code{getComponent()}}{
 extract a component series
 \subsection{Usage}{
@@ -243,8 +245,8 @@ extract a component series
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-generateQrTable"></a>}}
-\if{latex}{\out{\hypertarget{method-generateQrTable}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-generateQrTable"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-generateQrTable}{}}}
 \subsection{Method \code{generateQrTable()}}{
 Generate a table for the eurostat quality report
 \subsection{Usage}{
@@ -262,8 +264,8 @@ Generate a table for the eurostat quality report
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixModel"></a>}}
-\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-fixModel}{}}}
 \subsection{Method \code{fixModel()}}{
 fix the arima model(s)
 \subsection{Usage}{
@@ -283,8 +285,8 @@ parameters of all components will be changed}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixOutlier"></a>}}
-\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-fixOutlier}{}}}
 \subsection{Method \code{fixOutlier()}}{
 fix the automatically detected outliers
 \subsection{Usage}{
@@ -307,8 +309,8 @@ where outliers are not fixed}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-multipleTimeSeries-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-multipleTimeSeries-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

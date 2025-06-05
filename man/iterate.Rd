@@ -23,7 +23,7 @@ This funtion is an alias to the method \code{iterate} and can be used to iterate
 over all children of a hierarchical time series produced with \code{perHts()}.
 }
 \examples{
-obj_x13 <- perX13(AirPassengers, "RSA3")
+obj_x13 <- perX13(AirPassengers, "rsa3")
 ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
 ht2 <- perHts(a = ht, b = obj_x13)
 ht2$iterate(function(x) {class(x)[1]})

@@ -2,45 +2,21 @@
 % Please edit documentation in R/plotSiRatios.R
 \name{plotSiRatios}
 \alias{plotSiRatios}
-\title{Interactive plot of SI-ratios (and, in case of x11, of seasonal factors) by
-period}
+\title{Plot of SI-ratios by period}
 \usage{
-plotSiRatios(x, main = NULL, interactive = TRUE, ...)
+plotSiRatios(x)
 }
 \arguments{
-\item{x}{an object of class \link{persephone}.}
-
-\item{main}{plot title}
-
-\item{interactive}{If the return value would be a \code{ggplot} object, wrap it in
-\link[plotly:ggplotly]{plotly::ggplotly} before returning.}
-
-\item{...}{other plotting parameters to affect the plot. Not currently used.}
+\item{x}{An object of class \code{persephone}}
 }
 \value{
-Returns an object of class \code{ggplot} or \code{plotly}
+An object of class \code{highchart}
 }
 \description{
-Produces a \code{ggplot}/\code{plotly} object for objects of class \link{persephone}.
-If the \code{persephone} object is of class \code{tramoseatsSingle}, the function
-generates an interactive plot of the SI-ratios and their mean. Otherwise,
-i.e. if the object is of class \code{x13Single}, the SI-ratios, the replaced
-SI-ratios, the seasonal factors and the mean of the seasonal factors are
-plotted.
+Generate a \code{hchart} showing the si ratios and seasonal factors.
 }
 \examples{
-
-data(AirPassengers, package = "datasets")
-# Generate a persephone object, in this case an x13Single object
-obj <- perX13(AirPassengers, "RSA1")
-obj$run()
-# Plot the SI-ratios after run
-plotSiRatios(obj)
-
-data(UKgas, package = "datasets")
-# Generate a persephone object, in this case a tramoseatsSingle object
-obj2 <- perTramo(UKgas, "RSA3")
-obj2$run()
-plotSiRatios(obj2)
-
+x <- perX13(AirPassengers)
+x$run()
+plotSiRatios(x)
 }

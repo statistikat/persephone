@@ -49,7 +49,7 @@ The following options are available for the parameter \code{which}.
 \examples{
 data(AirPassengers, package = "datasets")
 # Generate a persephone object, in this case an x13Single object
-obj <- perX13(AirPassengers, "RSA1")
+obj <- perX13(AirPassengers, "rsa1")
 
 obj$run()
 # Plot the residuals after run

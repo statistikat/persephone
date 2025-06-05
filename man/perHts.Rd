@@ -41,7 +41,7 @@ The resulting time series can perform direct and indirect adjustments.
 }
 \examples{
 \dontrun{
-objX13 <- perX13(AirPassengers, "RSA3")
+objX13 <- perX13(AirPassengers, "rsa3")
 
 ht <- perHts(a = objX13, b = objX13, method = "x13")
 

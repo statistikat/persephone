@@ -1,0 +1,22 @@
+---
+title: Session Info
+description: >
+  Summary of the environment used to build this documentation page
+---
+
+<style>
+.sourceCode {
+  background: white;
+}
+</style>
+
+
+```{r}
+library(magrittr)
+git2r::last_commit() %>% print() %$% author$when$time %>% 
+    as.POSIXct(origin = "1970-01-01") %>% format() %>% cat()
+rjd3_pkgs <- c("rjd3x13", "rjd3tramoseats", "rjd3toolkit", "rJava",
+               "RProtoBuf")
+sessioninfo::session_info(rjd3_pkgs, dependencies = FALSE)
+desc::desc()
+```

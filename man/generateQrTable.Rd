@@ -18,7 +18,7 @@ report for each component of a hierarchical \code{persephone} object
 \itemize{
 \item \strong{component} is a column added by \code{iterate()} and informs where in the
 hierarchy a certain component is.
-\item \strong{Method} is \code{TS} for \code{\link[=tramoseats]{tramoseats()}} and \code{x13} for \code{\link[=x13]{x13()}}
+\item \strong{Method} is \code{TS} for \code{\link[=tramoseats_fast]{tramoseats_fast()}} and \code{x13} for \code{\link[=x13_fast]{x13_fast()}}
 \item \strong{Period} is \code{12} for yearly measurements and \code{4} for quarterly
 measurements
 \item \strong{Start} denotes the start of the time series
@@ -44,7 +44,7 @@ measurements
 }
 
 \examples{
-obj_x13 <- perX13(AirPassengers, "RSA3")
+obj_x13 <- perX13(AirPassengers, "rsa3")
 ht <- perHts(a = obj_x13, b = obj_x13, method = "x13")
 ht$run()
 generateQrTable(ht)

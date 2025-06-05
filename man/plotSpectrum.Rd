@@ -9,11 +9,9 @@ plotSpectrum(
   tsType = c("original", "sa", "irregular", "residuals"),
   plotType = c("arSpec", "arSpecBars", "periodogram"),
   maxobs = NULL,
-  n.freq = NULL,
-  order = 30,
   main = NULL,
-  interactive = TRUE,
-  ...
+  n.freq = NULL,
+  order = 30
 )
 }
 \arguments{
@@ -27,84 +25,25 @@ value (\code{1:4}) corresponding to one of these characters is also accepted.}
 selecting the preferred type of plot, see Details. A numeric
 value (\code{1:3}) corresponding to one of these characters is also accepted.}
 
-\item{maxobs}{maximum number of observations of the time series. If NULL,
+\item{maxobs}{maximum number of observations of the time series. If \code{NULL},
 \code{maxobs} equals the length of the time series for plotTypes
 \code{"arSpec"} and \code{"periodogram"} and \code{maxobs=96} for plotType \code{"arSpecBars"}.}
 
-\item{n.freq}{the number of frequencies, i.e. the number of points at which
-to plot. If NULL, \code{n.freq=301} for plotTypes \code{"arSpec"} and \code{"periodogram"}
-and \code{n.freq=61} for plotType \code{"arSpecBars"}.}
-
-\item{order}{order of the AR model}
-
 \item{main}{plot title}
 
-\item{interactive}{If the return value would be a \code{ggplot} object, wrap it
-in \link[plotly:ggplotly]{plotly::ggplotly} before returning.}
+\item{n.freq}{the number of frequencies, i.e. the number of points at which
+to plot. If \code{NULL}, \code{n.freq=301} for plotTypes \code{"arSpec"} and \code{"periodogram"}
+and \code{n.freq=61} for plotType \code{"arSpecBars"}.}
 
-\item{...}{other plotting parameters to affect the plot. Not currently used.}
-}
-\value{
-Returns an object of class \code{ggplot} or \code{plotly}. The seasonal and
-trading day frequencies are indicated in blue and red. For monthly data,
-the seasonal frequencies are 1/12, 2/12, ..., 6/12 and the trading day
-frequencies are 0.348 and 0.432. For quarterly data, the seasonal
-frequency is 1/4 and the trading day frequencies are 0.044375, 0.08875,
-0.294375, 0.33875 and 0.38125.
+\item{order}{order of the AR model.}
 }
 \description{
-Interactive plot of the periodogram or the autogregressive spectrum.
-Produces a \code{ggplot}/\code{plotly} object for objects of class \link{persephone}.
-}
-\details{
-The following options are available for the parameter \code{plotType}.
-\itemize{
-\item \code{arSpec}: The autoregressive spectrum similar to JD+ plots. The default
-settings for the number of frequencies, i.e. the number of points at which
-to plot, the order of the AR model to be fitted and the maximum number of
-observations of the time series are n.freq = 301, order = 30 and
-maxobs='length of the time series' in this case.
-\item \code{arSpecBars}: The autoregressive spectrum similar to X-13ARIMA-SEATS plots.
-The default settings for the number of frequencies, the order of the AR
-model to be fitted and the maximum number of observations are n.freq = 61,
-order = 30 and maxobs=96 in this case.
-\item \code{periodogram}: The raw periodogram similar to JD+ plots. The default
-settings for the number of frequencies and the maximum number of
-observations are n.freq = 301 and maxobs='length of the time series' in
-this case.
-}
+Spectral Plots
 }
 \examples{
-# Monthly Data Example
-data(AirPassengers, package = "datasets")
-# Generate a persephone object, in this case an x13Single object
-obj <- perX13(AirPassengers, "RSA5c")
-obj$run()
-
-# Plot the AR-Spectrum after run
-# Autoregressive Spectrum of the original series
-# (similar to JD+ plots)
-# where n.freq = 301 and order = 30
-plotSpectrum(obj)
-
-# Autoregressive Spectrum of the original series
-# (similar to X-13ARIMA-SEATS plots)
-# where n.freq = 61 and order = 30
-plotSpectrum(obj, plotType="arSpecBars")
-
-# Periodogram
-plotSpectrum(obj, plotType="periodogram")
-# same as
-plotSpectrum(obj, plotType=3)
-
-# Quarterly Data Example
-data(UKgas, package = "datasets")
-# Generate a persephone object, in this case a tramoseats object
-obj2 <- perTramo(UKgas, "RSAfull")
-obj2$run()
-plotSpectrum(obj2, tsType="original")
-plotSpectrum(obj2, tsType="sa")
-plotSpectrum(obj2, tsType="irregular")
-plotSpectrum(obj2, tsType="residuals")
-
+x <- perX13(AirPassengers)
+x$run()
+plotSpectrum(x)
+plotSpectrum(x, plotType = "periodogram")
+plotSpectrum(x, tsType = "irregular")
 }

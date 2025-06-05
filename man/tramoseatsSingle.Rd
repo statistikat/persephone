@@ -9,40 +9,42 @@ an R6 class that represents a tramoseats model
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- perTramo(AirPassengers, "RSA3")
+obj <- perTramo(AirPassengers, "rsa3")
 obj$run()
 obj$ts
 }
 \section{Super classes}{
-\code{\link[persephone:persephone]{persephone::persephone}} -> \code{\link[persephone:persephoneSingle]{persephone::persephoneSingle}} -> \code{tramoseatsSingle}
+\code{\link[persephone3:persephone]{persephone3::persephone}} -> \code{\link[persephone3:persephoneSingle]{persephone3::persephoneSingle}} -> \code{tramoseatsSingle}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-clone}{\code{tramoseatsSingle$clone()}}
+\item \href{#method-tramoseatsSingle-clone}{\code{tramoseatsSingle$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixModel">}\href{../../persephone/html/persephone.html#method-fixModel}{\code{persephone::persephone$fixModel()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="fixOutlier">}\href{../../persephone/html/persephone.html#method-fixOutlier}{\code{persephone::persephone$fixOutlier()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="generateQrTable">}\href{../../persephone/html/persephone.html#method-generateQrTable}{\code{persephone::persephone$generateQrTable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="iterate">}\href{../../persephone/html/persephone.html#method-iterate}{\code{persephone::persephone$iterate()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="print">}\href{../../persephone/html/persephone.html#method-print}{\code{persephone::persephone$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="setOptions">}\href{../../persephone/html/persephone.html#method-setOptions}{\code{persephone::persephone$setOptions()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="updateParams">}\href{../../persephone/html/persephone.html#method-updateParams}{\code{persephone::persephone$updateParams()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="initialize">}\href{../../persephone/html/persephoneSingle.html#method-initialize}{\code{persephone::persephoneSingle$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephoneSingle" data-id="run">}\href{../../persephone/html/persephoneSingle.html#method-run}{\code{persephone::persephoneSingle$run()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="fixModel"><a href='../../persephone3/html/persephone.html#method-persephone-fixModel'><code>persephone3::persephone$fixModel()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="fixOutlier"><a href='../../persephone3/html/persephone.html#method-persephone-fixOutlier'><code>persephone3::persephone$fixOutlier()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="generateQrTable"><a href='../../persephone3/html/persephone.html#method-persephone-generateQrTable'><code>persephone3::persephone$generateQrTable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="iterate"><a href='../../persephone3/html/persephone.html#method-persephone-iterate'><code>persephone3::persephone$iterate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plot"><a href='../../persephone3/html/persephone.html#method-persephone-plot'><code>persephone3::persephone$plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotResiduals"><a href='../../persephone3/html/persephone.html#method-persephone-plotResiduals'><code>persephone3::persephone$plotResiduals()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSeasIrrCal"><a href='../../persephone3/html/persephone.html#method-persephone-plotSeasIrrCal'><code>persephone3::persephone$plotSeasIrrCal()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSiRatios"><a href='../../persephone3/html/persephone.html#method-persephone-plotSiRatios'><code>persephone3::persephone$plotSiRatios()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSpectrum"><a href='../../persephone3/html/persephone.html#method-persephone-plotSpectrum'><code>persephone3::persephone$plotSpectrum()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="print"><a href='../../persephone3/html/persephone.html#method-persephone-print'><code>persephone3::persephone$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="setOptions"><a href='../../persephone3/html/persephone.html#method-persephone-setOptions'><code>persephone3::persephone$setOptions()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="updateParams"><a href='../../persephone3/html/persephone.html#method-persephone-updateParams'><code>persephone3::persephone$updateParams()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephoneSingle" data-id="initialize"><a href='../../persephone3/html/persephoneSingle.html#method-persephoneSingle-initialize'><code>persephone3::persephoneSingle$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephoneSingle" data-id="run"><a href='../../persephone3/html/persephoneSingle.html#method-persephoneSingle-run'><code>persephone3::persephoneSingle$run()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-tramoseatsSingle-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-tramoseatsSingle-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

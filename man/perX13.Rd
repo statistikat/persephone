@@ -6,7 +6,7 @@
 \usage{
 perX13(
   ts,
-  template = c("RSA5c", "RSA0", "RSA1", "RSA2c", "RSA3", "RSA4c", "X11"),
+  template = c("rsa4", "rsa0", "rsa1", "rsa2c", "rsa3", "rsa5c"),
   userdefined = NULL,
   ...
 )
@@ -14,9 +14,9 @@ perX13(
 \arguments{
 \item{ts}{a time series}
 
-\item{template}{passed as the \code{spec} argument to \code{\link[=x13_spec]{x13_spec()}}}
+\item{template}{passed as the \code{name} argument to \code{\link[=x13_spec]{x13_spec()}}}
 
-\item{userdefined}{passed as the \code{userdefined} argument to \code{\link[=x13]{x13()}}}
+\item{userdefined}{passed as the \code{userdefined} argument to \code{\link[=x13_fast]{x13_fast()}}}
 
 \item{...}{passed to \code{\link[=x13_spec]{x13_spec()}}}
 }
@@ -30,7 +30,7 @@ An R6 class that represents a x13 model.
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- perX13(AirPassengers, "RSA3")
+obj <- perX13(AirPassengers, "rsa3")
 obj$run()
 obj$ts
 }

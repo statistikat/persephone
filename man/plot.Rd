@@ -74,8 +74,8 @@ only the original (aggregate) time series is plotted.
 data(AirPassengers, package = "datasets")
 # Generate two persephoneSingle objects, in this case two tramoseatsSingle
 # objects
-tsAir1 <- perTramo(AirPassengers, "RSA1")
-tsAir2 <- perTramo(AirPassengers, "RSA1")
+tsAir1 <- perTramo(AirPassengers, "rsa1")
+tsAir2 <- perTramo(AirPassengers, "rsa1")
 # Generate a hierarchicalTimeSeries object
 htAir <- perHts(tsAir1=tsAir1, tsAir1=tsAir1)
 # Plot before run of persephone object
@@ -86,8 +86,8 @@ plot(htAir, drawPoints=TRUE)
 
 # Quarterly data
 data(UKgas, package = "datasets")
-tsUKgas1 <- perTramo(UKgas, "RSA3")
-tsUKgas2 <- perTramo(UKgas, "RSA3")
+tsUKgas1 <- perTramo(UKgas, "rsa3")
+tsUKgas2 <- perTramo(UKgas, "rsa3")
 htUKgas <- perHts(tsUKgas1=tsUKgas1, tsUKgas2=tsUKgas2)
 plot(htUKgas)
 htUKgas$run()
@@ -98,7 +98,7 @@ plot(htUKgas)
 # Monthly data
 data(AirPassengers, package = "datasets")
 # Generate a persephoneSingle object, in this case an x13Single object
-obj <- perX13(AirPassengers, "RSA1")
+obj <- perX13(AirPassengers, "rsa1")
 # Plot before run of persephoneSingle object
 plot(obj, drawPoints = TRUE)
 obj$run()
@@ -116,13 +116,13 @@ plot(obj)
 
 # Quarterly data
 data(UKgas, package = "datasets")
-obj2 <- perX13(UKgas, "RSA3")
+obj2 <- perX13(UKgas, "rsa3")
 plot(obj2)
 obj2$run()
 plot(obj2)
 
 # Generate a persephoneSingle object, in this case a tramoseatsSingle object
-obj3 <- perTramo(UKgas, "RSA3")
+obj3 <- perTramo(UKgas, "rsa3")
 plot(obj3)
 obj3$run()
 plot(obj3)

@@ -36,8 +36,8 @@ object, see \link{plotResiduals}
 \item \code{params}: A parameters object of class \code{SA_spec}. See \link{x13_spec} and
 \link{tramoseats_spec}.
 \item \code{ts}: The time series.
-\item \code{output}: The return value from the underlying functions \code{x13} or
-\code{tramoseats}. This slot will
+\item \code{output}: The return value from the underlying functions \code{x13_fast} or
+\code{tramoseats_fast}. This slot will
 be empty (\code{NULL}) before \code{run()} is called for the first time.
 }
 }
@@ -45,8 +45,8 @@ be empty (\code{NULL}) before \code{run()} is called for the first time.
 \section{Parameters}{
 
 \itemize{
-\item \code{verbose}: should the output from the underlying RJDemetra function be
-displayed after the
+\item \code{verbose}: should the output from the underlying rjd3x13/rjd3tramoseats
+function be displayed after the
 run? If \code{FALSE} (the default), the output will be returned invisibly.
 }
 }
@@ -66,15 +66,15 @@ and \code{\link[=tramoseats_spec]{tramoseats_spec()}}.}
 
 \item{\code{tsp}}{the \code{\link[=tsp]{tsp()}} of the underlying time series}
 
-\item{\code{output}}{The return value from the underlying functions x13 or
-tramoseats. This slot will be empty (NULL) before run() is called for
+\item{\code{output}}{The return value from the underlying functions x13_fast() or
+tramoseats_fast(). This slot will be empty (NULL) before run() is called for
 the first time.}
 
 \item{\code{adjusted}}{get the adjusted series}
 
 \item{\code{adjustedDirect}}{see \link{perHts}}
 
-\item{\code{spec}}{specifications passed to \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}} when the
+\item{\code{spec}}{specifications passed to \code{\link[=x13_fast]{x13_fast()}} and \code{\link[=tramoseats_fast]{tramoseats_fast()}} when the
 \verb{$run()} method is invoked}
 
 \item{\code{forecasts}}{get forecasts from the model}
@@ -86,24 +86,26 @@ the first time.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{persephone$new()}}
-\item \href{#method-run}{\code{persephone$run()}}
-\item \href{#method-updateParams}{\code{persephone$updateParams()}}
-\item \href{#method-plot}{\code{persephone$plot()}}
-\item \href{#method-plotSeasIrrCal}{\code{persephone$plotSeasIrrCal()}}
-\item \href{#method-plotResiduals}{\code{persephone$plotResiduals()}}
-\item \href{#method-print}{\code{persephone$print()}}
-\item \href{#method-iterate}{\code{persephone$iterate()}}
-\item \href{#method-generateQrTable}{\code{persephone$generateQrTable()}}
-\item \href{#method-setOptions}{\code{persephone$setOptions()}}
-\item \href{#method-fixModel}{\code{persephone$fixModel()}}
-\item \href{#method-fixOutlier}{\code{persephone$fixOutlier()}}
-\item \href{#method-clone}{\code{persephone$clone()}}
+\item \href{#method-persephone-new}{\code{persephone$new()}}
+\item \href{#method-persephone-run}{\code{persephone$run()}}
+\item \href{#method-persephone-updateParams}{\code{persephone$updateParams()}}
+\item \href{#method-persephone-plot}{\code{persephone$plot()}}
+\item \href{#method-persephone-plotResiduals}{\code{persephone$plotResiduals()}}
+\item \href{#method-persephone-plotSeasIrrCal}{\code{persephone$plotSeasIrrCal()}}
+\item \href{#method-persephone-plotSiRatios}{\code{persephone$plotSiRatios()}}
+\item \href{#method-persephone-plotSpectrum}{\code{persephone$plotSpectrum()}}
+\item \href{#method-persephone-print}{\code{persephone$print()}}
+\item \href{#method-persephone-iterate}{\code{persephone$iterate()}}
+\item \href{#method-persephone-generateQrTable}{\code{persephone$generateQrTable()}}
+\item \href{#method-persephone-setOptions}{\code{persephone$setOptions()}}
+\item \href{#method-persephone-fixModel}{\code{persephone$fixModel()}}
+\item \href{#method-persephone-fixOutlier}{\code{persephone$fixOutlier()}}
+\item \href{#method-persephone-clone}{\code{persephone$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-persephone-new"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-new}{}}}
 \subsection{Method \code{new()}}{
 create a new persephone object
 \subsection{Usage}{
@@ -117,8 +119,8 @@ abstract. Only initialize derived classes.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-run"></a>}}
-\if{latex}{\out{\hypertarget{method-run}{}}}
+\if{html}{\out{<a id="method-persephone-run"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-run}{}}}
 \subsection{Method \code{run()}}{
 perform a run of the model
 \subsection{Usage}{
@@ -134,8 +136,8 @@ perform a run of the model
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateParams"></a>}}
-\if{latex}{\out{\hypertarget{method-updateParams}{}}}
+\if{html}{\out{<a id="method-persephone-updateParams"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-updateParams}{}}}
 \subsection{Method \code{updateParams()}}{
 update parameters for the adjustment
 \subsection{Usage}{
@@ -145,14 +147,14 @@ update parameters for the adjustment
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{passed to \code{x13_spec()} of \code{tramoseats_spec()}}
+\item{\code{...}}{passed to \code{x13_spec()} or \code{tramoseats_spec()}}
 }
 \if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-plot"></a>}}
-\if{latex}{\out{\hypertarget{method-plot}{}}}
+\if{html}{\out{<a id="method-persephone-plot"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-plot}{}}}
 \subsection{Method \code{plot()}}{
 visualize the results of an adjustment
 \subsection{Usage}{
@@ -162,33 +164,21 @@ visualize the results of an adjustment
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Interactive time series plot for a persephone object,
-see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}}
+\item{\code{...}}{passed to \code{\link[=plot]{plot()}}
+see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}
+#' @description visualize the results of an adjustment
+#' @param ...  passed to \code{\link[=plot]{plot()}}
+#'   see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}
+plot = function(...) {
+plot(self, ...)
+},}
 }
 \if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-plotSeasIrrCal"></a>}}
-\if{latex}{\out{\hypertarget{method-plotSeasIrrCal}{}}}
-\subsection{Method \code{plotSeasIrrCal()}}{
-Interactive plot of the seasonal component, irregular
-component and calendar effects for a persephone object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{persephone$plotSeasIrrCal(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{passed to \code{\link[=plotSeasIrrCal]{plotSeasIrrCal()}}}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-plotResiduals"></a>}}
-\if{latex}{\out{\hypertarget{method-plotResiduals}{}}}
+\if{html}{\out{<a id="method-persephone-plotResiduals"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-plotResiduals}{}}}
 \subsection{Method \code{plotResiduals()}}{
 visualize residuals
 \subsection{Usage}{
@@ -204,8 +194,61 @@ visualize residuals
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-persephone-plotSeasIrrCal"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-plotSeasIrrCal}{}}}
+\subsection{Method \code{plotSeasIrrCal()}}{
+visualize the seasonal component, irregular
+component and calendar effects for a persephone object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plotSeasIrrCal(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=plotSeasIrrCal]{plotSeasIrrCal()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-persephone-plotSiRatios"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-plotSiRatios}{}}}
+\subsection{Method \code{plotSiRatios()}}{
+visualize SI-ratios (and, in case of x11, of seasonal factors) by
+period
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plotSiRatios(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=plotSiRatios]{plotSiRatios()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-persephone-plotSpectrum"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-plotSpectrum}{}}}
+\subsection{Method \code{plotSpectrum()}}{
+visualize the periodogram or the autogregressive spectrum.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$plotSpectrum(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=plotSpectrum]{plotSpectrum()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-persephone-print"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-print}{}}}
 \subsection{Method \code{print()}}{
 display a persephone object in the console
 \subsection{Usage}{
@@ -214,8 +257,8 @@ display a persephone object in the console
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-iterate"></a>}}
-\if{latex}{\out{\hypertarget{method-iterate}{}}}
+\if{html}{\out{<a id="method-persephone-iterate"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-iterate}{}}}
 \subsection{Method \code{iterate()}}{
 see \link{perHts}
 \subsection{Usage}{
@@ -235,8 +278,8 @@ see \link{perHts}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-generateQrTable"></a>}}
-\if{latex}{\out{\hypertarget{method-generateQrTable}{}}}
+\if{html}{\out{<a id="method-persephone-generateQrTable"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-generateQrTable}{}}}
 \subsection{Method \code{generateQrTable()}}{
 create a table for the eurostat quality report
 \subsection{Usage}{
@@ -245,8 +288,8 @@ create a table for the eurostat quality report
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setOptions"></a>}}
-\if{latex}{\out{\hypertarget{method-setOptions}{}}}
+\if{html}{\out{<a id="method-persephone-setOptions"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-setOptions}{}}}
 \subsection{Method \code{setOptions()}}{
 update options for the model
 \subsection{Usage}{
@@ -256,9 +299,9 @@ update options for the model
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{userdefined}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
+\item{\code{userdefined}}{see \code{\link[=x13_fast]{x13_fast()}} and \code{\link[=tramoseats_fast]{tramoseats_fast()}}}
 
-\item{\code{spec}}{see \code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}}
+\item{\code{spec}}{see \code{\link[=x13_fast]{x13_fast()}} and \code{\link[=tramoseats_fast]{tramoseats_fast()}}}
 
 \item{\code{recursive}}{only applicable to hierarchical series. propagates
 the updates to sub-series. see \link{perHts}}
@@ -267,8 +310,8 @@ the updates to sub-series. see \link{perHts}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixModel"></a>}}
-\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\if{html}{\out{<a id="method-persephone-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-fixModel}{}}}
 \subsection{Method \code{fixModel()}}{
 fix the arima model
 \subsection{Usage}{
@@ -284,8 +327,8 @@ fix the arima model
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixOutlier"></a>}}
-\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\if{html}{\out{<a id="method-persephone-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-fixOutlier}{}}}
 \subsection{Method \code{fixOutlier()}}{
 create a new single object
 \subsection{Usage}{
@@ -304,8 +347,8 @@ where outliers are not fixed}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-persephone-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

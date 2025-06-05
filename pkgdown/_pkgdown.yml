@@ -6,7 +6,7 @@ code:
   width: 70
 
 development:
-  mode: release
+  mode: unreleased
 
 url: https://persephone3.netlify.app
 
@@ -31,7 +31,7 @@ navbar:
   - text: Quickstart
     icon: fas fa-bolt
     href: articles/persephone.html
-  - text: Charts
+  - text: Plots
     icon: fas fa-chart-line
     href: articles/charts.html
   - text: Hierarchies

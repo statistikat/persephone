@@ -10,9 +10,9 @@ indirect seasonal adjustments.
 }
 \examples{
 \dontrun{
-objX13 <- perX13(AirPassengers, "RSA3")
+objX13 <- perX13(AirPassengers, "rsa3")
 
-ht <- perHts(a = objX13, b = objX13, method = "x13", spec = "RSA1")
+ht <- perHts(a = objX13, b = objX13, method = "x13", spec = "rsa1")
 
 ht$updateParams(easter.enabled = TRUE)
 
@@ -36,7 +36,7 @@ ht2$adjustedIndirect
 perX13(AirPassengers)$run()
 }
 \section{Super classes}{
-\code{\link[persephone:persephone]{persephone::persephone}} -> \code{\link[persephone:multipleTimeSeries]{persephone::multipleTimeSeries}} -> \code{hierarchicalTimeSeries}
+\code{\link[persephone3:persephone]{persephone3::persephone}} -> \code{\link[persephone3:multipleTimeSeries]{persephone3::multipleTimeSeries}} -> \code{hierarchicalTimeSeries}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -70,31 +70,33 @@ all components are adjusted and then aggregated}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{hierarchicalTimeSeries$new()}}
-\item \href{#method-run}{\code{hierarchicalTimeSeries$run()}}
-\item \href{#method-print}{\code{hierarchicalTimeSeries$print()}}
-\item \href{#method-setOptions}{\code{hierarchicalTimeSeries$setOptions()}}
-\item \href{#method-iterate}{\code{hierarchicalTimeSeries$iterate()}}
-\item \href{#method-getComponent}{\code{hierarchicalTimeSeries$getComponent()}}
-\item \href{#method-updateParams}{\code{hierarchicalTimeSeries$updateParams()}}
-\item \href{#method-fixModel}{\code{hierarchicalTimeSeries$fixModel()}}
-\item \href{#method-fixOutlier}{\code{hierarchicalTimeSeries$fixOutlier()}}
-\item \href{#method-generateQrTable}{\code{hierarchicalTimeSeries$generateQrTable()}}
-\item \href{#method-clone}{\code{hierarchicalTimeSeries$clone()}}
+\item \href{#method-hierarchicalTimeSeries-new}{\code{hierarchicalTimeSeries$new()}}
+\item \href{#method-hierarchicalTimeSeries-run}{\code{hierarchicalTimeSeries$run()}}
+\item \href{#method-hierarchicalTimeSeries-print}{\code{hierarchicalTimeSeries$print()}}
+\item \href{#method-hierarchicalTimeSeries-setOptions}{\code{hierarchicalTimeSeries$setOptions()}}
+\item \href{#method-hierarchicalTimeSeries-iterate}{\code{hierarchicalTimeSeries$iterate()}}
+\item \href{#method-hierarchicalTimeSeries-getComponent}{\code{hierarchicalTimeSeries$getComponent()}}
+\item \href{#method-hierarchicalTimeSeries-updateParams}{\code{hierarchicalTimeSeries$updateParams()}}
+\item \href{#method-hierarchicalTimeSeries-fixModel}{\code{hierarchicalTimeSeries$fixModel()}}
+\item \href{#method-hierarchicalTimeSeries-fixOutlier}{\code{hierarchicalTimeSeries$fixOutlier()}}
+\item \href{#method-hierarchicalTimeSeries-generateQrTable}{\code{hierarchicalTimeSeries$generateQrTable()}}
+\item \href{#method-hierarchicalTimeSeries-clone}{\code{hierarchicalTimeSeries$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plot">}\href{../../persephone/html/persephone.html#method-plot}{\code{persephone::persephone$plot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotResiduals">}\href{../../persephone/html/persephone.html#method-plotResiduals}{\code{persephone::persephone$plotResiduals()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="persephone" data-topic="persephone" data-id="plotSeasIrrCal">}\href{../../persephone/html/persephone.html#method-plotSeasIrrCal}{\code{persephone::persephone$plotSeasIrrCal()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plot"><a href='../../persephone3/html/persephone.html#method-persephone-plot'><code>persephone3::persephone$plot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotResiduals"><a href='../../persephone3/html/persephone.html#method-persephone-plotResiduals'><code>persephone3::persephone$plotResiduals()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSeasIrrCal"><a href='../../persephone3/html/persephone.html#method-persephone-plotSeasIrrCal'><code>persephone3::persephone$plotSeasIrrCal()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSiRatios"><a href='../../persephone3/html/persephone.html#method-persephone-plotSiRatios'><code>persephone3::persephone$plotSiRatios()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="persephone3" data-topic="persephone" data-id="plotSpectrum"><a href='../../persephone3/html/persephone.html#method-persephone-plotSpectrum'><code>persephone3::persephone$plotSpectrum()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-new"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-new}{}}}
 \subsection{Method \code{new()}}{
 create a new hierarchical time series
 \subsection{Usage}{
@@ -119,8 +121,8 @@ time instances. All elements supplied in ... must be named.}
 \item{\code{method}}{specifies the method to be used for the direct adjustment
 of the aggregate series. tramoseats or x13}
 
-\item{\code{userdefined}}{passed as the userdefined argument to tramoseats() or
-x13()}
+\item{\code{userdefined}}{passed as the userdefined argument to x13_fast() or
+tramoseats_fast()}
 
 \item{\code{spec}}{a model specification returned by x13_spec() or
 tramoseats_spec()}
@@ -137,8 +139,8 @@ number of components.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-run"></a>}}
-\if{latex}{\out{\hypertarget{method-run}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-run"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-run}{}}}
 \subsection{Method \code{run()}}{
 run the model
 \subsection{Usage}{
@@ -163,8 +165,8 @@ be returned invisibly}
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-print"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-print}{}}}
 \subsection{Method \code{print()}}{
 print a hierarchical timeseries to screen
 \subsection{Usage}{
@@ -173,8 +175,8 @@ print a hierarchical timeseries to screen
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setOptions"></a>}}
-\if{latex}{\out{\hypertarget{method-setOptions}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-setOptions"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-setOptions}{}}}
 \subsection{Method \code{setOptions()}}{
 sets options for all entries of the dependency tree
 recursively (if recursive = TRUE). See
@@ -192,7 +194,7 @@ vignette("persephone-hierarchical") for more details.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{userdefined}}{additional outputs to generate while running. See
-\code{\link[=x13]{x13()}} and \code{\link[=tramoseats]{tramoseats()}}.}
+\code{\link[=x13_fast]{x13_fast()}} and \code{\link[=tramoseats_fast]{tramoseats_fast()}}.}
 
 \item{\code{spec}}{specifications generated by \code{x13_spec()} or
 \code{tramoseats_spec()}}
@@ -205,8 +207,8 @@ vignette("persephone-hierarchical") for more details.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-iterate"></a>}}
-\if{latex}{\out{\hypertarget{method-iterate}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-iterate"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-iterate}{}}}
 \subsection{Method \code{iterate()}}{
 iterate over all components
 \subsection{Usage}{
@@ -241,8 +243,8 @@ simultaniusely
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getComponent"></a>}}
-\if{latex}{\out{\hypertarget{method-getComponent}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-getComponent"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-getComponent}{}}}
 \subsection{Method \code{getComponent()}}{
 extract a component series
 \subsection{Usage}{
@@ -258,8 +260,8 @@ extract a component series
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateParams"></a>}}
-\if{latex}{\out{\hypertarget{method-updateParams}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-updateParams"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-updateParams}{}}}
 \subsection{Method \code{updateParams()}}{
 change all or some parameters of components
 \subsection{Usage}{
@@ -284,8 +286,8 @@ parameters of one or more persephone single objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixModel"></a>}}
-\if{latex}{\out{\hypertarget{method-fixModel}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-fixModel"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-fixModel}{}}}
 \subsection{Method \code{fixModel()}}{
 fix the arima model(s)
 \subsection{Usage}{
@@ -305,8 +307,8 @@ parameters of all components will be changed}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fixOutlier"></a>}}
-\if{latex}{\out{\hypertarget{method-fixOutlier}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-fixOutlier"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-fixOutlier}{}}}
 \subsection{Method \code{fixOutlier()}}{
 fix the automatically detected outliers and the
 span to find new automatically detected outliers
@@ -334,8 +336,8 @@ where outliers are not fixed}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-generateQrTable"></a>}}
-\if{latex}{\out{\hypertarget{method-generateQrTable}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-generateQrTable"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-generateQrTable}{}}}
 \subsection{Method \code{generateQrTable()}}{
 Generate a table for the eurostat quality report
 \subsection{Usage}{
@@ -351,8 +353,8 @@ Generate a table for the eurostat quality report
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-hierarchicalTimeSeries-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-hierarchicalTimeSeries-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

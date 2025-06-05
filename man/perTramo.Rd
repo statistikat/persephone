@@ -6,7 +6,7 @@
 \usage{
 perTramo(
   ts,
-  template = c("RSAfull", "RSA0", "RSA1", "RSA2", "RSA3", "RSA4", "RSA5"),
+  template = c("rsafull", "rsa0", "rsa1", "rsa2", "rsa3", "rsa4", "rsa5"),
   userdefined = NULL,
   ...
 )
@@ -16,7 +16,7 @@ perTramo(
 
 \item{template}{passed as the \code{spec} argument to \code{\link[=tramoseats_spec]{tramoseats_spec()}}}
 
-\item{userdefined}{passed as the \code{userdefined} argument to \code{\link[=tramoseats]{tramoseats()}}}
+\item{userdefined}{passed as the \code{userdefined} argument to \code{\link[=tramoseats_fast]{tramoseats_fast()}}}
 
 \item{...}{passed to \code{\link[=tramoseats_spec]{tramoseats_spec()}}}
 }
@@ -30,7 +30,7 @@ an R6 class that represents a tramoseats model
 \examples{
 data(AirPassengers, package = "datasets")
 
-obj <- perTramo(AirPassengers, "RSA3")
+obj <- perTramo(AirPassengers, "rsa3")
 obj$run()
 obj$ts
 }
