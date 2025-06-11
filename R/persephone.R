@@ -337,7 +337,7 @@ persephone <- R6::R6Class(
 # )
 #userdefined_default_neu nur helper beim Umschreiben.
 userdefined_default <- c(
-  "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f",
+  "y", "t", "sa", "s", "i", "cal", "y_f", "t_f", "sa_f", "s_f","i_f",
   "cal_f", "y_ef",
   "decomposition.d6", "decomposition.d7", "decomposition.d9","decomposition.d13",
   "decomposition.s_cmp","decomposition.i_cmp","mode",

@@ -94,65 +94,65 @@ plot.persephoneSingle <- function(
 
   }
 
-  gettsout <- function(outliers, y) {
-
-    names(outliers) <- sapply(outliers, function(x) x[1])
-
-    if (frequency(x$ts) == 12) {
-      #Date format für dyevent
-      dateout <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                        function(z) paste0(
-                          z[[2]], "-", stringfix(z[[1]], 2, "0"), "-01"))
-
-      outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                         function(z) as.numeric(c( z[[2]],z[[1]])))
-    } else {
-      dateout <- lapply(
-        sapply(outliers,function(x) strsplit(x[[2]], "-")),
-        function(z) paste0(
-          z[[2]], "-",
-          stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(z[[1]]))],
-                    2, "0"), "-01"))
-      outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-                         function(z) as.numeric(c( z[[2]], as.numeric(utils::as.roman(z[[1]])))))
-    }
-
-    outliersAO <- outliers[names(outliers) %in% "AO"]
-    outliersLS <- outliers[names(outliers) %in% "LS"]
-    outliersTC <- outliers[names(outliers) %in% "TC"]
-
-    tsout <- list()
-    if(length(outliersAO)>0){
-      otlAO <- ts(start = start(y), end = end(y), frequency = frequency(y))
-      for(i in seq_along(outliersAO)) {
-        window(otlAO, start=outliersAO[[i]], end=outliersAO[[i]]) <- window(y, start=outliersAO[[i]], end=outliersAO[[i]])
-      }
-      tsout[[length(tsout)+1]] <- otlAO
-      names(tsout)[length(tsout)] <- "otlAO"
-    }
-
-    if(length(outliersLS)>0){
-      otlLS <- ts(start = start(y), end = end(y), frequency = frequency(y))
-      for(i in seq_along(outliersLS)) {
-        window(otlLS, start=outliersLS[[i]], end=outliersLS[[i]]) <- window(y, start=outliersLS[[i]], end=outliersLS[[i]])
-      }
-      tsout[[length(tsout)+1]] <- otlLS
-      names(tsout)[length(tsout)] <- "otlLS"
-    }
-
-    if(length(outliersTC)>0){
-      otlTC <- ts(start = start(y), end = end(y), frequency = frequency(y))
-      for(i in seq_along(outliersTC)) {
-        window(otlTC, start=outliersTC[[i]], end=outliersTC[[i]]) <- window(y, start=outliersTC[[i]], end=outliersTC[[i]])
-      }
-      tsout[[length(tsout)+1]] <- otlTC
-      names(tsout)[length(tsout)] <- "otlTC"
-    }
-
-    tsout <- do.call(cbind, tsout)
-
-    return(list(tsout, dateout))
-  }
+  # gettsout <- function(outliers, y) {
+  #
+  #   names(outliers) <- sapply(outliers, function(x) x[1])
+  #
+  #   if (frequency(x$ts) == 12) {
+  #     #Date format für dyevent
+  #     dateout <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
+  #                       function(z) paste0(
+  #                         z[[2]], "-", stringfix(z[[1]], 2, "0"), "-01"))
+  #
+  #     outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
+  #                        function(z) as.numeric(c( z[[2]],z[[1]])))
+  #   } else {
+  #     dateout <- lapply(
+  #       sapply(outliers,function(x) strsplit(x[[2]], "-")),
+  #       function(z) paste0(
+  #         z[[2]], "-",
+  #         stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(z[[1]]))],
+  #                   2, "0"), "-01"))
+  #     outliers <- lapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
+  #                        function(z) as.numeric(c( z[[2]], as.numeric(utils::as.roman(z[[1]])))))
+  #   }
+  #
+  #   outliersAO <- outliers[names(outliers) %in% "AO"]
+  #   outliersLS <- outliers[names(outliers) %in% "LS"]
+  #   outliersTC <- outliers[names(outliers) %in% "TC"]
+  #
+  #   tsout <- list()
+  #   if(length(outliersAO)>0){
+  #     otlAO <- ts(start = start(y), end = end(y), frequency = frequency(y))
+  #     for(i in seq_along(outliersAO)) {
+  #       window(otlAO, start=outliersAO[[i]], end=outliersAO[[i]]) <- window(y, start=outliersAO[[i]], end=outliersAO[[i]])
+  #     }
+  #     tsout[[length(tsout)+1]] <- otlAO
+  #     names(tsout)[length(tsout)] <- "otlAO"
+  #   }
+  #
+  #   if(length(outliersLS)>0){
+  #     otlLS <- ts(start = start(y), end = end(y), frequency = frequency(y))
+  #     for(i in seq_along(outliersLS)) {
+  #       window(otlLS, start=outliersLS[[i]], end=outliersLS[[i]]) <- window(y, start=outliersLS[[i]], end=outliersLS[[i]])
+  #     }
+  #     tsout[[length(tsout)+1]] <- otlLS
+  #     names(tsout)[length(tsout)] <- "otlLS"
+  #   }
+  #
+  #   if(length(outliersTC)>0){
+  #     otlTC <- ts(start = start(y), end = end(y), frequency = frequency(y))
+  #     for(i in seq_along(outliersTC)) {
+  #       window(otlTC, start=outliersTC[[i]], end=outliersTC[[i]]) <- window(y, start=outliersTC[[i]], end=outliersTC[[i]])
+  #     }
+  #     tsout[[length(tsout)+1]] <- otlTC
+  #     names(tsout)[length(tsout)] <- "otlTC"
+  #   }
+  #
+  #   tsout <- do.call(cbind, tsout)
+  #
+  #   return(list(tsout, dateout))
+  # }
 
   includeOutGraphically <- function (otlType, otlColor = NULL, otl, graphObj) {
 
@@ -201,34 +201,15 @@ plot.persephoneSingle <- function(
     otlTF <- FALSE
     # Outliers
     if (showOutliers & !is.null(x$output$user_defined$`regression.outlier(*)`)) {
-      outliers <- rownames(x$output$user_defined$`regression.outlier(*)`)
-      outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
-      #if (length(outliers) > 0) {
-      outliersName <- outliers
-      outliers <- gsub("(", "", outliers, fixed = TRUE)
-      outliers <- gsub(")", "", outliers, fixed = TRUE)
-      outliers <- strsplit(outliers, " ")
-      # outliersType <- outliers
-      # # Variante1 : Date format
-      # if (frequency(x$ts) == 12) {
-      #   outliers <- sapply(sapply(outliers, function(x) strsplit(x[[2]], "-")),
-      #                     function(y) paste0(
-      #                       y[[2]], "-", stringfix(y[[1]], 2, "0"), "-01")
-      #   )
-      # }else{
-      #   outliers <- sapply(
-      #     sapply(
-      #       outliers,
-      #       function(x) strsplit(x[[2]], "-")
-      #     ),
-      #     function(y) paste0(
-      #       y[[2]], "-",
-      #       stringfix(c(1, 4, 7, 10)[as.numeric(utils::as.roman(y[[1]]))],
-      #               2, "0"), "-01"))
-      # }
-      # Variante2 : ts format und date format
-      #
-      otl <- gettsout(outliers, y)
+      # outliers <- rownames(x$output$user_defined$`regression.outlier(*)`)
+      # outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
+      # #if (length(outliers) > 0) {
+      # outliersName <- outliers
+      # outliers <- gsub("(", "", outliers, fixed = TRUE)
+      # outliers <- gsub(")", "", outliers, fixed = TRUE)
+      # outliers <- strsplit(outliers, " ")
+      # otl <- gettsout(outliers, y)
+      otl <- gettsout(x)
       otlTF <- TRUE
     }
 
