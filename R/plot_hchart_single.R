@@ -43,11 +43,11 @@ hchart.persephoneSingle <- function(object, ...) {
     # https://jsfiddle.net/BlackLabel/edmjkq91/
     # https://api.highcharts.com/class-reference/Highcharts.Time
     highcharter::hc_tooltip(fixed = TRUE,
-    formatter = JS("function () {
+    formatter = highcharter::JS("function () {
         return `${Highcharts.dateFormat('%Y-%m', this.x)}`;
       }"),
-    positioner =  JS("function (labelWidth, labelHeight, point) {
-    return { x: point.plotX, y: -5 };}"))%>%
+    positioner =  highcharter::JS("function (labelWidth, labelHeight, point) {
+    return { x: point.plotX, y: -5 };}")) %>%
   # highcharter::hc_tooltip(enabled = FALSE) %>%
     highcharter::hc_legend(enabled = TRUE) %>%
     # highcharter::hc_rangeSelector(enabled = FALSE) %>%
