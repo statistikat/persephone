@@ -17,6 +17,7 @@ Language: en-US
 LazyData: true
 Depends: R (>= 4.1.0)
 Imports: 
+    rjd3toolkit (>= 3.5.0),
     rjd3x13 (>= 3.5.0),
     rjd3tramoseats (>= 3.5.0),
     cli,
@@ -36,9 +37,9 @@ Suggests:
     forecast,
     bookdown
 Remotes: 
-    rjdverse/rjd3toolkit@cd544a8,
-    rjdverse/rjd3tramoseats@b80f56a,
-    rjdverse/rjd3x13@c275301
+     github::rjdverse/rjd3toolkit@*release,
+     github::rjdverse/rjd3tramoseats@*release,
+     github::rjdverse/rjd3x13@*release
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 BugReports: https://github.com/statistikat/persephone3/issues

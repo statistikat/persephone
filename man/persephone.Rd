@@ -90,6 +90,7 @@ the first time.}
 \item \href{#method-persephone-run}{\code{persephone$run()}}
 \item \href{#method-persephone-updateParams}{\code{persephone$updateParams()}}
 \item \href{#method-persephone-plot}{\code{persephone$plot()}}
+\item \href{#method-persephone-hchart}{\code{persephone$hchart()}}
 \item \href{#method-persephone-plotResiduals}{\code{persephone$plotResiduals()}}
 \item \href{#method-persephone-plotSeasIrrCal}{\code{persephone$plotSeasIrrCal()}}
 \item \href{#method-persephone-plotSiRatios}{\code{persephone$plotSiRatios()}}
@@ -165,13 +166,25 @@ visualize the results of an adjustment
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{...}}{passed to \code{\link[=plot]{plot()}}
-see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}
-#' @description visualize the results of an adjustment
-#' @param ...  passed to \code{\link[=plot]{plot()}}
-#'   see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}
-plot = function(...) {
-plot(self, ...)
-},}
+see \code{\link[=plot.persephoneSingle]{plot.persephoneSingle()}} or \code{\link[=plot.hierarchicalTimeSeries]{plot.hierarchicalTimeSeries()}}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-persephone-hchart"></a>}}
+\if{latex}{\out{\hypertarget{method-persephone-hchart}{}}}
+\subsection{Method \code{hchart()}}{
+visualize the results of an adjustment
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{persephone$hchart(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{passed to \code{\link[=hchart]{hchart()}}
+see \code{\link[=hchart.persephoneSingle]{hchart.persephoneSingle()}} or \code{\link[=hchart.hierarchicalTimeSeries]{hchart.hierarchicalTimeSeries()}}}
 }
 \if{html}{\out{</div>}}
 }

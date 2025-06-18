@@ -57,6 +57,7 @@ hchart.persephoneSingle <- function(object, ...) {
       list(text = "10y", count = 10, type = "year"),
       list(text = "5y", count = 5, type = "year")
       #,list(text = "1y", count = 1, type = "year") # geht das nur für vollständige Jahre?
+      # außerdem wird forecast mitgezählt. floor(length(output$user_defined$y_f)/frequency(output$user_defined$y_f))
     )) %>%
     highcharter::hc_navigator(enabled = FALSE) %>%
     highcharter::hc_scrollbar(enabled = FALSE) %>%
