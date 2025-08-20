@@ -203,7 +203,7 @@ plot.persephoneSingle <- function(
     if (showOutliers & !is.null(x$output$regarima$regression.coefficients)) {
       outliers <- rownames(x$output$regarima$regression.coefficients)
       outliers <- outliers[substr(outliers, 1, 2) %in% c("AO", "LS", "TC")]
-      #if (length(outliers) > 0) {
+      if (length(outliers) > 0) {
       outliersName <- outliers
       outliers <- gsub("(", "", outliers, fixed = TRUE)
       outliers <- gsub(")", "", outliers, fixed = TRUE)
@@ -230,6 +230,7 @@ plot.persephoneSingle <- function(
       #
       otl <- gettsout(outliers, y)
       otlTF <- TRUE
+      }
     }
 
     # Initialize Graph Object
